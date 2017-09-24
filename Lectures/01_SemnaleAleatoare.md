@@ -42,10 +42,17 @@
 $$F(x) = P\left\{ X \leq x \right\}$$
 
 * Derivata funcției de repartiție este **funcția densitate de probabilitate (FDP)**
-$$w(x) = \frac{dF_X(x_i}{dx_i}$$
-$$F(x) = \int_{-infty}^x w(t) dt$$
+$$w(x) = \frac{dF(x}{dx}$$
+$$F(x) = \int_{-\infty}^x w(t) dt$$
 
-* FDP este **probabilitatea ca valoarea lui $X$ să fie într-o vecinătate mică în jurul lui $x$**
+## V.a. continue
+
+* FDP este probabilitatea ca valoarea lui $X$ să fie într-o vecinătate $\epsilon$ mică în jurul lui $x$, raportat la $\epsilon$
+
+$$\begin{split}
+w(x) = \frac{dF(x}{dx} =& \lim_{\epsilon \to 0}{\frac{F(x+\epsilon) - F(x-\epsilon}{2 \epsilon}} \\
+=& \lim_{\epsilon \to 0}{\frac{P(X \in [x-\epsilon, x+\epsilon])}{2 \epsilon}}
+\end{split}$$
 
 ## Probabilitatea unei valori anume
 
@@ -55,7 +62,7 @@ $$F(x) = \int_{-infty}^x w(t) dt$$
 
 * Probabilitatea unei valori anume este practic 0
 
-* FDP este probabilitatea de a fi **într-o vecinătate mică în jurul** unei valori $x$**
+* FDP este probabilitatea de a fi **într-o vecinătate mică în jurul** unei valori $x$
 
 ## V.a. discrete
 
@@ -116,15 +123,79 @@ $$P\left\{ A \leq X \leq B\right\} = \sum_{x=A}^B w_X(x)$$
 $$w(x) = \frac{1}{\sigma \sqrt(2 \pi)} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
 
 
-```
-<matplotlib.text.Text at 0x7f4b6ca68198>
-```
+![](figures/01_SemnaleAleatoare_figure1_1.png){width=8cm}\
 
-![](figures/01_SemnaleAleatoare_figure1_1.png){width=6cm}\
+
+## Distribuția normală
+
+* Are doi parametri:
+    * **Media** $\mu$ = "centrul" funcției
+    * **Deviația standard** $\sigma$  = cât de "lată" este funcția
+
+* Constanta de la începutul expresiei asigură normalizarea (faptul că integrala = 1)
+    
+* Extrem de des întâlnită în practică
+
+* Orice valoare reală este posibilă ($w(x) > 0 \forall x \in \mathbb{R}$
+
+* Se notează cu $\mathcal{N}(\mu, \sigma)$
+
+## Distribuția uniformă
+
+* Densitatea de probabilitate = constantă între două limite 
+
+$$w(x) = 
+\begin{cases}
+\frac{1}{b-a}, & x \in [a, b] \\
+ 0, &elsewhere
+\end{cases}$$
+
+
+![](figures/01_SemnaleAleatoare_figure2_1.png){width=8cm}\
 
 
 ## Distribuția uniformă
 
+* Are doi parametri: limitele $a$ și $b$ ale intervalului
+
+* "Înălțimea" funcției este $\frac{1}{b-a}$ pentru normalizare
+    
+* Foarte simplă
+
+* Sunt posibile doar valori din intervalul $[a, b]$
+
+* Se notează cu $\mathcal{U} \;[a, b]$
+
+## V.a. ca funcții de alte v.a
+
+* O funcție aplicată unei v.a. produce o altă v.a.
+
+* Exemple: dacă $X$ este o v.a. distribuită $\mathcal{U}\;[0,10]$, atunci
+    * $Y = 5 + X$ este o altă v.a., distribuită $\mathcal{U}\;[5,15]$
+    * $Z = X^2$ este de asemenea o v.a.
+    * $T = cos(X)$ este de asemenea o v.a.
+    
+* Motivație: dacă $X$ este aleatoare, și valorile $Y$, $Z$, $T$ sunt aleatoare
+
+* X, Y, Z, T nu sunt independente
+    * O anumită valoare a uneia implică automat și valoarea celorlalte
+
+
+## Variabile independente
+
+* Două v.a. $X$ și $Y$ sunt **independente** dacă valoarea uneia nu 
+influențează în nici un fel valoarea celeilalte
+
+* Pentru v.a. independente, probabilitatea ca $X=x$ și $Y=y$ este produsul
+celor două probabilități:
+$$P(X=x \; AND \; Y=y ) = P(X=x) \cdot P(Y=y)$$
+
+* Valabilă pentru FR / FDP / FMP, v.a. continue sau aleatoare
+
+* Idem pentru mai multe v.a.
+
+
+## Hic sunt leones
 
 ### Multiple random variables
 
