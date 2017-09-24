@@ -117,18 +117,10 @@ $$w(x) = \frac{1}{\sigma \sqrt(2 \pi)} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
 
 
 ```
-----------------------------------------------------------------NameError
-Traceback (most recent call last)<ipython-input-1-61cf2ff980aa> in
-<module>()
-      3 sigma = 2
-      4 x = np.linspace(mu-5*sigma,mu+5*sigma,200)                 #
-----> 5 pdf =
-1/(sigma*math.sqrt(2*math.pi))*numpy.exp(-(x-mu)**2/(2*sigma**2))
-      6 plt.plot(x,pdf)
-      7 plt.xlabel('x')
-NameError: name 'numpy' is not defined
+<matplotlib.text.Text at 0x7f4b6ca68198>
 ```
 
+![](figures/01_SemnaleAleatoare_figure1_1.png){width=6cm}\
 
 
 ## Distribuția uniformă

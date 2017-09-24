@@ -115,16 +115,16 @@ $$P\left\{ A \leq X \leq B\right\} = \sum_{x=A}^B w_X(x)$$
 
 $$w(x) = \frac{1}{\sigma \sqrt(2 \pi)} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
 
-<<fig=True,echo=False>>=
+<<fig=True,echo=False, width='6cm'>>=
 import matplotlib.pyplot as plt, numpy as np, math
 mu = 3
-sigma = 2
+sigma = 1
 x = np.linspace(mu-5*sigma,mu+5*sigma,200)                 # 
-pdf = 1/(sigma*math.sqrt(2*math.pi))*numpy.exp(-(x-mu)**2/(2*sigma**2))
+pdf = 1/(sigma*math.sqrt(2*math.pi))*np.exp(-(x-mu)**2/(2*sigma**2))
 plt.plot(x,pdf)
 plt.xlabel('x')
 plt.ylabel('fdp(x)')
-plt.title('Distribuția normală $âmathcal{N}(3,2)$')
+plt.title('Distribuția normală $\mathcal{N}(\mu=3,\sigma=1)$')
 @
 
 ## Distribuția uniformă
