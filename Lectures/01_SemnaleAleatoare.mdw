@@ -93,30 +93,42 @@ $$P\left\{ A \leq X \leq B\right\} = \sum_{x=A}^B w_X(x)$$
 
 ## Interpretare grafică
 
-* Probabilitatea ca $X$ să fie între A și B is **suprafața de sub FDP**
+* Probabilitatea ca $X$ să fie între A și B este **suprafața de sub FDP**
     * adică integrala de la A la B
 
 * Probabilitatea ca $X$ să fie exact egal cu o valoare este zero
     * aria de sub un punct este nulă
 
+## Proprietățile FR/FDP/FMP
 
-## Properties of PDF/PMF/CDF
+* FR este o funcție crescătoare 
 
-* The CDF is monotonously increasing (non-decreasing)
+* FR / FDP / FMP sunt întotdeauna $\geq 0$
 
-* The PDF/PMF are always $\geq 0$
+* $FR(-\infty) = 0$ și $FR(\infty) = 1$
 
-* The CDF starts from 0 and goes up to 1
+* Integrala FDP / suma FMP = 1
 
-* Integral/sum over all of the PDF/PMF = 1
+## Distribuția normală
 
-* Some others, mention when needed
+* Densitatea de probabilitate:
 
-### Examples
+$$w(x) = \frac{1}{\sigma \sqrt(2 \pi)} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
 
-* Gaussian PDF
-* Uniform PDF
-* ...
+<<fig=True,echo=False>>=
+import matplotlib.pyplot as plt, numpy as np, math
+mu = 3
+sigma = 2
+x = np.linspace(mu-5*sigma,mu+5*sigma,200)                 # 
+pdf = 1/(sigma*math.sqrt(2*math.pi))*numpy.exp(-(x-mu)**2/(2*sigma**2))
+plt.plot(x,pdf)
+plt.xlabel('x')
+plt.ylabel('fdp(x)')
+plt.title('Distribuția normală $âmathcal{N}(3,2)$')
+@
+
+## Distribuția uniformă
+
 
 ### Multiple random variables
 

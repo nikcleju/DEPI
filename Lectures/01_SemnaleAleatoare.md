@@ -78,42 +78,61 @@ probabilitatea ca $X$ să aibă valoarea egală cu $x$
 
 $$w(x)= P\left\{ X = x\right\}$$
 
-$$F(x) = \sum_{all t \le x} w(t)$$
+$$F(x) = \sum_{toți \;\; t \le x} w(t)$$
 
 * Exemplu: FMP pentru un zar?
 
 
+## Probabilități și densități
 
+* Calculul probabilității pe baza FDP (v.a. continuă):
+$$P\left\{ A \leq X \leq B\right\} = \int_A^B w(x) dx$$
 
-
-
-###  Probability and distribution
-
-* Compute probability from PDF (continuous r.v.):
-$$P\left\{ A \leq X \leq B\right\} = \int_A^B w_X(x) dx$$
-
-* Compute probability from PMF (discrete r.v.):
+* Calculul probabilității pe baza FMP (v.a. discretă):
 $$P\left\{ A \leq X \leq B\right\} = \sum_{x=A}^B w_X(x)$$
 
-* Probability that a r.v. $X$ is between A and B is **the area below the PDF**
+## Interpretare grafică
 
-### Properties of PDF/PMF/CDF
+* Probabilitatea ca $X$ să fie între A și B este **suprafața de sub FDP**
+    * adică integrala de la A la B
 
-* The CDF is monotonously increasing (non-decreasing)
+* Probabilitatea ca $X$ să fie exact egal cu o valoare este zero
+    * aria de sub un punct este nulă
 
-* The PDF/PMF are always $\geq 0$
+## Proprietățile FR/FDP/FMP
 
-* The CDF starts from 0 and goes up to 1
+* FR este o funcție crescătoare 
 
-* Integral/sum over all of the PDF/PMF = 1
+* FR / FDP / FMP sunt întotdeauna $\geq 0$
 
-* Some others, mention when needed
+* $FR(-\infty) = 0$ și $FR(\infty) = 1$
 
-### Examples
+* Integrala FDP / suma FMP = 1
 
-* Gaussian PDF
-* Uniform PDF
-* ...
+## Distribuția normală
+
+* Densitatea de probabilitate:
+
+$$w(x) = \frac{1}{\sigma \sqrt(2 \pi)} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
+
+
+```
+----------------------------------------------------------------NameError
+Traceback (most recent call last)<ipython-input-1-61cf2ff980aa> in
+<module>()
+      3 sigma = 2
+      4 x = np.linspace(mu-5*sigma,mu+5*sigma,200)                 #
+----> 5 pdf =
+1/(sigma*math.sqrt(2*math.pi))*numpy.exp(-(x-mu)**2/(2*sigma**2))
+      6 plt.plot(x,pdf)
+      7 plt.xlabel('x')
+NameError: name 'numpy' is not defined
+```
+
+
+
+## Distribuția uniformă
+
 
 ### Multiple random variables
 
