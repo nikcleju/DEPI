@@ -1,1 +1,1 @@
-# Digital Signal Processing
+# Decizie și Estimare în Prelucrarea Informației 
