@@ -1,2 +1,2 @@
-# IT20162017
-Information Theory class 2016-2017
+# DEPI20162017
+Decizie și estimare în prelucrarea informației, 2017-2018, ETTI, TUIASI
