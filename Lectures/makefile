@@ -25,6 +25,7 @@ PANDOC_OPTIONS = -f markdown+latex_macros --standalone -t beamer --slide-level 2
 # PWeave options
 PWEAVE = pweave
 PWEAVE_OPTIONS = -f pandoc
+PWEAVE_OPTIONS_FAST = $(PWEAVE_OPTIONS) --documentation-mode
 
 # Other options
 RM=/bin/rm
@@ -43,7 +44,7 @@ RM=/bin/rm
 	$(PANDOC) $(PANDOC_OPTIONS) -o $@ slides_header.md $<
 
 %.md : %.mdw
-	$(PWEAVE) $(PWEAVE_OPTIONS) -o $@ $<
+	$(PWEAVE) $(PWEAVE_OPTIONS_FAST) -o $@ $<
 
 # What is this?
 .PHONY: all clean
