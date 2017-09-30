@@ -40,7 +40,7 @@
 ## Structura cursului
 1. Capitolul I:   Semnale aleatoare
 2. Capitolul II:  Elemente de teorie statistică a deciziei 
-3. Capitolul III: Estimarea statistică parametrilor
+3. Capitolul III: Estimarea statistică a parametrilor
 
 ## Bibliografie
 

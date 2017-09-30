@@ -120,7 +120,7 @@ $$P\left\{ A \leq X \leq B\right\} = \sum_{x=A}^B w_X(x)$$
 
 * Densitatea de probabilitate:
 
-$$w(x) = \frac{1}{\sigma \sqrt(2 \pi)} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
+$$w(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
 
 <<fig=True,echo=False, width='8cm'>>=
 import matplotlib.pyplot as plt, numpy as np, math;
@@ -145,7 +145,7 @@ plt.show()
     
 * Extrem de des întâlnită în practică
 
-* Orice valoare reală este posibilă ($w(x) > 0 \forall x \in \mathbb{R}$
+* Orice valoare reală este posibilă ($w(x) > 0, \forall x \in \mathbb{R}$)
 
 * Se notează cu $\mathcal{N}(\mu, \sigma)$
 
@@ -209,7 +209,7 @@ $$F(x, y) = P\left\{ X \leq x \cap Y \leq y \right\}$$
 $$w(x,y) = \frac{\partial^2 F(x,y)}{\partial x \partial y}$$
 
 * FDP comună descrie probabilitatea ca $X$ și $Y$
-să se găsească într-o vecinătate a lui $x$ și $y$, simultan
+să se găsească într-o vecinătate a lui $x$ și $y$, **simultan**
 
 * Similar pentru v.a discrete: funcția masă de probabilitate comună
 $$w(x,y) = P\left\{ X = x \cap Y = y \right\}$$
@@ -242,7 +242,7 @@ $$P\left\{ X = x \cap Y = y \right\} = P\left\{ X = x\right\} \cdot P\left\{ Y =
 $$\overline{X} = E\{X\} = \int_{-\infty}^{\infty} x \cdot w(x) dx$$
 
 * Pentru v.a. discrete:
-$$\overline{X} = \sum_{x=-\infty}^{\infty} x \cdot w(x) dx$$
+$$\overline{X} = E\{X\} = \sum_{x=-\infty}^{\infty} x \cdot w(x) dx$$
 
 * (Exemplu: entropia H(X) = valoarea medie a informației)
 
@@ -269,10 +269,10 @@ $$E\{X + Y\} = E\{X\} + E\{Y\}$$
 * Momentul de ordin 2
 
 * Pentru v.a. continue:
-$$\overline{X^2} = \int_{-\infty}^{\infty} x^2 \cdot w(x) dx$$
+$$\overline{X^2} = E\{X^2\} = \int_{-\infty}^{\infty} x^2 \cdot w(x) dx$$
 
 * Pentru v.a. discrete:
-$$\overline{X^2} = \sum_{-\infty}^{\infty} x^2 \cdot w(x) dx$$
+$$\overline{X^2} = E\{X^2\} = \sum_{-\infty}^{\infty} x^2 \cdot w(x) dx$$
 
 * Interpretare: media pătratelor = energia medie a unui semnal
 
@@ -300,8 +300,89 @@ $$\begin{split}
 &= \overline{X^2} - \mu^2
 \end{split}$$
 
+## Suma variabilelor aleatoare
+
+* Suma a două sau mai multe v.a. **independente** este tot o v.a.
+
+* Distribuția ei = **convoluția** distribuțiilor v.a. componente
+
+* Dacă $Z = X + Y$
+$$w(z) = w(x) \star w(y)$$
+
+* Caz particular: dacă $X$ și $Y$ sunt v.a. normale, cu $\mathcal{N}(\mu_X, \sigma_X^2)$ și $\mathcal{N}(\mu_Y, \sigma_Y^2)$, atunci:
+    * $Z$ este tot o v.a. cu distribuție normală, $\mathcal{N}(\mu_Z, \sigma_Z^2)$, având:
+    * media = suma mediilor: $\mu_Z = \mu_X + \mu_Y$
+    * dispersia = suma dispersiilor: $\sigma_Z^2 = \sigma_X^2 + \sigma_Y^2$
+    
+
+## Procese aleatoare
+
+* Un **proces aleator** = o secvență de variabile aleatoare indexate (înșiruite) în timp
+
+* Proces aleator **în timp discret** $f[n]$ = o secvență de v.a. la momente de timp discrete
+    * ex: o secvență de 50 aruncări de zar, cotația zilnică a unor acțiuni la bursă
+
+* Proces aleator **în timp continuu** $f(t)$ = o secvență de v.a. la orice moment de timp
+    * ex: un semnal tip zgomot de tensiune
+
+* Fiecare eșantion dintr-un proces aleator este o v.a. de sine stătătoare
+    * ex:. $f(t_0)$  = valoarea la momentul $t_0$ este o v.a.
+
+## Realizări ale proceselor aleatoare
+
+* **Realizare** a unui p.a. = o secvență particulară de realizări ale v.a. componente
+    * ex: un anume semnal de zgomot măsurat cu un osciloscop; dar am fi putut
+    măsura orice altă realizare
+
+* Când considerăm un p.a., considerăm întregul set de realizări posibile
+    * la fel ca atunci când considerăm o v.a.
 
 
+## Distribuții de ordin 1 ale proceselor aleatoare
+
+* Fiecare eșantion $f(t_1)$ ($f[n_1]$) dintr-un p.a. este o v.a.
+    * cu FR $F_1(x;t_1)$
+    * cu FDP / FMP $w_1(x;t_1) = \frac{dF_1(x;t_1)}{dx}$
+
+* Eșantionul de la momentul $t_2$ este o v.a. diferită, cu funcții posibil diferite
+    * cu FR $F_1(x;t_2)$
+    * cu FDP / FMP $w_2(x;t_2) = \frac{dF_1(x;t_2)}{dx}$
+
+* Indicele $w_1$ arată că considerăm o singură v.a. din proces (distribuții *de ordin 1*)
+
+* Similar pentru p.a. discrete
+
+## Distribuții de ordin 2
+
+* O pereche de v.a. $f(t_1)$ and $f(t_2)$ dintr-un proces aleator $f(t)$ au:
+    * FR comună $F_2(x_i, x_j; t_1, t_2)$
+    * FDP / FMP comună $w_2(x_i, x_j; t_1, t_2) = \frac{\partial^2 F_2(x_i, x_j;t_1, t_2)}{\partial x_i \partial x_j}$
+
+* Aceste funcții descriu cum sunt distribuite valorile perechilor (distribuții *de ordin 2*)
+
+* Similar pentru p.a. discrete
+
+## Distribuții de ordin n
+
+* Generalizare la $n$ eșantioane ale unui p.a.
+
+* Un set de $n$ v.a. $f(t_1), ...f(t_n)$ dintr-un proces aleator $f(t)$ au:
+    * FR comună $F_n(x_1,... x_n; t_1,... t_n)$
+    * FDP / FMP comună $w_n(x_1,... x_n; t_1,... t_n) = \frac{\partial^2 F_n(x_1,... x_n;t_1,... t_n)}{\partial x_1 ... \partial x_n}$
+
+* Aceste funcții descriu cum sunt distribuite valorile seturilor de $n$ valori (distribuții *de ordin n*)
+
+* Similar pentru p.a. discrete
+
+
+
+
+
+
+
+
+
+    
 ## Hic sunt leones
 
 ### Multiple random variables
@@ -599,5 +680,6 @@ $$R_{ff}(0) = \frac{1}{2 \pi} \int_{-\infty}^{\infty} S_{ff}(\omega) d\omega$$
 $$\sigma^2 = R_{ff}(0) - R_{ff}(\infty)$$
 
 * Proof: $R_{ff}(0) = \overline{f(t)^2}$, $R_{ff}(\infty) = \overline{f(t)}^2$
+
 
 
