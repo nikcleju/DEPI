@@ -123,12 +123,6 @@ $$P\left\{ A \leq X \leq B\right\} = \sum_{x=A}^B w_X(x)$$
 $$w(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
 
 
-~~~~{.python}
-<type 'exceptions.UnicodeDecodeError'>
-'ascii' codec can't decode byte 0xc8 in position 8: ordinal not in
-range(128)
-~~~~~~~~~~~~~
-
 ![](figures/01_SemnaleAleatoare_figure1_1.png){width=8cm}\
 
 
@@ -136,7 +130,7 @@ range(128)
 
 * Are doi parametri:
     * **Media** $\mu$ = "centrul" funcției
-    * **Deviația standard** $\sigma$  = cât de "lată" este funcția
+    * **Deviația standard** $\sigma$  = "lățimea" funcției
 
 * Constanta de la începutul expresiei asigură normalizarea (faptul că integrala = 1)
     
@@ -157,14 +151,6 @@ $$w(x) =
 \end{cases}$$
 
 
-~~~~{.python}
-<type 'exceptions.UnicodeDecodeError'>
-'ascii' codec can't decode byte 0xc8 in position 8: ordinal not in
-range(128)
-~~~~~~~~~~~~~
-
-![](figures/01_SemnaleAleatoare_figure2_1.png){width=8cm}\
-
 
 ## Distribuția uniformă
 
@@ -177,6 +163,10 @@ range(128)
 * Sunt posibile doar valori din intervalul $[a, b]$
 
 * Se notează cu $\mathcal{U} \;[a, b]$
+
+## Alte distribuții
+
+* Nenumărate variante, apar în diverse aplicații
 
 ## V.a. ca funcții de alte v.a
 
@@ -191,6 +181,40 @@ range(128)
 
 * X, Y, Z, T nu sunt independente
     * O anumită valoare a uneia implică automat și valoarea celorlalte
+
+## Exercițiu
+
+Exercițiu:
+
+  * Dacă $X$ este o v.a. cu distribuția $\mathcal{U} \; [0, \pi]$, 
+    calculați densitatea de probabilitate a v.a. $Y$ definite ca
+    $$Y = cos(X)$$
+    
+
+## Calculul probabilității pentru distribuția normală
+
+* Cum calculăm $\int_a^b$ dintr-o distribuție normală?
+    * Nu se poate prin formule algebrice
+
+* Se folosește *the error function*:
+$$erf(z) = \frac{2}{\sqrt{\pi}} \int_0^z e^{-t^2} dt$$
+
+* Funcția de repartiție a unei distribuții normale $\mathcal{N}(\mu, \sigma^2)$
+$$F(X) = \frac{1}{2}(1 + erf(\frac{x - \mu}{\sigma \sqrt{2}}))$$
+
+* Valorile funcției *erf()* sunt tabelate / se calculează numeric
+    * de ex. pe Google, căutați $erf(0.5)$
+
+* Alte valori folositoare:
+    * $erf(-\infty) = -1$
+    * $erf(\infty) = 1$
+
+## Exercițiu 
+
+Exercițiu:
+
+  * Fie $X$ o v.a. cu distribuția $\mathcal{N}(3, 2)$. 
+Calculați probabilitatea ca $X \in [2, 4]$
 
 ## Sisteme de mai multe variabile aleatoare
 
@@ -225,6 +249,13 @@ $$P\left\{ X = x \cap Y = y \right\} = P\left\{ X = x\right\} \cdot P\left\{ Y =
 
 * Idem pentru mai mult de două v.a.
 
+## Variabile independente
+
+Exercițiu: 
+
+  * Calculați probabilitatea ca trei v.a. $X$, $Y$ și $Z$ i.i.d. $\mathcal{N}(-1,1)$
+  să fie toate pozitive
+      * ***i.i.d*** = "independente și identic distribuite"
 
 ## Medii statistice
 
