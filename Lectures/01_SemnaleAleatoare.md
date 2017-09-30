@@ -42,7 +42,7 @@
 $$F(x) = P\left\{ X \leq x \right\}$$
 
 * Derivata funcției de repartiție este **funcția densitate de probabilitate (FDP)**
-$$w(x) = \frac{dF(x}{dx}$$
+$$w(x) = \frac{dF(x)}{dx}$$
 $$F(x) = \int_{-\infty}^x w(t) dt$$
 
 ## V.a. continue
@@ -50,7 +50,7 @@ $$F(x) = \int_{-\infty}^x w(t) dt$$
 * FDP este probabilitatea ca valoarea lui $X$ să fie într-o vecinătate $\epsilon$ mică în jurul lui $x$, raportat la $\epsilon$
 
 $$\begin{split}
-w(x) = \frac{dF(x}{dx} =& \lim_{\epsilon \to 0}{\frac{F(x+\epsilon) - F(x-\epsilon}{2 \epsilon}} \\
+w(x) = \frac{dF(x)}{dx} =& \lim_{\epsilon \to 0}{\frac{F(x+\epsilon) - F(x-\epsilon)}{2 \epsilon}} \\
 =& \lim_{\epsilon \to 0}{\frac{P(X \in [x-\epsilon, x+\epsilon])}{2 \epsilon}}
 \end{split}$$
 
@@ -123,6 +123,12 @@ $$P\left\{ A \leq X \leq B\right\} = \sum_{x=A}^B w_X(x)$$
 $$w(x) = \frac{1}{\sigma \sqrt(2 \pi)} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
 
 
+~~~~{.python}
+<type 'exceptions.UnicodeDecodeError'>
+'ascii' codec can't decode byte 0xc8 in position 8: ordinal not in
+range(128)
+~~~~~~~~~~~~~
+
 ![](figures/01_SemnaleAleatoare_figure1_1.png){width=8cm}\
 
 
@@ -130,7 +136,7 @@ $$w(x) = \frac{1}{\sigma \sqrt(2 \pi)} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
 
 * Are doi parametri:
     * **Media** $\mu$ = "centrul" funcției
-    * **Deviația standard** $\sigma$  = "lățimea" funcției
+    * **Deviația standard** $\sigma$  = cât de "lată" este funcția
 
 * Constanta de la începutul expresiei asigură normalizarea (faptul că integrala = 1)
     
@@ -151,6 +157,14 @@ $$w(x) =
 \end{cases}$$
 
 
+~~~~{.python}
+<type 'exceptions.UnicodeDecodeError'>
+'ascii' codec can't decode byte 0xc8 in position 8: ordinal not in
+range(128)
+~~~~~~~~~~~~~
+
+![](figures/01_SemnaleAleatoare_figure2_1.png){width=8cm}\
+
 
 ## Distribuția uniformă
 
@@ -163,10 +177,6 @@ $$w(x) =
 * Sunt posibile doar valori din intervalul $[a, b]$
 
 * Se notează cu $\mathcal{U} \;[a, b]$
-
-## Alte distribuții
-
-* Nenumărate variante, apar în diverse aplicații
 
 ## V.a. ca funcții de alte v.a
 
@@ -182,39 +192,21 @@ $$w(x) =
 * X, Y, Z, T nu sunt independente
     * O anumită valoare a uneia implică automat și valoarea celorlalte
 
-## Exercițiu
+## Sisteme de mai multe variabile aleatoare
 
-Exercițiu:
+* Fie un sistem cu două v.a. continue $X$ și $Y$
 
-  * Dacă $X$ este o v.a. cu distribuția $\mathcal{U} \; [0, \pi]$, 
-    calculați densitatea de probabilitate a v.a. $Y$ definite ca
-    $$Y = cos(X)$$
-    
+* Există funcția de repartiție comună:
+$$F(x, y) = P\left\{ X \leq x \cap Y \leq y \right\}$$
 
-## Calculul probabilității pentru distribuția normală
+* Densitatea de probabilitate comună:
+$$w(x,y) = \frac{\partial^2 F(x,y)}{\partial x \partial y}$$
 
-* Cum calculăm $\int_a^b$ dintr-o distribuție normală?
-    * Nu se poate prin formule algebrice
+* FDP comună descrie probabilitatea ca $X$ și $Y$
+să se găsească într-o vecinătate a lui $x$ și $y$, simultan
 
-* Se folosește *the error function*:
-$$erf(z) = \frac{2}{\sqrt{\pi}} \int_0^z e^{-t^2} dt$$
-
-* Funcția de repartiție a unei distribuții normale $\mathcal{N}(\mu, \sigma^2)$
-$$F(X) = \frac{1}{2}(1 + erf(\frac{x - \mu}{\sigma \sqrt{2}}))$$
-
-* Valorile funcției *erf()* sunt tabelate / se calculează numeric
-    * de ex. pe Google, căutați $erf(0.5)$
-
-* Alte valori folositoare:
-    * $erf(-\infty) = -1$
-    * $erf(\infty) = 1$
-
-## Exercițiu 
-
-Exercițiu:
-
-  * Fie $X$ o v.a. cu distribuția $\mathcal{N}(3, 2)$. 
-Calculați probabilitatea ca $X \in [2, 4]$
+* Similar pentru v.a discrete: funcția masă de probabilitate comună
+$$w(x,y) = P\left\{ X = x \cap Y = y \right\}$$
 
 
 ## Variabile independente
@@ -223,20 +215,85 @@ Calculați probabilitatea ca $X \in [2, 4]$
 influențează în nici un fel valoarea celeilalte
 
 * Pentru v.a. independente, probabilitatea ca $X=x$ și $Y=y$ este produsul
-celor două probabilități:
-$$P(X=x \; AND \; Y=y ) = P(X=x) \cdot P(Y=y)$$
+celor două probabilități
+
+* V.a. discrete:
+$$w(x,y) = w(x) \cdot w(y)$$
+$$P\left\{ X = x \cap Y = y \right\} = P\left\{ X = x\right\} \cdot P\left\{ Y = y \right\}$$
 
 * Valabilă pentru FR / FDP / FMP, v.a. continue sau aleatoare
 
 * Idem pentru mai mult de două v.a.
 
-## Variabile independente
 
-Exercițiu: 
+## Medii statistice
 
-  * Calculați probabilitatea ca trei v.a. $X$, $Y$ și $Z$ i.i.d. $\mathcal{N}(-1,1)$
-  să fie toate pozitive
-      * ***i.i.d*** = "independente și identic distribuite"
+* V.a. sunt caracterizate prin medii statistice ("*momente*")
+
+* Valoarea medie (momentul de ordin 1)
+
+* Pentru v.a. continue:
+$$\overline{X} = E\{X\} = \int_{-\infty}^{\infty} x \cdot w(x) dx$$
+
+* Pentru v.a. discrete:
+$$\overline{X} = \sum_{x=-\infty}^{\infty} x \cdot w(x) dx$$
+
+* (Exemplu: entropia H(X) = valoarea medie a informației)
+
+* Notație uzuală: $\mu$
+
+## Proprietățile valorii medii
+
+* Calculul valorii medii este o operație **liniară**
+    * pentru că, la bază, integrala / suma este o operație liniară
+
+* Liniaritate
+$$E\{aX + bY\} = aE\{X\} + bE\{Y\}$$
+
+* Sau:
+$$E\{aX\} = a E\{X\}, \forall a \in \mathbb{R}$$
+$$E\{X + Y\} = E\{X\} + E\{Y\}$$
+
+* Fără demonstrație
+
+## Valoarea pătratică medie
+
+* Valoarea pătratică medie = valoarea medie a pătratelor valorilor
+
+* Momentul de ordin 2
+
+* Pentru v.a. continue:
+$$\overline{X^2} = \int_{-\infty}^{\infty} x^2 \cdot w(x) dx$$
+
+* Pentru v.a. discrete:
+$$\overline{X^2} = \sum_{-\infty}^{\infty} x^2 \cdot w(x) dx$$
+
+* Interpretare: media pătratelor = energia medie a unui semnal
+
+## Dispersia (varianța)
+
+* Dispersia (varianța) = valoarea pătratică medie a abaterii față de valoarea medie :)
+
+* V.a. continue:
+$$\sigma^2 = \overline{\left\{ X - \mu \right\}^2} = \int_{-\infty}^{\infty} (x-\mu)^2 \cdot w(x) dx$$
+
+* V.a. discrete:
+$$\sigma^2 = \overline{\left\{ X - \mu \right\}^2} = \sum_{-\infty}^{\infty} (x-\mu)^2 \cdot w(x) dx$$
+
+* Interpretare: cât de mult variază valorile în jurul mediei
+    * $\sigma^2 =$ mare: abateri mari față de medie
+    * $\sigma^2 =$ mic: valori concentrate în jurul mediei
+
+## Legătura între cele trei mărimi
+
+* Legătura între medie, valoarea pătratică medie și dispersie:
+$$\begin{split}
+\sigma^2 &= \overline{\left\{ X - \mu \right\}^2} \\
+&= \overline{X^2 - 2 \cdot X \cdot \mu + \mu^2} \\
+&= \overline{X^2} - 2 \mu \overline{X} + \mu^2 \\
+&= \overline{X^2} - \mu^2
+\end{split}$$
+
 
 
 ## Hic sunt leones
