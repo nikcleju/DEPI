@@ -1,6 +1,6 @@
 # Introducere
 
-## Organizare
+### Organizare
 
 - 4 credite
 - Profesori
@@ -16,7 +16,7 @@
     - cel mai bine prin programare prealabilă
 
 
-## Notare
+### Notare
 
 - Examen
     - 60% din nota finală
@@ -37,19 +37,19 @@
 - Nota finală = 60% Examen + 20% Laborator + 20% Teste
 
 
-## Structura cursului
+### Structura cursului
 1. Capitolul I:   Semnale aleatoare
 2. Capitolul II:  Elemente de teorie statistică a deciziei 
 3. Capitolul III: Estimarea statistică a parametrilor
 
-## Bibliografie
+### Bibliografie
 
 1. ***Teoria transmisiunii informatiei***, Valeriu Munteanu, Ed. Gh.Asachi, 2001
 1. *Elements of Information Theory*, Valeriu Munteanu, Daniela Tarniceriu, Ed. CERMI 2007
 1. *Elements of Information Theory*, Thomas M. Cover, Joy A. Thomas, 2nd Edition, Wiley 2006
 1. *Information and Coding Theory*, Gareth A. Jones, J. Mary Jones, Springer 2000
 
-## Acces online 
+### Acces online 
 
 - pe platforma Moodle (edu.etti.tuiasi.ro)
 

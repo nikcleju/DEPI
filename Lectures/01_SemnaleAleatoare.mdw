@@ -1,7 +1,9 @@
 
 # Capitolul I. Semnale aleatoare
 
-## Variabile aleatoare
+## I.1 Variabile aleatoare
+
+### Variabile aleatoare
 
 * **Variabilă aleatoare** = o variabilă care denumește o valoare produsă printr-un fenomen aleator
     * Practic, reprezintă *un nume* atașat unei valori arbitrare
@@ -14,7 +16,7 @@
 
 * Opusul = o valoare constantă (de ex. $\pi = 3.1415...$)
 
-## Realizări
+### Realizări
 
 * **Realizare** a unei v.a. = o valoare particulară rezultată în urma fenomenului aleator
 
@@ -27,14 +29,14 @@
     * Dar s-ar fi putut obține orice valoare din spațiul realizărilor
     $$\Omega = \left\{1, 2, 3, 4, 5, 6\right\}$$
 
-## V.a. discrete și continue
+### V.a. discrete și continue
 
 * V.a. **discretă**: dacă $\Omega$ este o mulțime discretă
     * Exemplu: Numărul obținut prin aruncarea unui zar
 * V.a. **continuă**: dacă $\Omega$ este o mulțime compactă
     * Exemplu: Valoarea tensiunii măsurate într-un punct
 
-## V.a. continue
+### V.a. continue
 
 * Fie o v.a. continuă $X$
 
@@ -45,7 +47,7 @@ $$F(x) = P\left\{ X \leq x \right\}$$
 $$w(x) = \frac{dF(x)}{dx}$$
 $$F(x) = \int_{-\infty}^x w(t) dt$$
 
-## V.a. continue
+### V.a. continue
 
 * FDP este probabilitatea ca valoarea lui $X$ să fie într-o vecinătate $\epsilon$ mică în jurul lui $x$, raportat la $\epsilon$
 
@@ -54,7 +56,7 @@ w(x) = \frac{dF(x)}{dx} =& \lim_{\epsilon \to 0}{\frac{F(x+\epsilon) - F(x-\epsi
 =& \lim_{\epsilon \to 0}{\frac{P(X \in [x-\epsilon, x+\epsilon])}{2 \epsilon}}
 \end{split}$$
 
-## Probabilitatea unei valori anume
+### Probabilitatea unei valori anume
 
 * Probabilitatea ca v.a. continuă $X$ să fie **exact** egală cu un $x$ este **zero**
     
@@ -64,7 +66,7 @@ w(x) = \frac{dF(x)}{dx} =& \lim_{\epsilon \to 0}{\frac{F(x+\epsilon) - F(x-\epsi
 
 * FDP este probabilitatea de a fi **într-o vecinătate mică în jurul** unei valori $x$
 
-## V.a. discrete
+### V.a. discrete
 
 * Fie o v.a. discretă $X$
 
@@ -75,7 +77,7 @@ $$F(x) = P\left\{ X \leq x \right\}$$
 
 * Pentru v.a. discrete, FR este de tip "treaptă"
 
-## V.a. discrete
+### V.a. discrete
 
 * Nu putem defini densitatea de probabilitate
     * pentru că derivata în punctele de discontinuitate nu e definită
@@ -90,7 +92,7 @@ $$F(x) = \sum_{toți \;\; t \le x} w(t)$$
 * Exemplu: FMP pentru un zar?
 
 
-## Probabilități și densități
+### Probabilități și densități
 
 * Calculul probabilității pe baza FDP (v.a. continuă):
 $$P\left\{ A \leq X \leq B\right\} = \int_A^B w(x) dx$$
@@ -98,7 +100,7 @@ $$P\left\{ A \leq X \leq B\right\} = \int_A^B w(x) dx$$
 * Calculul probabilității pe baza FMP (v.a. discretă):
 $$P\left\{ A \leq X \leq B\right\} = \sum_{x=A}^B w_X(x)$$
 
-## Interpretare grafică
+### Interpretare grafică
 
 * Probabilitatea ca $X$ să fie între A și B este **suprafața de sub FDP**
     * adică integrala de la A la B
@@ -106,7 +108,7 @@ $$P\left\{ A \leq X \leq B\right\} = \sum_{x=A}^B w_X(x)$$
 * Probabilitatea ca $X$ să fie exact egal cu o valoare este zero
     * aria de sub un punct este nulă
 
-## Proprietățile FR/FDP/FMP
+### Proprietățile FR/FDP/FMP
 
 * FR este o funcție crescătoare 
 
@@ -116,7 +118,7 @@ $$P\left\{ A \leq X \leq B\right\} = \sum_{x=A}^B w_X(x)$$
 
 * Integrala FDP / suma FMP = 1
 
-## Distribuția normală
+### Distribuția normală
 
 * Densitatea de probabilitate:
 
@@ -135,7 +137,7 @@ plt.title('Distribuția normală $\mathcal{N}(\mu=3,\sigma=1)$');
 plt.show()
 @
 
-## Distribuția normală
+### Distribuția normală
 
 * Are doi parametri:
     * **Media** $\mu$ = "centrul" funcției
@@ -149,7 +151,7 @@ plt.show()
 
 * Se notează cu $\mathcal{N}(\mu, \sigma)$
 
-## Distribuția uniformă
+### Distribuția uniformă
 
 * Densitatea de probabilitate = constantă între două limite 
 
@@ -172,7 +174,7 @@ plt.title('Distribuția uniformă $\mathcal{U}\;[-1,3]$')
 plt.show()
 @
 
-## Distribuția uniformă
+### Distribuția uniformă
 
 * Are doi parametri: limitele $a$ și $b$ ale intervalului
 
@@ -184,11 +186,11 @@ plt.show()
 
 * Se notează cu $\mathcal{U} \;[a, b]$
 
-## Alte distribuții
+### Alte distribuții
 
 * Nenumărate variante, apar în diverse aplicații
 
-## V.a. ca funcții de alte v.a
+### V.a. ca funcții de alte v.a
 
 * O funcție aplicată unei v.a. produce o altă v.a.
 
@@ -202,7 +204,7 @@ plt.show()
 * X, Y, Z, T nu sunt independente
     * O anumită valoare a uneia implică automat și valoarea celorlalte
 
-## Exercițiu
+### Exercițiu
 
 Exercițiu:
 
@@ -211,7 +213,7 @@ Exercițiu:
     $$Y = cos(X)$$
     
 
-## Calculul probabilității pentru distribuția normală
+### Calculul probabilității pentru distribuția normală
 
 * Cum calculăm $\int_a^b$ dintr-o distribuție normală?
     * Nu se poate prin formule algebrice
@@ -229,14 +231,14 @@ $$F(X) = \frac{1}{2}(1 + erf(\frac{x - \mu}{\sigma \sqrt{2}}))$$
     * $erf(-\infty) = -1$
     * $erf(\infty) = 1$
 
-## Exercițiu 
+### Exercițiu 
 
 Exercițiu:
 
   * Fie $X$ o v.a. cu distribuția $\mathcal{N}(3, 2)$. 
 Calculați probabilitatea ca $X \in [2, 4]$
 
-## Sisteme de mai multe variabile aleatoare
+### Sisteme de mai multe variabile aleatoare
 
 * Fie un sistem cu două v.a. continue $X$ și $Y$
 
@@ -253,7 +255,7 @@ să se găsească într-o vecinătate a lui $x$ și $y$, **simultan**
 $$w(x,y) = P\left\{ X = x \cap Y = y \right\}$$
 
 
-## Variabile independente
+### Variabile independente
 
 * Două v.a. $X$ și $Y$ sunt **independente** dacă valoarea uneia nu 
 influențează în nici un fel valoarea celeilalte
@@ -269,7 +271,7 @@ $$P\left\{ X = x \cap Y = y \right\} = P\left\{ X = x\right\} \cdot P\left\{ Y =
 
 * Idem pentru mai mult de două v.a.
 
-## Variabile independente
+### Variabile independente
 
 Exercițiu: 
 
@@ -277,7 +279,7 @@ Exercițiu:
   să fie toate pozitive
       * ***i.i.d*** = "independente și identic distribuite"
 
-## Medii statistice
+### Medii statistice
 
 * V.a. sunt caracterizate prin medii statistice ("*momente*")
 
@@ -293,7 +295,7 @@ $$\overline{X} = E\{X\} = \sum_{x=-\infty}^{\infty} x \cdot w(x) dx$$
 
 * Notație uzuală: $\mu$
 
-## Proprietățile valorii medii
+### Proprietățile valorii medii
 
 * Calculul valorii medii este o operație **liniară**
     * pentru că, la bază, integrala / suma este o operație liniară
@@ -307,7 +309,7 @@ $$E\{X + Y\} = E\{X\} + E\{Y\}$$
 
 * Fără demonstrație
 
-## Valoarea pătratică medie
+### Valoarea pătratică medie
 
 * Valoarea pătratică medie = valoarea medie a pătratelor valorilor
 
@@ -321,7 +323,7 @@ $$\overline{X^2} = E\{X^2\} = \sum_{-\infty}^{\infty} x^2 \cdot w(x) dx$$
 
 * Interpretare: media pătratelor = energia medie a unui semnal
 
-## Dispersia (varianța)
+### Dispersia (varianța)
 
 * Dispersia (varianța) = valoarea pătratică medie a abaterii față de valoarea medie :)
 
@@ -335,7 +337,7 @@ $$\sigma^2 = \overline{\left\{ X - \mu \right\}^2} = \sum_{-\infty}^{\infty} (x-
     * $\sigma^2 =$ mare: abateri mari față de medie
     * $\sigma^2 =$ mic: valori concentrate în jurul mediei
 
-## Legătura între cele trei mărimi
+### Legătura între cele trei mărimi
 
 * Legătura între medie, valoarea pătratică medie și dispersie:
 $$\begin{split}
@@ -345,7 +347,7 @@ $$\begin{split}
 &= \overline{X^2} - \mu^2
 \end{split}$$
 
-## Suma variabilelor aleatoare
+### Suma variabilelor aleatoare
 
 * Suma a două sau mai multe v.a. **independente** este tot o v.a.
 
@@ -359,8 +361,9 @@ $$w(z) = w(x) \star w(y)$$
     * media = suma mediilor: $\mu_Z = \mu_X + \mu_Y$
     * dispersia = suma dispersiilor: $\sigma_Z^2 = \sigma_X^2 + \sigma_Y^2$
     
+## II.2 Procese aleatoare
 
-## Procese aleatoare
+### Procese aleatoare
 
 * Un **proces aleator** = o secvență de variabile aleatoare indexate (înșiruite) în timp
 
@@ -373,7 +376,7 @@ $$w(z) = w(x) \star w(y)$$
 * Fiecare eșantion dintr-un proces aleator este o v.a. de sine stătătoare
     * ex:. $f(t_0)$  = valoarea la momentul $t_0$ este o v.a.
 
-## Realizări ale proceselor aleatoare
+### Realizări ale proceselor aleatoare
 
 * **Realizare** a unui p.a. = o secvență particulară de realizări ale v.a. componente
     * ex: un anume semnal de zgomot măsurat cu un osciloscop; dar am fi putut
@@ -382,8 +385,7 @@ $$w(z) = w(x) \star w(y)$$
 * Când considerăm un p.a., considerăm întregul set de realizări posibile
     * la fel ca atunci când considerăm o v.a.
 
-
-## Distribuții de ordin 1 ale proceselor aleatoare
+### Distribuții de ordin 1 ale proceselor aleatoare
 
 * Fiecare eșantion $f(t_1)$ ($f[n_1]$) dintr-un p.a. este o v.a.
     * cu FR $F_1(x;t_1)$
@@ -397,7 +399,7 @@ $$w(z) = w(x) \star w(y)$$
 
 * Similar pentru p.a. discrete
 
-## Distribuții de ordin 2
+### Distribuții de ordin 2
 
 * O pereche de v.a. $f(t_1)$ and $f(t_2)$ dintr-un proces aleator $f(t)$ au:
     * FR comună $F_2(x_i, x_j; t_1, t_2)$
@@ -407,7 +409,7 @@ $$w(z) = w(x) \star w(y)$$
 
 * Similar pentru p.a. discrete
 
-## Distribuții de ordin n
+### Distribuții de ordin n
 
 * Generalizare la $n$ eșantioane ale unui p.a.
 
@@ -419,312 +421,250 @@ $$w(z) = w(x) \star w(y)$$
 
 * Similar pentru p.a. discrete
 
+### Medii statistice
 
+Procesele aleatoare sunt caracterizate de medii statistice sau temporale (*momente*)
 
-
-
-
-
-
-
-    
-## Hic sunt leones
-
-### Multiple random variables
-
-* Consider a system with two random variables $X$ and $Y$
-
-* Joint cumulative distribution function:
-$$F_{XY}(x_i, y_j) = P\left\{ X \leq x_i \cap Y \leq y_i \right\}$$
-
-* Joint probability density function:
-$$w_{XY}(x_i,y_j) = \frac{\partial^2 P_{XY}(x_i,y_j)}{\partial x \partial y}$$
-
-* The joint PDF gives the probability that the values of the two r.v. $X$ and $Y$
-are in a **vicinity** of $x_i$ and $y_i$ simultaneously
-
-* Similar definitions extend to the case of discrete random variables
-
-### Random process
-
-* A **random process** = a sequence of random variables indexed in time
-
-* **Discrete-time** random process $f[n]$ =  a sequence of random variables at discrete moments of time
-    * e.g.: a sequence 50 of throws of a dice, the daily price on the stock market
-
-* **Continuous-time** random process $f(t)$ = a continuous sequence of random variables at every moment
-    * e.g.: a noise voltage signal, a speech signal
-
-* Every sample from a random process is a (different) random variable!
-    * e.g. $f(t_0)$  = value at time $t_0$ is a r.v.
-
-### Realizations of random processes
-
-* A **realization** of the random process = a particular sequence of values
-    * e.g. we see a given noise signal on the oscilloscope, but *we could have
-    seen any other realization just as well*
-
-* When we consider a random process = we consider the set of all possible realizations
-
-* Example: draw on whiteboard
-
-### Distributions of order 1 of random processes
-
-* Every sample $f(t_1)$from a random process is a random variable
-    * with CDF $F_1(x_i;t_1)$
-    * with PDF $w_1(x_i;t_1) = \frac{dF_1(x_i;t_1)}{dx_i}$
-
-* The sample at time $t_2$ is a different random variable with **possibly different** functions
-    * with CDF $F_1(x_i;t_2)$
-    * with PDF $w_1(x_i;t_2) = \frac{dF_1(x_i;t_2)}{dx_i}$
-
-* These functions specify how the value of one sample is distributed
-
-* The index $w_1$ indicates we consider a single random variable from the process -->  distributions of order 1
-
-### Distributions of order 2
-
-* A pair of random variables $f(t_1)$ and $f(t_2)$ sampled from the random process $f(t)$ have
-    * joint CDF $F_2(x_i, x_j; t_1, t_2)$
-    * joint PDF $w_2(x_i, x_j; t_1, t_2) = \frac{\partial^2 F_2(x_i, x_j;t_1, t_2)}{\partial x_i \partial x_j}$
-
-* These functions specify how the pair of values is distributed (are distributions of order 2)
-
-* Marginal integration 
-$$w_1(x_i;t_1) = \int_{\infty}^{\infty} w_2(x_i, x_j; t_1, t_2) dx_j$$
-
-* (integrate over one variable --> disappears --> only the other one remains)
-
-### Distributions of order n
-
-* Generalize to $n$ samples of the random process
-
-* A set of $n$ random variables $f(t_1), ...f(t_n)$ sampled from the random process $f(t)$ have
-    * joint CDF $F_n(x_1,... x_n; t_1,... t_n)$
-    * joint PDF $w_n(x_1,... x_n; t_1,... t_n) = \frac{\partial^2 F_n(x_1,... x_n;t_1,... t_n)}{\partial x_1 ... \partial x_n}$
-
-* These functions specify how the whole set of $n$ values is distributed (are distributions of order $n$)
-
-
-### Statistical averages
-
-We characterize random processes using statistical / temporal averages (*moments*)
-
-1. Average value
+1. Valoarea medie
 $$\overline{f(t_1)} = \mu(t_1) = \int_{-\infty}^{\infty} x \cdot w_1(x; t_1) dx$$
 
-2. Average squared value (*valoarea patratica medie*)
+2. Valoarea pătratică medie
 $$\overline{f^2(t_1)} = \int_{-\infty}^{\infty} x^2 \cdot w_1(x; t_1) dx$$
 
-### Statistical averages - variance
-3. Variance (= *dispersia*)
+### Medii statistice - dispersia
+
+3. Dispersia
 $$\sigma^2(t_1) = \overline{\left\{ f(t_1) - \mu(t_1) \right\}^2} = \int_{-\infty}^{\infty} (x-\mu(t_1)^2 \cdot w_1(x; t_1) dx$$
 
-* The variance can be computed as:
-$$\sigma^2(t_1) = \overline{\left\{ f(t_1) - \mu(t_1) \right\}^2} = \overline{f(t_1)^2 - 2f(t_1)\mu(t_1) + \mu(t_1)^2} = 
-\overline{f^2(t_1)} - \mu(t_1)^2$$
+* Disperia se poate calcula pe baza celorlalte două:
+$$\begin{split}
+\sigma^2(t_1) =& \overline{\left\{ f(t_1) - \mu(t_1) \right\}^2} \\
+=& \overline{f(t_1)^2 - 2f(t_1)\mu(t_1) + \mu(t_1)^2} \\
+=& \overline{f^2(t_1)} - \mu(t_1)^2
+\end{split}$$
 
-### Statistical averages - autocorrelation
+* Observații:
+    * aceste trei valori sunt calculate pentru toate realizările, la momentul $t_1$
+    * ele caracterizează doar eșantionul de la momentul $t_1$
+    * la alt moment de timp $t_2$, v.a. $f(t_2)$ este diferită, și valorile medii pot diferi
 
-4. The autocorrelation function
+### Medii statistice - autocorelația
+
+4. Funcția de autocorelație
 $$R_{ff}(t_1,t_2) = \overline{f(t_1) f(t_2)} = \int_{-\infty}^\infty \int_{-\infty}^\infty x_1 x_2 w_2(x_1, x_2; t_1, t_2) dx_1 dx_2$$
 
 5. The correlation function (for different random processes $f(t)$ and $g(t)$)
 $$R_{fg}(t_1,t_2) = \overline{f(t_1) g(t_2)} = \int_{-\infty}^\infty \int_{-\infty}^\infty x_1 y_2 w_2(x_1, y_2; t_1, t_2) dx_1 dy_2$$
 
-* **Note 1**:
-    * all these values are calculated across all realizations, at a single time $t_1$
-    * all these characterize only the r.v. at time $t_1$
-    * at a different time $t_2$, the r. v. $f(t_2)$ is different so *all average values might be different*
+* Observații:
+    * aceste funcții au valori diferite pentru diverse perechi de valori ($t_1$,$t_2$)
 
-### Temporal averages
+### Medii temporale
 
-* What to do when we only have access to a single realization?
-* Compute values **for a single realization $f^{(k)(t)}$, across all time moments**
+* Dacă avem acces doar la o singură realizare a procesului?
+* Calculăm valorile medii **pentru o singură realizare $f^{(k)(t)}$, în timp**
 
-1. Temporal average value
+1. Valoarea medie temporală
 $$\overline{f^{(k)}(t)} = \mu^{(k)} = \lim_{T \to \infty} \frac{1}{T} \int_{T/2}^{T/2} f^{(k)}(t) dt$$
 
-* This value does not depend on time $t$
-
-2. Temporal average squared value
+2. Valoarea medie pătratică temporală 
 $$\overline{[f^{(k)}(t)]^2} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} [f^{(k)}(t)]^2 dt$$
 
-### Temporal variance
-3. Temporal variance
+### Dispersia temporală
+3. Dispersia temporală
 $$\sigma^2 = \overline{\left\{ f^{(k)}(t) - \mu^{(k)} \right\}^2} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} (f^{(k)}(t)-\mu^{(k)})^2 dt$$
 
-* The variance can be computed as:
+* Poate fi calculată ca:
 $$\sigma^2 = \overline{[f^{(k)}(t)]^2} - [\mu^{(k)}]^2$$
 
-### Temporal autocorrelation
+* Observație:
+    * aceste valori nu mai depind de timpul $t$
 
-4. The temporal autocorrelation function
-$$R_{ff}(t_1,t_2) = \overline{f^{(k)}(t_1 + t) f^{(k)}(t_2+t)}$$
-$$R_{ff}(t_1,t_2) = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t_1+t) f^{(k)}(t_2 + t) dt$$
-5. The temporal correlation function (for different random processes $f(t)$ and $g(t)$)
-$$R_{fg}(t_1,t_2) = \overline{f^{(k)}(t_1 + t) g^{(k)}(t_2+t)}$$
-$$R_{fg}(t_1,t_2) = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t_1+t) g^{(k)}(t_2 + t) dt$$
 
-### Stationary random processes
+### Autocorelația temporală
 
-* All the statistical averages are dependent on the time $t_1$
-    * i.e. they might be different for a sample at $t_2$
+4. Funcția de autocoreație temporală
+$$\begin{split}
+R_{ff}(t_1,t_2) =& \overline{f^{(k)}(t_1 + t) f^{(k)}(t_2+t)} \\
+=& \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t_1+t) f^{(k)}(t_2 + t) dt
+\end{split}$$
 
-* **Stationary** random process =  when statistical averages
-are identical upon shifting the time origin (e.g. delaying the signal
+5. Funcția de corelație temporală (pentri două procese diferite $f(t)$ și $g(t)$)
+$$\begin{split}
+R_{fg}(t_1,t_2) =& \overline{f^{(k)}(t_1 + t) g^{(k)}(t_2+t)}\\
+=& \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t_1+t) g^{(k)}(t_2 + t) dt
+\end{split}$$
 
-* The PDF are identical when shifting the time origin:
+### Medii statistice și temporale
+
+* Mediile statistice sunt, de obicei, cele de interes
+* Dar, în practică, putem calcula doar mediile temporale
+* Din fericire, în multe cazuri mediile statistice și temporale sunt identice ("*ergodicitate*")
+
+### Procese aleatoare staționare
+
+* În general, mediile statistice depind de timp
+    * pot fi diferite la alt moment de timp $t_2$
+
+* Proces aleator **staționar** = mediile statistice rămân aceleași 
+la modificarea originii timpului (întârzierea semnalului)
+
+* Echivalent: Distribuțiile (FDP/FMP) eșantioanelor rămân identice la modificarea originii timpului
 $$w_n(x_1,...x_n; t_1,...t_n) = w_n(x_1,...x_n; t_1+\tau,... t_n + =tau)$$
 
-* Strictly stationary / strongly stationary / strict-sense stationary:
-    * relation holds for every $n$
+* Practic, mediile nu trebuie să mai depindă de timp $t$
 
-* Weakly stationary / wide-sense stationary:
-    * relation holds only for $n=1$ and $n=2$  (the most used)
+### Staționar în sens strict sau larg
 
-### Consequences of stationarity
+* Proces aleator **staționar în sens strict**:
+    * relația e valabilă pentru toți $n$
 
-* For $n=1$:
+* Proces aleator **staționar în sens larg**:
+    * relația e valabilă doar pentru $n=1$ și $n=2$  (cele mai folosite)
+
+### Consecințe ale staționarității
+
+* Pentru $n=1$:
 $$w_1(x_i;t_1) = w_1(x_i; t_2) = w_1(x_i)$$
 
-* Consequence: the average value, average squared value, variance
-of a sample are all **identical** for any time $t$
+* Valoarea medie, valoarea medie pătratică, dispersia
+unui eșantion sunt **aceleași** la orice moment de timp $t$
 $$\overline{f(t)} = constant, \forall t$$
 $$\overline{f^2(t)} = constant, \forall t$$
 $$\sigma^2(t) = constant, \forall t$$
 
-* For $n=2$:
+### Consecințe ale staționarității
+
+* Pentru $n=2$:
 $$w_2(x_i,x_j;t_1,t_2) = w_2(x_i,x_j;0, t_2-t_1) = w_2(x_i,x_2; t_2-t_1)$$
 
-* Consequence: the autocorrelation / correlation functions depend only on the 
-**time difference** $t_2 - t_1$ between the samples,
-no matter where they are located
-$$R_{ff}(t_1,t_2) = R_{ff}(t_2 - t_1) = R_{ff}(\tau)$$
-$$R_{fg}(t_1,t_2) = R_{fg}(t_2 - t_1) = R_{fg}(\tau)$$
+* Funcția de autocorelație depinde doar de **diferența de timp**
+$\tau = t_2 - t_1$ dintre eșantioane, oriunde ar fi localizate
+$$R_{ff}(t_1,t_2) = R_{ff}(0, t_2 - t_1) = R_{ff}(\tau) = \overline{f(t) f(t + \tau)}$$
 
-### Ergodic random processes
+* Este valoarea medie a produsului dintre două eșantioane separate de un interval de timp $\tau$
 
-* In practice, we have access to a single realization 
+* Depinde doar de valoarea $\tau$ = diferența de timp dintre cele două eșantioane
 
-* **Ergodic** random process = when the temporal averages on any realization
-are **equal** to the statistical averages
+### Consecințe ale staționarității
 
-* We can compute all averages from a single realization
-    * the realization must be very long (length $\to \infty$)
-    * a realization is characteristic of the whole process
-    * realizations are all similar to the others, statistically
+* Idem pentru funcția de corelație dintre procese aleatoare diferite
 
-* Most random processes we are about are ergodic and stationary
-    * e.g. noises
+* Depinde doar de **diferența de timp** $\tau = t_2 - t_1$ dintre două eșantioane
+$$R_{fg}(t_1,t_2) = R_{fg}(0, t_2 - t_1) = R_{fg}(\tau) = \overline{f(t) g(t + \tau)}$$
 
-* Example of non-ergodic process:
-    * throw a dice, then the next 50 values are identical to the first
-    * a single realization is not characteristic
+* Este valoarea medie a produsului dintre două eșantioane separate de un interval de timp $\tau$
 
-### Practical distributions
 
-* Some of the most encountered probability density functions:
+### Procese aleatoare ergodice
 
-* The uniform distribution $U[a,b]$
-    * insert expression here
+* În practică, avem acces la o singură realizare
 
-* The normal (gaussian) distribution $N(\mu, \sigma^2)$
-$$f(x) = \frac{1}{\sigma \sqrt{2 \pi}}e^{\frac{(x - \mu)^2}{2 \sigma^2}}$$
-    * has average value $\mu$
-    * has variance (*"dispersia"*) $\sigma^2$
-    * has the familiar "bell" shape
-    * variance controls width
-    * narrower = taller, fatter = shorter
+* Proces aleator **ergodic** = mediile temporale pe orice realizare sunt **identice** cu mediile statistice
 
-### Computation of probabilities for normal functions
+* Se pot calcule toarte mediile pe baza unei singure realizări
+    * realizarea trebuie să fie foarte lungă (lungimea $\to \infty$) pentru valori precise
+    * o realizare este caracteristică pentru întreg procesul aleator
+    * realizările sunt similare unele cu altele, dpdv statistic
 
-* We sometimes need to compute $\int_a^b$ of a normal function
+### Procese aleatoare ergodice
 
-* Use *the error function*:
-$$erf(z) = \frac{2}{\sqrt{\pi}} \int_0^z e^{-t^2} dt$$
+* Majoritatea proceselor aleatoare de interes sunt ergodice și staționare
+    * de ex. zgomote de tensiune
 
-* The cumulative distribution function of a normal distribution $N(\mu, \sigma^2$)
-$$F(X) = \frac{1}{2}(1 + erf(\frac{x - \mu}{\sigma \sqrt{2}}))$$
+* Exemplu de proces ne-ergodic:
+    * se aruncă un zar, următoarele 50 valori sunt identice cu prima valoare
+    * o singură realizare nu e caracteristică pentru tot procesul
 
-* The error function can be simply calculated on Google, e.g. search $erf(0.5)$
 
-* Also, we might need:
-    * $erf(-\infty) = -1$
-    * $erf(\infty) = 1$
+## I.3 Proprietăți ale autocorelației
 
-* Examples at blackboard
+### Densitatea spectrală de putere
 
-### Properties of the auto-correlation function
+* Densitatea spectrală de putere (DSP) $S_{ff}(\omega)$ reprezintă 
+puterea procesului aleator la fiecare frecvență $f$ ($\omega = 2 \pi f$)
 
-* For a stationary random process:
-$$R_{ff}(\tau) = \overline{f(t) f(t + \tau)}$$
-$$R_{ff}(t_1, t_2) = R_{ff}(\tau = t_2 - t_1)$$
+* DSP descrie cum este distribuită puterea semnalului în frecvență
+    * de ex. unele procese au mai multă putere la frecvențe joase, altele la frecvențe înalte
 
-* Is the average value of a product of two samples time $\tau$ apart
-* Depends on a single value $\tau$ = time difference of the two samples
+* Puterea în banda de frecvență $[f_1, f_2]$ este $\int_{f_1}^{f_2} S_{ff}(\omega) d\omega$
 
-### The Wiener-Khinchin theorem
+* Puterea totală a procesului aleator este $\int_{-\infty}^{\infty} S_{ff}(\omega) d\omega$
 
-* *Rom: teorema Wiener-Hincin*
+* DSP este o funcție măsurabilă practic
+    * poate fi determinată experimental
+    * este importantă în aplicații practice (inginerești)
 
-* **The Fourier transform of the autocorr function = power spectral density of the process**
+### Teorema Wiener-Hincin
+
+Teoremă:
+
+* **Densitatea spectrală de putere = transformata Fourier a funcției de autocorelație**
 $$S_{ff}(\omega) = \int_{-\infty}^{\infty} R_{ff}(\tau) e^{- j \omega \tau} d\tau$$
 $$R_{ff}(\tau) = \frac{1}{2 \pi}\int_{-\infty}^{\infty} S_{ff}(\omega) e^{j \omega \tau} d\omega$$
 
-* No proof
+* Fără demonstrație
 
-* The power spectral density
-    * tells the average power of the process at every frequency
+* Leagă două concepte de natură diferită
+    * funcția de autocorelație: o proprietate *statistică*
+    * DSP: o proprietate *fizică* (ține de energia semnalului; importantă în aplicații practice)
 
-* Some random processes have low frequencies (they vary rather slowly)
-* Some random processes have high frequencies (they vary rather fast)
+### Zgomot alb
 
-### White noise
-
-* White noise = random process with autocorr function = a Dirac
+* Zgomot alb = proces aleator cu funcția de autocorelație egală cu o funcție Dirac
 $$R_{ff}(\tau) = \delta(\tau)$$
 
-* Any two different samples are not correlated
-    * all samples are absolutely independent one of the other
+* Două eșantioane diferite ($\tau \neq 0$) au corelație zero (necorelate)
+    * adică nu variază în mod similar
     
-* Power spectral density = a constant
-    * has equal power at all frequencies
+* Densitatea spectrală de putere = transf. Fourier a unui Dirac = constantă
+    * putere constantă la toate frecvențele, până la $f = \infty$
     
-* In real life, power goes to 0 for very high frequencies
-    * e.g. samples which are very close are necessarily correlated
-    * = *limited white noise*
+* În practică, puterea scade la 0 la frecvențe foarte înalte
+    * zgomot alb "*de bandă limitată*"
+    * eșantioane foarte apropiate sunt totuși corelate
+
+* Zgomotul alb poate avea diverse distribuții
+    * normală, uniformă etc.
 
 
-### Properties of the autocorrelation function
+### Proprietățile funcției de autocorelație
 
-1. Is even
+1. Este o funcție pară
 $$R_{ff}(\tau) = R_{ff}(-\tau)$$
 
-* Proof: change variable in definition
+* Demonstrație: Schimbare de variabilă în definiție
 
-2. At infinite it goes to a constant
+2. La infinit, tinde la o valoare constantă
 $$R_{ff}(\infty) = \overline{f(t)}^2 = const$$
 
-* Proof: two samples separated by $\infty$ are independent
+* Dem.: două eșantioane la un interval $\infty$ sunt necesar independente
 
-3. Is maximum in 0
+3. Are valoarea maximă în 0
 $$R_{ff}(0) \geq R_{ff}(\tau)$$
 
-* Proof: start from $\overline{(f(t) - f(t + \tau))^2} \geq 0$
-* Interpretation: different samples might vary differently, by a sample is always identical with itself
+* Dem.: se pornește de la $\overline{(f(t) - f(t + \tau))^2} \geq 0$
+* Interpretare: eșantioane diferite mai pot varia diferit, dar un eșantion variază întotdeauna identic cu sine însuși
 
-### Properties of the autocorrelation function
+### Proprietățile funcției de autocorelație
 
-4. Value in 0 = the power of the random process
+4. Valoarea în 0 = puterea procesului aleator
 $$R_{ff}(0) = \frac{1}{2 \pi} \int_{-\infty}^{\infty} S_{ff}(\omega) d\omega$$
 
-* Proof: Put $\tau = 0$ in inverse Fourier transform of Wiener-Khinchin theorem
+* Dem.: Se pune $\tau = 0$ în transf. Fourier inversă din teorema Wiener-Hincin
 
-5. Variance = difference between values at 0 and $\infty$
+5. Dispersia = diferența între valoarea din 0 și cea de la $\infty$
 $$\sigma^2 = R_{ff}(0) - R_{ff}(\infty)$$
 
-* Proof: $R_{ff}(0) = \overline{f(t)^2}$, $R_{ff}(\infty) = \overline{f(t)}^2$
+* Dem.: $R_{ff}(0) = \overline{f(t)^2}$, $R_{ff}(\infty) = \overline{f(t)}^2$
+
+### Autocorelația unui proces aleator filtrat
+
+* Fie un proces aleator aplicat la intrarea unui sistem
+    * fie în timp continuu: intrarea $x(t)$, sistemul $H(s)$, ieșirea $y(t)$
+    * fie în timp discret: intrarea $x[n]$, sistemul $H(z)$, ieșirea $y[n]$
+    
+* Cum depinde autocorelația ieșirii $y$ de cea a intrării $x$?
 
 
 

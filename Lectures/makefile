@@ -20,7 +20,7 @@ EXPORTED_DOCS_TEX = $(SOURCE_MD:.md=.tex)
 
 # Pandoc options
 PANDOC = pandoc
-PANDOC_OPTIONS = -f markdown+latex_macros --standalone -t beamer --slide-level 2 --include-in-header macros.md
+PANDOC_OPTIONS = -f markdown+latex_macros --standalone -t beamer --slide-level 3 --include-in-header macros.md
 
 # PWeave options
 PWEAVE = pweave
