@@ -44,7 +44,7 @@ RM=/bin/rm
 	$(PANDOC) $(PANDOC_OPTIONS) -o $@ slides_header.md $<
 
 %.md : %.mdw
-	$(PWEAVE) $(PWEAVE_OPTIONS_FAST) -o $@ $<
+	$(PWEAVE) $(PWEAVE_OPTIONS) -o $@ $<
 
 # What is this?
 .PHONY: all clean

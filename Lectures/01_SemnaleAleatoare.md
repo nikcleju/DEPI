@@ -125,12 +125,6 @@ $$P\left\{ A \leq X \leq B\right\} = \sum_{x=A}^B w_X(x)$$
 $$w(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
 
 
-~~~~{.python}
-<type 'exceptions.UnicodeDecodeError'>
-'ascii' codec can't decode byte 0xc8 in position 8: ordinal not in
-range(128)
-~~~~~~~~~~~~~
-
 ![](figures/01_SemnaleAleatoare_figure1_1.png){width=8cm}\
 
 
@@ -158,12 +152,6 @@ $$w(x) =
  0, &elsewhere
 \end{cases}$$
 
-
-~~~~{.python}
-<type 'exceptions.UnicodeDecodeError'>
-'ascii' codec can't decode byte 0xc8 in position 8: ordinal not in
-range(128)
-~~~~~~~~~~~~~
 
 ![](figures/01_SemnaleAleatoare_figure2_1.png){width=8cm}\
 
@@ -660,5 +648,97 @@ $$\sigma^2 = R_{ff}(0) - R_{ff}(\infty)$$
     
 * Cum depinde autocorelația ieșirii $y$ de cea a intrării $x$?
 
+* Se știe că $y$ este convoluția lui $x$ cu răspunsul la impuls $h$
+
+### Dezvoltare matematică
+
+* Pentru un proces aleator în timp discret
+$$\begin{split}
+R_{yy}(\tau) =& \overline{y[n] y[n + \tau]}\\
+=& \overline{\sum_{k_1=-\infty}^\infty h[k_1] x[n-k_1] \sum_{k_2=-\infty}^\infty h[k_2] x[n+\tau-k_2]}\\
+=& \sum_{k_1=-\infty}^\infty \sum_{k_2=-\infty}^\infty h[k_1] h[k_2] \overline{x[n-k_1] x[n+\tau-k_2]}\\
+=& \sum_{k_1=-\infty}^\infty \sum_{k_2=-\infty}^\infty h[k_1] h[k_2] R_{xx}[\tau - k_1 + k_2]
+\end{split}$$
+
+* Din teorema Wiener-Hincin se știe că:
+$$S_{ff}(\omega) = \sum_{\tau = -\infty}^{\infty} R_{ff}(\tau) e^{- j \omega \tau}$$
 
 
+### Dezvoltare matematică
+
+* Așadar
+$$
+S_{yy}(\omega) = \sum_{\tau=-\infty}^{\infty} \sum_{k_1=-\infty}^\infty \sum_{k_2=-\infty}^\infty h[k_1] h[k_2] R_{xx}[\tau - k_1 + k_2] e^{- j \omega \tau}
+$$
+
+* Schimbare de variabilă $\tau - k_1 + k_2 = u$
+    * rezultă $\tau = u + k_1 - k_2$ 
+
+$$\begin{split}
+S_{yy}(\omega) =& \sum_{u=-\infty}^{\infty} \sum_{k_1=-\infty}^\infty \sum_{k_2=-\infty}^\infty h[k_1] h[k_2] R_{xx}[u] e^{- j \omega (u + k_1 + k_2)}\\
+=& \sum_{u=-\infty}^{\infty} R_{xx}[u] e^{- j \omega u} \sum_{k_1=-\infty}^\infty h[k_1] e^{- j \omega k_1} \sum_{k_2=-\infty}^\infty h[k_2]  e^{ j \omega k_2}\\
+=& S_{xx}(\omega) \cdot H(\omega) \cdot H*^(\omega)\\
+=& S_{xx}(\omega) \cdot |H(\omega)|^2\\
+\end{split}$$
+
+### Rezultat
+
+$$S_{yy}(\omega) = S_{xx}(\omega) \cdot |H(\omega)|^2$$
+
+* DSP a lui $y$ = DSP a lui $x$ multiplicată cu răspunsul în amplitudine, la pătrat, al filtrului
+
+* Relația este valabilă și pentru procese aleatoare continue
+
+### Aplicații ale (auto)corelației
+
+* Căutarea unei anume porțiuni într-un semnal mai mare
+
+* Corelația a două semnale = o măsura a **similarității** celor două semnale
+    * Funcția de corelație măsoară similaritatea unui semnal cu toate versiunile decalate ale celuilalt
+    * Exemplu numeric la tablă, semnale de lungime finită
+    
+* Corelația poate fi utilizată pentru localizare
+    * Funcția de (auto)corelație are valori mari atunci când cele două semnale se potrivesc
+    * Valori mari sunt atunci când valorile pozitive / negative ale semnalelor se potrivesc
+    * Valori mici atunci când nu se potrivesc
+    
+### Semnalul căutat
+
+![](figures/01_SemnaleAleatoare_figure3_1.png)\
+
+
+
+### Semnalul de dimensiuni mari
+
+
+![](figures/01_SemnaleAleatoare_figure4_1.png)\
+
+
+### Rezultatul corelației
+
+
+![](figures/01_SemnaleAleatoare_figure5_1.png)\
+
+
+### Identificare de sistem
+
+* Determinarea răspunsului la impuls al unui sistem necunoscut, liniar și invariant în timp
+
+* Se bazează pe corelația intrării cu ieșirea sistemlui
+
+![System identification setup](img/SystemIdentif.png){#id .class width=60%}
+
+### Identificare de sistem
+
+$$\begin{split}
+R_{fg}(\tau) =& \overline{f[n] g[n + \tau]}\\
+=& \overline{f[n] \sum_{k=-\infty}^\infty h[k] f[n+\tau-k]}\\
+=& \sum_{k=-\infty}^\infty h[k] \overline{f[n] f[n+\tau-k]}\\
+=& \sum_{k=-\infty}^\infty h[k] R_{ff}[\tau - k]\\
+=& h[\tau] \star R_{ff}[\tau]
+\end{split}$$
+
+* Dacă intrarea $f$ este **zgomot alb** cu puterea $A$, $R_{ff}[n] = A \cdot \delta[n]$, și
+$$R_{fg}(\tau) = h[\tau] \star R_{ff}[\tau] = A \cdot h[\tau] \star \delta[\tau] = A \cdot h[\tau]$$
+
+* Corelația măsurată este proporțională cu răspunsul la impuls al sistemului necunoscut
