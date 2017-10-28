@@ -126,7 +126,7 @@ $$\frac{w(r | H_1)}{w(r | H_0)} \grtlessH 1$$
 
 * Caz particular: zgomotul are distribuția normală $\mathcal{N}(0,\sigma^2)$
 
-* Raportul de plauzibilitate este $\frac{w(r|H_1)}{r|H_0} = \frac{e^{\frac{(r-A)^2}{2\sigma^2}}}{e^{\frac{r^2}{2\sigma^2}}} \grtlessH 1$
+* Raportul de plauzibilitate este $\frac{w(r|H_1)}{r|H_0} = \frac{e^{-\frac{(r-A)^2}{2\sigma^2}}}{e^{-\frac{r^2}{2\sigma^2}}} \grtlessH 1$
 
 * Pentru distribuția normală, e preferabil să aplicăm *logaritmul natural*
     * logaritmul este o funcție monoton crescătoare, deci nu schimbă rezultatul comparației
@@ -188,6 +188,46 @@ Folosind criteriul plauzibilității maxime, decideți ce semnal s-a transmis, d
 eșantioanele următoare:
 $$4, 6.6, -5.2, 1.1, 0.3, -1.5, 7, -7, 4.4$$
 
+### Probabilități de eroare condiționate
+
+* Putem calcula probabilitățile de eroare condiționate
+
+* Fie regiunile de decizie:
+    * $R_0$: dacă $r \in R_0$, decizia este $D_0$, de ex. $(\infty, T)$ pentru zgomot gaussian
+    * $R_1$: daca $r \in R_1$, decizia este $D_1$, de ex. $[T, \infty)$ pentru zgomot gaussian
+    
+* Probabilitatea unei alarme false ***dacă** semnalul original este $s_0(t)$*
+$$P(D_1 | H_0) = \int_{R_1} w(r|H_0) dx$$
+
+* Probabilitatea unei ratări ***dacă** semnalul original este $s_1(t)$*
+$$P(D_0 | H_1) = \int_{R_0} w(r|H_1) dx$$
+
+* Aceste valori nu țin cont de probabilitatea ca semnalul să fie $s_0(t)$ sau $s_1(t)$
+    * sunt **condiționate** ("dacă")
+
+### Probabilități de eroare condiționate
+
+![Probabilitățile deciziilor](img/SigDetWGN.png){#id .class width=60%}
+
+*[sursa: hhttp://gru.stanford.edu/doku.php/tutorials/sdt]*
+
+### Reamintire (TCI): regula lui Bayes
+
+* Reamintire (TCI): regula lui Bayes
+$$P(A \cap B) = P(B | A) \cdot P(A))$$
+
+* Interpretare
+    * Probabilitatea $P(A)$ este extrasă din $P(B|A)$
+    * $P(B|A)$ nu mai conține nici o informație despre $P(A)$, șansele ca $A$ chiar să aibă loc
+    * Exemplu: P(gol | șut la poartă). Câte goluri se înscriu?
+
+### Exercițiu
+
+* Un semnal poate avea două valori posibile, $0$ sau $5$. Semnalul $0$ este afectat de zgomot gaussian $\mathcal{N}(0, 0.5)$,
+iar semnalul $5$ de zgomot uniform $\mathcal{U}[-4,4]$. Receptorul decide pe baza criteriului 
+plauzibilității maxime, folosind un singur eșantion din semnal.
+    a. Calculați probabilitatea unei decizii greșite când semnalul original este $s_0(t)$
+    b. Calculați probabilitatea unei decizii greșite când semnalul original este $s_1(t)$
 
 ### Dezavantaje ale criteriului plauzibilității maxime
 
@@ -196,14 +236,10 @@ $$4, 6.6, -5.2, 1.1, 0.3, -1.5, 7, -7, 4.4$$
 
 * Condiționarea de ipotezele $H_0$ și $H_1$ ignoră probabilitatea celor două ipoteze $H_0$ și $H_1$
 
-* Reamintire (TCI): regula lui Bayes
-$$P(A \cap B) = P(B | A) \cdot P(A))$$
+* Dacă $p(H_0) > p(H_1)$, am vrea să împingem pragul $T$ înspre $H_1$, și vice-versa
+    * pentru că este mai probabil ca semnalul să fie $s_0(t)$
+    * și de aceea vrem să "favorizăm" decizia $D_0$ 
 
-* Interpretare
-    * Probabilitatea $P(A)$ este extrasă din $P(B|A)$
-    * $P(B|A)$ nu mai conține nici o informație despre $P(A)$, șansele ca $A$ chiar să aibă loc
-    * Exemplu: P(gol | șut la poartă)
-* Practic: dacă $p(H_0) >> p(H_1)$, am vrea să împingem pragul $T$ înspre $H_1$
 
 ### Criteriul probabilității minime de eroare
 
@@ -263,15 +299,25 @@ $$\frac{w(r | H_1)}{w(r | H_0)} \grtlessH \frac{P(H_0)}{P(H_1)}$$
 ### Criteriul probabilității minime de eroare - zgomot gaussian
 
 * Presupunând că zgomotul este gaussian (normal), $\mathcal{N}(0, \sigma^2)$
-$$w(r | H_1) = e^{\frac{(r-A)^2}{2\sigma^2}}$$
-$$w(r | H_0) = e^{\frac{r^2}{2\sigma^2}}$$
+$$w(r | H_1) = e^{-\frac{(r-A)^2}{2\sigma^2}}$$
+$$w(r | H_0) = e^{-\frac{r^2}{2\sigma^2}}$$
 
 * Se aplică logaritmul natural
-$$\frac{(r-A)^2}{2\sigma^2} - \frac{r^2}{2\sigma^2} \grtlessH \ln \left(\frac{P(H_0)}{P(H_1)} \right)$$
+$$-\frac{(r-A)^2}{2\sigma^2} + \frac{r^2}{2\sigma^2} \grtlessH \ln \left(\frac{P(H_0)}{P(H_1)} \right)$$
 
 * Echivalent
-$$(r-A)^2 \grtlessH (r-0)^2 + \underbrace{2 \sigma^2 \cdot \ln \left(\frac{P(H_0)}{P(H_1)} \right)}_C$$
+$$2rA - A^2 \grtlessH 2 \sigma^2 \cdot \ln \left(\frac{P(H_0)}{P(H_1)} \right)$$
+$$ r \grtlessH \underbrace{\frac{A^2 + 2 \sigma^2 \cdot \ln \left(\frac{P(H_0)}{P(H_1)} \right) }{2A}}_T$$
 
+### Regiuni de decizie
+
+* Se compară eșantionul tot cu un prag $T$, dar valoarea acestuia este împinsă înspre ipoteza mai puțin probabilă
+    * $T$ depinde de raportul $\frac{P(H_0)}{P(H_1)}$
+    
+* Regiuni de decizie
+    * $R_0 = (-\infty, T]$
+    * $R_1 = [T, \infty)$
+    * pot fi diferite pentru alte tipuri de zgomot
 
 ### Exerciții 
 
@@ -283,157 +329,185 @@ Decizia se face prin compararea valorii $r$ cu un prag $T$, astfel: dacă $r < T
 că s-a transmis mesajul $a_0$, altfel se decide mesajul $a_1$.
     a. Să se găsească valoarea pragului $T$ conform criteriul probabilității minime de eroare
     b. Dar dacă semnalul $5$ este afectat de zgomot uniform $\mathcal{U}[-4,4]$?
+    c. Calculați probabilitatea unei alarme false și a unei ratări
 
 
-### Minimum risk (cost) criterion
+### Criteriul riscului (costului) minim
 
-* What if we care more about one type of errors (e.g. false alarms)
-than other kind (e.g. miss)?
+* Dacă ne afectează mai mult un anume tip de erori (de ex. alarme false) decât celelalte?
 
-* Minimum risk (cost) criterion: assign costs to decisions, minimize average cost
-    * $C_{ij}$ = cost of decision $D_i$ when true hypothesis was $H_j$
-    * $C_{00}$ = cost for good detection $D_0$ in case of $H_0$
-    * $C_{10}$ = cost for false alarm (detection $D_1$ in case of $H_0$)
-    * $C_{01}$ = cost for miss (detection $D_0$ in case of $H_1$)
-    * $C_{11}$ = cost for good detection $D_1$ in case of $H_1$
+* Criteriul riscului (sau costului) minim: deciziile au un cost, se minimizează costul mediu
+    * $C_{ij}$ = costul deciziei $D_i$ când ipoteza adevărată este $H_j$
+    * $C_{00}$ = costul unei rejecții corecte
+    * $C_{10}$ = costul unei alarme false
+    * $C_{01}$ = costul unei ratări
+    * $C_{11}$ = costul unei detecții corecte
 
-*  The risk = the average cost
+*  Definim **riscul** = costul mediu
 $$R = C_{00} P(D_0 \cap H_0) + C_{10} P(D_1 \cap H_0) + C_{01} P(D_0 \cap H_1) + C_{11} P(D_1 \cap H_1)$$
 
-* Minimum risk criterion: **minimize the risk R**
+* Criteriul riscului minim: **se minimizează riscul R**
 
-### Computations
+### Calcule
 
-* Proof on table:
-    * Use Bayes rule
-    * Notations: $w(r | H_j)$ (*likelihood*)
-    * Probabilities: $\int_{R_i} w(r | H_j) dV$
+* Demonstrație la tablă
+    * se folosește regula lui Bayes
 
-* Conclusion, **decision rule is**
+* Concluzie: regula de decizie este
 $$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH \frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)}$$
 
-### Interpretation
+### Interpretare
 
-* Similar to ML and to minimum probability of error criteria
-    * also uses a **likelihood ratio** test
+* Similar cu primele două criterii, bazat tot pe **raportul de plauzibilitate**
 
-* Both probabilities and the assigned costs can move threshold towards one side or the other
+* Atât probabilitățile cât și costurile pot împinge pragul $T$ într-o parte sau alta
 
-* If $C_{10}-C_{00} = C_{01}-C_{11}$, reduces to previous criterion (minimum probability of error)
-    * e.g. if $C_{00} = C_{11} = 0$, and $C_{10} = C_{01}$
+* Caz particular: dacă $C_{10}-C_{00} = C_{01}-C_{11}$, se reduce la criteriul probabilității de eroare minime
+    * de ex.: dacă $C_{00} = C_{11} = 0$ și $C_{10} = C_{01}$
 
-### In gaussian noise
+### În zgomot gaussian
 
-* If the noise is gaussian (normal), then similar to other criteria, apply logarithm
+* Dacă zgomotul este gaussian (normal), se aplică logaritmul natural, ca la celelalte criterii
 
-* Equivalently
-$$(r-A)^2 \grtlessH (r-0)^2 + \underbrace{2 \sigma^2 \cdot \ln \left( \frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)} \right)}_C$$
+* Se obține valoarea pragului $T$:
+$$-(r-A)^2 + r^2 \grtlessH \underbrace{2 \sigma^2 \cdot \ln \left( \frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)} \right)}_C$$
+$$ r \grtlessH \underbrace{\frac{A^2 + 2 \sigma^2 \cdot \ln \left(\frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)} \right) }{2A}}_T$$
 
-### Example
+### Exemplu
 
-* Example at blackboard: random noise with $N(0, \sigma^2)$, one sample
-
-
-### Generalization: two non-zero levels
-
-* What if the $s_0$ signal is not 0, but another constant signal $s_0 = B$
-
-* Noise distribution $w(r|H_0)$ is centered on $B$, not 0
-
-* Otherwise, everything else stays the same
-
-* Performance is defined by the gap between the two levels ($A - B$)
-    * same performance if $s_0 = 0$, $s_1 = A$ or if $s_0 = -\frac{A}{2}$ and $s_1 = frac{A}{2}$
+* Exemplu la tablă: 0 / 5, zgomot alb $N(0, \sigma^2)$, un eșantion
 
 
-### Differential vs single-ended signalling
+### Două nivele de semnal nenule
 
-* Single-ended signaling: one signal is 0, other is non-zero
-    * $s_0 = 0$, $s_1 = A$
+* Dacă semnalul $s_0(t)$ nu este 0, ci are o altă valoare constantă $s_0(t) = B$?
 
-* Differential signaling: use two non-zero levels with different sign, same absolute value
-    * $s_0 = 0$, $s_1 = A$
+* Distribuția zgomotului $w(r|H_0)$ va fi centrată pe $B$ în loc de 0
 
-* Which is better?
+* În rest, totul rămâne la fel
 
-### Differential vs single-ended signalling
-
-* If gap difference between levels is the same, performance is the same
-
-* Average power of a signal = average squared value
-
-* For differential signal: $P = \left( \pm \frac{A}{2} \right)^2 = \frac{A^2}{4}$
-
-* For signal ended signal: $P = P(H_0) \cdot 0 + P(H_1) \left( A \right)^2 = \frac{A^2}{2}$
-   * assuming equal probabilities of 0 and 1, $P(H_0) = P(H_1) = \frac{1}{2}$
-
-* Differential uses half the power of single-ended (i.e. better)
-
-### Summary of criteria
-
-* We have seen decision based on 1 sample $r$, between 2 constant levels
-
-* All decisions are based on a likelihood-ratio test
-$$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH K$$
-
-* Different criteria differ in the chosen value of $K$ (likelihood threshold)
-
-* Depending on the noise distributions, the real axis is partitioned into regions
-    * region $R_0$: if $r$ is in here, decide $D_0$
-    * region $R_1$: if $r$ is in here, decide $D_1$
-    * e.g. $R_0 = (-infty, \frac{A+B}/2]$, $R_1 = (\frac{A+B}/2, \infty)$ (ML)
-
-### Receiver Operating Characteristic
-
-* The receiver performance is usually represented with **"Receiver Operating Characteristic"** graph
-
-* It is a graph of correct detection probability $P_d = P(D_1 | H_1)$ 
-as a function of false alarm probability $P_{fa} = P(D_1 \cap H_0)$
-
-* Picture here
-
-### Receiver Operating Characteristic
-
-* There is always a **tradeoff** between good $P_d$ and bad $P_{fa}$
-    * to increase $P_d$ one must also increase $P_{fa}$
-    * if we want to make sure we don't miss any real detections (increase P_d), we pay by increasing
-    the chances of false alarms
+* Performanțele sunt determinate de diferența dintre cele două valori ($A - B$)
+    * cazul $s_0 = 0$, $s_1 = A$ este identic cu cazul $s_0 = -\frac{A}{2}$, $s_1 = \frac{A}{2}$
     
-* Different criteria = different likelihood thresholds $K$  = different points on the graph
- = different tradeoffs
-     * but the tradeoff cannot be avoided
+* Valabil pentru toate criteriile de decizie
 
-* How to improve the receiver?
-    * i.e. increase $P_D$ while keeping $P_{fa}$ the same
 
-### Performance of likelihood-ratio decoding in WGN
+### Semnale diferențiale sau unipolare
 
-* WGN = "White Gaussian Noise"
+* Semnal unipolar: o valoare este 0, cealaltă este nenulă
+    * $s_0 = 0$, $s_1 = A$
 
-* Assume equal probabilities $P(H_0) = P(H_1) = \frac{1}{2}$
+* Semnal diferențial: două valori nenule cu semne contrare, aceeași valoare absolută
+    * $s_0 = -\frac{A}{2}$, $s_1 = \frac{A}{2}$
 
-* All decisions are based on a likelihood-ratio test
+* Care metodă este mai bună?
+
+### Semnale diferențiale sau unipolare
+
+* Cu aceeași diferență între nivele, performanțele deciziei sunt identice
+
+* Dar puterea medie a semnalelor diferă
+
+* Pentru semnale diferențiale: $P = \left( \pm \frac{A}{2} \right)^2 = \frac{A^2}{4}$
+
+* Pentru semnale unipolare: $P = P(H_0) \cdot 0 + P(H_1) \left( A \right)^2 = \frac{A^2}{2}$
+    * presupunând probabilități egale $P(H_0) = P(H_1) = \frac{1}{2}$
+
+* Semnalul diferențial necesită putere la jumătate față de cel unipolar (mai bine)
+
+### Sumar: criterii de decizie
+
+* Am văzut: decizie între două nivele constante, bazată pe 1 eșantion $r$
+
+* Toate criteriile au la bază un test al raportului de plauzibilitate
 $$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH K$$
 
-* Detection probability is
+* Criterii diferite conduc la valori diferite pentru $K$ (pragul de plauzibilitate)
+
+* În funcție de distribuția zgomotului, axa reală este împărțită în regiuni
+    * regiunea $R_0$: dacă $r$ este aici, se decide $D_0$
+    * regiunea $R_1$: dacă $r$ este aici, se decide $D_1$
+    * de ex. $R_0 = (-\infty, \frac{A+B}{2}]$, $R_1 = (\frac{A+B}{2}, \infty)$ (pentru crit. plauz. max)
+
+### Caracteristica de operare a receptorului (ROC)
+
+* Performanța unui receptor este ilustrată cu un grafic numit **"Caracteristica de operare a receptorului"** 
+(**"Receiver Operating Characteristic", ROC)**
+
+* Reprezintă probabilitatea detecției corecte $P_d = P(D_1 \cap H_1)$
+în funcție de probabilitatea alarmei false $P_{fa} = P(D_1 \cap H_0)$
+
+![Sample ROC curves](img/ROCcurve.png){#id .class width=60%}
+
+*[image from http://www.statisticshowto.com/receiver-operating-characteristic-roc-curve/]*
+
+### Caracteristica de operare a receptorului (ROC)
+
+* Există întotdeauna un **compromis** între $P_d$ și $P_{fa}$
+    * creșterea $P_d$ implică și creșterea $P_{fa}$
+    * pentru a fi siguri că nu ratăm nici un semnal (creșterea $P_d$), plătim prin
+    creșterea probabilității de alarme false
+    
+* Criterii diferite = diferite praguri $K$ = diferite puncte pe grafic = compromisuri diferite
+
+* Cum să creștem performanțele unui receptor?
+    * adică să creștem $P_D$ menținând $P_{fa}$ la aceeași valoare
+
+### Performanțele detecției în zgomot alb gaussian
+
+* Considerăm probabilități egale $P(H_0) = P(H_1) = \frac{1}{2}$
+
+* Deciziile se iau pe baza raportului de plauzibilitate
+$$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH K$$
+
+* Probabilitatea detecției corecte este
 $$\begin{split}
-P_D =& P(D_1 | H_1) P(H_1) \\
+P_d =& P(D_1 | H_1) P(H_1) \\
 =& P(H_1) \int_{T}^{\infty} w(r | H_1) \\
 =& P(H_1) (F(\infty) - F(T)) \\
-=& P(H_1) \left( 1 - \frac{1}{2} \left( 1 + erf \left( \frac{r - A}{\sqrt{2}\sigma} \right) \right) \right) \\
-=& \frac{1}{4} \left( 1 - erf \left( \frac{r - A}{\sqrt{2}\sigma} \right) \right) \\
+=& \frac{1}{4} \left( 1 - erf \left( \frac{T - A}{\sqrt{2}\sigma} \right) \right) \\
+=& Q \left( \frac{T - A}{\sqrt{2}\sigma} \right) \\
 \end{split}$$
 
 
-### Performance of likelihood-ratio decoding in WGN
+### Performanțele detecției în zgomot alb gaussian
 
-* False alarm probability is 
+* Probabilitatea alarmei false este
 $$\begin{split}
 P_{fa} =& P(D_1 | H_0) P(H_0) \\
 =& P(H_0) \int_{T}^{\infty} w(r | H_0) \\
 =& P(H_0) (F(\infty) - F(T)) \\
-=& P(H_0) \left( 1 - \frac{1}{2} \left( 1 + erf \left( \frac{r - 0}{\sqrt{2}\sigma} \right) \right) \right) \\
-=& \frac{1}{4} \left( 1 - erf \left( \frac{r - 0}{\sqrt{2}\sigma} \right) \right) \\
+=& \frac{1}{4} \left( 1 - erf \left( \frac{T - 0}{\sqrt{2}\sigma} \right) \right) \\
+=& Q \left( \frac{T}{\sqrt{2}\sigma} \right) \\
 \end{split}$$
 
-* Therefore 
+* Rezultă că $\frac{T}{\sqrt{2}\sigma} = Q^{-1} \left( P_{fa}\right)$
+
+* Înlocuind în $P_d$ se obține
+$$P_d = Q \left( \underbrace{Q^{-1} \left(P_{fa}\right)}_{constant} - \frac{A}{\sqrt{2}\sigma} \right)$$
+
+### Raportul semnal zgomot
+
+* **Raportul semnal zgomot (SNR)** = $\frac{\text{puterea semnalului original}}{\text{puterea zgomotului}}$
+
+* Puterea medie a unui semnal = valoarea pătratică medie = $\overline{X^2}$
+    * Puterea semnalului original este $\frac{A^2}{2}$
+    * Puterea zgomotului este $\overline{X^2} = \sigma^2$ (pentru valoare medie nulă $\mu = 0$)
+    
+* În cazul nostru, SNR = $\frac{A^2}{2 \sigma^2}$
+
+$$P_d = Q \left( \underbrace{Q^{-1} \left(P_{fa}\right)}_{constant} - \sqrt{SNR} \right)$$
+
+* Pentru $P_{fa}$ de valoare fixă, $P_d$ crește odată cu SNR
+    * Q este o funcție monoton descrescătoare
+
+
+### Performanța depinde de SNR
+
+* Performanța receptorului crește odată cu creșterea SNR
+    * SNR mare: performanță bună
+    * SNR mic:  performanță slabă
+    
+![Performanțele detecției depind de SNR](img/PD_SNR.png){#id .class width=47%}
+
+*[sursa: Fundamentals of Statistical Signal Processing, Steven Kay]*
