@@ -248,25 +248,21 @@ plauzibilității maxime, folosind un singur eșantion din semnal.
 * Se urmărește **minimizarea probabilității totale de eroare $P_e$**
     * erori = alarme false și ratări
 
-* Există de asemenea un prag $T$ astfel încât
-    * decidem $D_0$ dacă $r<T$
-    * decidem $D_1$ dacă $r \geq T$
-
-* Trebuie să găsim valoarea lui $T$
+* Trebuie să găsim regiunile de decizie $R_0$ și $R_1$
 
 ### Probabilitatea de eroare
 
 * Probabilitatea unei alarme false
 $$\begin{split}
 P(D_1 \cap H_0) =& P(D_1 | H_0) \cdot P(H_0)\\
-=& \int_T^{\infty} w(r | H_0) dx \cdot P(H_0)\\
-=& (1 - \int_{-\infty}^T w(r | H_0) dx \cdot P(H_0)
+=& \int_{R_1} w(r | H_0) dx \cdot P(H_0)\\
+=& (1 - \int_{R_0} w(r | H_0) dx \cdot P(H_0)
 \end{split}$$
 
 * Probabilitatea unei ratări
 $$\begin{split}
 P(D_0 \cap H_1) =& P(D_0 | H_1) \cdot P(H_1)\\
-=& \int_{-\infty}^T w(r | H_1) dx \cdot P(H_1)
+=& \int_{R_0} w(r | H_1) dx \cdot P(H_1)
 \end{split}$$
 
 * Suma lor este
@@ -276,8 +272,8 @@ $$P_e = P(H_0) + \int_{-\infty}^T [w(r|H_1) \cdot P(H_1) - w(r|H_0) \cdot P(H_0)
 
 * Urmărim minimizarea $P_e$, adică să minimizăm integrala
 
-* Pentru a minimiza integrala, se alege $T$ astfel încât pentru toți $r < T$, 
-termenul din integrala este **negative**
+* Pentru a minimiza integrala, se alege $R_0$ astfel încât pentru toți $r \in R_0$, 
+termenul din integrala este **negativ**
     * integrarea pe întregul interval în care o funcție este negativă conduce la valoarea minimă
 
 * Așadar, când $w(r|H_1) \cdot P(H_1) - w(r|H_0) \cdot P(H_0) < 0$ avem $r < T$, adică decizia $D_0$
