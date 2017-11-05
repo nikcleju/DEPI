@@ -47,7 +47,7 @@ dintre două sau mai multe posibilități
     * observarea întregului semnal continuu, pentru un timp $T$
 
 
-## II.2 Detecția semnalelor constante
+## II.2 Detecția semnalelor constante folosind 1 eșantion
 
 ### Detecție unui semnal constant, 1 eșantion
 
@@ -369,10 +369,32 @@ $$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH \frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11
 $$-(r-A)^2 + r^2 \grtlessH \underbrace{2 \sigma^2 \cdot \ln \left( \frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)} \right)}_C$$
 $$ r \grtlessH \underbrace{\frac{A^2 + 2 \sigma^2 \cdot \ln \left(\frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)} \right) }{2A}}_T$$
 
+### În zgomot gaussian
+
+* În general, pentru un raport de plauzibilitate comparat cu $K$, $\frac{w(r|H_1)}{w(r|H_0)} \grtlessH K$, 
+pragul este
+$$T = \frac{A^2 + 2 \sigma^2 \cdot \ln K }{2A}$$
+
 ### Exemplu
 
 * Exemplu la tablă: 0 / 5, zgomot alb $N(0, \sigma^2)$, un eșantion
 
+### Criteriul Neymar-Pearson
+
+* Criteriul Neymar-Pearson: se maximizează probabilitatea de detecție ($P(D_1 \cap H_1)$)
+păstrând probabilitatea alarmei false sub o limită fixată $(P(D_1 \cap H_0) \leq \lambda)$
+
+* Se deduce pragul $T$ din constrângerea la limită $P(D_1 \cap H_0) = \lambda$
+
+### Exercițiu
+* O sursă de informație produce două mesaje cu probabilitățile $p(a_0) = \frac{2}{3}$ și $p(a_1) = \frac{1}{3}$.
+* Mesajele sunt codate ca semnale constante cu valorile $-5$ ($a_0$) și $5$ ($a_1$).
+* Semnalele sun afectate de zgomot alb cu distribuție *triunghiulară* în intervalul $[-5,5]$.
+* Receptorul ia un singur eșantion $r$.
+* Decizia se ia prin compararea $r$ cu un prag $T$: dacp $r < T$ se decide că mesajul
+este $a_0$, altfel este $a_1$.
+    a. Găsiți pragul $T$ conform criteriului Neymar-Pearson, pentru $P_{fa} \leq 10^{-2}$
+    b. Care este probabilitatea de detecție corectă?
 
 ### Două nivele de semnal nenule
 
@@ -424,6 +446,8 @@ $$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH K$$
     * regiunea $R_0$: dacă $r$ este aici, se decide $D_0$
     * regiunea $R_1$: dacă $r$ este aici, se decide $D_1$
     * de ex. $R_0 = (-\infty, \frac{A+B}{2}]$, $R_1 = (\frac{A+B}{2}, \infty)$ (pentru crit. plauz. max)
+    
+* Pentru zgomot gaussian, pragul este $T = \frac{A^2 + 2 \sigma^2 \cdot \ln K }{2A}$
 
 ### Caracteristica de operare a receptorului (ROC)
 
@@ -507,3 +531,244 @@ $$P_d = Q \left( \underbrace{Q^{-1} \left(P_{fa}\right)}_{constant} - \sqrt{SNR}
 ![Performanțele detecției depind de SNR](img/PD_SNR.png){#id .class width=47%}
 
 *[sursa: Fundamentals of Statistical Signal Processing, Steven Kay]*
+
+
+### Decizii între ipoteze statistice
+
+* Teoria statistică a detecției este utilă și în alte contexte în afară
+de detecția unor semnale propriu-zise
+    * oriunde avem de ales între două ipoteze
+
+* Decizia se face între două distribuții de probabilitate
+    * indiferent ce semnificație au cele două distribuții
+
+* În cazul detecției unui semnal constant, se alege între două distribuții 
+care **diferă doar prin valoarea medie**, în general
+    * o distribuție are valoarea medie $0$, cealaltă $A$
+    
+* Dar se poate face decizie între distribuții care diferă prin alt parametru
+    * valoarea medie, sau
+    * varianța, or
+    * forma distribuției, etc
+    
+### Decizii între ipoteze statistice
+
+* Exemplu: Un eșantion cu valoarea $r = 2.5$ poate proveni dintr-o distribuție 
+$\mathcal{N}(0,\sigma^2=1)$ (ipoteza $H_0$) sau dintr-o alta $\mathcal{N}(0,\sigma^2=2)$ (ipoteza $H_1$). 
+Care ipoteză se consideră adevărată?
+    * Ceea ce diferă este varianța, nu valoarea medie
+
+* Se pot folosi exact aceleași criterii
+    * Se desenează cele două distribuții
+    * Se calculează plauzibilitățile $w(r|H_0)$ și $w(r|H_1)$ for $r$
+    * Se decide pe baza raportului de plauzibilitate, conform unui criteriu
+
+## II.3 Detecția unui semnal constant cu mai multe eșantioane
+
+### Multiple eșantioane dintr-un semnal constant
+
+* Presupunem că avem mai multe eșantioane, nu doar unul
+
+* Eșantioanele formează **vectorul eșantioanelor**
+$$\vec{r} = [r_1, r_2, ... r_N]$$
+
+* În ambele ipoteze, semnalul recepționat este un **proces aleator**
+    * $H_0$: proces aleator cu valoarea medie 0
+    * $H_1$: proces aleator cu valoarea medie A
+
+* Dacă zgomotul este staționar și ergodic, semnalul recepționat este și el staționar și ergodic
+(semnalul = o constantă + zgomotul)
+
+* Valorile vectorului $\vec{r}$ sunt descrise de **distribuția de ordin $N$**
+a procesului aleator, $w_N(\vec{r}) = w_N(r_1, r_2, ...r_N)$
+
+* Dacă zgomotul este alb, momentele de timp când se iau eșantioanele nu contează
+
+### Plauzibilitatea vectorului de eșantioane
+
+* Se aplică **aceleași criterii** bazate pe raportul de plauzibilitate în cazul unui singur eșantion
+$$\frac{w_N(\vec{r} | H_0)}{w_N(\vec{r} | H_1)} \grtlessH K$$
+
+* Observații
+    * $\vec{r}$ este un vector; prin el se consideră plauzibilitatea tuturor eșantioanelor
+    * ipotezele $H_0$ și $H_1$ sunt aceleași ca în cazul cu 1 eșantion
+    * $w_N(\vec{r} | H_0)$ = plauzibilitatea vectorului $\vec{r}$ în ipoteza $H_0$
+    * $w_N(\vec{r} | H_1)$ = plauzibilitatea vectorului $\vec{r}$ în ipoteza $H_1$
+    * valoarea lui $K$ este dată de criteriul de decizie utilizat
+
+* Interpretare: se alege ipoteza cea mai plauzibilă de a fi generat datele observate
+    * identic ca la 1 eșantion, doar că acum datele = mai multe eșantioane
+    
+### Descompunere pe fiecare eșantion
+
+* Presupunând că zgomotul este alb, eșantioanele $r_i$ sunt **realizări independente 
+ale aceleiași distribuții**
+
+* În acest caz, distribuția totală $w_N(\vec{r} | H_j)$ se poate descompune ca un produs
+$$w_N(\vec{r} | H_j) = w(r_1|H_j) \cdot w(r_2|H_j) \cdot ... \cdot w(r_N|H_j)$$
+
+* Termenii $w(r_i|H_j)$ sunt plauzibilitățile fiecărui eșantion în parte
+    * de ex. plauzibilitatea obținerii vectorului $[5.1, 4.7, 4.9]$ = plauzibilitatea obținerii lui $5.1$ $\times$
+    plauzibilitatea obținerii lui $4.7$ $\times$ plauzibilitatea obținerii lui $4.9$
+
+### Descompunere pe fiecare eșantion
+
+* Prin urmare, criteriile bazate pe raportul de plauzibilitate devin
+$$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{w(r_1|H_1)}{w(r_1|H_0)}  \cdot 
+\frac{w(r_2|H_1)}{w(r_2|H_0)} ... \frac{w(r_N|H_1)}{w(r_N|H_0)} \grtlessH K$$
+
+* Raportul de plauzibilitate al unui vector de eșantioane = produsul rapoartelor plauzibilitate ale fiecărui eșantion
+
+### Caz particulae: AWGN 
+
+* AWGN = "Additive White Gaussian Noise" = Zgomot alb, gaussian, aditiv
+
+* În ipoteza $H_1$: $w(r_i|H_1) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(r_i - A)^2}{2 \sigma^2}}$
+* În ipoteza $H_0$: $w(r_i|H_1) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{r_i^2}{2 \sigma^2}}$
+* Raportul de plauzibilitate al vectorului $\vec{r}$
+$$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{e^{-\frac{\sum (r_i - A)^2}{2 \sigma^2}}}{e^{-\frac{\sum (r_i)^2}{2 \sigma^2}}}$$
+
+* Se pot găsi trei interpretări ale raportului de plauzibilitate
+
+### Interpretarea 1: media eșantioanelor
+
+* Interpretarea 1: media eșantioanelor
+
+$$\begin{split}
+\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} =& \frac{e^{-\frac{\sum (r_i - A)^2}{2 \sigma^2}}}{e^{-\frac{\sum (r_i)^2}{2 \sigma^2}}} \\
+=& e^{-\frac{\sum (r_i - A)^2 - \sum (r_i)^2}{2 \sigma^2}} \\
+=& e^{-\frac{\sum (r_i^2 - 2 r_i A +A^2) - \sum (r_i)^2}{2 \sigma^2}} \\
+=& e^{-\frac{\sum (- 2 r_i A +A^2)}{2 \sigma^2}} \\
+=& e^{-\frac{- 2 A \sum (r_i) + N A^2}{2 \sigma^2}} \\
+=& e^{-\frac{- 2 A \frac{\sum (r_i)}{N} + A^2}{2 \frac{\sigma^2}{N}}} \\
+\end{split}$$
+
+### Media a $N$ variabile aleatoare normale
+
+* Fie $U_r$ = media aritmetică a eșantioanelor $r_i$
+$$U_r = \frac{1}{N}\sum r_i$$
+
+* Care este distribuția sa?
+
+* Fie suma $S_r = \sum r_i$ a celor N eșantioane $r_i$
+    * Din cap.I: suma unor v.a. normale cu distribuția $\mathcal{N}(\mu, \sigma^2)$ este:
+    * cu distribuție normală $\mathcal{N}(\mu_S, \sigma_S^2)$, unde:
+    * valoarea medie: $\mu_S = N \cdot \mu$
+    * varianța: $\sigma_S^2 = N \cdot \sigma^2$
+    
+* Așadar $U_r = \frac{1}{N} S_r$, din proprietățile mediei se obține:
+    * $U_r$ are distribuție normală, cu:
+    * valoarea medie = $\frac{1}{N} \mu_S = \frac{1}{N} N \mu = \mu$
+    * varianța = $\left(\frac{1}{N}\right)^2 \sigma_S^2 = \left(\frac{1}{N}\right)^2 N \sigma_S^2 = \frac{1}{N} \sigma^2$
+
+### Media a $N$ variabile aleatoare normale
+
+* Media a $N$ realizări ale unei distribuții normale are tot o distribuție normală, cu
+    * aceeași valoare medie
+    * varianța de N ori mai mică
+
+* Dacă $N$ este foarte mare, media aritmetică este un **estimator** foarte bun pentru valoarea medie a distribuției
+    * distribuția sa devine foarte "îngustă" în jurul valorii medii
+
+### Interpretarea 1: media eșantioanelor
+
+$$\begin{split}
+\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} =& e^{-\frac{- 2 A U_r + A^2}{2 \frac{\sigma^2}{N}}} \\
+=& \frac{e^{-\frac{U_r^2 - 2 A U_r + A^2}{2 \frac{\sigma^2}{N}}}} {e^{-\frac{U_r^2}{2 \frac{\sigma^2}{N}}}} \\
+=& \frac{e^{-\frac{(U_r - A)^2}{2 \frac{\sigma^2}{N}}}} {e^{-\frac{U_r^2}{2 \frac{\sigma^2}{N}}}}\\
+=& \frac{w(U_r | H_1)}{w(U_r | H_0)}
+\end{split}$$
+
+* Raportul de plauzibilitate a $N$ eșantioane gaussiene = raportul de plauzibilitate al **mediei eșantioanelor**
+
+### Interpretarea 1: media eșantioanelor
+
+* Raportul de plauzibilitate a $N$ eșantioane gaussiene = raportul de plauzibilitate al **mediei eșantioanelor**
+    * media are o varianță mai mică, $\frac{1}{N}\sigma^2$, deci este mai precisă
+    * e ca și cum distribuția zgomotului devine de $N$ ori mai îngustă (datorită medierii)
+
+* Detecția unui semnal constant cu $N$ eșantioane este similaru cu detecția cu un singur eșantion, doar că
+    * se folosește valoarea medie a eșantioanelor $r_i$
+    * distribuția sa este de N ori mai îngustă (varianța e de N ori mai mică)
+    
+* Când $N$ crește, probabilitatea erorilor scade => performanțe îmbunătățite
+
+### Exercițiu
+
+Exercițiu:
+
+* Un semnal poate avea două valori, $0$ (ipoteza $H_0$) sau $6$ (ipoteza $H_1$). 
+Semnalul este afectat de AWGN $\mathcal{N}(0, \sigma^2=1)$.
+Receptorul ia 5 eșantioane cu valorile $\left\{ 1.1, 4.4, 3.7, 4.1, 3.8 \right\}$.
+    a. Ce decizie se ia conform criteriului plauzibilității maxime?
+    b. Ce decizie se ia conform criteriului probabilității minime de eroare. dacă
+    $P(H_0) = 2/3$ și $P(H_1) = 1/3$?
+
+### Interpretarea 2: geometric
+
+* Folositoare în special pentru criteriul plauzibilității maxime
+
+* Raportul de plauzibilitate pentru vectorul $\vec{r}$
+$$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{e^{-\frac{\sum (r_i - A)^2}{2 \sigma^2}}}{e^{-\frac{\sum (r_i)^2}{2 \sigma^2}}} \grtlessH K$$
+
+* La criteriul plauzibilității maxime se compară cu 1
+$$\frac{e^{-\frac{\sum (r_i - A)^2}{2 \sigma^2}}}{e^{-\frac{\sum (r_i)^2}{2 \sigma^2}}} \grtlessH 1$$
+$$e^{-\frac{\sum (r_i - A)^2}{2 \sigma^2} + \frac{\sum (r_i)^2}{2 \sigma^2}} \grtlessH 1$$
+$$- \sum (r_i - A)^2 + \sum (r_i)^2 \grtlessH 0$$
+$$\sum (r_i)^2 \grtlessH \sum (r_i - A)^2$$
+$$\sqrt{\sum (r_i)^2} \grtlessH \sqrt{\sum (r_i - A)^2}$$
+
+### Interpretarea 2: geometric
+
+* $\sqrt{\sum (r_i)^2}$ este distanța geometrică (Euclidiană) între punctul $\vec{r} = [r_1, r_2, ... r_N]$ și punctul $\vec{0} = [0, 0, ...0]$
+* $\sqrt{\sum (r_i - A)^2}$ este distanța geometrică (Euclidiană) între punctul $\vec{r} = [r_1, r_2, ... r_N]$ și punctul $\vec{A} = [A, A, ...A]$
+* criteriul plauzibilității maxime alege **vectorul (punctul) semnalului cel mai apropiat** de vectorul (punctul) recepționat, într-un spațiu N-dimensional
+    * receptorul se mai numește "receptor de distanță minimă"
+    * aceeași interpretare ca în cazul 1-D
+    
+* Întrebare: care este interpretarea geometrică pentru celelalte criterii?
+
+### Exercițiu
+    
+Exercițiu:
+
+* Un semnal poate avea două valori, $0$ (ipoteza $H_0$) sau $6$ (ipoteza $H_1$). 
+Semnalul este afectat de AWGN $\mathcal{N}(0, \sigma^2=1)$.
+Receptorul ia două eșantioane cu valorile $\left\{ 1.1, 4.4 \right\}$.
+    a. Care este decizia conform criteriului plauzibilității maxime? Utilizați interpretarea geometrică.
+
+
+### Interpretarea 3: valoarea corelației
+
+* Raportul de plauzibilitate al vectorului $\vec{r}$
+$$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{e^{-\frac{\sum (r_i - A)^2}{2 \sigma^2}}}{e^{-\frac{\sum (r_i)^2}{2 \sigma^2}}} \grtlessH K$$
+$$e^{-\frac{\sum (r_i - A)^2}{2 \sigma^2} + \frac{\sum (r_i)^2}{2 \sigma^2}} \grtlessH K$$
+$$-\sum (r_i - A)^2 + \sum (r_i)^2 \grtlessH 2 \sigma^2 \ln{K}$$
+$$ 2 \sum r_i A - N A^2 \grtlessH 2 \sigma^2 \ln{K}$$
+$$ \frac{1}{N} \sum r_i A  \grtlessH \underbrace{\frac{A^2}{2} + \frac{1}{N}\sigma^2 \ln{K}}_{L = const}$$
+
+### Interpretarea 3: valoarea corelației
+
+* **Valoarea de corelația** (sau "corelația") a două semnale $x$ and $y$ este
+$$C_{x,y} = \frac{1}{N}\sum x[n] y[n]$$
+
+* Este valoarea funcției de corelație în 0
+$$C_{x,y} = R_{xy}[0] = \overline{x[n] y[n + 0]}$$
+
+* Pentru semnale continue
+$$C_{x,y} = \frac{1}{T}\int_{T/2}^{T/2} x(t) y(t) dt$$
+
+* $\frac{1}{N} \sum r_i A$ este valoarea de corelație a vectorului recepționat $\vec{r} = [r_1, r_2, ... r_N]$
+cu vectorul **țintă** $\vec{A} = [A, A, ... A]$
+
+
+### Interpretarea 3: valoarea corelației
+
+* Dacă valoarea de corelație a vectorului recepționat cu vectorul țintă $\vec{A} = [A, A, ... A]$
+este mai mare decât un prag $L$, se decide că semnalul este detectat.
+    * altfel, semnalul este rejectat
+    
+* Decizia este **similară u detecția semnalului cu singur eșantion**, 
+unde valoarea eșantionului este $C_{x,y}$
+
+### c
