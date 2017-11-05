@@ -47,7 +47,7 @@ dintre două sau mai multe posibilități
     * observarea întregului semnal continuu, pentru un timp $T$
 
 
-## II.2 Detecția semnalelor constante
+## II.2 Detecția semnalelor constante folosind 1 eșantion
 
 ### Detecție unui semnal constant, 1 eșantion
 
@@ -373,6 +373,22 @@ $$ r \grtlessH \underbrace{\frac{A^2 + 2 \sigma^2 \cdot \ln \left(\frac{(C_{10}-
 
 * Exemplu la tablă: 0 / 5, zgomot alb $N(0, \sigma^2)$, un eșantion
 
+### Criteriul Neymar-Pearson
+
+* Criteriul Neymar-Pearson: se maximizează probabilitatea de detecție ($P(D_1 \cap H_1)$)
+păstrând probabilitatea alarmei false sub o limită fixată $(P(D_1 \cap H_0) \leq \lambda)$
+
+* Se deduce pragul $T$ din constrângerea la limită $P(D_1 \cap H_0) = \lambda$
+
+### Exercițiu
+* O sursă de informație produce două mesaje cu probabilitățile $p(a_0) = \frac{2}{3}$ și $p(a_1) = \frac{1}{3}$.
+* Mesajele sunt codate ca semnale constante cu valorile $-5$ ($a_0$) și $5$ ($a_1$).
+* Semnalele sun afectate de zgomot alb cu distribuție *triunghiulară* în intervalul $[-5,5]$.
+* Receptorul ia un singur eșantion $r$.
+* Decizia se ia prin compararea $r$ cu un prag $T$: dacp $r < T$ se decide că mesajul
+este $a_0$, altfel este $a_1$.
+    a. Găsiți pragul $T$ conform criteriului Neymar-Pearson, pentru $P_{fa} \leq 10^{-2}$
+    b. Care este probabilitatea de detecție corectă?
 
 ### Două nivele de semnal nenule
 
@@ -507,3 +523,34 @@ $$P_d = Q \left( \underbrace{Q^{-1} \left(P_{fa}\right)}_{constant} - \sqrt{SNR}
 ![Performanțele detecției depind de SNR](img/PD_SNR.png){#id .class width=47%}
 
 *[sursa: Fundamentals of Statistical Signal Processing, Steven Kay]*
+
+
+### Decizii între ipoteze statistice
+
+* Teoria statistică a detecției este utilă și în alte contexte în afară
+de detecția unor semnale propriu-zise
+    * oriunde avem de ales între două ipoteze
+
+* Decizia se face între două distribuții de probabilitate
+    * indiferent ce semnificație au cele două distribuții
+
+* În cazul detecției unui semnal constant, se alege între două distribuții 
+care **diferă doar prin valoarea medie**, în general
+    * o distribuție are valoarea medie $0$, cealaltă $A$
+    
+* Dar se poate face decizie între distribuții care diferă prin alt parametru
+    * valoarea medie, sau
+    * varianța, or
+    * forma distribuției, etc
+    
+### Decizii între ipoteze statistice
+
+* Exemplu: Un eșantion cu valoarea $r = 2.5$ poate proveni dintr-o distribuție 
+$\mathcal{N}(0,\sigma^2=1)$ (ipoteza $H_0$) sau dintr-o alta $\mathcal{N}(0,\sigma^2=2)$ (ipoteza $H_1$). 
+Care ipoteză se consideră adevărată?
+    * Ceea ce diferă este varianța, nu valoarea medie
+
+* Se pot folosi exact aceleași criterii
+    * Se desenează cele două distribuții
+    * Se calculează plauzibilitățile $w(r|H_0)$ și $w(r|H_1)$ for $r$
+    * Se decide pe baza raportului de plauzibilitate, conform unui criteriu

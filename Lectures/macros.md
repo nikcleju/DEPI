@@ -15,9 +15,6 @@
 %\addtobeamertemplate{block begin}{}{\setlength{\parskip}{35pt plus 1pt minus 1pt}}
 %\addtobeamertemplate{block begin}{}{\setlength{\parskip}{35pt plus 1pt minus 1pt}}
  
-\newcommand{\grtlessH}{\underset{{H_0}}{\overset{H_{1}}{\gtrless}}}
-
-
 %\usetheme{default}
 \usetheme{Madrid}
 \setbeamertemplate{footline}{} % disable footer
@@ -27,3 +24,5 @@
 
 \setbeamersize{text margin left=15pt}
 
+\newcommand{\grtlessH}{\underset{{H_0}}{\overset{H_{1}}{\gtrless}}}
+\renewcommand{\vec}[1]{\mathbf{#1}}
