@@ -986,42 +986,52 @@ $$<\vec{r},\vec{s_1}> \grtlessH <\vec{r},\vec{s_0}>$$
     * Modulație 4-PSK: $s_{n=0,1,2,3} = A \cos(2 \pi f t + n \frac{\pi}{4})$
 
 
-### IMAGE
+### Detecție pe baza corelației
 
-* PUT IMAGE HERE
+![Detecția unui semnal folosind un corelator](img/Correlator.jpg){#id .class width=100%}
+
+*[sursa: http://nptel.ac.in/courses/117103018/43]* 
+
+### Detecția a doua semnale
+
+![Decizie între două semnale diferite](img/CorrelatorMultiple.png){#id .class width=80%}
+
+*[sursa: Fundamentals of Statistical Signal Processing, Steven Kay]*
+
 
 ### Filtru adaptat
 
 * Cum se calculează corelația a două semnale $r[n]$ și $s[n]$ de lungime $N$?
 $$<r,s> = \frac{1}{N} \sum r_i s(t_i)$$
 
-* **Convoluția** lui $r[n]$ cu $s[n]$ este dată de
-$$y[n] = \sum_k r[k] s[n-k]$$
-
-* Fie $s'[n]$ semnalul $s[n]$ **oglindit**
+* Fie $h[n]$ semnalul $h[n]$ **oglindit**
     * începând tot de la momentul 0, semnal cauzal
-$$s'[n] = s[N-n]$$
+$$h[n] = s[N-1-n]$$
 
-* Convoluția lui $r[n]$ cu $s'[n]$ este
-$$y'[n] = \sum_k r[k] s'[n-k] = \sum_k r[k] s[N-n+k]$$
+* Convoluția lui $r[n]$ cu $h[n]$ este
+$$y[n] = \sum_k r[k] h[n-k] = \sum_k r[k] h[N-1-n+k]$$
 
-* Rezultatul convoluției la finalul semnalului de intrare, $y[N]$ ($n=N$), este chiar corelația
+* Rezultatul convoluției la finalul semnalului de intrare, $y[N-1]$ ($n=N-1$), este chiar corelația
     * până la un factor de scalare $\frac{1}{N}$
-$$y'[N] = \sum_k r[k] s[k]$$
+$$y[N] = \sum_k r[k] s[k]$$
 
 ### Filtru adaptat
 
-* Pentru detecția unui semnal $s[n]$ se poate folosi un  **filtru a cărui răspuns la impuls = mirrored
+* Pentru detecția unui semnal $s[n]$ se poate folosi un  **filtru a cărui răspuns la impuls =
 oglindirea lui $s[n]$**, luându-se eșantionul de la finalul semnalului de intrare
     * se obține valoarea corelației
+$$h[n] = s[N-1-n]$$
 
 * **Filtru adaptat** = un filtru proiectat să aibă răspunsul la impuls egal cu oglindirea
-semnalului care se dorește a fi detectat
+semnalului care se dorește a fi detectat (eng. "matched filter")
     * filtrul este *adaptat* semnalului dorit
 
 ### Filtru adaptat
 
-IMAGE HERE
+![Detecție folosind un filtru adaptat](img/MatchedFilter.png){#id .class width=80%}
+
+*[sursa: Fundamentals of Statistical Signal Processing, Steven Kay]*
+
 
 
 ## II.5 Detecția unui semnal oarecare cu observare continuă
@@ -1098,7 +1108,7 @@ $$<\vec{r},\vec{s_1}> \grtlessH <\vec{r},\vec{s_0}>$$
     * Modulația BPSK: $s_1 = A \cos(2 \pi f t)$, $s_0 = -A \cos(2 \pi f t)$
     * Modulația 4-PSK: $s_{n=0,1,2,3} = A \cos(2 \pi f t + n \frac{\pi}{4})$
 
-### Filtru adaptat filters
+### Filtru adaptat
 
 * Corelația a două semnale se poate calcula cu un **filtru adaptat**
 
@@ -1110,8 +1120,3 @@ semnalului căutat
 * Pentru detecția unui semnal $s(t)$ se poate folosi un filtru adaptat, 
 luând eșantionul de la ieșire în momentul final al semnalului de intrare
     * se obține chiar valoarea corelației
-
-
-### Filtru adaptat
-
-IMAGE HERE
