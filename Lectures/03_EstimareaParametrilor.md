@@ -130,6 +130,7 @@ $r_i = A + noise$, cu valori egale cu $[5, 7, 8, 6.1, 5.3]$. Zgomotul este AWGN 
 ![](figures/03_EstimareaParametrilor_figure1_1.png){width=8cm}\
 
 
+
 ### Semnal oarecare în AWGN
 
 * Fie semnalul original "curat" $s_\Theta(t)$
@@ -141,7 +142,6 @@ $r_i = A + noise$, cu valori egale cu $[5, 7, 8, 6.1, 5.3]$. Zgomotul este AWGN 
 * Eșantioanele $r_i$ au distribuție normală, cu media $s_\Theta(t_i)$ și varianța $\sigma^2$
 
 * Funcția de plauzibilitate globală = produsul plauzibilității fiecărui eșantion $r_i$
-
 $$\begin{split}
 L(\Theta) =& \prod_{i=1}^N \frac{1}{\sigma \sqrt{2 \pi}} e^{- \frac{(r_i - s_\Theta(t_i))^2}{2 \sigma^2}} \\
 =&  \left(\frac{1}{\sigma \sqrt{2 \pi}} \right)^N e^{- \frac{\sum(r_i - s_\Theta(t_i))^2}{2 \sigma^2}}
@@ -154,6 +154,24 @@ $$\begin{split}
 
 ### Semnal oarecare în AWGN
 
+* Maximul funcției = minimul exponentului
+$$\hat{\Theta} = \arg\max_{\Theta} w(r; \Theta) = \arg\min \sum(r_i - s_\Theta(t_i))^2$$
+
+* Termenul $\sum(r_i - s_\Theta(t_i))^2$ este **distanța $d(\vec{r},s_\Theta)$ la pătrat**
+$$d(\vec{r},s_\Theta) = \sqrt{\sum (r_i - s_\Theta(t_i))^2}$$
+$$\left(d(\vec{r},s_\Theta)\right)^2 = \sum (r_i - s_\Theta(t_i))^2$$
+
+* Estimatul de plauzibilitate maximă $\hat{\Theta}$ = valoarea care face $s_\Theta(t_i)$ 
+**cel mai apropiat de vectorul recepționat $\vec{r}$**
+    * mai aproape = mai probabil
+    * cel mai aproape = cel mai probabil = plauzibilitate maximă
+
+* Pentru semnale continue? Similar, dar utilizând distanța între semnale continue
+
+
+### Semnal oarecare în AWGN
+
+* Estimatul se găsește prin setarea derivatei la 0
 $$\begin{split}
 \frac{d \ln\left(L(\Theta)\right)}{d\Theta} = 0
 \end{split}$$
@@ -175,7 +193,7 @@ Momentele de eșantionare sunt $t_i = [0,1,2,3,4,5,6,7,8,9]$
 
 ### Simulare numerică
 
-The likelihood function is:
+Funcția de plauzibilitate este
 
 
 ![](figures/03_EstimareaParametrilor_figure2_1.png){width=8cm}\
@@ -184,9 +202,10 @@ The likelihood function is:
 ### Simulare numerică
 
 
-```
-Frecvența originală = 0.070000, estimatul = 0.071515
-```
+~~~~{.python}
+Frecventa originala = 0.070000, estimatul = 0.071515
+
+~~~~~~~~~~~~~
 
 ![](figures/03_EstimareaParametrilor_figure3_1.png){width=8cm}\
 
