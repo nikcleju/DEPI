@@ -177,7 +177,7 @@ $$\begin{split}
 \end{split}$$
 înseamnă
 $$\begin{split}
-\sum(r_i - s_\Theta(t_i))^2 \frac{d s_\Theta(t_i)}{d\Theta} = 0
+\sum(r_i - s_\Theta(t_i)) \frac{d s_\Theta(t_i)}{d\Theta} = 0
 \end{split}$$
 
 ### Simulare numerică
@@ -202,10 +202,9 @@ Funcția de plauzibilitate este
 ### Simulare numerică
 
 
-~~~~{.python}
+```
 Frecventa originala = 0.070000, estimatul = 0.071515
-
-~~~~~~~~~~~~~
+```
 
 ![](figures/03_EstimareaParametrilor_figure3_1.png){width=8cm}\
 
