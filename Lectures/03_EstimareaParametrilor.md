@@ -202,9 +202,10 @@ Funcția de plauzibilitate este
 ### Simulare numerică
 
 
-```
+~~~~{.python}
 Frecventa originala = 0.070000, estimatul = 0.071515
-```
+
+~~~~~~~~~~~~~
 
 ![](figures/03_EstimareaParametrilor_figure3_1.png){width=8cm}\
 
@@ -413,4 +414,109 @@ Exercițiu: valoare constantă, 1 măsurătoare, zgomot Gaussian $\sigma$ diferi
 
 * Dacă temperatura în această perioadă a anului are distribuție Gaussiană $\mathcal{N}(35, \sigma_2^2 = 3)$
     * cu varianță diferită, $\sigma_2 \neq \sigma$
+
+### Semnal oarecare în zgomot Gaussian (AWGN)
+
+* Fie semnalul original "curat" $s_\Theta(t)$
+
+* Zgomotul este Gaussian (AWGN) $\mathcal{N}(\mu=0, \sigma^2)$
+
+* Ca în cazul estimării de plauzibilitate maximă, funcția de plauzibilitate este:
+$$\begin{split}
+w(\vec{r} | \Theta) =&  \frac{1}{\sigma \sqrt{2 \pi}} e^{- \frac{\sum(r_i - s_\Theta(t_i))^2}{2 \sigma^2}}
+\end{split}$$
+
+* Dar acum aceasta **se înmulțește cu $w(\Theta)$**
+$$w(\vec{r} | \Theta) \cdot w(\Theta)$$
+
+### Semnal oarecare în zgomot Gaussian (AWGN)
+
+* Estimatorul MAP estimator este cel care maximizează produsul
+$$\hat{\Theta}_{MAP} = \arg\max w(\vec{r} | \Theta) w(\Theta)$$
+
+* Logaritmând:
+$$\begin{split}
+\hat{\Theta}_{MAP} =& \arg\max \ln \left( w(\vec{r} | \Theta) \right) + \ln \left( w(\Theta) \right) \\
+=& \arg\max - \frac{\sum(r_i - s_\Theta(t_i))^2}{2 \sigma^2} + \ln \left(w(\Theta)\right)
+\end{split}$$
+
+### Distribuție "a priori" Gaussiană
+
+* Dacă distribuția "a priori" este de asemenea Gaussiană $\mathcal{N}(\mu_\Theta, \sigma_\Theta^2)$
+$$ \ln \left(w(\Theta)\right) = - \frac{\sum(\Theta - \mu_\Theta)^2}{2 \sigma_\Theta^2}$$
+
+* Estimatorul MAP devine
+$$ \hat{\Theta}_{MAP} = \arg\min \frac{\sum(r_i - s_\Theta(t_i))^2}{2 \sigma^2} + \frac{\sum(\Theta - \mu_\Theta)^2}{2 \sigma_\Theta^2}$$
+
+* Poate fi rescris
+$$ \hat{\Theta}_{MAP} = \arg\min d(\vec{r},s_\Theta)^2 + \underbrace{\frac{\sigma^2}{\sigma_\Theta^2}}_\lambda \cdot d(\Theta, \mu_\Theta)^2$$
+
+### Interpretare
+
+* Estimatorul MAP în zgomot Gaussian și cu distribuție "a priori" Gaussiană
+$$\hat{\Theta}_{MAP} = \arg\min d(\vec{r},s_\Theta)^2 + \underbrace{\frac{\sigma^2}{\sigma_\Theta^2}}_\lambda \cdot d(\Theta, \mu_\Theta)^2$$
+
+* $\hat{\Theta}_{MAP}$ este apropiat de valoarea medie $\mu_\Theta$ și de asemenea 
+face ca semnalul adevărat să fie apropiat de eșantioanele recepționate $\vec{r}$
+    * Exemplu: "caut locuință aproape de serviciu dar și aproape de Mall"
+    * $\lambda$ controlează importanța relativă a celor doi termeni
+    
+* Cazuri particulare
+    * $\sigma_\Theta$ foarte mic = distribuția "a priori" este foarte specifică (îngustă) = $\lambda$ mare = termenul al doilea este dominant = $\hat{\Theta}_{MAP}$ foarte apropiat de $\mu_\Theta$
+    * $\sigma_\Theta$ foarte mare = distribuția "a priori" este foarte nespecifică = $\lambda$ mic = primul termen este dominant = $\hat{\Theta}_{MAP}$ apropiat de estimatorul de plauzibilitate maximă
+
+### Aplicații
+
+* În general, aplicațiile practice:
+    * utilizează diverse tipuri de distribuții "a priori"
+    * estimează **mai mulți parametri** (un vector de parametri)
+
+* Aplicații
+    * reducerea zgomotului din semnale
+    * restaurarea semnalelor (parți lipsă din imagini, imagini *blurate* etc)
+    * compresia semnalelor
+    
+### Estimatori nedeplasați
+
+* Cum caracterizăm calitatea unui estimator?
+    * Există diverse abordări
+    
+* Un estimator $\hat{\Theta}$ este **o variabilă aleatoare**
+    * poate avea diverse valori, pentru că se calculează pe baza eșantioanelor recepționate, care depind de zgomot
+    * exemplu: se repetă aceeași estimare pe calculatoare diferite => valori estimate ușor diferite
+
+* Fiind o variabilă aleatoare, se pot defini:
+    * valoarea medie a estimatorului: $E \left\{ \hat{\Theta} \right\}$
+    * varianța estimatorului: $E \left\{ (\hat{\Theta} - \Theta)^2 \right\}$
+    
+### Estimatori nedeplasați
+
+* Estimator **nedeplasat** = valoarea medie a estimatorului este egală cu valoarea adevărată a parametrului $\Theta$
+$$E \left\{ \hat{\Theta} \right\} = \Theta$$
+      
+* Estimator **deplasat** = valoarea medie a estimatorului diferă de valoarea adevărată a parametrului $\Theta$
+    * diferența $E \left\{ \hat{\Theta} \right\} - \Theta$ se numește **deplasarea** estimatorului
+
+
+### Estimatori nedeplasați
+
+* Exemplu: semnal constant A, zgomot Gaussian (cu media), estimatorul de plauzibilitate maximă este $\hat{A}_{ML} = \frac{1}{N}\sum_i r_i$
+
+* Atunci:
+$$\begin{split}
+E \left\{ \hat{A}_{ML} \right\} =& \frac{1}{N}E \left\{ \sum_i r_i \right\} \\
+=& \frac{1}{N} \sum_{i=1}^N E \left\{ r_i \right\} \\
+=& \frac{1}{N} \sum_{i=1}^N E \left\{ A + zgomot \right\} \\
+=& \frac{1}{N} \sum_{i=1}^N A \\
+=& A
+\end{split}$$
+
+* Acest estimator este nedeplasat
+
+### Varianța unui estimator
+
+* Dacă un estimator are **varianța** mare, valoarea estimată poate fi departe de cea reală
+    * indiferent dacă estimatorul este nedeplasat sau nu
+
+* De obicei se preferă estimatori de **varianță redusă**, tolerându-se o eventuală mică deplasare
 
