@@ -1,4 +1,4 @@
-# DEPI20162017
+# DEPI20172018
 Aici sunt disponibile materialele de curs de la disciplina Decizie și Estimare în Prelucrarea Informației,
 predată în semestrul I 2017-2018 la ETTI, TUIASI.
 
