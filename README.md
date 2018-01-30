@@ -9,6 +9,10 @@ predată în semestrul I 2017-2018 la ETTI, TUIASI.
 - [Lectures\02_DetectiaSemnalelor.pdf](Lectures/02_DetectiaSemnalelor.pdf)
 - [Lectures\03_EstimareaParametrilor.pdf](Lectures/03_EstimareaParametrilor.pdf)
 
+**Note laborator si seminar**
+
+Notele la laborator si seminar sunt aici: [Grades\NoteDEPI20172018_LabSeminar_20180130_passwd.pdf](Grades/NoteDEPI20172018_LabSeminar_20180130_passwd.pdf).
+
 **Examen**
 
 Un model de examen este disponibil aici: [SampleExam\SampleExamSheet.pdf](SampleExam/SampleExamSheet.pdf)
