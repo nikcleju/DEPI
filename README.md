@@ -1,21 +1,28 @@
-# DEPI20172018
-Aici sunt disponibile materialele de curs de la disciplina Decizie și Estimare în Prelucrarea Informației,
-predată în semestrul I 2017-2018 la ETTI, TUIASI.
+# Decizie și Estimare în Prelucrarea Informației
 
-**Cursuri [pdf]** Toate prezentările de la curs sunt disponibile în directorul Lectures:
+Aici sunt disponibile materialele de curs de la disciplina Decizie și Estimare în Prelucrarea Informației,
+predată în semestrul I 2018-2019 la ETTI, TUIASI.
+
+## Conținut
+
+### Cursuri
+
+Toate prezentările de la curs sunt disponibile în format pdf în directorul Lectures:
 
 - [Lectures\00_Introducere.pdf](Lectures/00_Introducere.pdf)
 - [Lectures\01_SemnaleAleatoare.pdf](Lectures/01_SemnaleAleatoare.pdf)
 - [Lectures\02_DetectiaSemnalelor.pdf](Lectures/02_DetectiaSemnalelor.pdf)
 - [Lectures\03_EstimareaParametrilor.pdf](Lectures/03_EstimareaParametrilor.pdf)
 
-**Note laborator si seminar**
+## Evaluare
 
-Notele la laborator si seminar sunt aici: [Grades\NoteDEPI20172018_LabSeminar_20180130_passwd.pdf](Grades/NoteDEPI20172018_LabSeminar_20180130_passwd.pdf).
-
-**Examen**
+### Examen
 
 Un model de examen este disponibil aici: [SampleExam\SampleExamSheet.pdf](SampleExam/SampleExamSheet.pdf)
+
+### Note
+
+Notele sunt disponibile numai pe [platforma de e-learning a facultății](https://edu.etti.tuiasi.ro)
 
 Distracție placută!
 
