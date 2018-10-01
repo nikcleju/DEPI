@@ -1,4 +1,4 @@
-# Introducere
+## Introducere
 
 ### Organizare
 
@@ -15,26 +15,21 @@
 - Ore de consultații: *To Be Announced* 
     - cel mai bine prin programare prealabilă
 
-
 ### Notare
 
-- Examen
+- Examen = 60%
     - 60% din nota finală
     - teorie și exerciții
-    - multe întrebări/exerciții de dimensiune redusă, variate 
-    - (a se vedea examen Information Theory pentru exemplu)
+    - Similar cu examenul de Information Theory (engl.)
     
-- Laborator
-    - 20% din nota finală
-    - în Matlab / Simulink
+- Aplicații = 40%
+    - Laborator = 20%
+        - 20% din nota finală
+        - în Matlab / Simulink
 	   
-- Teste intermediare
-    - 20% din nota finală
-    - 3 teste: în săptămânile 5, 8 și 11
-    - test = un exercițiu, 30 minute, în timpul seminarului
-    - Nota teste = media celor trei teste
+    - Seminar = 20% din nota finală
 
-- Nota finală = 60% Examen + 20% Laborator + 20% Teste
+- Nota finală = 60% Examen + (20% Laborator + 20% Teste)
 
 
 ### Structura cursului
@@ -53,5 +48,5 @@
 
 - pe platforma Moodle (edu.etti.tuiasi.ro)
 
-- pe github.com (https://github.com/nikcleju/DEPI20172018)
+- pe github.com (https://github.com/nikcleju/DEPI)
 

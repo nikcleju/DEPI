@@ -5,124 +5,191 @@
 
 ### Variabile aleatoare
 
-* **Variabilă aleatoare** = o variabilă care denumește o valoare produsă printr-un fenomen aleator
-    * Practic, reprezintă *un nume* atașat unei valori arbitrare
-    * Prescurtat: v.a.
-* Notație uzuală: $X$, $Y$ etc..
+- **Variabilă aleatoare** = o variabilă care denumește o valoare produsă printr-un fenomen aleator
+    - Practic, reprezintă *un nume* atașat unei valori arbitrare
+    - Prescurtat: v.a.
+- Notație uzuală: $X$, $Y$ etc..
 
-* Exemple:
-    * Numărul obținut prin aruncarea unui zar
-    * Voltajul măsurat într-un punct dintr=un circuit
-
-* Opusul = o valoare constantă (de ex. $\pi = 3.1415...$)
+- Exemple:
+    - $X$ = Numărul obținut prin aruncarea unui zar
+    - $V_{in}$ = Voltajul măsurat într-un punct dintr-un circuit
 
 ### Realizări
 
-* **Realizare** a unei v.a. = o valoare particulară rezultată în urma fenomenului aleator
+- **Realizare** a unei v.a. = o valoare particulară posibilă 
 
-* **Spațiul realizărilor** $\Omega$ = mulțimea valorilor posibile ale unei v.a
-    * = mulțimea tuturor realizărilor
+- **Spațiul realizărilor** $\Omega$ = mulțimea valorilor posibile ale unei v.a
+    - mulțimea tuturor realizărilor
 
-* Exemplu: aruncarea unui zar
-    * V.a. se notează $X$
-    * Se poate obține o realizare $X = 3$
-    * Dar s-ar fi putut obține orice valoare din spațiul realizărilor
+- Exemplu: aruncarea unui zar
+    - V.a. se notează $X$
+    - Se poate obține o realizare $X = 3$
+    - Dar s-ar fi putut obține orice valoare din spațiul realizărilor
     $$\Omega = \left\{1, 2, 3, 4, 5, 6\right\}$$
 
 ### V.a. discrete și continue
 
-* V.a. **discretă**: dacă $\Omega$ este o mulțime discretă
-    * Exemplu: Numărul obținut prin aruncarea unui zar
-* V.a. **continuă**: dacă $\Omega$ este o mulțime compactă
-    * Exemplu: Valoarea tensiunii măsurate într-un punct
+- V.a. **discretă**: dacă $\Omega$ este o mulțime discretă
+    - Exemplu: Numărul obținut prin aruncarea unui zar
+- V.a. **continuă**: dacă $\Omega$ este o mulțime compactă
+    - Exemplu: Valoarea tensiunii măsurate într-un punct
 
-### V.a. continue
+### Unde se întâlnesc variabile aleatoare?
 
-* Fie o v.a. continuă $X$
+- Variabilele aleatoare modelează semnale de **zgomot**
 
-* **Funcția de repartiție (FR)**: probabilitatea ca $X$ să aibă valoarea mai mică sau egală cu $x$
-$$F(x) = P\left\{ X \leq x \right\}$$
+- Exemple:
+    - Se măsoară tensiunea într-un punct dintr-un circuit
+    - Dacă se măsoară de mai multe ori, se obțin valori *ușor diferite*.
+    - Valoarea este afectată de zgomot
+    - Valoarea tensiunii este o *variabilă aleatoare*
 
-* Derivata funcției de repartiție este **funcția densitate de probabilitate (FDP)**
-$$w(x) = \frac{dF(x)}{dx}$$
-$$F(x) = \int_{-\infty}^x w(t) dt$$
+### Funcția masă de probabilitate
 
-### V.a. continue
+- Fie o v.a. discretă $A$
 
-* FDP este probabilitatea ca valoarea lui $X$ să fie într-o vecinătate $\epsilon$ mică în jurul lui $x$, raportat la $\epsilon$
+- **Funcția masă de probabilitate** (FMP) (*probability mass function*) = 
+probabilitatea ca $A$ să aibă valoarea egală cu $x$
+$$w_A(x)= P\left\{ A = x\right\}$$
+
+- pe scurt, se mai numește **distribuția** variabilei A
+
+- Exemplu: FMP pentru valoarea unui zar, grafic pe tablă
+
+### Calculul probabilității cu FMP
+
+- Probabilitatea ca $A$ să aibă valoarea $v$
+$$P\left\{ A = v\right\} = w_A(v)$$
+
+- Probabilitatea ca A să fie între valorile $a$ și $b$ (inclusiv):
+$$P\left\{ a \leq A \leq b\right\} = \sum_{x=a}^b w_A(x)$$
+
+### Funcția de repartiție
+
+- **Funcția de repartiție (FR)** = probabilitatea ca $A$ 
+să aibă valoarea mai mică sau egală cu $x$
+$$F_A(x) = P\left\{ A \leq x \right\}$$
+
+- Exemplu: FR pentru un zar, grafic la tablă
+
+- Pentru v.a. discrete, FR este "în trepte"
+
+### Calculul probabilității cu FR
+
+- Probabilitatea ca $A$ să aibă valoarea $v$
+$$P\left\{ A = v\right\} = F_A(v) - F_A(v-1)$$
+
+- Probabilitatea ca A să fie între valorile $a$ și $b$ (inclusiv):
+$$P\left\{ a \leq A \leq b\right\} = F_A(b) - F_A(a-1)$$
+
+### Relația între FMP și FR
+
+- FR este *suma cumulativă* (un fel de "integrală discretă") a FMP
+$$F_A(x) = \sum_{all \;\; t \le x} w_A(t)$$
+
+- Exemplu pentru zar: grafic, la tablă
+
+### Funcția densitate de probabilitate
+
+- Fie o v.a. **continuă** $A$
+
+- **Funcția densitate de probabilitate (FDP)** 
+= probabilitatea ca valoarea lui $A$ să fie într-o vecinătate $\epsilon$ mică în jurul lui $x$, totul supra $\epsilon$
+
+- Se notează $w_A(x)$, se mai numește **distribuția** variabilei A
+
+- Informal: FDP reprezintă probabilitatea ca valoarea lui $A$ să fie **în jurul lui** $x$
+
+### Probabilitatea unei valori exacte
+
+- Probabilitatea ca o v.a. continuă $A$ să ia **exact** o valoare $x$ este **zero**
+    - pentru că există o infinitate de valori posibile (v.a. continuă)
+    - de aceea nu se poate defini o funcție masă de probabilitate ca la v.a. discrete
+
+- De aceea FDP reprezintă probabilitatea de a fi **într-o vecinătate** a valorii $x$, și nu exact egal cu $x$
+
+### Calculul probabilității cu FDP
+
+- Probabilitatea ca $A$ să aibă exact valoarea $v$ este întotdeauna 0
+$$P\left\{ A = v\right\} = 0$$
+
+- Probabilitatea ca A să fie între valorile $a$ și $b$  = integrala FDP între $a$ și $b$:
+$$P\left\{ a \leq A \leq b\right\} = \int_a^b w_A(x) dx$$
+
+### Funcția de repartiție
+
+- **Funcția de repartiție (FR)** = probabilitatea ca $A$ 
+să aibă valoarea mai mică sau egală cu $x$
+$$F_A(x) = P\left\{ A \leq x \right\}$$
+
+- Aceeași definiție ca și la v.a. discrete
+
+### Calculul probabilității cu FR
+
+- Probabilitatea ca valoarea lui A să fie între $a$ și $b$:
+$$P\left\{ a \leq A \leq b\right\} = F_A(b) - F_A(a)$$
+
+- Nu contează dacă intervalul este deschis sau închis
+    - $[a,b]$ sau $(a,b)$, nu contează
+    - de ce? 
+
+### Relația între FDP și FR
+
+- FR este **integrala** FDP
+- FDP este **derivata** FR
+
+$$F_A(x) = \int_{-\infty}^x w_A(x) \mathrm{d}x$$
 
 $$\begin{split}
-w(x) = \frac{dF(x)}{dx} =& \lim_{\epsilon \to 0}{\frac{F(x+\epsilon) - F(x-\epsilon)}{2 \epsilon}} \\
-=& \lim_{\epsilon \to 0}{\frac{P(X \in [x-\epsilon, x+\epsilon])}{2 \epsilon}}
+w_A(x) &= \frac{\mathrm{d}F_A(x)}{\mathrm{d}x} \\
+&= \lim_{\epsilon \to 0}{\frac{F_A(x+\epsilon) - F_A(x-\epsilon)}{2 \epsilon}} \\
+&= \lim_{\epsilon \to 0}{\frac{P(A \in [x-\epsilon, x+\epsilon])}{2 \epsilon}}
 \end{split}$$
-
-### Probabilitatea unei valori anume
-
-* Probabilitatea ca v.a. continuă $X$ să fie **exact** egală cu un $x$ este **zero**
-    
-* O v.a. continuă are o infinitate de realizări posibile
-
-* Probabilitatea unei valori anume este practic 0
-
-* FDP este probabilitatea de a fi **într-o vecinătate mică în jurul** unei valori $x$
-
-### V.a. discrete
-
-* Fie o v.a. discretă $X$
-
-* **Funcția de repartiție (FR)**: probabilitatea ca $X$ să aibă valoarea mai mică sau egală cu $x$
-$$F(x) = P\left\{ X \leq x \right\}$$
-
-* Exemplu: FR pentru un zar
-
-* Pentru v.a. discrete, FR este de tip "treaptă"
-
-### V.a. discrete
-
-* Nu putem defini densitatea de probabilitate
-    * pentru că derivata în punctele de discontinuitate nu e definită
-
-* **Funcția masă de probabilitate** (FMP) (*probability mass function*):
-probabilitatea ca $X$ să aibă valoarea egală cu $x$
-
-$$w(x)= P\left\{ X = x\right\}$$
-
-$$F(x) = \sum_{toți \;\; t \le x} w(t)$$
-
-* Exemplu: FMP pentru un zar?
-
-
-### Probabilități și densități
-
-* Calculul probabilității pe baza FDP (v.a. continuă):
-$$P\left\{ A \leq X \leq B\right\} = \int_A^B w(x) dx$$
-
-* Calculul probabilității pe baza FMP (v.a. discretă):
-$$P\left\{ A \leq X \leq B\right\} = \sum_{x=A}^B w_X(x)$$
 
 ### Interpretare grafică
 
-* Probabilitatea ca $X$ să fie între A și B este **suprafața de sub FDP**
-    * adică integrala de la A la B
+* Probabilitatea ca $A$ să fie între $a$ și $b$ este **suprafața de sub FDP**
+    * adică integrala de la $a$ la $b$
 
-* Probabilitatea ca $X$ să fie exact egal cu o valoare este zero
+* Probabilitatea ca $A$ să fie exact egal cu o valoare este zero
     * aria de sub un punct este nulă
 
-### Proprietățile FR/FDP/FMP
 
-* FR este o funcție crescătoare 
+### V.a. discrete vs continue
 
-* FR / FDP / FMP sunt întotdeauna $\geq 0$
+Comparație între v.a. discrete și continue
 
-* $FR(-\infty) = 0$ și $FR(\infty) = 1$
+- FR $F_A(x)$ are aceeași definiție, înseamnă același lucru
+- FDP/FMP $w_A(x)$ este derivata FR
+    - la v.a. continue:
+        - este o derivată obișnuită
+        - reprezintă probabilitatea de a fi "in jurul" valorii $x$
+    - la v.a. discrete:
+        - un fel de "derivată discretă"
+        - reprezintă probabilitatea de a avea exact valoarea $x$
 
-* Integrala FDP / suma FMP = 1
+### Proprietățile v.a
+
+FR:
+
+- FR este mereu pozitivă, $F_A(x) \geq 0$
+- FR este monoton crescătoare (nu descrește)
+- FR pornește din 0 și ajunge la valoarea 1
+$$F_A(-\infty) = 0 \;\;\;\; F_A(\infty) = 1$$
+
+FDP/FMP:
+
+- PDF/PMF sunt mereu pozitive $w_A(x) \geq 0$
+- Integrala/suma pe întreg domeniul = 1
+$$\int_{-\infty}^\infty w_A(x) \mathrm{d}x = 1$$
+$$\sum_{x = -\infty}^\infty w_A(x) = 1$$
+
 
 ### Distribuția normală
 
 * Densitatea de probabilitate:
 
-$$w(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
+$$w_A(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
 
 
 ![](figures/01_SemnaleAleatoare_figure1_1.png){width=8cm}\
@@ -133,20 +200,32 @@ $$w(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
 * Are doi parametri:
     * **Media** $\mu$ = "centrul" funcției
     * **Deviația standard** $\sigma$  = "lățimea" funcției
+        - $\sigma$ mic = funcție îngustă și înaltă
+        - $\sigma$ mare = funcție largă și joasă
 
 * Constanta de la începutul expresiei asigură normalizarea (faptul că integrala = 1)
     
 * Extrem de des întâlnită în practică
 
-* Orice valoare reală este posibilă ($w(x) > 0, \forall x \in \mathbb{R}$)
+* Orice valoare reală este posibilă ($w_A(x) > 0, \forall x \in \mathbb{R}$)
 
-* Se notează cu $\mathcal{N}(\mu, \sigma)$
+* Se notează cu $\mathcal{N}(\mu, \sigma^2)$
+
+### The normal distribution - 
+
+- Distribuția descrește pe măsură ce $x$ se îndepărtează de centrul $\mu$
+    - Datorită termenului $-(x - \mu)^2$ de la exponent
+    - Valorile cele mai probabile sunt în jurul lui $\mu$ ($x - \mu = 0$)
+    - Valorile apropiate de $\mu$ sunt mai probabile, valorile mai depărtate de $\mu$ sunt mai puțin probabile
+
+- Distribuția exprimă o preferință pentru valori apropiate de $\mu$, 
+cu probabilitate din ce în ce mai scăzută la valori mai depărtate de $\mu$
 
 ### Distribuția uniformă
 
 * Densitatea de probabilitate = constantă între două limite 
 
-$$w(x) = 
+$$w_A(x) = 
 \begin{cases}
 \frac{1}{b-a}, & x \in [a, b] \\
  0, &elsewhere
@@ -161,16 +240,32 @@ $$w(x) =
 * Are doi parametri: limitele $a$ și $b$ ale intervalului
 
 * "Înălțimea" funcției este $\frac{1}{b-a}$ pentru normalizare
+    - pentru ca integrala (aria) să fie 1
     
-* Foarte simplă
-
 * Sunt posibile doar valori din intervalul $[a, b]$
+    - valorile din afara intervalului au probabilitatea 0
 
 * Se notează cu $\mathcal{U} \;[a, b]$
 
 ### Alte distribuții
 
 * Nenumărate variante, apar în diverse aplicații
+
+### Suma unei constante cu o v.a.
+
+- Fie o v.a. $A$
+- Ce reprezintă $B = 5 + A$?
+
+Răspuns:
+
+- B este tot o variabilă aleatoare
+- B are același tip de distribuție, dar "translată" cu 5 la dreapta
+
+Exemplu:
+
+- A este o v.a. cu distribuție normală $w_A(x) = \mathcal{N}(\mu=3, \sigma^2=2)$
+- Care este distribuția variabilei $B = 5 + A$?
+- Răspuns: $w_B(x) = \mathcal{N}(\mu=8, \sigma^2=2)$
 
 ### V.a. ca funcții de alte v.a
 
@@ -186,32 +281,23 @@ $$w(x) =
 * X, Y, Z, T nu sunt independente
     * O anumită valoare a uneia implică automat și valoarea celorlalte
 
-### Exercițiu
-
-Exercițiu:
-
-  * Dacă $X$ este o v.a. cu distribuția $\mathcal{U} \; [0, \pi]$, 
-    calculați densitatea de probabilitate a v.a. $Y$ definite ca
-    $$Y = cos(X)$$
-    
 
 ### Calculul probabilității pentru distribuția normală
 
-* Cum calculăm $\int_a^b$ dintr-o distribuție normală?
-    * Nu se poate prin formule algebrice
+- Cum calculăm $\int_a^b$ dintr-o distribuție normală?
+    - Nu se poate prin formule algebrice, funcție ne-elementară
 
-* Se folosește *the error function*:
+- Se folosește *the error function*:
 $$erf(z) = \frac{2}{\sqrt{\pi}} \int_0^z e^{-t^2} dt$$
 
-* Funcția de repartiție a unei distribuții normale $\mathcal{N}(\mu, \sigma^2)$
-$$F(X) = \frac{1}{2}(1 + erf(\frac{x - \mu}{\sigma \sqrt{2}}))$$
+- Funcția de repartiție a unei distribuții normale $\mathcal{N}(\mu, \sigma^2)$
+$$F_A(X) = \frac{1}{2}(1 + erf(\frac{x - \mu}{\sigma \sqrt{2}}))$$
 
-* Valorile funcției *erf()* sunt tabelate / se calculează numeric
-    * de ex. pe Google, căutați $erf(0.5)$
-
-* Alte valori folositoare:
-    * $erf(-\infty) = -1$
-    * $erf(\infty) = 1$
+- Valorile funcției *erf()* sunt tabelate / se calculează numeric
+    - de ex. pe Google, căutați $erf(0.5)$
+    - Alte valori folositoare:
+        - $erf(-\infty) = -1$
+        - $erf(\infty) = 1$
 
 ### Exercițiu 
 
