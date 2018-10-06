@@ -211,7 +211,7 @@ $$w_A(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
 
 * Se notează cu $\mathcal{N}(\mu, \sigma^2)$
 
-### The normal distribution - 
+### Distribuția normală
 
 - Distribuția descrește pe măsură ce $x$ se îndepărtează de centrul $\mu$
     - Datorită termenului $-(x - \mu)^2$ de la exponent
@@ -251,37 +251,6 @@ $$w_A(x) =
 
 * Nenumărate variante, apar în diverse aplicații
 
-### Suma unei constante cu o v.a.
-
-- Fie o v.a. $A$
-- Ce reprezintă $B = 5 + A$?
-
-Răspuns:
-
-- B este tot o variabilă aleatoare
-- B are același tip de distribuție, dar "translată" cu 5 la dreapta
-
-Exemplu:
-
-- A este o v.a. cu distribuție normală $w_A(x) = \mathcal{N}(\mu=3, \sigma^2=2)$
-- Care este distribuția variabilei $B = 5 + A$?
-- Răspuns: $w_B(x) = \mathcal{N}(\mu=8, \sigma^2=2)$
-
-### V.a. ca funcții de alte v.a
-
-* O funcție aplicată unei v.a. produce o altă v.a.
-
-* Exemple: dacă $X$ este o v.a. distribuită $\mathcal{U}\;[0,10]$, atunci
-    * $Y = 5 + X$ este o altă v.a., distribuită $\mathcal{U}\;[5,15]$
-    * $Z = X^2$ este de asemenea o v.a.
-    * $T = cos(X)$ este de asemenea o v.a.
-    
-* Motivație: dacă $X$ este aleatoare, și valorile $Y$, $Z$, $T$ sunt aleatoare
-
-* X, Y, Z, T nu sunt independente
-    * O anumită valoare a uneia implică automat și valoarea celorlalte
-
-
 ### Calculul probabilității pentru distribuția normală
 
 - Cum calculăm $\int_a^b$ dintr-o distribuție normală?
@@ -303,49 +272,140 @@ $$F_A(X) = \frac{1}{2}(1 + erf(\frac{x - \mu}{\sigma \sqrt{2}}))$$
 
 Exercițiu:
 
-  * Fie $X$ o v.a. cu distribuția $\mathcal{N}(3, 2)$. 
-Calculați probabilitatea ca $X \in [2, 4]$
+  - Fie $A$ o v.a. cu distribuția $\mathcal{N}(3, 2)$. 
+Calculați probabilitatea ca $A \in [2, 4]$
+
+### Suma unei constante cu o v.a.
+
+- Fie o v.a. $A$
+- Ce reprezintă $B = 5 + A$?
+
+Răspuns:
+
+- B este tot o variabilă aleatoare
+- B are același tip de distribuție, dar "translată" cu 5 la dreapta
+
+Exemplu:
+
+- A este o v.a. cu distribuție normală $w_A(x) = \mathcal{N}(\mu=3, \sigma^2=2)$
+- Care este distribuția variabilei $B = 5 + A$?
+- Răspuns: $w_B(x) = \mathcal{N}(\mu=8, \sigma^2=2)$
+
+### V.a. ca funcții de alte v.a
+
+- O funcție aplicată unei v.a. produce o altă v.a.
+
+- Exemple: dacă $A$ este o v.a. distribuită $\mathcal{U}\;[0,10]$, atunci
+    - $B = 5 + A$ este o altă v.a., distribuită $\mathcal{U}\;[5,15]$
+    - $C = A^2$ este de asemenea o v.a.
+    - $D = cos(A)$ este de asemenea o v.a.
+    
+- Motivație: dacă $A$ este aleatoare, și valorile $B$, $C$, $D$ sunt aleatoare
+
+- A, B, C, D nu sunt independente
+    - O anumită valoare a uneia implică automat și valoarea celorlalte
 
 ### Sisteme de mai multe variabile aleatoare
 
-* Fie un sistem cu două v.a. continue $X$ și $Y$
+- Fie un sistem cu două v.a. continue $A$ și $B$
 
-* Există funcția de repartiție comună:
-$$F(x, y) = P\left\{ X \leq x \cap Y \leq y \right\}$$
+- Care este probabilitatea ca perechea $(A,B)$ să aibă valoarea
+în jurul $(x,y)$?
 
-* Densitatea de probabilitate comună:
-$$w(x,y) = \frac{\partial^2 F(x,y)}{\partial x \partial y}$$
+- Distribuția valorilor perechii $(A,B)$ este descrisă de:
+    - Densitatea de probabilitate comună $w_{AB}(x,y)$
+    - Funcția de repartiție comună $F_{AB}(x,y)$
+    
+### Sisteme de mai multe variabile aleatoare
+    
+- Funcția de repartiție comună:
+$$F_{AB}(x,y) = P_{AB}\left\{ A \leq x \cap B \leq y \right\}$$
 
-* FDP comună descrie probabilitatea ca $X$ și $Y$
-să se găsească într-o vecinătate a lui $x$ și $y$, **simultan**
+- Densitatea de probabilitate comună:
+$$w_{AB}(x,y) = \frac{\partial^2 F_{AB}(x,y)}{\partial x \partial y}$$
 
-* Similar pentru v.a discrete: funcția masă de probabilitate comună
-$$w(x,y) = P\left\{ X = x \cap Y = y \right\}$$
+* FDP comună descrie probabilitatea ca perechea $(A,B)$
+să aibă valoarea într-o vecinătate a $(x,y)$
 
+* Similar pentru v.a discrete:
+$$w_{AB}(x,y) = P\left\{ A = x \cap B = y \right\}$$
 
 ### Variabile independente
 
-* Două v.a. $X$ și $Y$ sunt **independente** dacă valoarea uneia nu 
+- Două v.a. $A$ și $B$ sunt **independente** dacă valoarea uneia nu 
 influențează în nici un fel valoarea celeilalte
 
-* Pentru v.a. independente, probabilitatea ca $X=x$ și $Y=y$ este produsul
-celor două probabilități
+- Pentru v.a. independente, probabilitatea ca $A$ să fie în jurul lui
+ $x$ și $B$ în jurul lui $y$ este produsul celor două probabilități
 
-* V.a. discrete:
-$$w(x,y) = w(x) \cdot w(y)$$
-$$P\left\{ X = x \cap Y = y \right\} = P\left\{ X = x\right\} \cdot P\left\{ Y = y \right\}$$
+$$w_{AB}(x,y) = w_A(x) \cdot w_B(y)$$
 
-* Valabilă pentru FR / FDP / FMP, v.a. continue sau aleatoare
+- Valabilă pentru FR / FDP / FMP, v.a. continue sau aleatoare etc.
 
-* Idem pentru mai mult de două v.a.
+- Similar pentru mai mult de două v.a.
 
 ### Variabile independente
 
 Exercițiu: 
 
-  * Calculați probabilitatea ca trei v.a. $X$, $Y$ și $Z$ i.i.d. $\mathcal{N}(-1,1)$
+  - Calculați probabilitatea ca trei v.a. $X$, $Y$ și $Z$ i.i.d. $\mathcal{N}(-1,1)$
   să fie toate pozitive
-      * ***i.i.d*** = "independente și identic distribuite"
+      - ***i.i.d*** = "independente și identic distribuite"
+
+### Multiple v.a. normale
+
+- Fie un set de $N$ v.a. normale $(A_1, ...A_N)$, 
+cu medii diferite $\mu_i$ dar aceeași deviație standard $\sigma$
+
+- Probabilitatea ca $(A_1,...A_N)$ să fie în jurul valorii 
+$(x_1, ...x_N)$ este
+$$w_{A_1,...A_N}(x_1,...x_N) = \frac{1}{(\sigma\sqrt{2\pi})^N} e^{\frac{(x_1-\mu_1)^2+...+(x_N - \mu_N)^2}{2\sigma^2}}$$
+
+- Probabilitatea depinde de **distanța Euclideană** dintre
+$\mathbf{x}=(x_1,...x_N)$ și $\mathbf{\mu} = (\mu_1,...\mu_N)$
+
+### Distanța Euclideană
+
+- **Distanța Euclideană (geometrică)** între 2 vectori N-dimensionali
+ $$d(\mathbf{u},\mathbf{v}) = \| \mathbf{u}-\mathbf{v} \| = \sqrt{(u_1-v_1)^2+...+(u_N - v_N)^2}$$
+
+- Unidimensional: $\|\mathbf{u}-\mathbf{v}\| = |u-v|$
+
+- 2D: $\|\mathbf{u}-\mathbf{v}\| = \sqrt{(u_1 - v_1)^2 + (u_2 - v_2)^2}$
+       
+- 3D: $\|\mathbf{u}-\mathbf{v}\| = \sqrt{(u_1 - v_1)^2 + (u_2 - v_2)^2 + (u_3 - v_3)^2}$
+
+- ...
+
+- N-dimensional: $\|\mathbf{u}-\mathbf{v}\| = \sqrt{\sum_{i=1}^N(u_i - v_i)^2}$
+
+- ...
+
+- Semnale continue: $\|\mathbf{u}-\mathbf{v}\| = \sqrt{\int_{-\infty}^{\infty}(u(t) - v(t))^2 dt}$
+
+### Multiple v.a. normale
+
+- Probabilitatea a $N$ v.a. normale, independente,
+cu același $\sigma$ dar diferite $\mu_i$
+depinde de **pătratul distanței Euclidiene față de vectorul medie** $\mathbf{\mu} = (\mu_1,...\mu_N)$
+    - Aproape de $\mu$: probabilitate mai mare
+    - Departe de $\mu$: probabilitate redusă
+    - Două puncte la aceeași distanță de $\mu$ au aceeași probabilitate
+
+### Distribuția normală 2D
+
+- Distribuția a 2 v.a. normale (distribuția normală 2D)
+![](img/2DNormal.png)
+
+### Distribuția normală 2D  - vedere de sus
+
+- Vedere de sus
+- Aici, $\mu = (0,0)$
+- Probabilitatea scade pe măsură ce crește distanța față de centru,
+în cercuri concentrice (simetric)
+
+![](img/2DNormal-TopView.png){.id width=50%}
+
 
 ### Medii statistice
 
@@ -354,10 +414,10 @@ Exercițiu:
 * Valoarea medie (momentul de ordin 1)
 
 * Pentru v.a. continue:
-$$\overline{X} = E\{X\} = \int_{-\infty}^{\infty} x \cdot w(x) dx$$
+$$\overline{A} = E\{A\} = \int_{-\infty}^{\infty} x \cdot w_A(x) dx$$
 
 * Pentru v.a. discrete:
-$$\overline{X} = E\{X\} = \sum_{x=-\infty}^{\infty} x \cdot w(x) dx$$
+$$\overline{A} = E\{A\} = \sum_{x=-\infty}^{\infty} x \cdot w_A(x)$$
 
 * (Exemplu: entropia H(X) = valoarea medie a informației)
 
@@ -369,11 +429,11 @@ $$\overline{X} = E\{X\} = \sum_{x=-\infty}^{\infty} x \cdot w(x) dx$$
     * pentru că, la bază, integrala / suma este o operație liniară
 
 * Liniaritate
-$$E\{aX + bY\} = aE\{X\} + bE\{Y\}$$
+$$E\{c_1A + c_2B\} = c_1E\{A\} + c_2E\{B\}$$
 
 * Sau:
-$$E\{aX\} = a E\{X\}, \forall a \in \mathbb{R}$$
-$$E\{X + Y\} = E\{X\} + E\{Y\}$$
+$$E\{cA\} = c E\{A\}, \forall c \in \mathbb{R}$$
+$$E\{A + B\} = E\{A\} + E\{B\}$$
 
 * Fără demonstrație
 
@@ -384,10 +444,10 @@ $$E\{X + Y\} = E\{X\} + E\{Y\}$$
 * Momentul de ordin 2
 
 * Pentru v.a. continue:
-$$\overline{X^2} = E\{X^2\} = \int_{-\infty}^{\infty} x^2 \cdot w(x) dx$$
+$$\overline{A^2} = E\{A^2\} = \int_{-\infty}^{\infty} x^2 \cdot w_A(x) dx$$
 
 * Pentru v.a. discrete:
-$$\overline{X^2} = E\{X^2\} = \sum_{-\infty}^{\infty} x^2 \cdot w(x) dx$$
+$$\overline{A^2} = E\{A^2\} = \sum_{-\infty}^{\infty} x^2 \cdot w_A(x)$$
 
 * Interpretare: media pătratelor = energia medie a unui semnal
 
@@ -396,10 +456,10 @@ $$\overline{X^2} = E\{X^2\} = \sum_{-\infty}^{\infty} x^2 \cdot w(x) dx$$
 * Dispersia (varianța) = valoarea pătratică medie a abaterii față de valoarea medie :)
 
 * V.a. continue:
-$$\sigma^2 = \overline{\left\{ X - \mu \right\}^2} = \int_{-\infty}^{\infty} (x-\mu)^2 \cdot w(x) dx$$
+$$\sigma^2 = \overline{\left\{ A - \mu \right\}^2} = \int_{-\infty}^{\infty} (x-\mu)^2 \cdot w_A(x) dx$$
 
 * V.a. discrete:
-$$\sigma^2 = \overline{\left\{ X - \mu \right\}^2} = \sum_{-\infty}^{\infty} (x-\mu)^2 \cdot w(x) dx$$
+$$\sigma^2 = \overline{\left\{ A - \mu \right\}^2} = \sum_{-\infty}^{\infty} (x-\mu)^2 \cdot w_A(x)$$
 
 * Interpretare: cât de mult variază valorile în jurul mediei
     * $\sigma^2 =$ mare: abateri mari față de medie
@@ -409,10 +469,10 @@ $$\sigma^2 = \overline{\left\{ X - \mu \right\}^2} = \sum_{-\infty}^{\infty} (x-
 
 * Legătura între medie, valoarea pătratică medie și dispersie:
 $$\begin{split}
-\sigma^2 &= \overline{\left\{ X - \mu \right\}^2} \\
-&= \overline{X^2 - 2 \cdot X \cdot \mu + \mu^2} \\
-&= \overline{X^2} - 2 \mu \overline{X} + \mu^2 \\
-&= \overline{X^2} - \mu^2
+\sigma^2 &= \overline{\left\{ A - \mu \right\}^2} \\
+&= \overline{A^2 - 2 \cdot A \cdot \mu + \mu^2} \\
+&= \overline{A^2} - 2 \mu \overline{A} + \mu^2 \\
+&= \overline{A^2} - \mu^2
 \end{split}$$
 
 ### Suma variabilelor aleatoare
@@ -421,13 +481,13 @@ $$\begin{split}
 
 * Distribuția ei = **convoluția** distribuțiilor v.a. componente
 
-* Dacă $Z = X + Y$
-$$w(z) = w(x) \star w(y)$$
+* Dacă $C = A + B$, atunci:
+$$w_C(x) = w_A(x) \star w_B(x)$$
 
-* Caz particular: dacă $X$ și $Y$ sunt v.a. normale, cu $\mathcal{N}(\mu_X, \sigma_X^2)$ și $\mathcal{N}(\mu_Y, \sigma_Y^2)$, atunci:
-    * $Z$ este tot o v.a. cu distribuție normală, $\mathcal{N}(\mu_Z, \sigma_Z^2)$, având:
-    * media = suma mediilor: $\mu_Z = \mu_X + \mu_Y$
-    * dispersia = suma dispersiilor: $\sigma_Z^2 = \sigma_X^2 + \sigma_Y^2$
+* Caz particular: dacă $A$ și $B$ sunt v.a. normale, cu $\mathcal{N}(\mu_A, \sigma_A^2)$ și $\mathcal{N}(\mu_B, \sigma_B^2)$, atunci:
+    * $C$ este tot o v.a. cu distribuție normală, $\mathcal{N}(\mu_C, \sigma_C^2)$, având:
+    * media = suma mediilor: $\mu_C = \mu_A + \mu_B$
+    * varianța = suma varianțelor: $\sigma_C^2 = \sigma_A^2 + \sigma_B^2$
     
 ## II.2 Procese aleatoare
 
