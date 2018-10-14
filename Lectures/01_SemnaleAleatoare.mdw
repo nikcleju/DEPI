@@ -469,9 +469,9 @@ $$\overline{A^2} = E\{A^2\} = \sum_{-\infty}^{\infty} x^2 \cdot w_A(x)$$
 
 * Interpretare: media pătratelor = energia medie a unui semnal
 
-### Dispersia (varianța)
+### Varianța
 
-* Dispersia (varianța) = valoarea pătratică medie a abaterii față de valoarea medie :)
+* Varianța = valoarea pătratică medie a abaterii față de valoarea medie :)
 
 * V.a. continue:
 $$\sigma^2 = \overline{\left\{ A - \mu \right\}^2} = \int_{-\infty}^{\infty} (x-\mu)^2 \cdot w_A(x) dx$$
@@ -485,7 +485,7 @@ $$\sigma^2 = \overline{\left\{ A - \mu \right\}^2} = \sum_{-\infty}^{\infty} (x-
 
 ### Legătura între cele trei mărimi
 
-* Legătura între medie, valoarea pătratică medie și dispersie:
+* Legătura între medie, valoarea pătratică medie și varianță:
 $$\begin{split}
 \sigma^2 &= \overline{\left\{ A - \mu \right\}^2} \\
 &= \overline{A^2 - 2 \cdot A \cdot \mu + \mu^2} \\
@@ -533,13 +533,17 @@ $$w_C(x) = w_A(x) \star w_B(x)$$
 
 ### Distribuții de ordin 1 ale proceselor aleatoare
 
-* Fiecare eșantion $f(t_1)$ ($f[n_1]$) dintr-un p.a. este o v.a.
-    * cu FR $F_1(x;t_1)$
-    * cu FDP / FMP $w_1(x;t_1) = \frac{dF_1(x;t_1)}{dx}$
+* Fiecare eșantion $f(t_1)$ dintr-un proces aleator este o v.a.
+    - descris de o **distribuție de ordin 1**
+    - are FR $F_1(x;t_1)$
+    - are FDP / FMP $w_1(x;t_1) = \frac{dF_1(x;t_1)}{dx}$
+    - distribuția depinde de momentul $t_1$
 
-* Eșantionul de la momentul $t_2$ este o v.a. diferită, cu funcții posibil diferite
-    * cu FR $F_1(x;t_2)$
-    * cu FDP / FMP $w_2(x;t_2) = \frac{dF_1(x;t_2)}{dx}$
+* Un eșantion la alt moment $t_2$ este o v.a. diferită, cu funcții posibil diferite
+    * altă FR $F_1(x;t_2)$
+    * altă FDP / FMP $w_2(x;t_2) = \frac{dF_1(x;t_2)}{dx}$
+
+* Aceste funcții descriu distribuția valorilor unui eșantion
 
 * Indicele $w_1$ arată că considerăm o singură v.a. din proces (distribuții *de ordin 1*)
 
@@ -547,9 +551,11 @@ $$w_C(x) = w_A(x) \star w_B(x)$$
 
 ### Distribuții de ordin 2
 
-* O pereche de v.a. $f(t_1)$ and $f(t_2)$ dintr-un proces aleator $f(t)$ au:
-    * FR comună $F_2(x_i, x_j; t_1, t_2)$
-    * FDP / FMP comună $w_2(x_i, x_j; t_1, t_2) = \frac{\partial^2 F_2(x_i, x_j;t_1, t_2)}{\partial x_i \partial x_j}$
+* O pereche de v.a. $f(t_1)$ și $f(t_2)$ formează un sistem de 2 v.a.:
+    - sunt descrise de o **distribuție de ordin 2**
+    - au FR comună $F_2(x_i, x_j; t_1, t_2)$
+    - au FDP / FMP comună $w_2(x_i, x_j; t_1, t_2) = \frac{\partial^2 F_2(x_i, x_j;t_1, t_2)}{\partial x_i \partial x_j}$
+    - distribuția depinde de momentele $t_1$ și $t_2$
 
 * Aceste funcții descriu cum sunt distribuite valorile perechilor (distribuții *de ordin 2*)
 
@@ -559,9 +565,11 @@ $$w_C(x) = w_A(x) \star w_B(x)$$
 
 * Generalizare la $n$ eșantioane ale unui p.a.
 
-* Un set de $n$ v.a. $f(t_1), ...f(t_n)$ dintr-un proces aleator $f(t)$ au:
-    * FR comună $F_n(x_1,... x_n; t_1,... t_n)$
-    * FDP / FMP comună $w_n(x_1,... x_n; t_1,... t_n) = \frac{\partial^2 F_n(x_1,... x_n;t_1,... t_n)}{\partial x_1 ... \partial x_n}$
+* Un set de $n$ v.a. $f(t_1), ...f(t_n)$ dintr-un proces aleator $f(t)$:
+    - sunt descrise de o **distribuție de ordin n**
+    - au FR comună $F_n(x_1,... x_n; t_1,... t_n)$
+    - au FDP / FMP comună $w_n(x_1,... x_n; t_1,... t_n) = \frac{\partial^2 F_n(x_1,... x_n;t_1,... t_n)}{\partial x_1 ... \partial x_n}$
+    - depind de momentele de timp $t_1$, $t_2$, ... $t_n$
 
 * Aceste funcții descriu cum sunt distribuite valorile seturilor de $n$ valori (distribuții *de ordin n*)
 
@@ -569,7 +577,9 @@ $$w_C(x) = w_A(x) \star w_B(x)$$
 
 ### Medii statistice
 
-Procesele aleatoare sunt caracterizate de medii statistice sau temporale (*momente*)
+Procesele aleatoare sunt caracterizate de medii statistice și temporale
+
+Pentru procese continue:
 
 1. Valoarea medie
 $$\overline{f(t_1)} = \mu(t_1) = \int_{-\infty}^{\infty} x \cdot w_1(x; t_1) dx$$
@@ -577,12 +587,12 @@ $$\overline{f(t_1)} = \mu(t_1) = \int_{-\infty}^{\infty} x \cdot w_1(x; t_1) dx$
 2. Valoarea pătratică medie
 $$\overline{f^2(t_1)} = \int_{-\infty}^{\infty} x^2 \cdot w_1(x; t_1) dx$$
 
-### Medii statistice - dispersia
+### Medii statistice - varianța
 
-3. Dispersia
+3. Varianța
 $$\sigma^2(t_1) = \overline{\left\{ f(t_1) - \mu(t_1) \right\}^2} = \int_{-\infty}^{\infty} (x-\mu(t_1)^2 \cdot w_1(x; t_1) dx$$
 
-* Disperia se poate calcula pe baza celorlalte două:
+* Varianța se poate calcula pe baza celorlalte două:
 $$\begin{split}
 \sigma^2(t_1) =& \overline{\left\{ f(t_1) - \mu(t_1) \right\}^2} \\
 =& \overline{f(t_1)^2 - 2f(t_1)\mu(t_1) + \mu(t_1)^2} \\
@@ -605,10 +615,26 @@ $$R_{fg}(t_1,t_2) = \overline{f(t_1) g(t_2)} = \int_{-\infty}^\infty \int_{-\inf
 * Observații:
     * aceste funcții au valori diferite pentru diverse perechi de valori ($t_1$,$t_2$)
 
+### Procese aleatoare discrete
+
+Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$:
+
+1. $\overline{f[t_1]} = \mu(t_1) = \sum_{x=-\infty}^{\infty} x \cdot w_1(x; t_1)$
+
+2. $\overline{f^2[t_1]} = \sum_{x=-\infty}^{\infty} x^2 \cdot w_1(x; t_1)$
+
+3. $\sigma^2(t_1) = \overline{\left\{ f[t_1] - \mu(t_1) \right\}^2} = \sum_{x=-\infty}^{\infty} (x-\mu(t_1)^2 \cdot w_1(x; t_1)$
+
+4. $R_{ff}(t_1,t_2) = \overline{f[t_1] f[t_2]} = \sum_{x_1=-\infty}^\infty \sum_{x_2=-\infty}^\infty x_1 x_2 w_2(x_1, x_2; t_1, t_2)$
+
+5. $R_{fg}(t_1,t_2) = \overline{f[t_1] g[t_2]} = \sum_{x_1=-\infty}^\infty \sum_{x_2=-\infty}^\infty x_1 y_2 w_2(x_1, y_2; t_1, t_2)$
+
+
 ### Medii temporale
 
-* Dacă avem acces doar la o singură realizare a procesului?
+* Dacă avem acces doar la o singură realizare $f^{(k)}(t)$ a procesului?
 * Calculăm valorile medii **pentru o singură realizare $f^{(k)(t)}$, în timp**
+* Pentru procese continue:
 
 1. Valoarea medie temporală
 $$\overline{f^{(k)}(t)} = \mu^{(k)} = \lim_{T \to \infty} \frac{1}{T} \int_{T/2}^{T/2} f^{(k)}(t) dt$$
@@ -616,8 +642,8 @@ $$\overline{f^{(k)}(t)} = \mu^{(k)} = \lim_{T \to \infty} \frac{1}{T} \int_{T/2}
 2. Valoarea medie pătratică temporală 
 $$\overline{[f^{(k)}(t)]^2} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} [f^{(k)}(t)]^2 dt$$
 
-### Dispersia temporală
-3. Dispersia temporală
+### Varianța temporală
+3. Varianța temporală
 $$\sigma^2 = \overline{\left\{ f^{(k)}(t) - \mu^{(k)} \right\}^2} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} (f^{(k)}(t)-\mu^{(k)})^2 dt$$
 
 * Poate fi calculată ca:
@@ -625,7 +651,6 @@ $$\sigma^2 = \overline{[f^{(k)}(t)]^2} - [\mu^{(k)}]^2$$
 
 * Observație:
     * aceste valori nu mai depind de timpul $t$
-
 
 ### Autocorelația temporală
 
@@ -641,10 +666,49 @@ R_{fg}(t_1,t_2) =& \overline{f^{(k)}(t_1 + t) g^{(k)}(t_2+t)}\\
 =& \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t_1+t) g^{(k)}(t_2 + t) dt
 \end{split}$$
 
+### Procese aleatoare discrete
+
+Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$, $T$ cu $N$,
+și se împarte la $2N+1$ în loc de $2T$
+
+1. $\overline{f^{(k)}[t]} = \mu^{(k)} = \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} f^{(k)}[t]$
+
+2. $\overline{[f^{(k)}[t]]^2} = \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} (f^{(k)}[t])^2$
+
+3. $\sigma^2 = \overline{\left\{ f^{(k)}[t] - \mu^{[k]} \right\}^2} = \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} (f^{(k)}[t]-\mu^{(k)})^2$
+
+### Procese aleatoare discrete
+
+4. Autocorelația temporală:
+
+$$\begin{split}
+R_{ff}(t_1,t_2) =& \overline{f^{(k)}[t_1 + t] f^{(k)}[t_2+t]} \\
+=& \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} f^{(k)}[t_1+t] f^{(k)}[t_2 + t]
+\end{split}$$
+
+5. Corelația temporală:
+
+$$\begin{split}
+R_{fg}(t_1,t_2) =& \overline{f^{(k)}[t_1 + t] g^{(k)}[t_2+t]}\\
+=& \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} f^{(k)}[t_1+t] g^{(k)}[t_2 + t]
+\end{split}$$
+
+### Realizări de lungime finită
+
+Dacă o realizare nu se întinde de la timpul $-\infty$ la $\infty$, 
+ci doar de la un $t_{min}$ la $t_{max}$,
+se folosește $\int_{t_{min}}^{t_{max}}$ sau $\sum_{t_{min}}^{t_{max}}$ pentru mediile temporale
+
+* Exemplu: calculați mediile temporale pentru realizarea de lungime finită
+$$\{1,-1,2,-2,3,-3,4,-4,5,-5\}$$
+
+
 ### Medii statistice și temporale
 
 * Mediile statistice sunt, de obicei, cele de interes
-* Dar, în practică, putem calcula doar mediile temporale
+    - dar necesită cunoașterea distribuțiilor
+* În practică, pentru semnale necunoscute, se poate măsura doar o singură realizare
+    - putem calcula doar mediile temporale
 * Din fericire, în multe cazuri mediile statistice și temporale sunt identice ("*ergodicitate*")
 
 ### Procese aleatoare staționare
@@ -673,7 +737,7 @@ $$w_n(x_1,...x_n; t_1,...t_n) = w_n(x_1,...x_n; t_1+\tau,... t_n + =tau)$$
 * Pentru $n=1$:
 $$w_1(x_i;t_1) = w_1(x_i; t_2) = w_1(x_i)$$
 
-* Valoarea medie, valoarea medie pătratică, dispersia
+* Valoarea medie, valoarea medie pătratică, varianța
 unui eșantion sunt **aceleași** la orice moment de timp $t$
 $$\overline{f(t)} = constant, \forall t$$
 $$\overline{f^2(t)} = constant, \forall t$$
@@ -685,10 +749,8 @@ $$\sigma^2(t) = constant, \forall t$$
 $$w_2(x_i,x_j;t_1,t_2) = w_2(x_i,x_j;0, t_2-t_1) = w_2(x_i,x_2; t_2-t_1)$$
 
 * Funcția de autocorelație depinde doar de **diferența de timp**
-$\tau = t_2 - t_1$ dintre eșantioane, oriunde ar fi localizate
+$\tau = t_2 - t_1$ dintre eșantioane
 $$R_{ff}(t_1,t_2) = R_{ff}(0, t_2 - t_1) = R_{ff}(\tau) = \overline{f(t) f(t + \tau)}$$
-
-* Este valoarea medie a produsului dintre două eșantioane separate de un interval de timp $\tau$
 
 * Depinde doar de valoarea $\tau$ = diferența de timp dintre cele două eșantioane
 
@@ -699,8 +761,20 @@ $$R_{ff}(t_1,t_2) = R_{ff}(0, t_2 - t_1) = R_{ff}(\tau) = \overline{f(t) f(t + \
 * Depinde doar de **diferența de timp** $\tau = t_2 - t_1$ dintre două eșantioane
 $$R_{fg}(t_1,t_2) = R_{fg}(0, t_2 - t_1) = R_{fg}(\tau) = \overline{f(t) g(t + \tau)}$$
 
-* Este valoarea medie a produsului dintre două eșantioane separate de un interval de timp $\tau$
+### Interpretarea autocorelației
 
+- $R_{ff}(\tau)$ = media produsului a două eșantioane situate la distanță de $\tau$
+    - ne spune dacă eșantioanele variază în același sens sau nu
+
+- Idem pentru corelație, doar că eșantioanele provin din p.a. diferite, $f$ și $g$
+
+- Exemplu:
+    - $R_{ff}(0.5) > 0$: două eșantioane decalate cu $0.5$ secunde tind să varieze în aceeași direcție
+(ambele pozitive, ambele negative => produsele sunt majoritar pozitive)
+    - $R_{ff}(1) < 0$: două eșantioane decalate cu 1 secundă tind să varieze în direcții opuse
+(când unul e pozitiv, celălalt e negativ => produsele sunt majoritar negative)
+    - $R_{ff}(2) = 0$: două eșantioane decalate cu 2 secunde sunt necorelate
+(produsele sunt în medie 0, deci la fel de multe pozitive cât negative)
 
 ### Procese aleatoare ergodice
 
@@ -708,10 +782,11 @@ $$R_{fg}(t_1,t_2) = R_{fg}(0, t_2 - t_1) = R_{fg}(\tau) = \overline{f(t) g(t + \
 
 * Proces aleator **ergodic** = mediile temporale pe orice realizare sunt **identice** cu mediile statistice
 
-* Se pot calcule toarte mediile pe baza unei singure realizări
-    * realizarea trebuie să fie foarte lungă (lungimea $\to \infty$) pentru valori precise
-    * o realizare este caracteristică pentru întreg procesul aleator
-    * realizările sunt similare unele cu altele, dpdv statistic
+* Ergodicitatea înseamnă:
+    * Se pot calcule toate mediile pe baza unei singure realizări
+        * dar realizarea trebuie să fie foarte lungă (lungimea $\to \infty$) pentru valori precise
+    * Toate realizările sunt similare unele cu altele, dpdv statistic
+        * o realizare este caracteristică pentru întreg procesul aleator
 
 ### Procese aleatoare ergodice
 
@@ -735,7 +810,7 @@ puterea procesului aleator la fiecare frecvență $f$ ($\omega = 2 \pi f$)
 
 * Puterea în banda de frecvență $[f_1, f_2]$ este $\int_{f_1}^{f_2} S_{ff}(\omega) d\omega$
 
-* Puterea totală a procesului aleator este $\int_{-\infty}^{\infty} S_{ff}(\omega) d\omega$
+* Puterea totală a procesului aleator este $P = \int_{-\infty}^{\infty} S_{ff}(\omega) d\omega$
 
 * DSP este o funcție măsurabilă practic
     * poate fi determinată experimental
@@ -757,21 +832,41 @@ $$R_{ff}(\tau) = \frac{1}{2 \pi}\int_{-\infty}^{\infty} S_{ff}(\omega) e^{j \ome
 
 ### Zgomot alb
 
-* Zgomot alb = proces aleator cu funcția de autocorelație egală cu o funcție Dirac
+* Zgomot alb = proces aleator cu funcția de autocorelație egală cu un Dirac
 $$R_{ff}(\tau) = \delta(\tau)$$
 
-* Două eșantioane diferite ($\tau \neq 0$) au corelație zero (necorelate)
-    * adică nu variază în mod similar
+    - este proces aleator: orice eșantion este o variabilă aleatoare
+    - autocorelația este un Dirac: este 0 pentru orice $\tau \neq 0$
+    - oricare două eșantioane diferite ($\tau \neq 0$) au corelație zero (necorelate)
+        - valorile a două eșantioane nu au legătură între ele
     
-* Densitatea spectrală de putere = transf. Fourier a unui Dirac = constantă
+* Densitatea spectrală de putere = transf. Fourier a unui Dirac = constantă $\forall \omega$
     * putere constantă la toate frecvențele, până la $f = \infty$
+
+* Zgomotul alb poate avea orice distribuție (normală, uniformă etc.)
+    - termenul "zgomot alb" nu se referă la distribuția eșantioanelor,
+    ci la faptul că valorile eșantioanele sunt necorelate
+    
+### Zgomot alb de bandă limitată    
     
 * În practică, puterea scade la 0 la frecvențe foarte înalte
-    * zgomot alb "*de bandă limitată*"
+    - pentru că puterea totală $P = \int_{-\infty}^{\infty} S_{ff}{\omega}$ nu poate fi infinită
+    - zgomot alb "*de bandă limitată*"
+    
+* În acest caz, autocorelația = aproximativ un Dirac, dar nu infinit de "subțire"
     * eșantioane foarte apropiate sunt totuși corelate
+    * de ex. din cauza unor mici capacități parazite
 
-* Zgomotul alb poate avea diverse distribuții
-    * normală, uniformă etc.
+### AWGN
+
+- **AWGN** = Additive White Gaussian Noise
+    - Zgomot alb, Gaussian, aditiv
+    - tipul de zgomot cel mai frecvent întâlnit în aplicații
+
+- Înseamnă:
+    - aditiv: zgomotul se adună cu semnalul original (de ex. nu se multiplică cu acesta)
+    - gaussian: eșantioanele au distribuția normală
+    - alb: valorile eșantioanelor sunt necorelate între ele 
 
 
 ### Proprietățile funcției de autocorelație
@@ -779,30 +874,30 @@ $$R_{ff}(\tau) = \delta(\tau)$$
 1. Este o funcție pară
 $$R_{ff}(\tau) = R_{ff}(-\tau)$$
 
-* Demonstrație: Schimbare de variabilă în definiție
+    * Demonstrație: Schimbare de variabilă în definiție
 
 2. La infinit, tinde la o valoare constantă
 $$R_{ff}(\infty) = \overline{f(t)}^2 = const$$
 
-* Dem.: două eșantioane la un interval $\infty$ sunt necesar independente
+    * Dem.: două eșantioane la un interval $\infty$ sunt necesar independente
 
 3. Are valoarea maximă în 0
 $$R_{ff}(0) \geq R_{ff}(\tau)$$
 
-* Dem.: se pornește de la $\overline{(f(t) - f(t + \tau))^2} \geq 0$
-* Interpretare: eșantioane diferite mai pot varia diferit, dar un eșantion variază întotdeauna identic cu sine însuși
+    * Dem.: se pornește de la $\overline{(f(t) - f(t + \tau))^2} \geq 0$
+    * Interpretare: eșantioane diferite mai pot varia diferit, dar un eșantion variază întotdeauna identic cu sine însuși
 
 ### Proprietățile funcției de autocorelație
 
 4. Valoarea în 0 = puterea procesului aleator
 $$R_{ff}(0) = \frac{1}{2 \pi} \int_{-\infty}^{\infty} S_{ff}(\omega) d\omega$$
 
-* Dem.: Se pune $\tau = 0$ în transf. Fourier inversă din teorema Wiener-Hincin
+    * Dem.: Se pune $\tau = 0$ în transf. Fourier inversă din teorema Wiener-Hincin
 
-5. Dispersia = diferența între valoarea din 0 și cea de la $\infty$
+5. Varianța = diferența între valoarea din 0 și cea de la $\infty$
 $$\sigma^2 = R_{ff}(0) - R_{ff}(\infty)$$
 
-* Dem.: $R_{ff}(0) = \overline{f(t)^2}$, $R_{ff}(\infty) = \overline{f(t)}^2$
+    * Dem.: $R_{ff}(0) = \overline{f(t)^2}$, $R_{ff}(\infty) = \overline{f(t)}^2$
 
 ### Autocorelația unui proces aleator filtrat
 
