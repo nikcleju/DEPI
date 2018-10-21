@@ -7,10 +7,11 @@
 
 * Detecția semnalelor = a decide care semnal este prezent
 dintre două sau mai multe posibilități
-    * inclusiv că nu există nici un semnal
+    * inclusiv că nu există nici un semnal (este 0)
 
 * Avem la dispoziție observații **cu zgomot**
     * semnalele sunt afectate de zgomot
+    * zgomotul este aditiv (se adună la semnalul original)
 
 ### Schema bloc a detecției semnalelor
 
@@ -18,15 +19,17 @@ dintre două sau mai multe posibilități
 
 * Conținut:
     * Sursa de informație: generează mesajele $a_n$ cu probabilitățile $p(a_n)$
+    * Generator: generează semnalele diferite $s_1(t)$,...$s_n(t)$
     * Modulator: transmite semnalul $s_n(t)$ la mesajul $a_n$
     * Canal: adaugă zgomot aleator
-    * Eșantionare: prelevă eșantioane din semnalul $s_n(t)$
+    * Eșantionare: ia eșantioane din semnalul $s_n(t)$
     * Receptor: **decide** ce mesaj $a_n$ s-a fost recepționat
+    * Utilizator: primește mesajele recuperate
 
 ### Scenarii practice
 
 * Transmisie de date
-    * nivele constante de tensiune (e.g. $s_n(t)$ = constant)
+    * nivele constante de tensiune (de ex. $s_n(t)$ = constant 0 sau 5V)
     * modulație PSK (Phase Shift Keying): $s_n(t)$ = cosinus cu aceeași frecvență dar faze inițiale diferite
     * modulație FSK (Frequency Shift Keying): $s_n(t)$ = cosinus cu frecvențe diferite
     * modulație OFDM (Orthogonal Frequency Division Multiplexing): caz particular de FSK
@@ -47,199 +50,395 @@ dintre două sau mai multe posibilități
     * observarea întregului semnal continuu, pentru un timp $T$
 
 
-## II.2 Detecția semnalelor constante folosind 1 eșantion
+## II.2 Detecția semnalelor folosind 1 eșantion
 
-### Detecție unui semnal constant, 1 eșantion
+### Detecția unui semnal cu 1 eșantion
 
-* Cel mai simplu caz: detecția unui semnal constant afectat de zgomot, folosind un singur eșantion
+* Cel mai simplu caz: detecția unui semnal afectat de zgomot, folosind un singur eșantion
     * două mesaje $a_0$ și $a_1$
-    * mesajele sunt modulate cu semnale constante
-        * pentru $a_0$: se emite $s_0(t) = 0$
-        * pentru $a_1$: se emite $s_1(t) = A$
-    * peste semnal se suprapune zgomot aditiv
-    * eșantionarea preia un singur eșantion
-    * decizie: se compară eșantionul cu un prag
+    * mesajele sunt modulate cu semnalele $s_0(t)$ și $s_1(t)$
+        * pentru $a_0$: se transmite $s(t) = s_0(t)$
+        * pentru $a_1$: se transmite $s(t) = s_1(t)$
+    * peste semnal se suprapune zgomot aditiv, alb, $n(t)$
+    * se recepționează un semnal cu zgomot, $r(t) = s(t) + n(t)$
+    * eșantionarea preia un singur eșantion la timpul $t_0$, $r(t_0)$
+    * decizie: pe baza $r(t_0)$, care semnal a fost cel transmis?
 
-### Decizia pe bază de prag
+### Ipoteze și decizii
 
-* Valoarea eșantionului este $r = s + n$
-    * $s$ este semnalul adevărat ($s_0 = 0$ or $s_1 = A$)
-    * $n$ este un eșantion de zgomot
+* Există două **ipoteze**:
+    * $H_0$: semnalul adevărat este $s(t) = s_0(t)$ (s-a transmis $a_0$)
+    * $H_1$: semnalul adevărat este $s(t) = s_1(t)$ (s-a transmis $a_1$)
 
-* $n$ este o variabilă aleatoare continuă 
-* $r$ este de asemenea o variabilă aleatoare
-    * cum depinde distribuția lui $r$ de cea a lui $n$
+* Receptorul poate lua una din două **decizii**:
+    * $D_0$: receptorul decide că semnalul corect este $s(t) = s_0(t)$
+    * $D_1$: receptorul decide că semnalul corect este $s(t) = s_1(t)$
 
-* Decizia se ia prin compararea lui $r$ cu un prag $T$:
-    * dacă $r < T$, se ia decizia $D_0$: semnalul adevărat este $s_0$
-    * dacă $r \geq T$, se ia decizia $D_1$: semnalul adevărat este $s_1$
+### Rezultate posibile
 
-### Ipoteze
+* Există 4 situații posibile:
 
-* Receptorul decide între **două ipoteze**:
-    * $H_0$: semnalul adevărat este $s_0$ (s-a transmis $a_0$)
-    * $H_1$: semnalul adevărat este $s_1$ (s-a transmis $a_1$)
+    1. **Rejecție corectă**: ipoteza corectă este $H_0$, decizia este $D_0$
+        * Probabilitatea este $P_r = P(D_0 \cap H_0)$
+        
+    2. **Alarmă falsă** (detecție falsă): ipoteza corectă este $H_0$, decizia este $D_1$
+        * Probabilitatea este $P_{af} = P(D_1 \cap H_0)$
+        
+    3. **Pierdere** (rejecție falsă): ipoteza corectă este $H_1$, decizia este $D_0$
+        * Probabilitatea este $P_p = P(D_0 \cap H_1)$
+        
+    4. **Detecție corectă**: ipoteza corectă este $H_1$, decizia este $D_1$
+         * Probabilitatea este $P_d = P(D_1 \cap H_1)$
 
-* Rezultate posibile
-    1. Semnalul nu este prezent ($s_0$), si nu este detectat
-        * Decizia $D_0$ în ipoteza $H_0$
-        * Probabilitatea sa este $P_n = P(D_0 \cap H_0)$
-    2. **Alarmă falsă**: semnalul nu este prezent ($s_0$), dar este detectat (eroare!)
-        * Decizia $D_1$ în ipoteza $H_0$
-        * Probabilitatea este $P_{fa}P(D_1 \cap H_0)$
-    3. **Ratare**: semnalul este prezent ($s_1$), dar nu este detectat (eroare!)
-        * Decizia $D_0$ în ipoteza $H_1$
-        * Probabilitatea este $P_m = P(D_0 \cap H_1)$
-    4. Semnal detectat corect: semnalul este prezent, și este detectat
-        * Decizia $D_1$ în ipoteza $H_1$
-        * Probabilitatea este $P_d = P(D_1 \cap H_1)$
+### Originea termenilor
+
+* Terminologia are la origine aplicații radar (prima aplicație a teoriei detecției)
+    - un semnal se emite de către sursă
+    - semnal recepționat = o posibilă reflecție din partea unei ținte, puternic afectată de zgomot
+    - $H_0$ = nu există un obiect, nu există semnal reflectat (doar zgomot)
+    - $H_1$ = există un obiect, există un semnal reflectat
+    - de aceea numele celor 4 scenarii sugerează "detecția unui obiect"
+
+### Zgomotul
+
+- În general se consideră zgomot **aditiv**, **alb**, **staționar**
+    - aditiv = zgomotul se adună ci semnalul
+    - alb = două eșantioane distincte sunt necorelate
+    - staționar = are aceleași proprietăți statistice la orice moment de timp
+
+- Semnalul de zgomot $n(t)$ este necunoscut
+    - este o realizare a unui proces aleator
+    - se cunoaște doar distribuția sa, nu și valorile particulare
+
+### Eșantionul preluat la recepție
+
+- La recepție se primește semnalul $r(t) = s(t) + n(t)$
+    - $s(t)$ = semnalul original, fie $s_0(t)$, fie $s_1(t)$
+    - $n(t)$ = semnalul de zgomot necunoscut
+
+- Valoarea eșantionului luat la momentul $t_0$ este $r(t_0) = s(t_0) + n(t_0)$
+    - $s(t_0)$ = fie $s_0(t_0)$, fie $s_1(t_0)$
+    - $n(t_0)$ este un eșantion din semnalul de zgomot
+
+### Eșantionul preluat la recepție
+
+- Eșantionul $n(t_0)$ este o **variabilă aleatoare**
+    - fiind un eșantion de zgomot (un eșantion dintr-un proces aleator)
+    - presupunem o v.a. continuă , adică intervalul valorilor posibile e continuă
+
+* $r(t_0) = s(t_0) + n(t_0$ = o constantă + o variabilă aleatoare
+    - este de asemenea o variabilă aleatoare
+    - $s(t_0)$ este o constantă, egală fie cu $s_0(t_0)$, fie cu $s_1(t_0)$
+
+- Care e distribuția lui $r(t_0)$?
+    - o constantă + o v.a. = aceeași distribuție ca v.a., dar translată
+    cu valoarea constantei
+
+### Funcții de plauzibilitate
+
+* Fie distribuția zgomotului $w(x)$, cunoscută
+    - aceasta este distribuția v.a. $n(t_0)$
+
+* Distribuția lui $r(t_0) = s(t_0) + n(t_0)$ = $w(x)$ translată cu $s(t_0)$
+
+* În ipoteza $H_0$, distribuția eșantionului este $w(r|H_0)$ = $w(x)$ translată cu $s_0(t_0)$
+
+* În ipoteza $H_1$, distribuția eșantionului este $w(r|H_1)$ = $w(x)$ translată cu $s_1(t_0)$
+
+* Distribuțiile $w(r|H_0)$ și $w(r|H_1)$ se numesc **distribuții condiționate** sau
+**funcțiile de plauzibilitate**
+    - "|" înseamnă "condiționat de", "dat fiind"
+    - adică dat fiind una sau cealaltă dintre ipoteze
+    - $r$ reprezintă necunoscuta funcției
 
 
 ### Criteriul plauzibilității maxime (Maximum Likelihood)
 
-* Se alege ipoteza care pare **cea mai plauzibilă** dat fiind eșantionul observat $r$
+* Cum se decide care ipoteză este adevărată, pe baza eșantionului observat $r = r(t_0)$?
 
-* **Plauzibilitatea** ("*likelihood*") unei observații $r$ = 
-densitatea de probabilitate a lui $r$ dată fiind ipoteza $H_0$ sau $H_1$
+* **Criteriul plauzibilității maxime**: se alege ipoteza care 
+este **cea mai plauzibilă** a fi generat eșantionul observat $r = r(t_0)$
+    - se alege valoarea maximă dintre $w(r(t_0)|H_0)$ și $w(r(t_0) | H_1)$
+    - în engleză: Maximum Likelihood (ML)
+    
+* Criteriul ML exprimat la un **raport de plauzibilitate**:
+$$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH 1$$
+    - criteriul este evaluat pentru eșantionul observat $r = r(t_0)$
+    
 
-* Plauzibilitatea în cazul ipotezei $H_0$: $w(r | H_0)$ 
-    * $r$ este doar zgomot, deci provine din distribuția zgomotului de pe canal
-
-* Plauzibilitatea în cazul ipotezei $H_1$: $w(r | H_1)$
-    * $r$ este A + zgomot,  deci valoarea sa provine din distribuția (A + zgomot)
-
-* Raportul de plauzibilitate
-$$\frac{w(r | H_1)}{w(r | H_0)} \grtlessH 1$$
-
-### Interpretare grafică
+### Exemplu: zgomot gaussian
 
 * Fie cazul în care zgomotul are distribuție normală
 
-* Desen: cele două densități de probabilitate pentru $H_0$ și $H_1$
+* La tablă:
+    - schiță a celor două distribuții condiționate $w(r|H_0)$ și $w(r|H_1)$
+    - discuție: ce decizie se ia pentru diferite valori ale lui $r$
+    - discuție: care este pragul $T$ pentru decizii
 
-### Decizia pe bază de prag
 
-* Decizie ML pe baza raportului de plauzibilitate = compararea lui $r$ cu un prag $T$
-* Pragul = punctul de intersecție a celor două distribuții
-
-### Zgomot cu distribuție normală
+### Zgomot cu distribuție normală (AWGN)
 
 * Caz particular: zgomotul are distribuția normală $\mathcal{N}(0,\sigma^2)$
+    - zgomot de tip AWGN
 
-* Raportul de plauzibilitate este $\frac{w(r|H_1)}{r|H_0} = \frac{e^{-\frac{(r-A)^2}{2\sigma^2}}}{e^{-\frac{r^2}{2\sigma^2}}} \grtlessH 1$
+* Raportul de plauzibilitate este $\frac{w(r|H_1)}{w(r|H_0)} = \frac{e^{-\frac{(r-s_1(t_0))^2}{2\sigma^2}}}{e^{-\frac{(r-s_0(r_0))^2}{2\sigma^2}}} \grtlessH 1$
 
-* Pentru distribuția normală, e preferabil să aplicăm *logaritmul natural*
+* Pentru distribuția normală, e preferabil să aplicăm **logaritmul natural**
     * logaritmul este o funcție monoton crescătoare, deci nu schimbă rezultatul comparației
     * dacă $A < B$, atunci $\log(A) < \log(B)$
 
-* **log-likelihood** al unui observații = logaritmul plauzibilității (likelihood)
-    * de obicei este vorba de logaritmul natural, dar poate fi orice bază
+* Valoarea **log-likelihood** al unui observații = logaritmul plauzibilității (likelihood)
+    * de obicei se folosește logaritmul natural, dar poate fi în orice bază
 
-### Testul "log-likelihood" în cazul ML
+### Raportul "log-likelihood" în cazul ML
 
-* Pentru zgomot cu distribuție normală, decizia ML înseamnă compararea *log-likelihood*
-$$\frac{(r-A)^2}{r^2} \grtlessH 1$$
+* Aplicarea logaritmului natural la ambii termeni ai relației conduce la:
+$$-(r-s_1(t_0))^2 + (r-s_0(t_0))^2 \grtlessH 0$$
 
-* Se extrage radicalul
-$$\frac{|r-A|}{|r|} \grtlessH 1$$
+* Care este echivalent cu:
+$$|r-s_0(t_0)| \grtlessH |r - s_1(t_0)|$$
 
-* $|r-A|$ = distanța de la $r$ la $A$, $|r|$ = distanța de la $r$ la $0$
+* Notă: $|r-A|$ = distanța dintre $r$ și $A$
+    - $|r|$ = distanța de la $r$ la $0$
 
-* Decizie ML în zgomot normal: se alege valoarea 0 sau A **cea mai apropiată** de $r$
-    * principiu foarte general, întâlnit în multe alte scenarii
+* Așadar, se alege distanța minimă dintre $r(t_0)$ și $s_1(t_0)$ sau $s_0(t_0)$
+
+### Criteriul ML pentru zgomot gaussian
+
+* Criteriul ML **pentru zgomot gaussian**: ipoteza se alege pe baza 
+**celei mai apropiate** valori dintre $s_0(t_0)$ și $s_1(t_0)$ față de eșantionul $r = r(t_0)$
+
     * principiul **cel mai apropiat vecin** ("*nearest neighbor*")
-    * receptorul ML se mai numește **receptor de distanță minimă** ("*minimum distance receiver*")
-    * echivalent cu setarea unui prag $T = \frac{A}{2}$ 
+    * un principiu foarte general, întâlnit în multe alte scenarii
+    * un receptor ce folosește ML se mai numește **receptor de distanță minimă** ("*minimum distance receiver*")
+
+### Etape pentru decizia pe baza ML
+
+1. Se schițează cele două distribuții condiționate $w(r|H_0)$ și $w(r|H_1)$
+2. Se determină care dintre cele două funcții este mai mare în dreptul valorii eșantionului observat $r = r(t_0)$
+
+### Etape pentru decizia pe baza ML, zgomot gaussian
+
+* Doar dacă zgomotul este gaussian, identic pentru toate ipotezele:
+    1. Se determină $s_0(t_0)$ = valoarea semnalului original, în absența zgomotului, în cazul ipotezei $H_0$
+    2. Se determină $s_1(t_0)$ = valoarea semnalului original, în absența zgomotului, în cazul ipotezei $H_1$
+    3. Se compară cu eșantionul observat $r(t_0)$, se alege cea mai apropiată valoare
+
+### Decizie pe bază de prag
+
+* Alegerea valorii celei mai apropiate = identic cu compararea $r$ cu un prag $T = \frac{s_0(t_0) + s_1(t_0)}{2}$
+    - i.e. dacă cele doup valori sunt 0 și 5, decidem prin compararea lui $r$ cu 2.5
+ 
+* În general, pragul = punctul de intersecție al celor două distribuții condiționate
+
+### Exercițiu
+
+* Un semnal poate avea două valori posibile, $0$ sau $5$. 
+Semnalul este afectat de zgomot alb, gaussian, cu distribuția $\mathcal{N}\;(\mu=0, \sigma^2=2)$.
+Receptorul ia un singur eșantion, cu valoarea $r = 2.25$
+    a. Scrieți expresiile celor două distribuții condiționate, și reprezentați-le
+    a. Ce decizie se ia pe baza criteriului plauzibilității maxime?
+    b. Dar dacă semnalul $0$ este afectat de zgomot gaussian $\mathcal{N}(0, 0.5)$,
+  iar semnalul $5$ de zgomot uniform $\mathcal{U}[-4,4]$?
+    c. Repetați b. și c. dacă valoarea $0$ se înlocuiește cu $-1$
+
+### Regiuni de decizie
+
+* **Regiuni de decizie** = intervalul de valori ale eșantionului $r$ pentru care se ia o anumită decizie
+
+* Regiunea de decizie $R_0$ = intervalul de valori ale lui $r$ care conduc la decizia $D_0$
+* Regiunea de decizie $R_1$ = intervalul de valori ale lui $r$ care conduc la decizia $D_1$
+* Regiunile de decizie acoperă întreg domeniul de valori ale lui $r$ (toată axa reală)
+
+* Exemplu: indicați regiunile de decizie la exercițiul anterior 
+    - $R_0 = [-\infty, 2.5]$
+    - $R_1 = [2.5, \infty]$
+
+### Funcția de plauzibilitate
+
+- Să notăm în mod generic ipotezele cu $H_i$, și semnalele $s_i(t)$, unde $i$ este 0 sau 1
+
+- Să considerăm distribuția condiționată $w(r | H_i)$
+    - fie cea de le exemplul anterior:
+$$w(r | H_i) = \frac{1}{\sigma \sqrt{2 \pi}}e^{-\frac{(r - s_i(t_0))^2}{2\sigma^2}}$$
+
+- Care este variabila necunoscută în această expresie?
+    - nu $r$, din moment ce acesta ni se dă în problemă
+    - $i$ este necunoscuta
+
+### Terminologie: probabilitate și plauzibilitate
+
+- În aceeași expresie matematică a funcției de distribuție:
+    - dacă se cunosc parametrii statistici (de ex. $\mu$, $\sigma$, $H_i$), și necunoscuta este valoarea însăși (de ex. $r$, $x$)
+atunci funcția reprezintă densitatea de **probabilitate**
+    - dacă se cunoaște valoarea însăși (de ex. $r$, $x$), și necunoscuta o reprezintă un parametru statistic (de ex. $\mu$, $\sigma$, $i$),
+atunci avem o **funcție de plauzibilitate**
+
+### Funcția de plauzibilitate
+
+- În cazul detecției semnalelor, funcția $w(r | H_i)$ = $f(i)$ este o funcție de plauzibilitate
+    - necunoscuta este $i$
+    
+- Funcția este definită doar pentru $i = 0$ și $i = 1$
+    - sau, în general, pentru $i$ = câte ipoteze are problema
+
+- Criteriul ML = se alege $i$ pentru care această funcție este maximă
+$$Decizia \;\; D_i = \arg\max_i w(r | H_i)$$
+    - Notație:
+        - $\arg\max f(x)$ = argumentul $x$ pentru care funcția $f(x)$ este maximă
+        - $\max f(x)$ = valoarea maximă a funcției $f(x)$
+        - a se vedea exemplul grafic la tablă
+
+- Criteriul plauzibilității maxime înseamnă "se alege $i$ care maximizează funcția de plauzibilitate $f(i) = w(r|H_i)$"
 
 ### Generalizări
 
 * Dacă zgomotul are altă distribuție?
-    * Pragul $T$ rămâne punctul de intersecție, oricare ar fi acela
-    * Pot fi mai multe puncte de intersecție, deci mai multe praguri
-    * axa $\mathbb{R}$ este împărțită în **regiuni de decizie** $R_0$ și $R_1$
+    * Se schițează distribuțiile condiționate
+    * Se evaluează pentru $r = r(t_0)$
+    * Criteriul ML = se alege cea mai mare funcție $w(r|H_i)$ în punctul $r$ dat
 
-* Dacă distribuția zgomotului este diferită în cazurile $H_0$ și $H_1$? 
-    * Pragul $T$ (sau pragurile) rămân punctele de intersecție, oricare ar fi acelea
-
-* Dacă semnalul $s_0(t)$ (pentru ipoteza $H_0$, simbolul $a_0$) nu este 0, ci o altă valoare constantă B?
-    * Pragul $T$ (sau pragurile) rămân punctele de intersecție, dar distribuțiile sunt centrate pe B și A
-    * Pentru zgomot gaussian, se alege B sau A, cel mai apropiat de eșantion (pragul este la mijlocul distanței dintre B și A)
+* Regiunile de decizie sunt date de punctețe de intersecție ale distribuțiilor condiționate
+    * Pot fi mai multe intersectări, în general, deci mai multe praguri
 
 ### Generalizări
 
-* Mai mult de două semnale?
-    * De ex. 4 nivele de semnal posibile: -6, -2, 2, 6
-    * Se alege cea mai plauzibilă ipoteză, pe baza celor 4 plauzibilități
-    * Nu mai există un singur prag $T$, sunt în mod necesar mai multe
+* Dacă zgomotul are distribuție diferită în ipoteza $H_0$ față de ipoteza $H_1$? 
 
-### Exerciții
+* Similar:
+    * Se schițează distribuțiile condiționate
+    * Se evaluează pentru $r = r(t_0)$
+    * Criteriul ML = se alege cea mai mare funcție $w(r|H_i)$ în punctul $r$ dat
 
-* Un semnal poate avea două valori posibile, $0$ sau $5$. Receptorul ia un singur eșantion
-cu valoarea $r = 2.25$
-    a. Dacă zgomotul este gaussian, ce semnal este detectat pe baza criteriului plauzibilității maxime?
-    b. Dar dacă semnalul $0$ este afectat de zgomot gaussian $\mathcal{N}(0, 0.5)$,
-  iar semnalul $5$ de zgomot uniform $\mathcal{U}[-4,4]$?
-    c. Repetați a. și b. dacă valoarea $0$ se înlocuiește cu $-1$
+### Generalizări
 
-* Un semnal poate avea patru valori posibile: -6, -2, 2, 6. Fiecare valoare
-durează timp de o secundă. Semnalul este afectat de zgomot alb cu distribuție normală. 
+* Dacă cele două semnale $s_0(t)$ și $s_1(t)$ sunt constante / nu sunt constante?
+
+* Nu contează forma semnalelor
+    * Tot ce contează sunt valorile celor două semnale la momentul de eșantionare $t_0$: 
+        - $s_0(t_0)$
+        - $s_1(t_0)$
+
+### Generalizări
+
+* Dacă avem mai mult de 2 ipoteze?
+
+* Se extinde raționamentul la $n$ ipoteze
+    * Avem $n$ semnale posibile $s_0(t)$, ... $s_{n-1}(t)$
+    * Avem $n$ valori diferite $s_0(t_0)$, ... $s_{n-1}(t_0)$
+    * Avem $n$ distribuții condiționate $w(r|H_i)$
+    * Pentru $r = r(t_0)$ dat, se alege valoarea maximă
+dintre cele $n$ valori $w(r|H_i)$
+
+### Generalizări
+
+* Dacă se iau mai multe eșantioane din semnale?
+
+* Va fi tratat separat într-un subcapitol ulterior
+
+
+### Exercițiu
+
+* Un semnal poate avea patru valori posibile: -6, -2, 2, 6. 
+Fiecare valoare durează timp de o secundă. 
+Semnalul este afectat de zgomot alb cu distribuție normală. 
 Receptorul ia un singur eșantion pe secundă.
 Folosind criteriul plauzibilității maxime, decideți ce semnal s-a transmis, dacă receptorul primește
 eșantioanele următoare:
-$$4, 6.6, -5.2, 1.1, 0.3, -1.5, 7, -7, 4.4$$
+$$4,\; 6.6,\; -5.2,\; 1.1,\; 0.3,\; -1.5,\; 7,\; -7,\; 4.4$$
 
-### Probabilități de eroare condiționate
+### Probabilități condiționate
 
-* Putem calcula probabilitățile de eroare condiționate
+* Putem calcula **probabilitățile condiționate** ale celor 4 rezultate posibile
 
 * Fie regiunile de decizie:
-    * $R_0$: dacă $r \in R_0$, decizia este $D_0$, de ex. $(\infty, T)$ pentru zgomot gaussian
-    * $R_1$: daca $r \in R_1$, decizia este $D_1$, de ex. $[T, \infty)$ pentru zgomot gaussian
-    
-* Probabilitatea unei alarme false ***dacă** semnalul original este $s_0(t)$*
+    * $R_0$: dacă $r \in R_0$, decizia este $D_0$
+    * $R_1$: daca $r \in R_1$, decizia este $D_1$
+
+* Probabilitatea condiționată a rejecției corecte
+    * = probabilitatea de a lua decizia $D_0$ când ipoteza este $H_0$
+    * = probabilitatea ca $r$ să fie în $R_0$, calculată pe distribuția $w(r|H_0)$ 
+$$P(D_0 | H_0) = \int_{R_0} w(r|H_0) dx$$
+
+* Probabilitatea condiționată a alarmei false
+    * = probabilitatea de a lua decizia $D_1$ când ipoteza este $H_0$
+    * = probabilitatea ca $r$ să fie în $R_1$, calculată pe distribuția $w(r|H_0)$ 
 $$P(D_1 | H_0) = \int_{R_1} w(r|H_0) dx$$
 
-* Probabilitatea unei ratări ***dacă** semnalul original este $s_1(t)$*
+### Probabilități condiționate
+
+* Probabilitatea condiționată de pierdere
+    * = probabilitatea de a lua decizia $D_0$ când ipoteza este $H_1$
+    * = probabilitatea ca $r$ să fie în $R_0$, calculată pe distribuția $w(r|H_1)$ 
 $$P(D_0 | H_1) = \int_{R_0} w(r|H_1) dx$$
 
-* Aceste valori nu țin cont de probabilitatea ca semnalul să fie $s_0(t)$ sau $s_1(t)$
-    * sunt **condiționate** ("dacă")
+* Probabilitatea condiționată a detecției corecte
+    * = probabilitatea de a lua decizia $D_1$ când ipoteza este $H_1$
+    * = probabilitatea ca $r$ să fie în $R_1$, calculată pe distribuția $w(r|H_1)$ 
+$$P(D_1 | H_1) = \int_{R_1} w(r|H_1) dx$$
 
-### Probabilități de eroare condiționate
 
-![Probabilitățile deciziilor](img/SigDetWGN.png){#id .class width=60%}
+### Probabilități condiționate
 
-*[sursa: hhttp://gru.stanford.edu/doku.php/tutorials/sdt]*
+* Relații între probabilitățile condiționate
+    * suma rejecție corectă + alarmă falsă = 1
+    * suma pierdere + detecție corectă = 1
+    * De ce? Justificați.
+
+### Probabilități condiționate
+
+![Probabilități condiționate](img/SigDetWGN.png){#id .class width=60%}
+
+* Ignorați textul, contează zonele colorate
+* [sursa: hhttp://gru.stanford.edu/doku.php/tutorials/sdt]*
+
+### Probabilitățile celor 4 rezultate
+
+* Probabilitățile condiționate sunt calculate **dat fiind** una sau alta dintre ipoteze
+
+* Nu includ și probabilitățile *ipotezelor înselor*
+    - adică, $P(H_0)$ = probabilitatea de a avea ipoteza $H_0$
+    - $P(H_1)$ = probabilitatea de a avea ipoteza $H_1$
+
+* Pentru a le lua în calcul, se multiplică cu $P(H_0)$ sau $P(H_1)$
+    - $P(H_0)$ și $P(H_1)$ se numesc probabilitățile **inițiale** (sau **a priori**) ale ipotezelor
 
 ### Reamintire (TCI): regula lui Bayes
 
 * Reamintire (TCI): regula lui Bayes
-$$P(A \cap B) = P(B | A) \cdot P(A))$$
+$$P(A \cap B) = P(B | A) \cdot P(A)$$
 
 * Interpretare
     * Probabilitatea $P(A)$ este extrasă din $P(B|A)$
     * $P(B|A)$ nu mai conține nici o informație despre $P(A)$, șansele ca $A$ chiar să aibă loc
-    * Exemplu: P(gol | șut la poartă). Câte goluri se înscriu?
+    * Exemplu: P(gol | șut la poartă) = $\frac{1}{2}$. Câte goluri se înscriu?
 
 ### Exercițiu
 
-* Un semnal poate avea două valori posibile, $0$ sau $5$. Semnalul $0$ este afectat de zgomot gaussian $\mathcal{N}(0, 0.5)$,
-iar semnalul $5$ de zgomot uniform $\mathcal{U}[-4,4]$. Receptorul decide pe baza criteriului 
-plauzibilității maxime, folosind un singur eșantion din semnal.
-    a. Calculați probabilitatea unei decizii greșite când semnalul original este $s_0(t)$
-    b. Calculați probabilitatea unei decizii greșite când semnalul original este $s_1(t)$
+* Un semnal constant poate avea două valori posibile, $0$ sau $5$.
+Semnalul este afectat de zgomot gaussian $\mathcal{N}\;(\mu=0, \sigma^2=2)$.
+Receptorul decide pe baza criteriului plauzibilității maxime, 
+folosind un singur eșantion din semnal.
+    a. Calculați probabilitatea condiționată a alarmei false
+    a. Calculați probabilitatea condiționată de pierdere
+    c. Dacă $P(H_0) = \frac{1}{3}$ și $P(H_1) = \frac{2}{3}$, calculați probabilitatea
+    rejecției corecte și a detecției corecte (nu cele condiționate)
+
 
 ### Dezavantaje ale criteriului plauzibilității maxime
 
-* Raportul de plauzibilitate utilizează densitățile de probabilitate **condiționate**
+* Criteriul ML compară distribuțiile **condiționate** ale eșantionului observat
     * condiționate de ipotezele $H_0$ sau $H_1$
 
 * Condiționarea de ipotezele $H_0$ și $H_1$ ignoră probabilitatea celor două ipoteze $H_0$ și $H_1$
+    * Decizia e aceeași indiferent dacă $P(H_0) = 99.99\%$ și $P(H_1) = 0.01\%$,
+sau invers
 
-* Dacă $p(H_0) > p(H_1)$, am vrea să împingem pragul $T$ înspre $H_1$, și vice-versa
+* Dacă $P(H_0) > P(H_1)$, am vrea să împingem pragul de decizie înspre $H_1$, și vice-versa
     * pentru că este mai probabil ca semnalul să fie $s_0(t)$
-    * și de aceea vrem să "favorizăm" decizia $D_0$ 
+    * și de aceea vrem să "favorizăm"/"încurajăm" decizia $D_0$ 
 
+* Avem nevoie de un criteriu mai general ...
 
 ### Criteriul probabilității minime de eroare
 
