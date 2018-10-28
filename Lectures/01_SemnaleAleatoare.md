@@ -738,10 +738,35 @@ $$R_{ff}(t_1,t_2) = R_{ff}(0, t_2 - t_1) = R_{ff}(\tau) = \overline{f(t) f(t + \
 
 ### Consecințe ale staționarității
 
+* Definiția funcției de autocorelație pentru p.a. **staționare**:
+    * funcția depinde numai de $\tau = t_2 - t_1$, în loc de $t_1$ și $t_2$
+
+* Autocorelația statistică: formula rămâne aceeași
+
+* Autocorelația temporală:
+    * pentru p.a. continue
+    $$\begin{split}
+    R_{ff}(\tau) =& \overline{f(t) f(t + \tau)} \\
+    =& \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t) f^{(k)}(t + \tau) dt
+    \end{split}$$
+
+    * pentru p.a. discrete
+    $$\begin{split}
+    R_{ff}(\tau) =& \overline{f(t) f(t + \tau)} \\
+    =& \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} f^{(k)}[t] f^{(k)}[t + \tau]
+    \end{split}$$
+    
+    * lungime finită: se limitează integralele / sumele la intervalul avut la dispoziție, $\int_{t_{min}}^{t_{max}}$ sau $\sum_{t_{min}}^{t_{max}}$
+
+
+### Consecințe ale staționarității
+
 * Idem pentru funcția de corelație dintre procese aleatoare diferite
 
 * Depinde doar de **diferența de timp** $\tau = t_2 - t_1$ dintre două eșantioane
 $$R_{fg}(t_1,t_2) = R_{fg}(0, t_2 - t_1) = R_{fg}(\tau) = \overline{f(t) g(t + \tau)}$$
+
+* Definiția este similară cu formulele de la f. de autocorelație de pe slide-ul anterior
 
 ### Interpretarea autocorelației
 

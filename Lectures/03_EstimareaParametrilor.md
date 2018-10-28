@@ -202,10 +202,9 @@ Funcția de plauzibilitate este
 ### Simulare numerică
 
 
-~~~~{.python}
+```
 Frecventa originala = 0.070000, estimatul = 0.071515
-
-~~~~~~~~~~~~~
+```
 
 ![](figures/03_EstimareaParametrilor_figure3_1.png){width=8cm}\
 
