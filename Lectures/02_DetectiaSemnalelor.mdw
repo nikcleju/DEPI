@@ -274,6 +274,9 @@ atunci funcția reprezintă densitatea de **probabilitate**
     - dacă se cunoaște valoarea însăși (de ex. $r$, $x$), și necunoscuta o reprezintă un parametru statistic (de ex. $\mu$, $\sigma$, $i$),
 atunci avem o **funcție de plauzibilitate**
 
+- Distincție subtilă între termenii "probabilitate" și "plauzibilitate"
+
+
 ### Funcția de plauzibilitate
 
 - În cazul detecției semnalelor, funcția $w(r | H_i)$ = $f(i)$ este o funcție de plauzibilitate
@@ -340,7 +343,7 @@ dintre cele $n$ valori $w(r|H_i)$
 ### Exercițiu
 
 * Un semnal poate avea patru valori posibile: -6, -2, 2, 6. 
-Fiecare valoare durează timp de o secundă. 
+Fiecare valoare este transmisă timp de o secundă. 
 Semnalul este afectat de zgomot alb cu distribuție normală. 
 Receptorul ia un singur eșantion pe secundă.
 Folosind criteriul plauzibilității maxime, decideți ce semnal s-a transmis, dacă receptorul primește
@@ -413,6 +416,10 @@ $$P(A \cap B) = P(B | A) \cdot P(A)$$
     * $P(B|A)$ nu mai conține nici o informație despre $P(A)$, șansele ca $A$ chiar să aibă loc
     * Exemplu: P(gol | șut la poartă) = $\frac{1}{2}$. Câte goluri se înscriu?
 
+* La noi: $P(D_i \cap H_j) = P(D_i | H_j) \cdot P(H_j)$
+    - pentru toți $i$ și $j$ (în toate cele 4 cazuri)
+
+
 ### Exercițiu
 
 * Un semnal constant poate avea două valori posibile, $0$ sau $5$.
@@ -444,32 +451,35 @@ sau invers
 
 * Se iau în calcul probabilitățile $P(H_0)$ și $P(H_1)$
 
-* Se urmărește **minimizarea probabilității totale de eroare $P_e$**
-    * erori = alarme false și ratări
+* Se urmărește **minimizarea probabilității totale de eroare $P_e = P_{af} + P_p$**
+    * erori = alarmă falsă și pierdere
 
-* Trebuie să găsim regiunile de decizie $R_0$ și $R_1$
+* Trebuie să găsim un nou criteriu 
+    * adică, alte regiuni de decizie $R_0$ și $R_1$
 
 ### Probabilitatea de eroare
 
-* Probabilitatea unei alarme false
+* Probabilitatea unei alarme false este:
 $$\begin{split}
 P(D_1 \cap H_0) =& P(D_1 | H_0) \cdot P(H_0)\\
 =& \int_{R_1} w(r | H_0) dx \cdot P(H_0)\\
 =& (1 - \int_{R_0} w(r | H_0) dx \cdot P(H_0)
 \end{split}$$
 
-* Probabilitatea unei ratări
+* Probabilitatea de pierdere este:
 $$\begin{split}
 P(D_0 \cap H_1) =& P(D_0 | H_1) \cdot P(H_1)\\
 =& \int_{R_0} w(r | H_1) dx \cdot P(H_1)
 \end{split}$$
 
-* Suma lor este
+* Probabilitatea totală a erorilor (suma lor) este:
 $$P_e = P(H_0) + \int_{-\infty}^T [w(r|H_1) \cdot P(H_1) - w(r|H_0) \cdot P(H_0)] dx$$
 
 ### Probabilitatea de eroare minimă
 
 * Urmărim minimizarea $P_e$, adică să minimizăm integrala
+
+* Putem alege $R_0$ cum dorim, pentru acest scop
 
 * Pentru a minimiza integrala, se alege $R_0$ astfel încât pentru toți $r \in R_0$, 
 termenul din integrala este **negativ**
@@ -482,146 +492,226 @@ termenul din integrala este **negativ**
 $$w(r|H_1) \cdot P(H_1) - w(r|H_0) \cdot P(H_0) \grtlessH 0$$
 $$\frac{w(r | H_1)}{w(r | H_0)} \grtlessH \frac{P(H_0)}{P(H_1)}$$
 
+### Criteriul probabilității minime de eroare
+
+* **Criteriul probabilității minime de eroare** (MPE):
+$$\frac{w(r | H_1)}{w(r | H_0)} \grtlessH \frac{P(H_0)}{P(H_1)}$$
+    
+    * prescurtat MPE (Minimum Probability of Error)
+
 ### Interpretare
 
-* Similar cu criteriul plauzibilității maxime, dar depinde de probabilitățile celor două ipoteze (cazuri, simboluri)
-    * Când una dintre ipoteze este mai probabilă decât cealaltă, pragul
+* Criteriul MPE este o generalizare a criteriului ML, depinde de probabilitățile celor două ipoteze (cazuri, simboluri)
+    * se exprimă tot sub forma unui raport de plauzibilitate
+
+* Când una dintre ipoteze este mai probabilă decât cealaltă, pragul
     este împins în favoarea sa, înspre cealaltă ipoteză
 
-* De asemenea bazat pe raportul de plauzibilitate, ca și primul criteriu
-
+* Criteriul ML este un caz particular al MPE pentru 
+for $P(H_0) = P(H_1) = \frac{1}{2}$
 
 ### Criteriul probabilității minime de eroare - zgomot gaussian
 
 * Presupunând că zgomotul este gaussian (normal), $\mathcal{N}(0, \sigma^2)$
-$$w(r | H_1) = e^{-\frac{(r-A)^2}{2\sigma^2}}$$
-$$w(r | H_0) = e^{-\frac{r^2}{2\sigma^2}}$$
+$$w(r | H_1) = e^{-\frac{(r-s_1(t_0))^2}{2\sigma^2}}$$
+$$w(r | H_0) = e^{-\frac{(r-s_0(t_0))^2}{2\sigma^2}}$$
 
 * Se aplică logaritmul natural
-$$-\frac{(r-A)^2}{2\sigma^2} + \frac{r^2}{2\sigma^2} \grtlessH \ln \left(\frac{P(H_0)}{P(H_1)} \right)$$
+$$-\frac{(r-s_1(t_0))^2}{2\sigma^2} + \frac{(r-s_0(t_0))^2}{2\sigma^2} \grtlessH \ln \left(\frac{P(H_0)}{P(H_1)} \right)$$
 
 * Echivalent
-$$2rA - A^2 \grtlessH 2 \sigma^2 \cdot \ln \left(\frac{P(H_0)}{P(H_1)} \right)$$
-$$ r \grtlessH \underbrace{\frac{A^2 + 2 \sigma^2 \cdot \ln \left(\frac{P(H_0)}{P(H_1)} \right) }{2A}}_T$$
+$$(r-s_0(t_0))^2 \grtlessH (r-s_1(t_0))^2 + 2\sigma^2 \cdot\ln \left(\frac{P(H_0)}{P(H_1)} \right)$$
+    * sau, dacă se desfac parantezele:
+$$ r \grtlessH \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot\ln \left(\frac{P(H_0)}{P(H_1)} \right)$$
 
-### Regiuni de decizie
+### Interpretarea 1: Comparație între distanțe
 
-* Se compară eșantionul tot cu un prag $T$, dar valoarea acestuia este împinsă înspre ipoteza mai puțin probabilă
-    * $T$ depinde de raportul $\frac{P(H_0)}{P(H_1)}$
+* La criteriul ML, se compară distanțele (la pătrat):
+$$|r-s_0(t_0)| \grtlessH |r - s_1(t_0)|$$
+$$(r-s_0(t_0))^2 \grtlessH (r - s_1(t_0))^2$$
+
+* La criteriul MPE, se compară pătratul distanțelor, dar cu un termen suplimentar
+în favoarea ipotezei mai probabile:
+$$(r-s_0(t_0))^2 \grtlessH (r-s_1(t_0))^2 + 2\sigma^2 \cdot\ln \left(\frac{P(H_0)}{P(H_1)} \right)$$
+    * termenul depinde de raportul $\frac{P(H_0)}{P(H_1)}$
     
-* Regiuni de decizie
-    * $R_0 = (-\infty, T]$
-    * $R_1 = [T, \infty)$
-    * pot fi diferite pentru alte tipuri de zgomot
+### Interpretarea 2: valoarea de prag
+
+* La criteriul ML, se compară $r$ cu un prag $T$
+$$ r \grtlessH \frac{s_0(t_0) + s_1(t_0)}{2}$$
+
+* La criteriul MPE, pragul este împins înspre ipoteza mai puțin probabilă:
+$$ r \grtlessH \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot\ln \left(\frac{P(H_0)}{P(H_1)} \right)$$
+    * în funcție de raportul $\frac{P(H_0)}{P(H_1)}$
+
 
 ### Exerciții 
 
-* O sursă de informație furnizează două mesaje cu probabilitățile $p(a_0) = \frac{2}{3}$ și $p(a_1) = \frac{1}{3}$.
-Mesajele se transmit prin semnale constante cu valorile $-5$ ($a_0$) și $5$ ($a_1$).
+* Fie decizia între două semnale constante: $s_0(t) = -5$ și $s_1(t)=5$.
 Semnalele sunt afectate de zgomot alb cu distribuție gaussiană $\mathcal{N}(0, \sigma^2=1)$
 Receptorul ia un singur eșantion cu valoarea $r$.
-Decizia se face prin compararea valorii $r$ cu un prag $T$, astfel: dacă $r < T$ se decide
-că s-a transmis mesajul $a_0$, altfel se decide mesajul $a_1$.
-    a. Să se găsească valoarea pragului $T$ conform criteriul probabilității minime de eroare
-    b. Dar dacă semnalul $5$ este afectat de zgomot uniform $\mathcal{U}[-4,4]$?
-    c. Calculați probabilitatea unei alarme false și a unei ratări
+    a. Să se găsească regiunile de decizie conform criteriului MPE
+    b. Calculați probabilitatea alarmei false și probabilitatea de pierdere
+    c. Repetați a) și b) dacă $s_1(t)$ este afectat de zgomot uniform $\mathcal{U}[-4,4]$?
+    
 
 
-### Criteriul riscului (costului) minim
+### Criteriul riscului minim
 
-* Dacă ne afectează mai mult un anume tip de erori (de ex. alarme false) decât celelalte?
+* Dacă ne afectează mai mult un anume tip de erori (de ex. alarme false) decât celelalte (pierderi)?
+    * Criteriul MPE tratează toate erorile la fel
+    * Ne trebuie un criteriu mai general
 
-* Criteriul riscului (sau costului) minim: deciziile au un cost, se minimizează costul mediu
-    * $C_{ij}$ = costul deciziei $D_i$ când ipoteza adevărată este $H_j$
+* Idee: se atribuie **un cost** fiecărui scenariu, apoi
+se minimizează costul mediu
+
+* $C_{ij}$ = costul deciziei $D_i$ când ipoteza adevărată este $H_j$
     * $C_{00}$ = costul unei rejecții corecte
     * $C_{10}$ = costul unei alarme false
-    * $C_{01}$ = costul unei ratări
+    * $C_{01}$ = costul unei pierderi
     * $C_{11}$ = costul unei detecții corecte
 
-*  Definim **riscul** = costul mediu
+* Ideea de "costuri" și minimizarea costului mediu este general întâlnită
+    * de ex. TCI: codare: "costul" unui mesaj este lungimea cuvântului de cod,
+    vrem să minimizăm costul mediu, adică lungimea medie
+
+### Criteriul riscului minim
+
+*  Definim **riscul** = **media costurilor**
 $$R = C_{00} P(D_0 \cap H_0) + C_{10} P(D_1 \cap H_0) + C_{01} P(D_0 \cap H_1) + C_{11} P(D_1 \cap H_1)$$
 
 * Criteriul riscului minim: **se minimizează riscul R**
+    * adică se minimizează costul mediu
+    * se mai numește "criteriul costului minim"
 
 ### Calcule
 
-* Demonstrație la tablă
+* Demonstrație la tablă 
     * se folosește regula lui Bayes
 
 * Concluzie: regula de decizie este
 $$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH \frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)}$$
 
+### Criteriul riscului minim
+
+**Criteriul riscului minim** (MR):
+
+$$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH \frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)}$$
+    * prescurtat MR (Minimum Risk)
+
 ### Interpretare
 
-* Similar cu primele două criterii, bazat tot pe **raportul de plauzibilitate**
+* Criteriul MR este o generalizare a MPE (la rândul lui o generalizare a ML)
+    * se exprimă tot printr-un raport de plauzibilitate
 
-* Atât probabilitățile cât și costurile pot împinge pragul $T$ într-o parte sau alta
+* Atât **probabilitățile** cât și **costurile** pot influența decizia
+în favoarea uneia sau alteia dintre ipoteze
 
-* Caz particular: dacă $C_{10}-C_{00} = C_{01}-C_{11}$, se reduce la criteriul probabilității de eroare minime
+* Caz particular: dacă $C_{10}-C_{00} = C_{01}-C_{11}$, MR se reduce la criteriul MPE
     * de ex.: dacă $C_{00} = C_{11} = 0$ și $C_{10} = C_{01}$
 
 ### În zgomot gaussian
 
-* Dacă zgomotul este gaussian (normal), se aplică logaritmul natural, ca la celelalte criterii
+* Dacă zgomotul este gaussian (normal), la fel ca lal celelalte criterii, se aplică logaritmul natural
 
-* Se obține valoarea pragului $T$:
-$$-(r-A)^2 + r^2 \grtlessH \underbrace{2 \sigma^2 \cdot \ln \left( \frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)} \right)}_C$$
-$$ r \grtlessH \underbrace{\frac{A^2 + 2 \sigma^2 \cdot \ln \left(\frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)} \right) }{2A}}_T$$
+* Se obține:
+$$(r-s_0(t_0))^2 \grtlessH (r-s_1(t_0))^2 + 2 \sigma^2 \cdot \ln \left( \frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)} \right)$$
+    * sau
+$$ r \grtlessH \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot\ln \left(\frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)} \right)$$
 
-### În zgomot gaussian
+### Interpretarea 1: Comparație între distanțe
 
-* În general, pentru un raport de plauzibilitate comparat cu $K$, $\frac{w(r|H_1)}{w(r|H_0)} \grtlessH K$, 
-pragul este
-$$T = \frac{A^2 + 2 \sigma^2 \cdot \ln K }{2A}$$
+* La criteriul MPE, se compară pătratul distanțelor, dar cu un termen suplimentar
+în favoarea ipotezei mai probabile:
+$$(r-s_0(t_0))^2 \grtlessH (r-s_1(t_0))^2 + 2\sigma^2 \cdot\ln \left(\frac{P(H_0)}{P(H_1)} \right)$$
+    * termenul depinde de raportul $\frac{P(H_0)}{P(H_1)}$
+    
+* La criteriul MR, pe lângă probabilități apar și costurile
+$$(r-s_0(t_0))^2 \grtlessH (r-s_1(t_0))^2 + 2 \sigma^2 \cdot \ln \left( \frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)} \right)$$    
 
-### Exemplu
+### Interpretarea 2: Valoarea de prag
 
-* Exemplu la tablă: 0 / 5, zgomot alb $N(0, \sigma^2)$, un eșantion
+* La criteriul MPE, pragul este împins înspre ipoteza mai puțin probabilă:
+$$ r \grtlessH \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot\ln \left(\frac{P(H_0)}{P(H_1)} \right)$$
+    * în funcție de raportul $\frac{P(H_0)}{P(H_1)}$
 
-### Criteriul Neymar-Pearson
+* La criteriul MR, pragul este influențat și de costuri
+$$ r \grtlessH \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot\ln \left(\frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)} \right)$$
 
-* Criteriul Neymar-Pearson: se maximizează probabilitatea de detecție ($P(D_1 \cap H_1)$)
+### Influența costurilor
+
+* Criteriul MR împinge decizia înspre **minimizarea scenariilor cu cost ridicat**
+
+* Exemplu: din ecuații:
+    - ce se întâmplă dacă costul $C_{01}$ crește, iar celelalte rămân la fel?
+    - ce se întâmplă dacă costul $C_{10}$ crește, iar celelalte rămân la fel?
+    - ce se întâmplă dacă ambele costuri $C_{01}$ și $C_{10}$ cresc, iar celelalte rămân la fel?
+
+### Forma generală a criteriilor ML, MPE și MR
+
+* Criteriile ML, MPE și MR au toate forma următoare
+$$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH K$$
+    * pentru ML: $K=1$
+    * pentru MPE: $K=\frac{P(H_0)}{P(H_1)}$
+    * pentru MR: $K=\frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)}$
+
+### Forma generală a criteriilor ML, MPE și MR
+
+În zgomot gaussian, criteriile se reduc la:
+
+* Compararea pătratului distanțelor:
+$$(r-s_0(t_0))^2 \grtlessH (r-s_1(t_0))^2 + 2 \sigma^2 \cdot \ln \left( K \right)$$    
+
+* Compararea eșantionului $r$ cu un prag $T$:
+$$r \grtlessH \underbrace{\frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot\ln \left(K \right)}_T$$
+
+
+### Exercițiu
+
+* Un sistem *airbag* detectează un accident prin eșantionarea semnalului de la un senzor
+ cu 2 valori posibile: $s_0(t) = 0$ (OK) sau $s_1(t) = 5$ (accident).
+* Semnalul este afectat de zgomot gaussian$\mathcal{N}\;(\mu=0, \sigma^2=1)$.
+* Se ia un singur eșantion din semnal.
+* Costurile scenariilor sunt: $C_{00} = 0$, $C_{01} = 100$, $C_{10} = 10$, $C_{11} = -100$
+    a. Găsiți regiunile de decizie $R_0$ și $R_1$.
+
+### Criteriul Neyman-Pearson
+
+* Un criteriu mai general decât toate cele de până acum
+
+* Criteriul Neyman-Pearson: se maximizează probabilitatea de detecție ($P(D_1 \cap H_1)$)
 păstrând probabilitatea alarmei false sub o limită fixată $(P(D_1 \cap H_0) \leq \lambda)$
+    * Se deduce pragul $T$ din constrângerea la limită $P(D_1 \cap H_0) = \lambda$
 
-* Se deduce pragul $T$ din constrângerea la limită $P(D_1 \cap H_0) = \lambda$
+* Criteriile ML, MPE și MR sunt cazuri particulare ale Neyman-Pearson, 
+pentru diverse valori ale $\lambda$.
+
 
 ### Exercițiu
 * O sursă de informație produce două mesaje cu probabilitățile $p(a_0) = \frac{2}{3}$ și $p(a_1) = \frac{1}{3}$.
 * Mesajele sunt codate ca semnale constante cu valorile $-5$ ($a_0$) și $5$ ($a_1$).
-* Semnalele sun afectate de zgomot alb cu distribuție *triunghiulară* în intervalul $[-5,5]$.
+* Semnalele sunt afectate de zgomot alb cu distribuție uniformă $U [-5,5]$.
 * Receptorul ia un singur eșantion $r$.
-* Decizia se ia prin compararea $r$ cu un prag $T$: dacp $r < T$ se decide că mesajul
-este $a_0$, altfel este $a_1$.
-    a. Găsiți pragul $T$ conform criteriului Neymar-Pearson, pentru $P_{fa} \leq 10^{-2}$
+    a. Găsiți regiunile de decizie conform criteriului Neymar-Pearson, pentru $P_{fa} \leq 10^{-2}$
     b. Care este probabilitatea de detecție corectă?
 
-### Două nivele de semnal nenule
 
-* Dacă semnalul $s_0(t)$ nu este 0, ci are o altă valoare constantă $s_0(t) = B$?
+### Aplicație: Semnale diferențiale sau unipolare
 
-* Distribuția zgomotului $w(r|H_0)$ va fi centrată pe $B$ în loc de 0
+* Aplicație: transmisie binară cu semnale constante (de ex. nivele constante de tensiune)
 
-* În rest, totul rămâne la fel
-
-* Performanțele sunt determinate de diferența dintre cele două valori ($A - B$)
-    * cazul $s_0 = 0$, $s_1 = A$ este identic cu cazul $s_0 = -\frac{A}{2}$, $s_1 = \frac{A}{2}$
+* Două modalități frecvent întâlnite:
+    * Semnal unipolar: o valoare este 0, cealaltă este nenulă
+        * $s_0(t) = 0$, $s_1(t) = A$
     
-* Valabil pentru toate criteriile de decizie
-
-
-### Semnale diferențiale sau unipolare
-
-* Semnal unipolar: o valoare este 0, cealaltă este nenulă
-    * $s_0 = 0$, $s_1 = A$
-
-* Semnal diferențial: două valori nenule cu semne contrare, aceeași valoare absolută
-    * $s_0 = -\frac{A}{2}$, $s_1 = \frac{A}{2}$
+    * Semnal diferențial: două valori nenule cu semne contrare, aceeași valoare absolută
+        * $s_0(t) = -\frac{A}{2}$, $s_1(t) = \frac{A}{2}$
 
 * Care metodă este mai bună?
 
 ### Semnale diferențiale sau unipolare
 
-* Cu aceeași diferență între nivele, performanțele deciziei sunt identice
+* Pentru că există aceeași diferență între nivele, performanțele deciziei sunt identice
 
 * Dar puterea medie a semnalelor diferă
 
@@ -634,19 +724,21 @@ este $a_0$, altfel este $a_1$.
 
 ### Sumar: criterii de decizie
 
-* Am văzut: decizie între două nivele constante, bazată pe 1 eșantion $r$
+* Am văzut: decizie între două semnale, bazată pe 1 eșantion
 
-* Toate criteriile au la bază un test al raportului de plauzibilitate
+* Toate criteriile au la bază raportul de plauzibilitate
 $$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH K$$
 
-* Criterii diferite conduc la valori diferite pentru $K$ (pragul de plauzibilitate)
+* Criterii diferite conduc la valori diferite pentru $K$
 
-* În funcție de distribuția zgomotului, axa reală este împărțită în regiuni
+* În funcție de distribuția zgomotului, axa reală este împărțită în regiuni de decizie
     * regiunea $R_0$: dacă $r$ este aici, se decide $D_0$
     * regiunea $R_1$: dacă $r$ este aici, se decide $D_1$
-    * de ex. $R_0 = (-\infty, \frac{A+B}{2}]$, $R_1 = (\frac{A+B}{2}, \infty)$ (pentru crit. plauz. max)
     
-* Pentru zgomot gaussian, pragul este $T = \frac{A^2 + 2 \sigma^2 \cdot \ln K }{2A}$
+* Pentru zgomot gaussian, granița între regiuni (valoarea de prag) este:
+$$T = \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot\ln \left(K \right)$$
+
+
 
 ### Caracteristica de operare a receptorului (ROC)
 
@@ -732,35 +824,36 @@ $$P_d = Q \left( \underbrace{Q^{-1} \left(P_{fa}\right)}_{constant} - \sqrt{SNR}
 *[sursa: Fundamentals of Statistical Signal Processing, Steven Kay]*
 
 
-### Decizii între ipoteze statistice
+### Alte aplicații ale teoriei deciziei
 
-* Teoria statistică a detecției este utilă și în alte contexte în afară
-de detecția unor semnale propriu-zise
-    * oriunde avem de ales între două ipoteze
-
-* Decizia se face între două distribuții de probabilitate
-    * indiferent ce semnificație au cele două distribuții
-
-* În cazul detecției unui semnal constant, se alege între două distribuții 
-care **diferă doar prin valoarea medie**, în general
-    * o distribuție are valoarea medie $0$, cealaltă $A$
+- Se pot utiliza aceste criterii de decizie în alte aplicații?
+    - nu pentru a decide între semnale, ci în alte scopuri
     
-* Dar se poate face decizie între distribuții care diferă prin alt parametru
-    * valoarea medie, sau
-    * varianța, or
-    * forma distribuției, etc
-    
-### Decizii între ipoteze statistice
+- Matematic, problema se pune sub forma următoare:
+    - avem 2 (sau mai multe) distribuții posibile
+    - avem 1 valoare observată
+    - determinăm cea mai plauzibilă distribuție, pe baza valorii observate
 
-* Exemplu: Un eșantion cu valoarea $r = 2.5$ poate proveni dintr-o distribuție 
-$\mathcal{N}(0,\sigma^2=1)$ (ipoteza $H_0$) sau dintr-o alta $\mathcal{N}(0,\sigma^2=2)$ (ipoteza $H_1$). 
-Care ipoteză se consideră adevărată?
-    * Ceea ce diferă este varianța, nu valoarea medie
+- În acest caz particular, decidem între două semnale
 
-* Se pot folosi exact aceleași criterii
-    * Se desenează cele două distribuții
-    * Se calculează plauzibilitățile $w(r|H_0)$ și $w(r|H_1)$ for $r$
-    * Se decide pe baza raportului de plauzibilitate, conform unui criteriu
+- Dar acest model matematic se poate aplica și în alte contexte:
+    - medicină: un semnal ECG indică o boală sau nu?
+    - business: va cumpăra clientul un produs, sau nu?
+    - De obicei se folosesc mai multe eșantioane, dar principiul
+    matematic este același
+
+### Alte aplicații ale teoriei deciziei
+
+Exemplu (pur imaginar): 
+
+- O persoană sănătoasă cu greutatea = X kg are concentrația de trombocite pe ml de sânge
+   distribuită aproximativ $\mathcal{N} \; (\mu=10 \cdot X, \sigma^2 = 20)$.
+- O persoană suferind de boala B are o valoare mult mai scăzută,
+   distribuită aproximativ $\mathcal{N} \; (100, \sigma^2=10)$.
+- În urma analizelor de laborator, ai obținut valoarea $r = 255$. Greuatea ta este 70 kg.
+- Decideți: sănătos sau nu?
+
+
 
 ## II.3 Detecția unui semnal constant cu mai multe eșantioane
 
