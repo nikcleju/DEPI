@@ -745,16 +745,16 @@ $$T = \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot
 * Performanța unui receptor este ilustrată cu un grafic numit **"Caracteristica de operare a receptorului"** 
 (**"Receiver Operating Characteristic", ROC)**
 
-* Reprezintă probabilitatea detecției corecte $P_d = P(D_1 \cap H_1)$
-în funcție de probabilitatea alarmei false $P_{fa} = P(D_1 \cap H_0)$
+* Reprezintă probabilitatea $P_d = P(D_1 | H_1)$
+în funcție de probabilitatea $P_{af} = P(D_1 | H_0)$
 
-![Sample ROC curves](img/ROCcurve.png){#id .class width=60%}
+![Sample ROC curves](img/ROCcurve.png){#id .class width=50%}
 
-*[image from http://www.statisticshowto.com/receiver-operating-characteristic-roc-curve/]*
+*[sursa: http://www.statisticshowto.com/receiver-operating-characteristic-roc-curve/]*
 
 ### Caracteristica de operare a receptorului (ROC)
 
-* Există întotdeauna un **compromis** între $P_d$ și $P_{fa}$
+* Există întotdeauna un **compromis** între $P_d$ (bun) și $P_{fa} (rău)$
     * creșterea $P_d$ implică și creșterea $P_{fa}$
     * pentru a fi siguri că nu ratăm nici un semnal (creșterea $P_d$), plătim prin
     creșterea probabilității de alarme false
@@ -767,34 +767,45 @@ $$T = \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot
 ### Performanțele detecției în zgomot alb gaussian
 
 * Considerăm probabilități egale $P(H_0) = P(H_1) = \frac{1}{2}$
+    * Sau, echivalent, considerăm doar probabilități condiționate
 
 * Deciziile se iau pe baza raportului de plauzibilitate
 $$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH K$$
 
 * Probabilitatea detecției corecte este
 $$\begin{split}
-P_d =& P(D_1 | H_1) P(H_1) \\
-=& P(H_1) \int_{T}^{\infty} w(r | H_1) \\
-=& P(H_1) (F(\infty) - F(T)) \\
-=& \frac{1}{4} \left( 1 - erf \left( \frac{T - A}{\sqrt{2}\sigma} \right) \right) \\
-=& Q \left( \frac{T - A}{\sqrt{2}\sigma} \right) \\
+P_d =& P(D_1 | H_1)\\
+=& \int_{T}^{\infty} w(r | H_1) \\
+=& (F(\infty) - F(T)) \\
+=& \frac{1}{2} \left( 1 - erf \left( \frac{T - s_1(t_0)}{\sqrt{2}\sigma} \right) \right) \\
+=& Q \left( \frac{T - s_1(t_0)}{\sqrt{2}\sigma} \right) \\
 \end{split}$$
-
 
 ### Performanțele detecției în zgomot alb gaussian
 
 * Probabilitatea alarmei false este
 $$\begin{split}
-P_{fa} =& P(D_1 | H_0) P(H_0) \\
-=& P(H_0) \int_{T}^{\infty} w(r | H_0) \\
-=& P(H_0) (F(\infty) - F(T)) \\
-=& \frac{1}{4} \left( 1 - erf \left( \frac{T - 0}{\sqrt{2}\sigma} \right) \right) \\
-=& Q \left( \frac{T}{\sqrt{2}\sigma} \right) \\
+P_{fa} =& P(D_1 | H_0) \\
+=& \int_{T}^{\infty} w(r | H_0) \\
+=& (F(\infty) - F(T)) \\
+=& \frac{1}{2} \left( 1 - erf \left( \frac{T - s_0(t_0)}{\sqrt{2}\sigma} \right) \right) \\
+=& Q \left( \frac{T - s_0(t_0)}{\sqrt{2}\sigma} \right) \\
 \end{split}$$
 
-* Rezultă că $\frac{T}{\sqrt{2}\sigma} = Q^{-1} \left( P_{fa}\right)$
+* Rezultă $\frac{T - s_0(t_0)}{\sqrt{2}\sigma} = Q^{-1} \left( P_{fa}\right)$, 
 
-* Înlocuind în $P_d$ se obține
+* Și: $\frac{T - s_1(t_0)}{\sqrt{2}\sigma} = Q^{-1} \left( P_{fa}\right) + \frac{s_0(t_0) - s_1(t_0)}{\sqrt{2}\sigma}$
+
+### Performanțele detecției în zgomot alb gaussian
+
+* Înlocuind în $P_d$, obținem:
+$$P_d = Q \left( \underbrace{Q^{-1} \left(P_{fa}\right)}_{constant} + \frac{s_0(t_0) - s_1(t_0)}{\sqrt{2}\sigma} \right)$$
+
+* Fie un scenariu simplu:
+    * $s_0(t_0) = 0$
+    * $s_1(t_0) = A = constant$
+
+* Obținem:
 $$P_d = Q \left( \underbrace{Q^{-1} \left(P_{fa}\right)}_{constant} - \frac{A}{\sqrt{2}\sigma} \right)$$
 
 ### Raportul semnal zgomot
@@ -806,7 +817,6 @@ $$P_d = Q \left( \underbrace{Q^{-1} \left(P_{fa}\right)}_{constant} - \frac{A}{\
     * Puterea zgomotului este $\overline{X^2} = \sigma^2$ (pentru valoare medie nulă $\mu = 0$)
     
 * În cazul nostru, SNR = $\frac{A^2}{2 \sigma^2}$
-
 $$P_d = Q \left( \underbrace{Q^{-1} \left(P_{fa}\right)}_{constant} - \sqrt{SNR} \right)$$
 
 * Pentru $P_{fa}$ de valoare fixă, $P_d$ crește odată cu SNR
@@ -855,35 +865,44 @@ Exemplu (pur imaginar):
 
 
 
-## II.3 Detecția unui semnal constant cu mai multe eșantioane
+## II.3 Detecția semnalelor cu mai multe eșantioane
 
-### Eșantioane multiple dintr-un semnal constant
+### Eșantioane multiple dintr-un semnal
 
-* Presupunem că avem mai multe eșantioane, nu doar unul
+* Contextul rămâne același:
+    - Se transmite un semnal $s(t)$
+    - Există **două ipoteze**:
+        - $H_0$: semnalul original este $s(t) = s_0(t)$
+        - $H_1$: semnalul original este $s(t) = s_1(t)$
+    - Receptorul poate lua **două decizii**:
+        - $D_0$: se decide că semnalul a fost $s(t) = s_0(t)$
+        - $D_1$: se decide că semnalul a fost $s(t) = s_1(t)$
+    - Există 4 scenarii posibile
 
-* Eșantioanele formează **vectorul eșantioanelor**
-$$\vec{r} = [r_1, r_2, ... r_N]$$
+### Eșantioane multiple dintr-un semnal
 
-* În ambele ipoteze, semnalul recepționat este un **proces aleator**
-    * $H_0$: proces aleator cu valoarea medie 0
-    * $H_1$: proces aleator cu valoarea medie A
+* Fiecare eșantion $r_i$ este o **variabilă aleatoare**
+    - $r(t_i) = s(t_i) + n(t_i)$ = constantă + o v.a.
 
-* Dacă zgomotul este staționar și ergodic, semnalul recepționat este și el staționar și ergodic
-(semnalul = o constantă + zgomotul)
+* Vectorul $\vec{r}$ reprezintă un set de $N$ v.a. dintr-un proces aleator
 
-* Valorile vectorului $\vec{r}$ sunt descrise de **distribuția de ordin $N$**
-a procesului aleator, $w_N(\vec{r}) = w_N(r_1, r_2, ...r_N)$
+* Considerând întreg vectorul $\vec{r}$, 
+valorile vectorului $\vec{r}$ sunt descrise de **distribuții de ordin $N$**
 
-* Dacă zgomotul este alb, momentele de timp când se iau eșantioanele nu contează
+* În ipoteza $H_0$: 
+$$w_N(\vec{r} | H_0) = w_N(r_1, r_2, ...r_N | H_0)$$
+
+* În ipoteza $H_1$: 
+$$w_N(\vec{r} | H_1) = w_N(r_1, r_2, ...r_N | H_1)$$
+
 
 ### Plauzibilitatea vectorului de eșantioane
 
 * Se aplică **aceleași criterii** bazate pe raportul de plauzibilitate în cazul unui singur eșantion
-$$\frac{w_N(\vec{r} | H_0)}{w_N(\vec{r} | H_1)} \grtlessH K$$
+$$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} \grtlessH K$$
 
 * Observații
     * $\vec{r}$ este un vector; prin el se consideră plauzibilitatea tuturor eșantioanelor
-    * ipotezele $H_0$ și $H_1$ sunt aceleași ca în cazul cu 1 eșantion
     * $w_N(\vec{r} | H_0)$ = plauzibilitatea vectorului $\vec{r}$ în ipoteza $H_0$
     * $w_N(\vec{r} | H_1)$ = plauzibilitatea vectorului $\vec{r}$ în ipoteza $H_1$
     * valoarea lui $K$ este dată de criteriul de decizie utilizat
@@ -891,10 +910,9 @@ $$\frac{w_N(\vec{r} | H_0)}{w_N(\vec{r} | H_1)} \grtlessH K$$
 * Interpretare: se alege ipoteza cea mai plauzibilă de a fi generat datele observate
     * identic ca la 1 eșantion, doar că acum datele = mai multe eșantioane
     
-### Descompunere pe fiecare eșantion
+### Descompunere
 
-* Presupunând că zgomotul este alb, eșantioanele $r_i$ sunt **realizări independente 
-ale aceleiași distribuții**
+* Presupunând că zgomotul este alb, eșantioanele $r_i$ sunt independente
 
 * În acest caz, distribuția totală $w_N(\vec{r} | H_j)$ se poate descompune ca un produs
 $$w_N(\vec{r} | H_j) = w(r_1|H_j) \cdot w(r_2|H_j) \cdot ... \cdot w(r_N|H_j)$$
@@ -903,7 +921,10 @@ $$w_N(\vec{r} | H_j) = w(r_1|H_j) \cdot w(r_2|H_j) \cdot ... \cdot w(r_N|H_j)$$
     * de ex. plauzibilitatea obținerii vectorului $[5.1, 4.7, 4.9]$ = plauzibilitatea obținerii lui $5.1$ $\times$
     plauzibilitatea obținerii lui $4.7$ $\times$ plauzibilitatea obținerii lui $4.9$
 
-### Descompunere pe fiecare eșantion
+* Funcțiile $w(r_i|H_i)$ sunt distribuțiile condiționate ale fiecărui eșantion
+    * de care am mai văzut deja
+
+### Descompunere
 
 * Prin urmare, criteriile bazate pe raportul de plauzibilitate devin
 $$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{w(r_1|H_1)}{w(r_1|H_0)}  \cdot 
@@ -911,79 +932,68 @@ $$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{w(r_1|H_1)}{w(r_1|H_0)} 
 
 * Raportul de plauzibilitate al unui vector de eșantioane = produsul rapoartelor plauzibilitate ale fiecărui eșantion
 
-### Caz particulae: AWGN 
+* **Se înmulțesc** rapoartele de plauzibilitate 
+ale fiecărui eșantion în parte, 
+și se aplică criteriile asupra rezultatului final
+
+### Criterii de decizie
+
+* Toate criteriile de decizie pot fi scrise astfel:
+$$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{w(r_1|H_1)}{w(r_1|H_0)}  \cdot 
+\frac{w(r_2|H_1)}{w(r_2|H_0)} ... \frac{w(r_N|H_1)}{w(r_N|H_0)} \grtlessH K$$
+
+* Valoarea lui $K$ se alege ca pentru 1 esantion:
+    * criteriul ML: $K=1$
+    * criteriul MPE: $K=\frac{P(H_0)}{P(H_1)}$
+    * criteriul MR: $K=\frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)}$
+
+
+### Caz particular: AWGN 
 
 * AWGN = "Additive White Gaussian Noise" = Zgomot alb, gaussian, aditiv
 
-* În ipoteza $H_1$: $w(r_i|H_1) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(r_i - A)^2}{2 \sigma^2}}$
-* În ipoteza $H_0$: $w(r_i|H_1) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{r_i^2}{2 \sigma^2}}$
+* În ipoteza $H_1$: $w(r_i|H_1) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(r_i - s_1(t_i))^2}{2 \sigma^2}}$
+* În ipoteza $H_0$: $w(r_i|H_0) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(r_i - s_1(t_i))^2}{2 \sigma^2}}$
+
 * Raportul de plauzibilitate al vectorului $\vec{r}$
-$$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{e^{-\frac{\sum (r_i - A)^2}{2 \sigma^2}}}{e^{-\frac{\sum (r_i)^2}{2 \sigma^2}}}$$
+$$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{e^{-\frac{\sum (r_i - s_1(t_i))^2}{2 \sigma^2}}}{e^{-\frac{\sum (r_i - s_0(t_i))^2}{2 \sigma^2}}} = e^{\frac{\sum (r_i - s_0(t_i))^2 - \sum (r_i - s_1(t_i))^2}{2 \sigma^2}}$$
 
-* Se pot găsi trei interpretări ale raportului de plauzibilitate
 
-### Interpretarea 1: media eșantioanelor
+### Criterii de decizie pentru AWGN
 
-* Interpretarea 1: media eșantioanelor
+* Raportul de plauzibilitate global se compară cu $K$:
+$$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = e^{\frac{\sum (r_i - s_0(t_i))^2 - \sum (r_i - s_1(t_i))^2}{2 \sigma^2}} \grtlessH K$$
 
-$$\begin{split}
-\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} =& \frac{e^{-\frac{\sum (r_i - A)^2}{2 \sigma^2}}}{e^{-\frac{\sum (r_i)^2}{2 \sigma^2}}} \\
-=& e^{-\frac{\sum (r_i - A)^2 - \sum (r_i)^2}{2 \sigma^2}} \\
-=& e^{-\frac{\sum (r_i^2 - 2 r_i A +A^2) - \sum (r_i)^2}{2 \sigma^2}} \\
-=& e^{-\frac{\sum (- 2 r_i A +A^2)}{2 \sigma^2}} \\
-=& e^{-\frac{- 2 A \sum (r_i) + N A^2}{2 \sigma^2}} \\
-=& e^{-\frac{- 2 A \frac{\sum (r_i)}{N} + A^2}{2 \frac{\sigma^2}{N}}} \\
-\end{split}$$
+* Se aplică logaritmul natural, obținându-se:
+$$\sum (r_i - s_0(t_i))^2 \grtlessH \sum (r_i - s_1(t_i))^2  + 2 \sigma^2 \ln(K)$$
 
-### Media a $N$ variabile aleatoare normale
+### Interpretarea 1: distanța geometrică
 
-* Fie $U_r$ = media aritmetică a eșantioanelor $r_i$
-$$U_r = \frac{1}{N}\sum r_i$$
+* Sumele reprezintă **distanța geometrică** la pătrat:
+$$\sum (r_i - s_1(t_i))^2 = \|\vec{r} - \vec{s_1(t)}\|^2 = d(\vec{r}, s_1(t))^2$$
+$$\sum (r_i - s_0(t_i))^2 = \|\vec{r} - \vec{s_0(t)}\|^2 = d(\vec{r}, s_0(t))^2$$
+    * distanța între vectorul observat $\vec{r}$ și 
+    semnalele originale $s_1(t)$, respectiv $s_0(t)$
+    * vectori cu N eșantioane => distanța între vectori de dimensiune $N$
 
-* Care este distribuția sa?
+* Totul se reduce la a compara distanțele
 
-* Fie suma $S_r = \sum r_i$ a celor N eșantioane $r_i$
-    * Din cap.I: suma unor v.a. normale cu distribuția $\mathcal{N}(\mu, \sigma^2)$ este:
-    * cu distribuție normală $\mathcal{N}(\mu_S, \sigma_S^2)$, unde:
-    * valoarea medie: $\mu_S = N \cdot \mu$
-    * varianța: $\sigma_S^2 = N \cdot \sigma^2$
+### Interpretarea 1: distanța geometrică
+
+* Criteriul Maximum Likelihood:
+    * $K = 1$, $\ln(K) = 0$
+    * se alege **distanța minimă** între $\vec{r}$
+    și vectorii $s_1(t)$, respectiv $s_0(t)$)
+    * de unde și numele "receptor de distanță minimă"
     
-* Așadar $U_r = \frac{1}{N} S_r$, din proprietățile mediei se obține:
-    * $U_r$ are distribuție normală, cu:
-    * valoarea medie = $\frac{1}{N} \mu_S = \frac{1}{N} N \mu = \mu$
-    * varianța = $\left(\frac{1}{N}\right)^2 \sigma_S^2 = \left(\frac{1}{N}\right)^2 N \sigma_S^2 = \frac{1}{N} \sigma^2$
+* Criteriul Minimum Probability of Error:
+    * $K = \frac{P(H_0)}{P(H_1)}$
+    * Apare un termen suplimentar, în favoarea ipotezei mai probabile
 
-### Media a $N$ variabile aleatoare normale
+* Criteriul Minimum Risk:
+    * $K=\frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)}$
+    * Termenul suplimentar depinde și de probabilități, și de costuri
 
-* Media a $N$ realizări ale unei distribuții normale are tot o distribuție normală, cu
-    * aceeași valoare medie
-    * varianța de N ori mai mică
-
-* Dacă $N$ este foarte mare, media aritmetică este un **estimator** foarte bun pentru valoarea medie a distribuției
-    * distribuția sa devine foarte "îngustă" în jurul valorii medii
-
-### Interpretarea 1: media eșantioanelor
-
-$$\begin{split}
-\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} =& e^{-\frac{- 2 A U_r + A^2}{2 \frac{\sigma^2}{N}}} \\
-=& \frac{e^{-\frac{U_r^2 - 2 A U_r + A^2}{2 \frac{\sigma^2}{N}}}} {e^{-\frac{U_r^2}{2 \frac{\sigma^2}{N}}}} \\
-=& \frac{e^{-\frac{(U_r - A)^2}{2 \frac{\sigma^2}{N}}}} {e^{-\frac{U_r^2}{2 \frac{\sigma^2}{N}}}}\\
-=& \frac{w(U_r | H_1)}{w(U_r | H_0)}
-\end{split}$$
-
-* Raportul de plauzibilitate a $N$ eșantioane gaussiene = raportul de plauzibilitate al **mediei eșantioanelor**
-
-### Interpretarea 1: media eșantioanelor
-
-* Raportul de plauzibilitate a $N$ eșantioane gaussiene = raportul de plauzibilitate al **mediei eșantioanelor**
-    * media are o varianță mai mică, $\frac{1}{N}\sigma^2$, deci este mai precisă
-    * e ca și cum distribuția zgomotului devine de $N$ ori mai îngustă (datorită medierii)
-
-* Detecția unui semnal constant cu $N$ eșantioane este similaru cu detecția cu un singur eșantion, doar că
-    * se folosește valoarea medie a eșantioanelor $r_i$
-    * distribuția sa este de N ori mai îngustă (varianța e de N ori mai mică)
-    
-* Când $N$ crește, probabilitatea erorilor scade => performanțe îmbunătățite
 
 ### Exercițiu
 
@@ -995,332 +1005,157 @@ Receptorul ia 5 eșantioane cu valorile $\left\{ 1.1, 4.4, 3.7, 4.1, 3.8 \right\
     a. Ce decizie se ia conform criteriului plauzibilității maxime?
     b. Ce decizie se ia conform criteriului probabilității minime de eroare. dacă
     $P(H_0) = 2/3$ și $P(H_1) = 1/3$?
+    c. Ce decizie se ia conform criteriului roscului minim. dacă
+    $P(H_0) = 2/3$ și $P(H_1) = 1/3$, iar $C_{00} = 0$, $C_{10} = 10$, $C_{01} = 20$, $C_{11} = 5$?
 
-### Interpretarea 2: geometric
-
-* Folositoare în special pentru criteriul plauzibilității maxime
-
-* Raportul de plauzibilitate pentru vectorul $\vec{r}$
-$$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{e^{-\frac{\sum (r_i - A)^2}{2 \sigma^2}}}{e^{-\frac{\sum (r_i)^2}{2 \sigma^2}}} \grtlessH K$$
-
-* La criteriul plauzibilității maxime se compară cu 1
-$$\frac{e^{-\frac{\sum (r_i - A)^2}{2 \sigma^2}}}{e^{-\frac{\sum (r_i)^2}{2 \sigma^2}}} \grtlessH 1$$
-$$e^{-\frac{\sum (r_i - A)^2}{2 \sigma^2} + \frac{\sum (r_i)^2}{2 \sigma^2}} \grtlessH 1$$
-$$- \sum (r_i - A)^2 + \sum (r_i)^2 \grtlessH 0$$
-$$\sum (r_i)^2 \grtlessH \sum (r_i - A)^2$$
-$$\sqrt{\sum (r_i)^2} \grtlessH \sqrt{\sum (r_i - A)^2}$$
-
-### Interpretarea 2: geometric
-
-* $\sqrt{\sum (r_i)^2}$ este distanța geometrică (Euclidiană) între punctul $\vec{r} = [r_1, r_2, ... r_N]$ și punctul $\vec{0} = [0, 0, ...0]$
-* $\sqrt{\sum (r_i - A)^2}$ este distanța geometrică (Euclidiană) între punctul $\vec{r} = [r_1, r_2, ... r_N]$ și punctul $\vec{A} = [A, A, ...A]$
-* criteriul plauzibilității maxime alege **vectorul (punctul) semnalului cel mai apropiat** de vectorul (punctul) recepționat, într-un spațiu N-dimensional
-    * receptorul se mai numește "receptor de distanță minimă"
-    * aceeași interpretare ca în cazul 1-D
+### Alt exercițiu
     
-* Întrebare: care este interpretarea geometrică pentru celelalte criterii?
+Alt exercițiu:
 
-### Exercițiu
-    
-Exercițiu:
-
-* Un semnal poate avea două valori, $0$ (ipoteza $H_0$) sau $6$ (ipoteza $H_1$). 
-Semnalul este afectat de AWGN $\mathcal{N}(0, \sigma^2=1)$.
-Receptorul ia două eșantioane cu valorile $\left\{ 1.1, 4.4 \right\}$.
-    a. Care este decizia conform criteriului plauzibilității maxime? Utilizați interpretarea geometrică.
-
-
-### Interpretarea 3: valoarea corelației
-
-* Raportul de plauzibilitate al vectorului $\vec{r}$
-$$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{e^{-\frac{\sum (r_i - A)^2}{2 \sigma^2}}}{e^{-\frac{\sum (r_i)^2}{2 \sigma^2}}} \grtlessH K$$
-$$e^{-\frac{\sum (r_i - A)^2}{2 \sigma^2} + \frac{\sum (r_i)^2}{2 \sigma^2}} \grtlessH K$$
-$$-\sum (r_i - A)^2 + \sum (r_i)^2 \grtlessH 2 \sigma^2 \ln{K}$$
-$$ 2 \sum r_i A - N A^2 \grtlessH 2 \sigma^2 \ln{K}$$
-$$ \frac{1}{N} \sum r_i A  \grtlessH \underbrace{\frac{A^2}{2} + \frac{1}{N}\sigma^2 \ln{K}}_{L = const}$$
-
-### Interpretarea 3: valoarea corelației
-
-* **Valoarea de corelație** (sau "corelația") a două semnale $x$ and $y$ este
-$$<x,y> = \frac{1}{N}\sum x[n] y[n]$$
-
-* Este valoarea funcției de corelație în 0
-$$<x,y> = R_{xy}[0] = \overline{x[n] y[n + 0]}$$
-
-* Pentru semnale continue
-$$<x,y> = \frac{1}{T}\int_{T/2}^{T/2} x(t) y(t) dt$$
-
-* $\frac{1}{N} \sum r_i A = <\vec{r}, \vec{A}>$ este corelația vectorului recepționat $\vec{r} = [r_1, r_2, ... r_N]$
-cu vectorul **țintă** $\vec{A} = [A, A, ... A]$
-
-
-### Interpretarea 3: valoarea corelației
-
-* Dacă valoarea de corelație a vectorului recepționat cu vectorul țintă $\vec{A} = [A, A, ... A]$
-este mai mare decât un prag $L$, se decide că semnalul este detectat.
-    * altfel, semnalul este rejectat
-    
-* Decizia este **similară cu detecția semnalului cu singur eșantion**, 
-unde valoarea eșantionului este $<\vec{r}, \vec{A}>$
-
-
-### Corelația ca măsura a similarității semnalelor
-
-* În domeniul prelucrărilor de semnal, corelația este o formă de a măsura **similaritatea** a două semnale
-
-* Interpretare: verificăm dacă vectorul recepționat este suficient de similar cu semnalul constant $A$
-    * Da: (corelație mare) => semnalul este detectat
-    * Nu: (corelație mică) => nu este detectat
-    
-### Generalizare: două valori nenule
-
-* Generalizare: două valori nenule, $B$ și $A$
-    * în zgomot Gaussian
-
-* Interpretarea 1: media eșantioanelor
-    * se folosește tot media eșantioanelor, cele două distribuții sunt centrate pe $B$ și $A$
-    
-* Interpretarea 2: geometric (crit. plauzib. maxime)
-    * se alege minimul distanței dintre $\vec{r} = [r_1, r_2, ... r_N]$ și punctele $\vec{B} = [B, B, ...]$ și $\vec{A} = [A, A, ...]$
-
-* Interpretarea 3: corelația
-    * se calculează $<\vec{r},\vec{B}>$ and $<\vec{r},\vec{A}>$, corelația lui $\vec{r}$ cu $\vec{B} = [B, B, ...]$ și cu $\vec{A} = [A, A, ...]$.
-    * pe slide-ul următor
-
-### Detecția a două valori nenule folosind corelația
-
-$$e^{-\frac{\sum (r_i - A)^2}{2 \sigma^2} + \frac{\sum (r_i - B)^2}{2 \sigma^2}} \grtlessH K$$
-$$-\sum (r_i - A)^2 + \sum (r_i - B)^2 \grtlessH 2 \sigma^2 \ln{K}$$
-$$ 2 \sum r_i A - N A^2 - 2 \sum r_i B + N B^2 \grtlessH 2 \sigma^2 \ln{K}$$
-$$ \frac{1}{N} \sum r_i A - \frac{A^2}{2} \grtlessH \frac{1}{N} \sum r_i B - \frac{B^2}{2} + \frac{1}{N}\sigma^2 \ln{K}$$
-
-### Detecția a două valori nenule folosind corelația
-
-* Pentru criteriul plauzibilității maxime ($K=1$):
-$$ <\vec{r}, \vec{A}> - \frac{<\vec{A}, \vec{A}>}{2} \grtlessH <\vec{r},\vec{B}> - \frac{<\vec{B},\vec{B}>}{2}$$
-
-* Dacă valorile sunt opuse, $B=-A$, se alege cea mai similară cu $\vec{r}$:
-    * corelația este o măsură a similarității
-$$ <\vec{r},\vec{A}> \grtlessH <\vec{r},\vec{-A}>$$
-
-* Alte criterii: termen adițional $\frac{1}{N}\sigma^2 \ln{K}$
-
-
-
-
-### Exercițiu
-    
-Exercițiu:
-
-* Un semnal poate avea două valori, $-4$ (ipoteza $H_0$) sau $5$ (ipoteza $H_1$). 
-Semnalul este afectat de zgomot alb Gaussian $\mathcal{N}(0, \sigma^2=1)$.
-Receptorul ia trei eșantioane cu valorile $\left\{ 1.1, 4.4, 2.2 \right\}$.
-    a. Care este decizia, conform criteriului plauzibilității maxime? Folosiți toate cele trei interpretări.
-
-
-## II.4 Detecția semnal oarecare cu mai multe eșantioane
-
-### Eșantioane multiple dintr-un semnal oarecare
-
-* Dorim detecția unui semnal **oarecare (ne-constant)** $s(t)$
-
-* Cele N eșantioane se iau la momentele de timp $\vec{t} = [t_1, t_2, ... t_N]$ și formează **vectorul eșantioanelor**
-$$\vec{r} = [r_1, r_2, ... r_N]$$
-
-* Ce diferă față de cazul unui semnal constant?
-
-### Ipoteze
-
-* În fiecare ipoteză, semnalul este un proces aleator
-    * $H_0$: proces aleator cu medie  0
-    * $H_1$: proces aleator cu media **$s(t)$**
-
-* Eșantionul $r_i$, de la momentul $t_i$, poate fi:
-    * 0 + zgomot, în ipoteza $H_0$
-    * $s(t_i)$ + zgomot, în ipoteza $H_1$
-
-* Întregul vector al eșantioanelor $\vec{r}$ poate fi
-    * 0 + zgomot, , în ipoteza $H_0$
-    * $s(t)$ + zgomot, în ipoteza $H_1$, pentru $t$ = timpii de eșantionare $t_i$
-      
-* Distribuția vectorului $\vec{r}$ este descrisă de o funcție $w_N(\vec{r})$
-    
-### Plauzibilitatea vectorului eșantioanelor
-
-* Se folosesc **aceleași criterii** bazate pe raportul de plauzibilitate ca la semnale constante:
-$$\frac{w_N(\vec{r} | H_0)}{w_N(\vec{r} | H_1)} \grtlessH K$$
-
-* Diferența este că semnalele "adevărate" sunt acum
-    * [0, 0, ... 0]  în ipoteza $H_0$
-    * $[s(t_1), s(t_2), ... s(t_N)]$ în ipoteza $H_1$
-    
-### Descompunere
-
-* Distribuția vectorială $w_N(\vec{r} | H_j)$ se poate descompune ca un produs
-$$w_N(\vec{r} | H_j) = w(r_1|H_j) \cdot w(r_2|H_j) \cdot ... \cdot w(r_N|H_j)$$
-
-* Toate criteriile de decizie bazate pe raportul de plauzibilitate se pot scrie ca
-$$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{w(r_1|H_1)}{w(r_1|H_0)}  \cdot 
-\frac{w(r_2|H_1)}{w(r_2|H_0)} ... \frac{w(r_N|H_1)}{w(r_N|H_0)} \grtlessH K$$
-
-* Raportul de plauzibilitate al unui singur eșantion $r_i$ se calculează folosind
-cele două valori posibile ale semnalului, 0 și $s(t_i)$
-    * la semnale constante, valorile erau 0 și $A$ întotdeauna
-    * acum sunt 0 și $s(t_i)$, în funcție de momentele de eșantionare $t_i$
-    * momentele de eșantionare $t_i$ trebuie alese astfel încât să maximizeze performanțele detecției
-
-### Caz particular: zgomot alb Gaussian ("AWGN")
-
-* AWGN = "Additive White Gaussian Noise"
-
-* In hypothesis $H_1$: $w(r_i|H_1) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(r_i - s(t_i))^2}{2 \sigma^2}}$
-* In hypothesis $H_0$: $w(r_i|H_1) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{r_i^2}{2 \sigma^2}}$
-* Raportul de plauzibilitate al vectorului $\vec{r}$
-$$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{e^{-\frac{\sum (r_i - s(t_i))^2}{2 \sigma^2}}}{e^{-\frac{\sum (r_i)^2}{2 \sigma^2}}}$$
-
-* Sunt posibile două interpretări
-
-### Interpretarea 1: valoarea medie
-
-* Interpretarea 1: valoarea medie
-
-* Nu mai este valabilă, întrucât valorile $s(t_i)$ nu mai sunt identice
-
-### Interpretarea 2: geometric
-
-* Folositoare mai ales în cazul criteriului plauzibilității maxime
-
-* Raportul de plauzibilitate pentru vectorul $\vec{r}$
-$$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{e^{-\frac{\sum (r_i - s(t_i))^2}{2 \sigma^2}}}{e^{-\frac{\sum (r_i)^2}{2 \sigma^2}}} \grtlessH K$$
-
-* Criteriul plauzibilității maxime: $K=1$
-$$\frac{e^{-\frac{\sum (r_i - s(t_i))^2}{2 \sigma^2}}}{e^{-\frac{\sum (r_i)^2}{2 \sigma^2}}} \grtlessH 1$$
-$$e^{-\frac{\sum (r_i - s(t_i))^2}{2 \sigma^2} + \frac{\sum (r_i)^2}{2 \sigma^2}} \grtlessH 1$$
-$$- \sum (r_i - s(t_i))^2 + \sum (r_i)^2 \grtlessH 0$$
-$$\sum (r_i)^2 \grtlessH \sum (r_i - s(t_i))^2$$
-$$\sqrt{\sum (r_i)^2} \grtlessH \sqrt{\sum (r_i - s(t_i))^2}$$
-
-### Interpretarea 2: geometric
-
-* $\sqrt{\sum (r_i)^2}$ este distanța geometrică (Euclidiană) între punctul $\vec{r} = [r_1, r_2, ... r_N]$ și punctul $\vec{0} = [0, 0, ...0]$
-* $\sqrt{\sum (r_i - s(t_i))^2}$ este distanța geometrică (Euclidiană) între punctul $\vec{r} = [r_1, r_2, ... r_N]$ și punctul $\vec{s(t)} = [s(t_1), s(t_2), ...s(t_N)]$
-* Criteriul plauz. maxime alege **semnalul cel mai apropiat** de cel recepționat, într-un spațiu N-dimensional
-    * se mai numește "receptor de distanță minimă"
-    * aceeași interpretare ca în cazul 1-D
-    
-* Întrebare: interpretarea geometrică pentru celelalte criterii?
-
-### Exercițiu
-    
-Exercițiu:
-
-* Fie detecția unui semnal $s(t) = 3 \sin(2 \pi f t)$ care poate fi prezent (ipoteza $H_1$) sau absent (ipoteza $H_0$).
+* Fie detecția unui semnal $s(t) = 3 \sin(2 \pi f t)$ care poate fi prezent (ipoteza $H_1$) sau absent ($s_0(t) = 0$, ipoteza $H_0$).
 Semnalul este afectat de zgomot alb Gaussian $\mathcal{N}(0, \sigma^2=1)$.
 Receptorul ia două eșantioane.
     a. Care sunt cele mai bune momente de eșantionare $t_1$ și $t_2$ pentru a maximiza performanțele detecției?
     b. Receptorul ia două eșantioane $\left\{ 1.1, 4.4 \right\}$, la momentele de timp $t_1 = \frac{0.125}{f}$ și $t_2 = \frac{0.625}{f}$.
-    Care este decizia, conform criteriului plauz. maxime? Utilizați interpretarea geometrică.
-    c. Dar dacă receptorul ia un al treilea eșantion la momentul $t_3 = \frac{0.5}{f}$. Se poate îmbunătăți detecția?
+    Care este decizia, conform criteriului plauzibilității maxime?â
+    c. Dacă se folosește criteriul probabilității minime de eroare, cu
+    $P(H_0) = 2/3$ și $P(H_1) = 1/3$?
+    d. Dacă se folosește criteriul riscului minim, cu
+    $P(H_0) = 2/3$ și $P(H_1) = 1/3$, iar $C_{00} = 0$, $C_{10} = 10$, $C_{01} = 20$, $C_{11} = 5$?
+    e. Dar dacă receptorul ia un al treilea eșantion la momentul $t_3 = \frac{0.5}{f}$. Se poate îmbunătăți detecția?
 
 
-### Interpretarea 3: valoarea corelației
+### Interpretarea 2: produs scalar
 
-* Raportul de plauzibilitate pentru vectorul $\vec{r}$
-$$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{e^{-\frac{\sum (r_i - s(t_i))^2}{2 \sigma^2}}}{e^{-\frac{\sum (r_i)^2}{2 \sigma^2}}} \grtlessH K$$
-$$e^{-\frac{\sum (r_i - s(t_i))^2}{2 \sigma^2} + \frac{\sum (r_i)^2}{2 \sigma^2}} \grtlessH K$$
-$$-\sum (r_i - s(t_i))^2 + \sum (r_i)^2 \grtlessH 2 \sigma^2 \ln{K}$$
-$$ 2 \sum r_i s(t_i) - \sum s(t_i)^2 \grtlessH 2 \sigma^2 \ln{K}$$
-$$ \frac{1}{N} \sum r_i s(t_i)  \grtlessH \underbrace{\frac{1}{2}\frac{\sum s(t_i)^2}{N} + \frac{1}{N}\sigma^2 \ln{K}}_{L = const}$$
+* Dacă se descompun parantezele:
+$$\sum (r_i - s_0(t_i))^2 \grtlessH \sum (r_i - s_1(t_i))^2  + 2 \sigma^2 \ln(K)$$
 
-### Interpretarea 3: valoarea corelației
+* Se obține:
 
-* $\frac{1}{N} \sum r_i s(t_i) = <\vec{r}, \vec{s(t_i)}>$ reprezintă valoarea corelației (sau "corelația") eșantioanelor recepționate $\vec{r} = [r_1, r_2, ... r_N]$
-cu eșantioanele **țintă** $\vec{s(t_i)} = [s(t_1), s(t_2), ... s(t_N)]$
+$$\begin{split}
+\sum (r_i )^2 + \sum s_0(t_i)^2& - 2 \sum r_i s_0(t_i) \grtlessH \sum (r_i )^2 + \\
+& + \sum s_1(t_i)^2 - 2 \sum r_i s_1(t_i)  + 2 \sigma^2 \ln(K)
+\end{split}$$
 
-* Dacă corelația eșantioanelor recepționate $\vec{r}$ cu eșantioanele **țintă** $\vec{s(t_i)}$
-este mai mare decât un prag $L$, se decide că semnalul este prezent.
-    * Altfel, se decide că semnalul este absent
-    * Corelația este o măsură a **similarității** a două semnale
+* Echivalent cu:
+$$\sum r_i s_1(t_i) - \frac{ \sum (s_1(t_i))^2}{2} \grtlessH \sum r_i s_0(t_i) - \frac{\sum (s_0(t_i))^2 }{2}  + \sigma^2 \ln(K)$$
 
 
-### Generalizare: două semnale oarecare
+### Interpretarea 2: produs scalar
 
-* Generalizare: se decide între **două semnale diferite** $s_0(t)$ și $s_1(t)$
-    * în zgomot Gaussian
+* Algebră: **produsului scalar** al vectorilor $\vec{a}$ și $\vec{b}$: 
+$$\langle a,b \rangle = \sum_i a_i b_i$$
 
-* Interpretarea 2: geometric
-    * se alege distanța Euclidiană minimă dintre $\vec{r} = [r_1, r_2, ... r_N]$ și punctele $\vec{s_0(t)} = [s_0(t_1), s_0(t_2), ...]$ și $\vec{s_1(t)} = [s_1(t_1), s_1(t_2), ...]$
+* $\sum r_i s_1(t_i) = \langle \vec{r}, \vec{s_1(t)} \rangle$ este produsul scalar al vectorului $\vec{r} = [r_1, r_2, ... r_N]$
+cu $\vec{s_1(t_i)} = [s_1(t_1), s_1(t_2), ... s_1(t_N)]$
 
-* Interpretarea 3: valoarea corelației
-    * se calculează corelația $\vec{r}$ cu $\vec{s_0(t)} = [s_0(t_1), s_0(t_2), ...]$ și $\vec{s_1(t)} = [s_1(t_1), s_1(t_2), ...]$,
-    $<\vec{r},\vec{s_0}>$ and $<\vec{r},\vec{s_1}>$.
-    * pe slide-ul următor
+* $\sum r_i s_0(t_i) = \langle \vec{r}, \vec{s_0(t)} \rangle$ este produsul scalar al vectorului $\vec{r} = [r_1, r_2, ... r_N]$
+cu $\vec{s_0(t_i)} = [s_0(t_1), s_0(t_2), ... s_0(t_N)]$
 
-### Detecție între două semnale diferite folosind corelația
+* $\sum (s_1(t_i))^2 = \sum s_1(t_i) \cdot s_1(t_i) = \langle \vec{s_1(t)}, \vec{s_1(t)} \rangle = E_1$ este **energia** vectorului $s_1(t)$
 
-$$e^{-\frac{\sum (r_i - s_1(t_i))^2}{2 \sigma^2} + \frac{\sum (r_i - s_0(t_i))^2}{2 \sigma^2}} \grtlessH K$$
-$$-\sum (r_i - s_1(t_i))^2 + \sum (r_i - s_0(t_i))^2 \grtlessH 2 \sigma^2 \ln{K}$$
-$$ 2 \sum r_i s_1(t_i) - \sum s_1(t_i)^2 - 2 \sum r_i s_0(t_i) + \sum s_0(t_i)^2 \grtlessH 2 \sigma^2 \ln{K}$$
-$$ \frac{1}{N} \sum r_i s_1(t_i) - \sum s_1(t_i)^2 \grtlessH \frac{1}{N} \sum r_i s_0(t_i) - \sum s_0(t_i)^2 + \frac{1}{N}\sigma^2 \ln{K}$$
-
-### Detecție între două semnale diferite folosind corelația
-
-* Criteriul plauz. maxime ($K=1$):
-$$<\vec{r}, \vec{s_1}> - \frac{<\vec{s_1}, \vec{s_1}>}{2} \grtlessH <\vec{r},\vec{s_0}> - \frac{<\vec{s_0},\vec{s_0}>}{2}$$
-
-* Dacă semnalele au aceeași energie: $\sum s_1(t_i)^2 = \sum s_0(t_i)^2$,
-atunci $<\vec{s_1}, \vec{s_1}> = <\vec{s_0}, \vec{s_0}>$, și alegem semnalul **cel mai asemănător cu $\vec{r}$**:
-    * corelația este o măsură a similarității a două semnale
-$$<\vec{r},\vec{s_1}> \grtlessH <\vec{r},\vec{s_0}>$$
-
-* Exemple:
-    * Modulație BPSK: $s_1 = A \cos(2 \pi f t)$, $s_0 = -A \cos(2 \pi f t)$
-    * Modulație 4-PSK: $s_{n=0,1,2,3} = A \cos(2 \pi f t + n \frac{\pi}{4})$
+* $\sum (s_0(t_i))^2 = \sum s_0(t_i) \cdot s_0(t_i) = \langle \vec{s_0(t)}, \vec{s_0(t)} \rangle = E_0$ este **energia** vectorului $s_0(t)$
 
 
-### Detecție pe baza corelației
+### Interpretarea 2: produs scalar
 
-![Detecția unui semnal folosind un corelator](img/Correlator.jpg){#id .class width=100%}
+* Decizia se poate rescris sub forma:
+$$\langle \vec{r}, \vec{s_1} \rangle - \frac{E_1}{2} \grtlessH \langle \vec{r},\vec{s_0} \rangle - \frac{E_0}{2} + \sigma^2 \ln(K)$$
 
-*[sursa: http://nptel.ac.in/courses/117103018/43]* 
+* Interpretare: **comparăm produsele scalare**
+    * se scad energiile semnalelor, pentru o comparație corectă
+    * există de asemenea termenul care depinde de criteriul ales
 
-### Detecția a doua semnale
+* Caz particular:
+    * Dacă cele două semnale au energii egale: $E_1 = \sum s_1(t_i)^2 = E_0 = \sum s_0(t_i)^2$
+    * Exemple:
+        * modulație BPSK: $s_1 = A \cos(2 \pi f t)$, $s_0 = -A \cos(2 \pi f t)$
+        * modulație 4-PSK: $s_{n=0,1,2,3} = A \cos(2 \pi f t + n \frac{\pi}{4})$
+    * Atunci formula se simplifică:
+    $$\langle \vec{r}, \vec{s_1} \rangle \grtlessH \langle \vec{r},\vec{s_0} \rangle + \sigma^2 \ln(K)$$
 
-![Decizie între două semnale diferite](img/CorrelatorMultiple.png){#id .class width=80%}
+### Interpretarea 2: produs scalar
+
+* În domeniul prelucrărilor de semnale, produsul scalar măsoară **similitudinea** a două semnale
+
+* Interpretare: verificăm dacă vectorul eșantioanelor $\vec{r}$ este **mai asemănător**
+cu $s_1(t)$ sau cu  $s_0(t)$
+    * Se alege cel mai similar cu $\vec{r}$
+    * Se scad și energiile semnalelor (necesar d.p.d.v. matematic)
+
+### Legătura între produs scalar și corelație
+
+* **Produsul scalar** al vectorilor $\vec{a}$ și $\vec{b}$: 
+$$\langle a,b \rangle = \sum_i a_i b_i$$
+
+* Funcția de corelație (temporală):
+$$R_{ab}[\tau] = E\{a_i b_{i + \tau}\}$$
+
+* Funcția de corelație (temporală) pentru $\tau = 0$:
+$$R_{ab}[0] = E\{a_i b_i\} = \frac{1}{N} \sum_i a_i b_i$$
+
+* Produsul scalar = funcția de corelație în $\tau = 0$
+    * cu un factor de scalare $\frac{1}{N}$ în față
+
+
+### Implementare cu circuite de corelare
+
+![Decizie între două semnale](img/CorrelatorMultiple.png){#id .class width=80%}
 
 *[sursa: Fundamentals of Statistical Signal Processing, Steven Kay]*
 
 
 ### Filtru adaptat
 
-* Cum se calculează corelația a două semnale $r[n]$ și $s[n]$ de lungime $N$?
-$$<r,s> = \frac{1}{N} \sum r_i s(t_i)$$
+* Cum se calculează produsul scalar a două semnale $r[n]$ și $s[n]$ de lungime $N$?
+$$\langle \vec{r},\vec{s} \rangle = \sum r_i s(t_i)$$
 
 * Fie $h[n]$ semnalul $h[n]$ **oglindit**
-    * începând tot de la momentul 0, semnal cauzal
+    * începe la momentul 0, durează până la momentul $N-1$, dar este oglindit
 $$h[n] = s[N-1-n]$$
+
+* Exemplu:
+    * dacă $s[n] = [\underuparrow{1}, 2, 3, 4, 5, 6]$
+    * atunci $h[n] = s[N-1-n] = [\underuparrow{6}, 5, 4, 3, 2, 1]$
+
+### Filtru adaptat
 
 * Convoluția lui $r[n]$ cu $h[n]$ este
 $$y[n] = \sum_k r[k] h[n-k] = \sum_k r[k] h[N-1-n+k]$$
 
-* Rezultatul convoluției la finalul semnalului de intrare, $y[N-1]$ ($n=N-1$), este chiar corelația
-    * până la un factor de scalare $\frac{1}{N}$
-$$y[N] = \sum_k r[k] s[k]$$
+* Rezultatul convoluției, la finalul semnalului de intrare, $y[N-1]$ ($n=N-1$), este chiar produsul scalar:
+$$y[N-1] = \sum_k r[k] s[k]$$
 
 ### Filtru adaptat
 
 * Pentru detecția unui semnal $s[n]$ se poate folosi un  **filtru a cărui răspuns la impuls =
 oglindirea lui $s[n]$**, luându-se eșantionul de la finalul semnalului de intrare
-    * se obține valoarea corelației
-$$h[n] = s[N-1-n]$$
+    $$h[n] = s[N-1-n]$$
+    * se obține valoarea produsului scalar
 
 * **Filtru adaptat** = un filtru proiectat să aibă răspunsul la impuls egal cu oglindirea
 semnalului care se dorește a fi detectat (eng. "matched filter")
     * filtrul este *adaptat* semnalului dorit
 
-### Filtru adaptat
 
-![Detecție folosind un filtru adaptat](img/MatchedFilter.png){#id .class width=80%}
+### Detecția semnalelor cu filtre adaptate
+
+* Se folosește un filtru adaptat la semnalul $s_1(t_i)$
+
+* Se folosește un filtru adaptat la semnalul $s_0(t_i)$
+
+* Se eșantionează ieșirile la momentul final $n = N-1$
+    * se obțin valorile produselor scalare
+
+* Se folosește regula de decizie cu produse scalare
+
+
+### Detecția semnalelor cu filtre adaptate
+
+* Dacă $s_0(t) = 0$, avem nevoie doar de un singur filtru adaptat pentru $s_1(t)$,
+și se compară rezultatul cu un prag
+
+![Detecție folosind un filtru adaptat](img/MatchedFilter.png){#id .class width=60%}
 
 *[sursa: Fundamentals of Statistical Signal Processing, Steven Kay]*
 
@@ -1333,82 +1168,128 @@ semnalului care se dorește a fi detectat (eng. "matched filter")
 * Observare continuă = fără eșantionare, se folosește **întreg semnalul continuu**
     * similar cazului cu $N$ eșantioane, dar cu $N \to \infty$
 
+* Semnalele originale sunt $s_0(t)$ si $s_1(t)$
+
+* Semnalele sunt afectate de zgomot
+    * Presupunem **doar zgomot Gaussian**, pentru simplitate
+
 * Semnalul recepționat este $r(t)$
 
-* Semnalul țintă este $s(t)$
-
-* Presupunem doar zgomot Gaussian
-
-* Cum are loc detecția?
-
-### Detecția semnalelor continue
+### Spațiu Euclidean
 
 * Se extinde cazul precedent cu $N$ eșantioane la cazul unui semnal continuu, $N \to \infty$
 
-* Interpretarea 1: media eșantioanelor
-    * Nu mai este valabilă, întrucât $s(t)$ nu este constant
-    
-### Interpretarea 2: geometric
+* Fiecare semnal $r(t)$, $s_1(t)$ și $s_0(t)$ reprezintă un punct într-un spațiu Euclidian infinit dimensional
 
-* Interpretarea 2: geometric
+* **Distanța** între două semnale este:
+$$d(\vec{r},\vec{s}) = \sqrt{\int \left( r(t) - s(t) \right)^2 dt}$$
 
-* Fiecare semnal $r(t)$, $s(t)$ sau $0$ reprezintă un punct într-un spațiu Euclidian infinit dimensional
-
-* Distanța între două semnale este:
-$$d(r,s) = \sqrt{\int \left( r(t) - s(t) \right)^2 dt}$$
+* **Produsul scalar** între două semnale:
+$$\langle \vec{r},\vec{s} \rangle = \int r(t) s(t) dt$$
 
 * Similar cu cazul N dimensional, dar cu integrală în loc de sumă
+
+### Decizie în cazul AWGN: distanțe
     
-* Criteriul plauzibilității maxime:
-    * se calculează distanța $d(r,s)$ între $r(t)$ și $s(t)$
-    * se calculează distanța $d(r,0)$ între $r(t)$ și $0$
-    * se alege valoarea minimă
+* În cazul AWGN este aceeași regula de decizie:
+$$d(\vec{r}, \vec{s_0})^2 \grtlessH d(\vec{r}, \vec{s_1})^2  + 2 \sigma^2 \ln(K)$$
     
-### Interpretarea 3: corelația
+* Distanța = se calculează cu formula precedentă, cu integrală
 
-* Corelația a două semnale continue $r(t)$ și  $s(t)$ de lungime $T$
-$$<\vec{r},\vec{s}> = \frac{1}{T}{\int_0^T r(t) \cdot s(t) dt}$$
+* Aceleași criterii de decizie:
+    * Criteriul Maximum Likelihood: $K = 1$, $\ln(K) = 0$
+        * se alege **distanța minimă**
+    * Criteriul Minimum Probability of Error: $K = \frac{P(H_0)}{P(H_1)}$
+    * Criteriul Minimum Risk: $K=\frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)}$
+    
+### Decizie în cazul AWGN: produse scalare
 
-* Dacă corelația semnalului recepționat cu semnalul căutat $\vec{s(t_i)}$
-este mai mare decât un prag $L$, se decide că semnalul este detectat.
-    * Altfel, se decide că semnalul este absent
-    * Corelația este o măsură a similarității a două semnale
+* În cazul AWGN este aceeași regulă de decizie:
+$$\langle \vec{r}, \vec{s_1} \rangle - \frac{E_1}{2} \grtlessH \langle \vec{r},\vec{s_0} \rangle - \frac{E_0}{2} + \sigma^2 \ln(K)$$
+    
+* Produsul scalar = formula precedentă, cu integrală
 
-### Generalizări
+* Toate interpretările rămân identice
+    * se schimbă doar **tipul de semnal** cu care lucrăm
 
-* Detecția între **două semnale** $s_0(t)$ și $s_1(t)$
-    * în zgomot Gaussian
-
-* Interpretarea 2: geometric
-    * se alege distanța Euclidiană minimă între punctul $\vec{r(t)}$ și punctele $\vec{s_0(t)}$ și $\vec{s_1(t)}$
-        * folosind distanța dintre semnale definită mai sus
-
-* Interpretarea 3: corelația
-    * se calculează corelația lui $\vec{r(t)}$ cu $\vec{s_0(t)}$ și cu $\vec{s_1(t)}$.
-
-### Detecția între două semnale folosind corelația
-
-* Criteriul plauz. maxime ($K=1$):
-$$<\vec{r}, \vec{s_1}> - \frac{<\vec{s_1}, \vec{s_1}>}{2} \grtlessH <\vec{r},\vec{s_0}> - \frac{<\vec{s_0},\vec{s_0}>}{2}$$
-
-* Dacă cele două semnale au energii egale: $\int s_1(t)^2 dt= \int s_0(t)^2 dt$,
-atunci $<\vec{s_1}, \vec{s_1}> = <\vec{s_0}, \vec{s_0}>$, așadar se alege **semnalul cel mai asemănător cu $r(t)$**:
-    * Corelația este o măsură a similarității a două semnale
-$$<\vec{r},\vec{s_1}> \grtlessH <\vec{r},\vec{s_0}>$$
-
-* Exemple
-    * Modulația BPSK: $s_1 = A \cos(2 \pi f t)$, $s_0 = -A \cos(2 \pi f t)$
-    * Modulația 4-PSK: $s_{n=0,1,2,3} = A \cos(2 \pi f t + n \frac{\pi}{4})$
 
 ### Filtru adaptat
 
-* Corelația a două semnale se poate calcula cu un **filtru adaptat**
+* Produsul scalar a două semnale se poate calcula cu un **filtru adaptat**
 
 * **Filtru adaptat** = filtru proiectat să aibă răspunsul la impuls egal cu **oglindirea**
 semnalului căutat
-    * filtrul este *adaptat* semnalului căutat
-    * filtru continuu, cu răspuns la impuls continuu
+    * dacă semnalul original $s(t)$ are lungimea T
+    * atunci $h(t) = s(T - t)$
+    * filtrul este analogic, răspunsul la impuls este continuu
 
-* Pentru detecția unui semnal $s(t)$ se poate folosi un filtru adaptat, 
-luând eșantionul de la ieșire în momentul final al semnalului de intrare
-    * se obține chiar valoarea corelației
+* Ieșirea unui filtru adaptat la momentul $t = T$ este egală
+cu produsul scalar al intrării $r(t)$ cu $s(t)$
+
+### Detecția semnalelor cu filtre adaptate
+
+* Se folosește un filtru adaptat la semnalul $s_1(t)$
+
+* Se folosește un alt filtru adaptat la semnalul $s_0(t)$
+
+* Se eșantionează ieșirile filtrelor la sfârșitul semnalelor, $t = T$
+    * se obțin valorile produselor scalare
+
+* Se utilizează regula de decizie cu produse scalare
+
+
+### Spații vectoriale Euclidiene
+
+* Recapitulare: Spații vectoriale Euclidiene
+
+* Spațiu vectorial
+    * suma a două elemente = rămâne în același spațiu
+    * multiplicarea cu o constantă = rămâne în același spațiu
+    * există operații aritmetice de bază: sumă, multiplicare cu o constantă
+    * Exemple
+        * 1D = o dreaptă
+        * 2D = un plan
+        * 3D = spațiu tridimensional
+        * N-D = ...
+        * $\infty$-D = ..
+    
+### Spații vectoriale Euclidiene
+
+* Operația fundamentală: **produsul scalar**
+    * pentru semnale discrete
+        $$\langle \vec{x},\vec{y} \rangle = \sum_i x_i y_i$$
+    * pentru semnale continue
+        $$\langle \vec{x},\vec{y} \rangle = \int x(t) y(t)$$        
+
+* Norma (lungimea) unui vector = radical(produsul scalar cu sine însuși)
+$$\|\vec{x}\| = \sqrt{ \langle \vec{x},\vec{x} \rangle }$$
+
+* Distanța între doi vectori = norma diferenței dintre ei
+$$d(\vec{x}, \vec{y}) = \|\vec{x} - \vec{y}\|$$
+
+### Spații vectoriale Euclidiene
+
+* Energia unui semnal = norma la pătrat
+$$E_x = \|\vec{x}\|^2 = \langle \vec{x},\vec{x} \rangle$$
+
+* Unghiul dintre doi vectori
+$$cos(\alpha) = \frac{\langle x,y \rangle}{||x|| \cdot ||y||}$$
+    * are valoare între -1 și 1
+    * dacă $\langle x,y \rangle = 0$, vectorii sunt **ortogonali** (perpendiculari)
+
+### Spații vectoriale Euclidiene
+
+* Bonus: transformata Fourier = produs scalar cu $e^{j \omega t}$
+$$\mathcal{F} \{ x(t)\} = \langle x(t), e^{j \omega t}\rangle = \int x(t) e^{-j \omega t}$$
+    * pentru semnale complexe, al doilea termen se conjugă, de aceea este $-j$ în loc de $j$
+        $$\langle \vec{x},\vec{y} \rangle = \sum_i x_i y_i^*$$
+        $$\langle \vec{x},\vec{y} \rangle = \int x(t) y(t)^*$$        
+ 
+* Identic pentru semnale discrete
+
+### Spații vectoriale Euclidiene
+
+* Concluzie: definirea algoritmilor în mod generic, 
+pe bază de produse scalare / distanțe / norme, este extrem de folositoare!
+    * se aplică automat tuturor spațiilor vectoriale
+    * un singur algoritm, utilizări pentru multiple tipuri de semnale
