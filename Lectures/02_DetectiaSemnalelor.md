@@ -1161,7 +1161,7 @@ semnalului care se dorește a fi detectat (eng. "matched filter")
 
 
 
-## II.5 Detecția unui semnal oarecare cu observare continuă
+## II.4 Detecția unui semnal oarecare cu observare continuă
 
 ### Observarea continuă a unui semnal oarecare
 
@@ -1293,3 +1293,196 @@ $$\mathcal{F} \{ x(t)\} = \langle x(t), e^{j \omega t}\rangle = \int x(t) e^{-j 
 pe bază de produse scalare / distanțe / norme, este extrem de folositoare!
     * se aplică automat tuturor spațiilor vectoriale
     * un singur algoritm, utilizări pentru multiple tipuri de semnale
+
+
+## II.5 Detecția semnalelor cu distribuții necunoscute
+
+### Distribuții necunoscute
+
+* Până acum, se cunoștea dpdv. matematic statistica
+tuturor datelor:
+  * Se cunoșteau semnalele:
+    * $s_0(t) = ...$
+    * $s_1(t) = ...$
+  * Se cunoștea zgomotul
+    * gaussian, uniform, etc.
+  * Se cunoșteau distribuțiile condiționate:
+    * $w(r|H_0) = ...$
+    * $w(r|H_1) = ...$
+
+* În aplicații reale, lucrurile pot fi mai complicate
+
+### Exemplu
+
+* Dacă semnalele $s_0(t)$ și $s_1(t)$
+nu există / nu se cunosc?
+
+* Exemplu: recunoașterea feței unei persoane
+    * Identificarea persoanei A sau B bazată pe o imagine a feței
+    * Avem:
+        * 100 imagini ale persoanei A, în condiții diverse
+        * 100 imagini ale persoanei B, în condiții diverse
+
+### Eșantioane vs distribuții
+
+* Să comparăm recunoașterea fețelor cu detecția semnalelor
+
+* Aspecte comune:
+    * două ipoteze $H_0$ (persoana A) și $H_1$ (persoana B)
+    * un vector de eșantioane $\vec{r}$ = imaginea pe baza căreia se face decizia
+    * se pot lua două decizii
+    * 4 scenarii: rejecție corectă, alarmă falsă, pierdere, detecție corectă
+
+* Ce diferă? Nu există formule matematice
+    * nu există semnalele "originale" $s_0(t) = ...$ și $s_1(t)...$
+    * (fețele persoanelor A și B nu pot fi exprimate matematic ca semnale)
+    * în schimb, avem multe exemple din fiecare distribuție
+        * 100 imagini ale lui A = exemple ale $\vec{r}$ în ipoteza $H_0$
+        * 100 imagini ale lui B = exemple ale $\vec{r}$ în ipoteza $H_1$
+
+### Terminologie
+
+* Terminologia folosită în domeniul **învățării automate** (*machine learning*):
+    * Acest tip de problemă = problemă de **clasificare** a semnalelor
+        * se dă un vector de date, găsiți-i clasa
+    * **Clase de semnal** = categoriile posibile ale semnalelor (ipotezele $H_i$, persoanele A/B etc)
+    * **Set de antrenare** = un set de semnale cunoscute inițial
+        * de ex. 100 de imagini ale fiecărei persoane
+        * setul de date va fi folosit în procesul de decizie
+
+### Terminologie
+    
+* Terminologia folosită în domeniul **învățării automate** (*machine learning*):
+    * **Învățare supervizată** = algoritmi unde se cunosc clasele semnalelor din setul de antrenare
+        * se știe care semnale sunt din clasa A și care din clasa B
+    * **Învățare nesupervizată** = algoritmi unde nu se cunosc clasele semnalelor din setul de antrenare
+        * mai dificil, mai puțină informație disponibilă
+
+### Eșantioane și distribuții
+
+* În învățarea supervizată, setul de antrenare conține informațiile
+pe care le-ar conține distribuțiile condiționate $w(r|H_0)$ și $w(r|H_1)$
+    * $w(r|H_0)$ exprimă cum arată valorile lui $r$ în ipoteza $H_0$
+    * $w(r|H_1)$ exprimă cum arată valorile lui $r$ în ipoteza $H_1$
+    * setul de antrenare exprimă același lucru, nu prin formule, dar prin multe exemple
+
+* Cum se face clasificarea în aceste condiții?
+
+### Algoritmul k-NN
+
+Algoritmul *k-Nearest Neighbours* (k-NN)
+
+* Intrare: 
+    * set de antrenare cu vectorii $\vec{x}_1 ... \vec{x}_N$,
+    din $L$ clase posibile de semnal $C_1$...$C_L$
+    * clasele vectorilor de antrenare sunt cunoscute
+    * vector de test $\vec{r}$ care trebuie clasificat
+    * parametrul $k$
+
+1. Se calculează distanța între $\vec{r}$ și fiecare vector de antrenare $\vec{x}_i$
+    * se poate utiliza distanța Euclidiană, aceeași utilizată 
+    pentru detecția semnalelor din secțiunile precedente
+
+2. Se aleg cei mai apropiați $k$ vectori de $\vec{r}$ (cei *$k$ "nearest neighbours*")
+
+3. Se determină clasa lui $\vec{r}$ = clasa majoritară între cei $k$ cei mai apropiați vecini
+
+* Ieșire: clasa vectorului $\vec{r}$
+
+### Discuție
+
+* k-NN este un algoritm de învățare supervizată
+    * se cunosc clasele vectorilor din setul de antrenare
+
+* Efectul lui $k$: netezirea frontierei de decizie:
+    * $k$ mic: frontieră foarte variată
+    * $k$ mare: frontieră netedă
+
+* Ce valoare se folosește pentru $k$?
+
+### *Cross-validation*
+
+* Cum se găsește o valoare optimă pentru  $k$?
+    * prin încercări ("băbește")
+
+* **Cross-validation** = se folosește un mic set de test pentru a verifica care valoare a parametrului e mai bună
+    * acest set de date se numește set de **cross-validare**
+    * se impune $k=1$, se testează cu setul de *cross-validare* câți vectori sunt clasificați corect
+    * se repetă pentru $k=2, 3, ... max$
+    * se alege valoarea lui $k$ cu care s-au obținut rezultatele cele mai bune
+
+### Evaluarea algoritmilor
+
+* Cum se evaluează performanța algoritmului k-NN?
+    * Se folosește un set de date de testare, și se calculează procentajul vectorilor clasificați corect
+
+* Setul de date pentru evaluarea finală trebuie să fie diferit de setul de *cross-validare*
+    * pentru evaluarea finală se folosesc date pe care algoritmul nu le-a mai utilizat niciodată
+
+* Cum se împarte setul de date disponibile?
+    * Presupunem că avem în total 200 imagini tip fețe, 100 imagini ale persoanei A și 100 ale lui B
+
+### Seturi de date
+    
+* Setul de date total se împarte în:
+    * Set de antrenare
+        * vectorii care vor fi utilizați de algoritm
+        * cel mai numeros, aprox. 60% din datele totale
+        * de ex. 60 imagini ale persoanei A și 60 ale lui B
+    * Set de *cross-validare*
+        * utilizat pentru a testa algoritmul în vederea alegerii parametrilor optimi ($k$)
+        * mai mic, aprox. 20% din date (de ex. 20 imagini ale lui of A și 20 ale lui B)
+    * Set de testare
+        * utilizat pentru evaluarea finală a algoritmului, cu valorile parametrilor fixate
+        * mai mic, aprox. 20% din date (de ex. 20 imagini ale lui of A și 20 ale lui B)
+
+### Algoritmul *k-Means*
+
+* k-Means: un algoritm pentru ***clusterizarea*** datelor
+    * identificarea grupurilor de date apropiate între ele
+    
+* Un exemplu de algoritm de învățare nesupervizată
+    * nu se cunosc clasele din setul de antrenare
+
+### Algoritmul *k-Means*
+
+Algoritmul *k-Means*
+
+* Intrare: 
+    * set de antrenare cu vectorii $\vec{x}_1 ... \vec{x}_N$
+    * numărul de clase C
+
+* Inițializare: centroizii C iau valori aleatoare
+	$$\vec{c}_i \leftarrow \textrm{ valori aleatoare }$$
+* Repetă
+  1. Clasificare: se clasifică fiecare vector $\vec{x}_n$ pe baza celui mai apropiat vecin:
+	    $$l_n = \arg\min_i d(\vec{x}_n, \vec{c}_i)$$
+  2. Actualizare: se actualizează centroizii $\vec{c}_i$
+	    $$\vec{c}_i \leftarrow \textrm{ media datelor } \vec{x}_n, \forall \vec{x}_n \textrm{ din clasa } i$$
+
+* Ieșire: centroizii $\vec{c}_i$, clasele $l_i$ ale datelor de intrare $\vec{x}_i$
+
+
+```{=beamer}
+\begin{algorithm} 
+\floatname{algorithm}{Algoritmul}
+
+\begin{algorithmic}[1]
+\STATE Initialization: randomly initialize the C centroids
+	\STATE $\vec{c}_i \leftarrow$ random values
+\REPEAT
+	\STATE 1. Classification: classify each data $\vec{x}_n$ using nearest neighbour:
+	    $$l_n = \arg\min_i d(\vec{x}_n, \vec{c}_i)$$
+	\STATE 2. Update: update each centroids $\vec{c}_i$
+	    $$\vec{c}_i \leftarrow \textrm{ average of } x) \forall $x$ \textrm{ in class } i$$
+\RETURN{labels $l_i$ of the data, the centroids $\vec{c}_i$}
+\end{algorithmic}
+\end{algorithm}
+```
+
+### Algoritmul *k-Means*
+
+* Algoritmul *k-Means* poate să nu conveargă spre niște grupuri adecvate de date
+    * rezultatele depind de inițializarea aleatoare a centroizilor
+    * se rulează de mai multe ori, se alege cel mai bun rezultat
+    * există metode de inițializare optimizată (*k-Means++*)
