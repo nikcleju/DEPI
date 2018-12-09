@@ -73,7 +73,7 @@ $$w(\vec{r}; \Theta) = w_1(r_1; \Theta) \cdot w_2(r_2; \Theta) \cdot ... \cdot w
 
 ## II.2 Estimarea de plauzibilitate maximă (Maximum Likelihood)
 
-### Definiția plauzibilității maxime
+### Estimarea tip Maximum Likelihood
 
 * Dacă nu se cunoaște vreo distribuție *a priori* se folosește metoda
 estimării de plauzibilitate maximă ("Maximum Likelihood", ML)
@@ -83,7 +83,11 @@ estimării de plauzibilitate maximă ("Maximum Likelihood", ML)
     * necunoscuta aici este $\Theta$ 
     $$L(\Theta) = w(\vec{r}; \Theta)$$
 
-* Estimarea de plauzibilitate maximă: estimatul $\hat{\Theta}$ este 
+### Estimarea tip Maximum Likelihood
+
+Estimarea de plauzibilitate maximă (Maximum Likelihood, ML): 
+
+* Estimatul $\hat{\Theta}$ este 
 **valoarea care maximizează plauzibilitatea semnalului recepționat**
     * i.e. valoarea $\Theta$ care maximizează $w(\vec{r}; \Theta)$
     $$\hat{\Theta} = \arg\max_{\Theta} L(\Theta) = \arg\max_{\Theta} w(\vec{r}; \Theta)$$
@@ -91,7 +95,10 @@ estimării de plauzibilitate maximă ("Maximum Likelihood", ML)
 * Dacă $\Theta$ aparține doar unui anumit domeniu, se face maximizarea
 doar asupra acelui domeniu.
 
-### Calculul maximului
+### Găsirea maximului
+
+* Cum se rezolvă problema de maximizare?
+    * cum se găsește estimatul $\Theta$ care maximizează $L(\Theta)$
 
 * Maximul se găsește prin derivare și egalare cu 0
 $$\frac{d L(\Theta)}{d\Theta} = 0$$
@@ -99,9 +106,9 @@ $$\frac{d L(\Theta)}{d\Theta} = 0$$
 * Se poate aplica **logaritmul natural** asupra funcției $L(\Theta)$ înainte de derivare ("log-likelihood function")
 $$\frac{d \ln\left(L(\Theta)\right)}{d\Theta} = 0$$
 
-### Calculul maximului
+### Procedura de găsire a estimatului
 
-Metoda:
+Procedura de găsire a estimatului ML:
 
 1. Se găsește expresia funcției $$L(\Theta) = w(\vec{r}; \Theta)$$
 
@@ -130,6 +137,14 @@ $r_i = A + noise$, cu valori egale cu $[5, 7, 8, 6.1, 5.3]$. Zgomotul este AWGN 
 ![](figures/03_EstimareaParametrilor_figure1_1.png){width=8cm}\
 
 
+### Aproximare a unei curbe
+
+* Estimare = aproximare a unei curbe
+
+* Din exemplul grafic anterior:
+    * avem un set de date $\vec{r}$
+    * se cunoaște forma semnalului = o dreaptă orizontală ($A$ constant)
+    * se aproximează în mod optim linia prin setul de date
 
 ### Semnal oarecare în AWGN
 
@@ -147,6 +162,8 @@ L(\Theta) =& \prod_{i=1}^N \frac{1}{\sigma \sqrt{2 \pi}} e^{- \frac{(r_i - s_\Th
 =&  \left(\frac{1}{\sigma \sqrt{2 \pi}} \right)^N e^{- \frac{\sum(r_i - s_\Theta(t_i))^2}{2 \sigma^2}}
 \end{split}$$
 
+### Semnal oarecare în AWGN
+
 * Logaritmul plauzibilității ("log-likelihood") este
 $$\begin{split}
 \ln\left(L(\Theta)\right) =& \underbrace{N\ln\left(\frac{1}{\sigma \sqrt{2 \pi}}\right)}_{constant} - \frac{\sum(r_i - s_\Theta(t_i))^2}{2 \sigma^2}
@@ -161,12 +178,22 @@ $$\hat{\Theta} = \arg\max_{\Theta} w(r; \Theta) = \arg\min \sum(r_i - s_\Theta(t
 $$d(\vec{r},s_\Theta) = \sqrt{\sum (r_i - s_\Theta(t_i))^2}$$
 $$\left(d(\vec{r},s_\Theta)\right)^2 = \sum (r_i - s_\Theta(t_i))^2$$
 
-* Estimatul de plauzibilitate maximă $\hat{\Theta}$ = valoarea care face $s_\Theta(t_i)$ 
+### Semnal oarecare în AWGN
+
+* Estimarea ML se poate rescrie sub forma:
+$$\hat{\Theta} = \arg\max_{\Theta} w(r; \Theta) = \arg\min d(\vec{r}, \vec{s}_\Theta)^2$$
+
+* Estimatul de plauzibilitate maximă (estimatul ML) $\hat{\Theta}$ = 
+valoarea care face $s_\Theta(t_i)$ 
 **cel mai apropiat de vectorul recepționat $\vec{r}$**
     * mai aproape = mai probabil
     * cel mai aproape = cel mai probabil = plauzibilitate maximă
 
-* Pentru semnale continue? Similar, dar utilizând distanța între semnale continue
+* Estimare ML = minimizarea distanței
+
+* Relația e valabilă pentru orice fel de spații vectoriale
+    * vectori cu N elemente, semnale continue, etc
+    * doar se înlocuiește definiția distanței Euclidiene
 
 
 ### Semnal oarecare în AWGN
@@ -220,6 +247,69 @@ funcția de plauzibilitate
 * Același principiu, doar în contexte diferite:
     * la detecție, avem de ales doar între câteva opțiuni predefinite
     * la estimare nu mai avem constrângeri => se alege valoarea maximă a întregii funcții
+
+
+### Funcția de pierdere ("Loss function")
+
+* Distanța $d(\vec{r}, \vec{s}_\Theta)$ se mai numește
+funcție de pierdere ("**loss function**") în domeniul *Machine Learning*
+    * distanța Euclidiană = funcția de pierdere tip "**Mean Squared Error**" (MSE)
+
+* Pentru un $\vec{r}$ dat, valoarea de pierdere MSE = $\frac{1}{N}d(\vec{r},\vec{s}_\Theta)$
+
+* Alte funcții de pierdere sunt folosite în diverse aplicații
+
+### Parametri multipli
+
+* Dacă semnalul depinde de mai mulți parametri?
+    * de ex. amplitudinea, frecvența și faza inițială a unui cosinus:
+$$s_\vec{\Theta}(t) = A \cos(2 \pi f t + \phi)$$
+
+* Se va considera $\Theta$ ca fiind un vector:
+$$\bm{\Theta} = [\Theta_1, \Theta_2, ... \Theta_M]$$
+    * e.g. $\bm{\Theta} = [\Theta_1, \Theta_2, \Theta_3] =[A, f, \phi]$
+
+### Coborâre după gradient (Gradient Descent)
+
+* Cum se estimează parametrii $\bm{\Theta}$ în cazuri complicate?
+    * în aplicații reale, unde pot fi foarte mulți parametri ($\bm{\Theta}$ este vector)
+
+* De obicei nu se pot găsi valorile optime prin formule directe
+
+* Se îmbunătățesc valorile în mod iterativ cu algoritmi tip  **coborâre după gradient**
+
+### Coborâre după gradient (Gradient Descent)
+
+1. Se inițializează parametrii cu valori aleatoare $\bm{\Theta}^{(0)}$
+2. Repetă la fiecare iterație $k$:
+    1. Se calculează valoarea de pierdere $L(\bm{\Theta}^{(k)})$
+    2. Se calculează derivata $\frac{\partial L}{\partial \Theta_i^{(k)}}$ pentru toți $\Theta_i$
+    3. Se actualizează toate valorile $\Theta_i$ prin scăderea derivatei:
+        $$\Theta_i^{(k+1)} = \Theta_i^{(k)} - \mu \frac{\partial L}{\partial \Theta_i^{(k)}}$$
+        * sau, sub formă vectorială:
+        $$\bm{\Theta}^{(k+1)} = \bm{\Theta}^{k} - \mu \frac{\partial L}{\partial \bm{\Theta}^{(k)}}$$ 
+3. Până la îndeplinirea unui criteriu de terminare (de ex. parametrii nu se mai modifică mult)
+
+### Coborâre după gradient (Gradient Descent)
+
+* Explicații la tablă
+
+* Exemplu: regresia logistică cu valori 2D
+    * exemplu la tablă
+
+### Rețele Neurale
+
+* Cel mai proeminent exemplu: **Rețele Neurale Artificiale** (a.k.a. "Rețele Neurale",
+"Deep Learning", etc.)
+    * Pot fi văzute ca un exemplu de estimare ML
+    * Utilizează o funcție de pierdere (de obicei nu funcția tip MSE)
+    * Se utilizează algoritmul *Gradient Descent* pentru găsirea parametrilor
+    * Aplicații de vârf: recunoașterea de imagini, automated driving etc.
+ 
+* Mai multe informații despre rețele neurale / machine learning: 
+    * căutați cursuri sau cărți, eventual online (de ex. cartea dl.prof. Iulian Ciocoiu)
+    * participați la IASI AI Meetup
+
 
 ## II.3 Estimare Bayesiană
 

@@ -30,3 +30,4 @@
 
 \usepackage{algorithm}
 \usepackage{algorithmic}
+\usepackage{bm}
