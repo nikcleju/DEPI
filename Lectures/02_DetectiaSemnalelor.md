@@ -764,6 +764,11 @@ $$T = \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot
 * Cum să creștem performanțele unui receptor?
     * adică să creștem $P_D$ menținând $P_{fa}$ la aceeași valoare
 
+### Examen 2018-2019
+
+* Următoarele trei slide-uri nu se cer pentru examenul 2018-2019 
+(până la Raportul semnal zgomot).
+
 ### Performanțele detecției în zgomot alb gaussian
 
 * Considerăm probabilități egale $P(H_0) = P(H_1) = \frac{1}{2}$

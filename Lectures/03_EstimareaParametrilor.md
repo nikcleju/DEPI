@@ -483,6 +483,10 @@ dar **multiplicate** cu distribuția *a priori* $w(\Theta)$
     * la detecție, avem de ales doar între câteva opțiuni predefinite
     * la estimare, nu avem constrângeri => se alege valoarea care maximizează întreaga funcție
 
+### Examen 2018-2019
+
+* Până aici s-a făcut în 2018-2019. Celelalte slide-uri din acest fișier nu se cer.
+
 ### Exercițiu
 
 Exercițiu: valoare constantă, 1 măsurătoare, zgomot Gaussian același $\sigma$

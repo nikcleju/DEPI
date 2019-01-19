@@ -3,6 +3,14 @@
 Aici sunt disponibile materialele de curs de la disciplina Decizie și Estimare în Prelucrarea Informației,
 predată în semestrul I 2018-2019 la ETTI, TUIASI.
 
+## Observații pentru examen 2018-2019
+
+- În slide-urile de curs sunt marcate slide-urile care nu intră în materia pentru examen
+    - finalul Cap. I
+    - 3 slide-uri din Cap. II
+    - finalul Cap. III
+
+
 ## Conținut
 
 ### Cursuri

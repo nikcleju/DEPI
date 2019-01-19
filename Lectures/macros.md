@@ -21,6 +21,8 @@
 %\usecolortheme{whale}
 \setbeamertemplate{itemize items}[default]
 \setbeamertemplate{enumerate items}[default]
+\setbeamercolor{section name}{fg=white}  % Make section number white so it's not visible, see https://tex.stackexchange.com/a/468134
+\setbeamercolor{subsection name}{fg=white}  % Make section number white so it's not visible, see https://tex.stackexchange.com/a/468134
 
 \setbeamersize{text margin left=15pt}
 
