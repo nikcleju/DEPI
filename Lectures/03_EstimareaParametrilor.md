@@ -134,6 +134,14 @@ $r_i = A + noise$, cu valori egale cu $[5, 7, 8, 6.1, 5.3]$. Zgomotul este AWGN 
 ### Simulare numerică
 
 
+```
+/home/ncleju/.local/bin/pweave:5: UserWarning: In Matplotlib 3.3
+individual lines on a stem plot will be added as a LineCollection
+instead of individual lines. This significantly improves the
+performance of a stem plot. To remove this warning and switch to the
+new behaviour, set the "use_line_collection" keyword argument to True.
+```
+
 ![](figures/03_EstimareaParametrilor_figure1_1.png){width=8cm}\
 
 
@@ -230,6 +238,11 @@ Funcția de plauzibilitate este
 
 
 ```
+/home/ncleju/.local/bin/pweave:15: UserWarning: In Matplotlib 3.3
+individual lines on a stem plot will be added as a LineCollection
+instead of individual lines. This significantly improves the
+performance of a stem plot. To remove this warning and switch to the
+new behaviour, set the "use_line_collection" keyword argument to True.
 Frecventa originala = 0.070000, estimatul = 0.071515
 ```
 

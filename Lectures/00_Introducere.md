@@ -23,13 +23,13 @@
     - Similar cu examenul de Information Theory (engl.)
     
 - Aplicații = 40%
-    - Laborator = 20%
+    - Laborator = 20% (jumătate din nota de aplicații)
         - 20% din nota finală
         - în Matlab / Simulink
 	   
-    - Seminar = 20% din nota finală
+    - Seminar = 20% din nota finală (jumătate din nota de aplicații)
 
-- Nota finală = 60% Examen + (20% Laborator + 20% Teste)
+- Nota finală = 60% Examen + 40% Aplicații( Laborator + Teste)
 
 
 ### Structura cursului
