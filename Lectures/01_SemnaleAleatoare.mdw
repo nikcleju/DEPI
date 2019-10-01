@@ -14,7 +14,7 @@
     - $X$ = Numărul obținut prin aruncarea unui zar
     - $V_{in}$ = Voltajul măsurat într-un punct dintr-un circuit
 
-### Realizări
+### Realizări ale unei variabile aleatoare
 
 - **Realizare** a unei v.a. = o valoare particulară posibilă 
 
@@ -26,6 +26,16 @@
     - Se poate obține o realizare $X = 3$
     - Dar s-ar fi putut obține orice valoare din spațiul realizărilor
     $$\Omega = \left\{1, 2, 3, 4, 5, 6\right\}$$
+
+### Aruncarea unei monede
+
+- Variabila aleatoare X = "fața obținută la atuncarea unei monede"
+	
+	\smallskip
+
+    ![](img/RandomVariable_img.svg){.id width=50%}
+
+(sursa imaginii: *https://www.mathsisfun.com/data/random-variables.html*)
 
 ### V.a. discrete și continue
 
@@ -85,7 +95,7 @@ $$P\left\{ a \leq A \leq b\right\} = F_A(b) - F_A(a-1)$$
 ### Relația între FMP și FR
 
 - FR este *suma cumulativă* (un fel de "integrală discretă") a FMP
-$$F_A(x) = \sum_{all \;\; t \le x} w_A(t)$$
+$$F_A(x) = \sum_{t = -\infty}^{t = x} w_A(t)$$
 
 - Exemplu pentru zar: grafic, la tablă
 
@@ -99,6 +109,15 @@ $$F_A(x) = \sum_{all \;\; t \le x} w_A(t)$$
 - Se notează $w_A(x)$, se mai numește **distribuția** variabilei A
 
 - Informal: FDP reprezintă probabilitatea ca valoarea lui $A$ să fie **în jurul lui** $x$
+
+### Variabile aleatoare discrete și continue
+
+\smallskip
+
+![](img/RandomVariable_Types.png){.id width=80%}
+
+(sursa imaginii: "Probability Distributions: Discrete and Continuous", Seema Singh, *https://towardsdatascience.com/probability-distributions-discrete-and-continuous-7a94ede66dc0*)
+
 
 ### Probabilitatea unei valori exacte
 
@@ -153,6 +172,13 @@ w_A(x) &= \frac{\mathrm{d}F_A(x)}{\mathrm{d}x} \\
 
 * Probabilitatea ca $A$ să fie exact egal cu o valoare este zero
     * aria de sub un punct este nulă
+
+\smallskip
+
+![](img/RandomVariable_AreaPDFProb.png){.id width=50%}
+
+(sursa: "https://intellipaat.com/blog/tutorial/statistics-and-probability-tutorial/probability-distributions-of-continuous-variables/*)
+
 
 
 ### V.a. discrete vs continue
