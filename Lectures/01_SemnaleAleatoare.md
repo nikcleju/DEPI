@@ -211,6 +211,65 @@ $$\int_{-\infty}^\infty w_A(x) \mathrm{d}x = 1$$
 $$\sum_{x = -\infty}^\infty w_A(x) = 1$$
 
 
+### Diferite distribuții
+
+* Semnal sinusoidal
+
+
+![](figures/01_SemnaleAleatoare_figure1_1.png){width=8cm}\
+
+
+### Diferite distribuții
+
+* Sinus + zgomot (normal, $\mu = 0, \sigma^2 = 1$)
+
+
+![](figures/01_SemnaleAleatoare_figure2_1.png){width=8cm}\
+
+
+### Diferite distribuții
+
+* Sinus + zgomot (uniform $\mathcal{U} [-1,1]$)
+
+* Ce diferă? Tipul distribuției
+
+
+![](figures/01_SemnaleAleatoare_figure3_1.png){width=8cm}\
+
+
+### Diferite distribuții
+
+* Imagine originală
+
+
+![](figures/01_SemnaleAleatoare_figure4_1.png){width=8cm}\
+
+
+### Diferite distribuții
+
+* Imagine + zgomot (normal, $\mu = 0, \sigma^2 = 1$)
+
+
+![](figures/01_SemnaleAleatoare_figure5_1.png){width=8cm}\
+
+
+### Diferite distribuții
+
+* Imagine + zgomot mai mare (normal, $\mu = 0, \sigma^2 = 10$)
+
+
+![](figures/01_SemnaleAleatoare_figure6_1.png){width=8cm}\
+
+
+### Diferite distribuții
+
+* Imagine + zgomot (uniform, $\mathcal{U} [-5, 5]$)
+
+
+![](figures/01_SemnaleAleatoare_figure7_1.png){width=8cm}\
+
+
+
 ### Distribuția normală
 
 * Densitatea de probabilitate:
@@ -218,7 +277,7 @@ $$\sum_{x = -\infty}^\infty w_A(x) = 1$$
 $$w_A(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
 
 
-![](figures/01_SemnaleAleatoare_figure1_1.png){width=8cm}\
+![](figures/01_SemnaleAleatoare_figure8_1.png){width=8cm}\
 
 
 ### Distribuția normală
@@ -258,7 +317,7 @@ $$w_A(x) =
 \end{cases}$$
 
 
-![](figures/01_SemnaleAleatoare_figure2_1.png){width=8cm}\
+![](figures/01_SemnaleAleatoare_figure9_1.png){width=8cm}\
 
 
 ### Distribuția uniformă
@@ -1008,7 +1067,7 @@ new behaviour, set the "use_line_collection" keyword argument to True.
   from pweave.scripts import weave
 ```
 
-![](figures/01_SemnaleAleatoare_figure3_1.png)\
+![](figures/01_SemnaleAleatoare_figure10_1.png)\
 
 
 
@@ -1024,7 +1083,7 @@ new behaviour, set the "use_line_collection" keyword argument to True.
   from pweave.scripts import weave
 ```
 
-![](figures/01_SemnaleAleatoare_figure4_1.png)\
+![](figures/01_SemnaleAleatoare_figure11_1.png)\
 
 
 ### Rezultatul corelației
@@ -1039,7 +1098,7 @@ new behaviour, set the "use_line_collection" keyword argument to True.
   from pweave.scripts import weave
 ```
 
-![](figures/01_SemnaleAleatoare_figure5_1.png)\
+![](figures/01_SemnaleAleatoare_figure12_1.png)\
 
 
 ### Identificare de sistem

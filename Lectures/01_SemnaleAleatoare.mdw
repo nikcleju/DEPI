@@ -211,6 +211,116 @@ $$\int_{-\infty}^\infty w_A(x) \mathrm{d}x = 1$$
 $$\sum_{x = -\infty}^\infty w_A(x) = 1$$
 
 
+### Diferite distribuții
+
+* Semnal sinusoidal
+
+<<fig=True, echo=False, width='8cm'>>=
+import matplotlib.pyplot as plt, numpy as np, math;
+x = np.linspace(0, 99, 100);
+s = np.sin(2*math.pi*0.02*x)
+plt.plot(x,s);
+plt.ylim(-3,3)
+plt.xlabel('t');
+plt.ylabel('sin(x)');
+plt.title('Sinusiodal signal');
+plt.show()
+@
+
+### Diferite distribuții
+
+* Sinus + zgomot (normal, $\mu = 0, \sigma^2 = 1$)
+
+<<fig=True, echo=False, width='8cm'>>=
+import matplotlib.pyplot as plt, numpy as np, math;
+x = np.linspace(0, 99, 100);
+s = np.sin(2*math.pi*0.02*x)
+sn = s + np.random.randn(100)
+plt.plot(x,s, x, sn);
+plt.ylim(-3,3)
+plt.xlabel('t');
+plt.ylabel('sin(x)');
+plt.title('Sinusiodal signal + random noise');
+plt.show()
+@
+
+### Diferite distribuții
+
+* Sinus + zgomot (uniform $\mathcal{U} [-1,1]$)
+
+* Ce diferă? Tipul distribuției
+
+<<fig=True, echo=False, width='8cm'>>=
+import matplotlib.pyplot as plt, numpy as np, math;
+x = np.linspace(0, 99, 100);
+s = np.sin(2*math.pi*0.02*x)
+sn = s + np.random.uniform(-1,1,100)
+plt.plot(x,s,x,sn);
+plt.ylim(-3,3)
+plt.xlabel('t');
+plt.ylabel('sin(x)');
+plt.title('Sinusiodal signal  + random noise');
+plt.show()
+@
+
+### Diferite distribuții
+
+* Imagine originală
+
+<<fig=True, echo=False, width='8cm'>>=
+import matplotlib.pyplot as plt, numpy as np, math, PIL;
+from PIL import Image
+myImage = Image.open("img/TestImageGirl.gif").convert("L");
+im = np.array(myImage)
+plt.imshow(im, cmap='gray', vmin=0, vmax=255)
+plt.show()
+@
+
+### Diferite distribuții
+
+* Imagine + zgomot (normal, $\mu = 0, \sigma^2 = 1$)
+
+<<fig=True, echo=False, width='8cm'>>=
+import matplotlib.pyplot as plt, numpy as np, math, PIL;
+from PIL import Image
+myImage = Image.open("img/TestImageGirl.gif").convert("L");
+im = np.array(myImage)
+sigma = math.sqrt(225);
+imn = im + sigma*np.random.randn(im.shape[0], im.shape[1])
+plt.imshow(imn, cmap='gray', vmin=0, vmax=255)
+plt.show()
+@
+
+### Diferite distribuții
+
+* Imagine + zgomot mai mare (normal, $\mu = 0, \sigma^2 = 10$)
+
+<<fig=True, echo=False, width='8cm'>>=
+import matplotlib.pyplot as plt, numpy as np, math, PIL;
+from PIL import Image
+myImage = Image.open("img/TestImageGirl.gif").convert("L");
+im = np.array(myImage)
+sigma = math.sqrt(1500);
+imn = im + sigma*np.random.randn(im.shape[0], im.shape[1])
+plt.imshow(imn, cmap='gray', vmin=0, vmax=255)
+plt.show()
+@
+
+### Diferite distribuții
+
+* Imagine + zgomot (uniform, $\mathcal{U} [-5, 5]$)
+
+<<fig=True, echo=False, width='8cm'>>=
+import matplotlib.pyplot as plt, numpy as np, math, PIL;
+from PIL import Image
+myImage = Image.open("img/TestImageGirl.gif").convert("L");
+im = np.array(myImage)
+imn = im + sigma*np.random.uniform(-5, 5, im.shape)
+plt.imshow(imn, cmap='gray', vmin=0, vmax=255)
+plt.show()
+@
+
+
 ### Distribuția normală
 
 * Densitatea de probabilitate:
