@@ -306,6 +306,18 @@ $$w_A(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
 - Distribuția exprimă o preferință pentru valori apropiate de $\mu$, 
 cu probabilitate din ce în ce mai scăzută la valori mai depărtate de $\mu$
 
+### Exemple de valori generate cu distribuția normală (mu=0, sigma^2=1)
+
+
+![](figures/01_SemnaleAleatoare_figure9_1.png){width=8cm}\
+
+
+### Exemple de valori generate cu distribuția normală (mu=2, sigma^2=4)
+
+
+![](figures/01_SemnaleAleatoare_figure10_1.png){width=8cm}\
+
+
 ### Distribuția uniformă
 
 * Densitatea de probabilitate = constantă între două limite 
@@ -317,7 +329,7 @@ $$w_A(x) =
 \end{cases}$$
 
 
-![](figures/01_SemnaleAleatoare_figure9_1.png){width=8cm}\
+![](figures/01_SemnaleAleatoare_figure11_1.png){width=8cm}\
 
 
 ### Distribuția uniformă
@@ -1067,7 +1079,7 @@ new behaviour, set the "use_line_collection" keyword argument to True.
   from pweave.scripts import weave
 ```
 
-![](figures/01_SemnaleAleatoare_figure10_1.png)\
+![](figures/01_SemnaleAleatoare_figure12_1.png)\
 
 
 
@@ -1083,7 +1095,7 @@ new behaviour, set the "use_line_collection" keyword argument to True.
   from pweave.scripts import weave
 ```
 
-![](figures/01_SemnaleAleatoare_figure11_1.png)\
+![](figures/01_SemnaleAleatoare_figure13_1.png)\
 
 
 ### Rezultatul corelației
@@ -1098,7 +1110,7 @@ new behaviour, set the "use_line_collection" keyword argument to True.
   from pweave.scripts import weave
 ```
 
-![](figures/01_SemnaleAleatoare_figure12_1.png)\
+![](figures/01_SemnaleAleatoare_figure14_1.png)\
 
 
 ### Identificare de sistem

@@ -366,6 +366,34 @@ plt.show()
 - Distribuția exprimă o preferință pentru valori apropiate de $\mu$, 
 cu probabilitate din ce în ce mai scăzută la valori mai depărtate de $\mu$
 
+### Exemple de valori generate cu distribuția normală (mu=0, sigma^2=1)
+
+<<fig=True, echo=False, width='8cm'>>=
+import matplotlib.pyplot as plt, numpy as np, math;
+mu = 0;
+sigma = 1;
+x = np.linspace(1, 200, 200)
+v = mu + np.sqrt(sigma)*np.random.randn(200)
+plt.plot(x,v)
+plt.ylim(-5,5)
+plt.title('Sample values from the normal distribution');
+plt.show()
+@
+
+### Exemple de valori generate cu distribuția normală (mu=2, sigma^2=4)
+
+<<fig=True, echo=False, width='8cm'>>=
+import matplotlib.pyplot as plt, numpy as np, math;
+mu = 2;
+sigma = 4;
+x = np.linspace(1, 200, 200)
+v = mu + np.sqrt(sigma)*np.random.randn(200)
+plt.plot(x,v)
+plt.ylim(-5,5)
+plt.title('Sample values from the normal distribution');
+plt.show()
+@
+
 ### Distribuția uniformă
 
 * Densitatea de probabilitate = constantă între două limite 
