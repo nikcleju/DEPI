@@ -593,7 +593,7 @@ depinde de **pătratul distanței Euclidiene față de vectorul medie** $\mathbf
 
 * V.a. sunt caracterizate prin medii statistice ("*momente*")
 
-* Valoarea medie (momentul de ordin 1)
+* **Valoarea medie** (momentul de ordin 1)
 
 * Pentru v.a. continue:
 $$\overline{A} = E\{A\} = \int_{-\infty}^{\infty} x \cdot w_A(x) dx$$
@@ -605,10 +605,42 @@ $$\overline{A} = E\{A\} = \sum_{x=-\infty}^{\infty} x \cdot w_A(x)$$
 
 * Notație uzuală: $\mu$
 
+
+### Ce înseamna valoarea medie
+
+* Ce înseamnă, practic, valoarea medie a unei variabile aleatoare?
+
+  * Dacă avem $N \to \infty$ valori aleatoare conform distribuției respective, 
+  valoarea medie = media tuturor acestor valori;
+  * Dacă trebuie să prezicem valoarea unei variabile aleatoare $X$, și plătim un cost proporțional
+  cu pătratul erorii pe care o facem, $(u - X)^2$, valoarea medie $\mu$ este cea mai bună alegere, 
+  întrucât minimizează costul global:
+  
+  $$\mu = \arg\min_u \int_{-\infty}^{\infty} (u - x)^2\cdot w(x) dx$$
+  
+  * Demonstrație: la tablă: derivare, derivata = 0
+
+### Ce înseamna valoarea medie
+
+* Valorile care au probabilitate ridicată "trag" valoarea medie înspre ele
+
+* Pentru distribuții cu formă simetrică (de ex. distribuția normală),
+valoarea medie = valoarea centrală a funcției
+  * Demonstrație: ambele laturi ale funcției "trag" valoare medie înspre ele în mod egal, 
+  valoarea medie rămâne la mijloc
+
+* Pentru distribuția normală, $\overline{X} = \mu$
+
+* Pentru distribuția uniformă $\mathcal{U} [a, b]$, $\overline{X} = \frac{a + b}{2}$ (mijlocul intervalului)
+
+
+
 ### Proprietățile valorii medii
 
 * Calculul valorii medii este o operație **liniară**
     * pentru că, la bază, integrala / suma este o operație liniară
+
+* Pentru două variabile aleatoare A și B (independente):
 
 * Liniaritate
 $$E\{c_1A + c_2B\} = c_1E\{A\} + c_2E\{B\}$$
