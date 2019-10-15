@@ -639,8 +639,52 @@ $$w_C(x) = w_A(x) \star w_B(x)$$
     * ex: un anume semnal de zgomot măsurat cu un osciloscop; dar am fi putut
     măsura orice altă realizare
 
+* Notația uzuală: $f^{(k)}[n]$ sau $f^{(k)}(t)$
+   * $k$ indică realizarea particulară care se consideră
+   * $t$ sau $n$ este timpul
+
 * Când considerăm un p.a., considerăm întregul set de realizări posibile
     * la fel ca atunci când considerăm o v.a.
+
+
+### Proces aleator = un fenomen 2-D
+
+* Un proces aleator este un fenomen 2-Dimensional
+  * $f^{(k)}[n]$ sau $f^{(k)}(t)$ depind de două variabile:
+    * $k$ = realizarea 
+    * $t$ sau $n$ = timpul
+
+### Proces aleator = un fenomen 2-D
+
+![](img/RandomProcess_2D.gif){.id width=80%}
+
+* sursa: "Information-Based Inversion and Processing with Applications"
+Edited by Tadeusz J. Ulrych, Mauricio D. Sacchi, Volume 36,
+
+### Proces aleator = un fenomen 2-D
+
+![](img/RandomProcess_1.png){.id width=80%}
+
+* sursa: Razdolsky, L. (2014). Random Processes. In Probability-Based Structural Fire Load (pp. 89-136). Cambridge: Cambridge University Press
+
+### Proces aleator = un fenomen 2-D
+
+![](img/RandomProcess_3.png){.id width=60%}
+
+* sursa: https://www.quora.com/What-is-the-difference-between-a-stationary-ergodic-and-a-stationary-non-ergodic-process
+
+### Două feluri de valori medii
+
+* Procesele aleatoare au două feluri de valori medii:
+  * Valori medii **statistice** = la un timp $t$ sau $n$ fixat, de-a lungul tuturor realizărilor posibile
+  * Valori medii **temporale** = pentru o realizare $k$ fixată, de-a lungul timpului
+
+### Două feluri de valori medii
+
+![](img/RandomProcess_2.png){.id width=60%}
+
+* sursa: https://www.quora.com/What-is-the-difference-between-a-stationary-ergodic-and-a-stationary-non-ergodic-process
+
 
 ### Distribuții de ordin 1 ale proceselor aleatoare
 
@@ -839,9 +883,28 @@ $$w_n(x_1,...x_n; t_1,...t_n) = w_n(x_1,...x_n; t_1+\tau,... t_n + =tau)$$
 
 * Proces aleator **staționar în sens strict**:
     * relația e valabilă pentru toți $n$
+    * valoarea medie, valoarea pătratică medie, varianța, autocorelația și toate celelalte statistici de ordin superior
+    nu depind de originea timpului $t$    
 
 * Proces aleator **staționar în sens larg**:
     * relația e valabilă doar pentru $n=1$ și $n=2$  (cele mai folosite)
+    * doar valoarea medie, valoarea pătratică medie, varianța și autocorelația nu de originea timpului $t$, 
+    statisticile de ordin superior pot depinde
+
+### Procese aleatoare staționare
+
+* Este procesul aleator schițat mai jos staționar sau nu?
+
+![](img/RandomProcess_NonStat.png){.id width=60%}
+
+* sursa: SEX, LIES & STATISTICS, Ned Wright, http://www.astro.ucla.edu/~wright/statistics/
+
+### Procese aleatoare staționare
+
+* Răspuns: ne-staționar
+
+* Se observă că varianța nu este aceeași la toate momentele de timp
+
 
 ### Consecințe ale staționarității
 
@@ -933,6 +996,17 @@ $$R_{fg}(t_1,t_2) = R_{fg}(0, t_2 - t_1) = R_{fg}(\tau) = \overline{f(t) g(t + \
     * se aruncă un zar, următoarele 50 valori sunt identice cu prima valoare
     * o singură realizare nu e caracteristică pentru tot procesul
 
+### Procese aleatoare ergodice
+
+![](img/XKCD_random_number.png){.id width=60%}
+
+* sursa: XKCD (221)
+
+* Considerând toate numerele care s-ar fi putut obține în loc de 4 (1,2,3,4,5 sau 6)
+
+* Care e problema aici?
+    * staționar sau ne-staționar?
+    * ergodic sau ne-ergodic?
 
 ## I.3 Proprietăți ale autocorelației
 
