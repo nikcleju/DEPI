@@ -938,14 +938,12 @@ $$R_{ff}(t_1,t_2) = R_{ff}(0, t_2 - t_1) = R_{ff}(\tau) = \overline{f(t) f(t + \
 * Autocorelația temporală:
     * pentru p.a. continue
     $$\begin{split}
-    R_{ff}(\tau) =& \overline{f(t) f(t + \tau)} \\
-    =& \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t) f^{(k)}(t + \tau) dt
+    R_{ff}(\tau) = \overline{f(t) f(t + \tau)} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t) f^{(k)}(t + \tau) dt
     \end{split}$$
 
     * pentru p.a. discrete
     $$\begin{split}
-    R_{ff}(\tau) =& \overline{f(t) f(t + \tau)} \\
-    =& \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} f^{(k)}[t] f^{(k)}[t + \tau]
+    R_{ff}(\tau) = \overline{f(t) f(t + \tau)} = \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} f^{(k)}[t] f^{(k)}[t + \tau]
     \end{split}$$
     
     * lungime finită: se limitează integralele / sumele la intervalul avut la dispoziție, $\int_{t_{min}}^{t_{max}}$ sau $\sum_{t_{min}}^{t_{max}}$
@@ -979,7 +977,7 @@ $$R_{fg}(t_1,t_2) = R_{fg}(0, t_2 - t_1) = R_{fg}(\tau) = \overline{f(t) g(t + \
 
 * În practică, avem acces la o singură realizare
 
-* Proces aleator **ergodic** = mediile temporale pe orice realizare sunt **identice** cu mediile statistice
+* Proces aleator **ergodic** = dacă mediile temporale pe orice realizare sunt **identice** cu mediile statistice
 
 * Ergodicitatea înseamnă:
     * Se pot calcule toate mediile pe baza unei singure realizări
