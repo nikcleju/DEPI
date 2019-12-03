@@ -1394,25 +1394,65 @@ Algoritmul *k-Nearest Neighbours* (k-NN)
 
 * Ieșire: clasa vectorului $\vec{r}$
 
+
+### Algoritmul k-NN
+
+![Algoritmul k-NN ilustrat [1]](img/kNN.png){#id .class width=58%}
+
+\maketiny{
+[1] sursa: "KNN Classification using Scikit-learn", Avinash Navlani, https://www.datacamp.com/community/tutorials/k-nearest-neighbor-classification-scikit-learn
+}
+
+### Exercițiu
+
+Exercițiu
+
+1. Fie următorul set de antrenare, compus din
+5 vectori din clasa A și alți 5 vectori din clasa B:
+    * Clasa A:
+    $$
+\vec{v}_1 = \begin{bmatrix}  1 \\ -2 \end{bmatrix}\;
+\vec{v}_2 = \begin{bmatrix} -1 \\  1 \end{bmatrix}\;
+\vec{v}_3 = \begin{bmatrix} -4 \\  2 \end{bmatrix}\;
+\vec{v}_4 = \begin{bmatrix}  2 \\  1 \end{bmatrix}\;
+\vec{v}_5 = \begin{bmatrix} -2 \\ -2 \end{bmatrix}$$
+    
+    * Clasa B:
+    $$
+\vec{v}_6    = \begin{bmatrix}  7 \\ 0 \end{bmatrix}\;
+\vec{v}_7    = \begin{bmatrix}  2 \\ 3 \end{bmatrix}\;
+\vec{v}_8    = \begin{bmatrix}  3 \\ 2 \end{bmatrix}\;
+\vec{v}_9    = \begin{bmatrix} -3 \\ 8 \end{bmatrix}\;
+\vec{v}_{10} = \begin{bmatrix} -2 \\ 5 \end{bmatrix}$$
+
+    Determinați clasa vectorului $\vec{x} = \begin{bmatrix} -3 \\ 6 \end{bmatrix}$
+utilizând algoritmul k-NN, cu $k=1$, $k=3$, $k=5$, $k=7$ and $k=9$
+
 ### Discuție
 
 * k-NN este un algoritm de învățare supervizată
     * se cunosc clasele vectorilor din setul de antrenare
 
-* Efectul lui $k$: netezirea frontierei de decizie:
-    * $k$ mic: frontieră foarte variată
-    * $k$ mare: frontieră netedă
+\smallskip
 
-* Ce valoare se folosește pentru $k$?
+* Efectul lui $k$: netezirea frontierei de decizie:
+    * $k$ mic: frontieră foarte cotită / "șifonată" / cu multe coturi
+    * $k$ mare: frontieră mai netedă
+
+\smallskip
+
+* Cum se găsește o valoare optimă pentru  $k$?
 
 ### *Cross-validation*
 
 * Cum se găsește o valoare optimă pentru  $k$?
     * prin încercări ("băbește")
 
-* **Cross-validation** = se folosește un mic set de test pentru a verifica care valoare a parametrului e mai bună
-    * acest set de date se numește set de **cross-validare**
-    * se impune $k=1$, se testează cu setul de *cross-validare* câți vectori sunt clasificați corect
+\smallskip
+
+* "**Cross-validation**" = folosirea unui mic set de test pentru a verifica care valoare a parametrului e mai bună
+    * acest set de date se numește set de "**cross-validare**"
+    * se impune $k=1$, se testează cu setul de "*cross-validare*" câți vectori sunt clasificați corect
     * se repetă pentru $k=2, 3, ... max$
     * se alege valoarea lui $k$ cu care s-au obținut rezultatele cele mai bune
 
@@ -1421,22 +1461,33 @@ Algoritmul *k-Nearest Neighbours* (k-NN)
 * Cum se evaluează performanța algoritmului k-NN?
     * Se folosește un set de date de testare, și se calculează procentajul vectorilor clasificați corect
 
-* Setul de date pentru evaluarea finală trebuie să fie diferit de setul de *cross-validare*
+\smallskip
+
+* Setul de date pentru evaluarea finală trebuie să fie diferit de setul de "*cross-validare*"
     * pentru evaluarea finală se folosesc date pe care algoritmul nu le-a mai utilizat niciodată
 
+\smallskip
+
 * Cum se împarte setul de date disponibile?
-    * Presupunem că avem în total 200 imagini tip fețe, 100 imagini ale persoanei A și 100 ale lui B
+
 
 ### Seturi de date
     
+* Presupunem că avem în total 200 imagini tip fețe, 100 imagini ale persoanei A și 100 ale lui B    
+
+\smallskip
+    
 * Setul de date total se împarte în:
+	\smallskip
     * Set de antrenare
         * vectorii care vor fi utilizați de algoritm
         * cel mai numeros, aprox. 60% din datele totale
         * de ex. 60 imagini ale persoanei A și 60 ale lui B
+    \smallskip
     * Set de *cross-validare*
         * utilizat pentru a testa algoritmul în vederea alegerii parametrilor optimi ($k$)
         * mai mic, aprox. 20% din date (de ex. 20 imagini ale lui of A și 20 ale lui B)
+    \smallskip
     * Set de testare
         * utilizat pentru evaluarea finală a algoritmului, cu valorile parametrilor fixate
         * mai mic, aprox. 20% din date (de ex. 20 imagini ale lui of A și 20 ale lui B)
@@ -1445,9 +1496,11 @@ Algoritmul *k-Nearest Neighbours* (k-NN)
 
 * k-Means: un algoritm pentru ***clusterizarea*** datelor
     * identificarea grupurilor de date apropiate între ele
-    
+
+\smallskip
+
 * Un exemplu de algoritm de învățare nesupervizată
-    * nu se cunosc clasele din setul de antrenare
+    * "învățare nesupervizată" = nu se cunosc clasele semnalelor din setul de antrenare
 
 ### Algoritmul *k-Means*
 
@@ -1460,34 +1513,47 @@ Algoritmul *k-Means*
 * Inițializare: centroizii C iau valori aleatoare
 	$$\vec{c}_i \leftarrow \textrm{ valori aleatoare }$$
 * Repetă
-  1. Clasificare: se clasifică fiecare vector $\vec{x}_n$ pe baza celui mai apropiat vecin:
-	    $$l_n = \arg\min_i d(\vec{x}_n, \vec{c}_i)$$
-  2. Actualizare: se actualizează centroizii $\vec{c}_i$
-	    $$\vec{c}_i \leftarrow \textrm{ media datelor } \vec{x}_n, \forall \vec{x}_n \textrm{ din clasa } i$$
+  1. Clasificare: se clasifică fiecare vector $\vec{x}$ pe baza celui mai apropiat centroid:
+	    $$class{x} = \arg\min_i d(\vec{x}, \vec{c}_i), \forall \vec{x}$$
+  2. Actualizare: se actualizează centroizii $\vec{c}_i$ = media vectorilor $\vec{x}$ din clasa $i$
+	    $$\vec{c}_i \leftarrow \textrm{ media vectorilor } \vec{x}, \forall \vec{x} \textrm{ din clasa } i$$
 
-* Ieșire: centroizii $\vec{c}_i$, clasele $l_i$ ale datelor de intrare $\vec{x}_i$
+* Ieșire: centroizii $\vec{c}_i$, clasele tuturor vectorilor  de intrare $\vec{x}_n$
 
 
-```{=beamer}
-\begin{algorithm} 
-\floatname{algorithm}{Algoritmul}
 
-\begin{algorithmic}[1]
-\STATE Initialization: randomly initialize the C centroids
-	\STATE $\vec{c}_i \leftarrow$ random values
-\REPEAT
-	\STATE 1. Classification: classify each data $\vec{x}_n$ using nearest neighbour:
-	    $$l_n = \arg\min_i d(\vec{x}_n, \vec{c}_i)$$
-	\STATE 2. Update: update each centroids $\vec{c}_i$
-	    $$\vec{c}_i \leftarrow \textrm{ average of } x) \forall $x$ \textrm{ in class } i$$
-\RETURN{labels $l_i$ of the data, the centroids $\vec{c}_i$}
-\end{algorithmic}
-\end{algorithm}
-```
+### Algoritmul *k-Means*
+
+Algoritmul *k-Means* explicat video:
+
+* Urmăriți video-ul următor, de la 6:28 to 7:08
+
+    [https://www.youtube.com/watch?v=4b5d3muPQmA](https://www.youtube.com/watch?v=4b5d3muPQmA)
+
+\smallskip
+
+* Urmăriți video-ul următor, de la 3:05 la final
+
+    [https://www.youtube.com/watch?v=IuRb3y8qKX4](https://www.youtube.com/watch?v=IuRb3y8qKX4)
+    
 
 ### Algoritmul *k-Means*
 
 * Algoritmul *k-Means* poate să nu conveargă spre niște grupuri adecvate de date
     * rezultatele depind de inițializarea aleatoare a centroizilor
     * se rulează de mai multe ori, se alege cel mai bun rezultat
-    * există metode de inițializare optimizată (*k-Means++*)
+    * există metode de inițializare optimizate (*k-Means++*)
+
+
+### Exercițiu
+
+Exercițiu
+
+1. Fie datele următoare:
+    $$\left\lbrace \vec{v_n} \right\rbrace = 
+[ 1.3, -0.1, 0.5, 4.7, 5.1, 5.8, 0.4, 4.8, -0.7, 4.9 ] $$
+
+    Utilizați algoritmul k-Means pentru a găsi doi centroizi $\vec{c}_1$ și $\vec{c}_2$,
+pornind de la valorile aleatoare $\vec{c}_1 = -0.5$ și $\vec{c}_2 = 0.9$. 
+Realizați 5 iterații ale algoritmului.
+
