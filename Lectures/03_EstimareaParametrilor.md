@@ -59,6 +59,71 @@ ce depinde de $\Theta$ (și de zgomot)
     * Egală cu produsul tuturor $w_i(r_i; \Theta)$
 $$w(\vec{r}; \Theta) = w_1(r_1; \Theta) \cdot w_2(r_2; \Theta) \cdot ... \cdot w_N(r_N; \Theta)$$
 
+
+### Funcția de plauzibilitate
+
+* Într-o problemăe de estimare:
+  * $\vec{r}$ este un vector cunoscut
+  * $\Theta$ este necunoscuta
+  
+\smallskip  
+  
+* Vrem să estimăm $\Theta$ cunoscând $\vec{r}$, deci ne interesează funcția următoare:
+
+$$L(\Theta) = w(\Theta | \vec{r})$$
+
+* Aceasta reprezintă funcția de plauzibilitate (probabilitate) a $\Theta$, pentru un vector cunoscut $\vec{r}$
+
+
+### Regula lui Bayes
+
+* Se poate utiliza regula lui Bayes
+
+$$L(\Theta) = w(\Theta | \vec{r}) = \frac{w(\vec{r} | \Theta) \cdot w(\Theta)}{w(\vec{r})}$$
+
+* Termenii:
+  * $\Theta$ este parametrul necunoscut
+  * $\vec{r}$ este vectorul de observații
+  * $L(\Theta) = w(\Theta | \vec{r})$ este plauzibilitatea lui $\Theta$, dat fiind vectorul de observații $\vec{r}$;
+  * $w(\vec{r} | \Theta)$ este probabilitatea lui $\vec{r}$ pentru un $\Theta$ dat, depinde de distribuția zgomotului
+  * $w(\Theta)$ este distribuția **a priori** a lui $\Theta$
+  * $w(\vec{r})$ este distribuția **a priori** a lui $\vec{r}$, se presupune a fi constantă
+
+
+### Bayes rule
+
+* The previous relation is rather complex
+
+\smallskip
+
+* It shows that our estimation of $\Theta$ depends on two things:
+
+  1. The observations that we have, via the term $w(\vec{r} | \Theta)$
+  2. The prior knowledge (or prior belief) about $\Theta$, via the term $w(\Theta)$
+  
+\smallskip
+  
+(the third term $w(\vec{r})$ is considered a constant, and plays no significant role)
+  
+### Two types of estimation
+
+* We consider estimating a parameter $\Theta$ under two circumstances:
+    
+1. No distribution is known about the parameter, except maybe some allowed range (e.g. $\Theta > 0$)
+    * The parameter can be any value in the allowed range, equally likely
+    * We treat $w(\Theta)$ as a constant
+
+\smallskip
+
+2. We know a distribution $p(\Theta)$ for $\Theta$, which tells us
+the values of $\Theta$ that are more likely than others
+    * this is known as *a priori* (or *prior*) distribution (i.e. "known beforehand")
+    
+    
+    
+
+
+
 ### Tipuri de estimare
 
 * Considerăm estimarea lui $\Theta$ în două cazuri:
