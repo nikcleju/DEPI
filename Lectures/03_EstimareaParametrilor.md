@@ -56,8 +56,8 @@ $$w_i(r_i; \Theta)$$
 * Întregul vector de eșantioane $\vec{r}$ este o variabilă aleatoare N-dimensională
 ce depinde de $\Theta$ (și de zgomot)
     * Are o distribuție N-dimensională ce depinde de $\Theta$
-    * Egală cu produsul tuturor $w_i(r_i; \Theta)$
-$$w(\vec{r}; \Theta) = w_1(r_1; \Theta) \cdot w_2(r_2; \Theta) \cdot ... \cdot w_N(r_N; \Theta)$$
+    * Egală cu produsul tuturor $w_i(r_i | \Theta)$
+$$w(\vec{r}; \Theta) = w_1(r_1 | \Theta) \cdot w_2(r_2 | \Theta) \cdot ... \cdot w_N(r_N | \Theta)$$
 
 
 ### Funcția de plauzibilitate
@@ -90,39 +90,17 @@ $$L(\Theta) = w(\Theta | \vec{r}) = \frac{w(\vec{r} | \Theta) \cdot w(\Theta)}{w
   * $w(\vec{r})$ este distribuția **a priori** a lui $\vec{r}$, se presupune a fi constantă
 
 
-### Bayes rule
+### Regula lui Bayes
 
-* The previous relation is rather complex
+* Relația precedentă arată că, în general, estimarea lui $\Theta$ depinde de două lucruri:
 
-\smallskip
-
-* It shows that our estimation of $\Theta$ depends on two things:
-
-  1. The observations that we have, via the term $w(\vec{r} | \Theta)$
-  2. The prior knowledge (or prior belief) about $\Theta$, via the term $w(\Theta)$
+  1. De observațiile $r_i$, prin termenul $w(\vec{r} | \Theta)$
+  2. De informația "a priori" avută despre $\Theta$, prin termenul $w(\Theta)$
   
 \smallskip
   
-(the third term $w(\vec{r})$ is considered a constant, and plays no significant role)
+(termenul $w(\vec{r})$ se presupune a fi constant, și nu joacă un rol important)
   
-### Two types of estimation
-
-* We consider estimating a parameter $\Theta$ under two circumstances:
-    
-1. No distribution is known about the parameter, except maybe some allowed range (e.g. $\Theta > 0$)
-    * The parameter can be any value in the allowed range, equally likely
-    * We treat $w(\Theta)$ as a constant
-
-\smallskip
-
-2. We know a distribution $p(\Theta)$ for $\Theta$, which tells us
-the values of $\Theta$ that are more likely than others
-    * this is known as *a priori* (or *prior*) distribution (i.e. "known beforehand")
-    
-    
-    
-
-
 
 ### Tipuri de estimare
 
@@ -143,19 +121,20 @@ the values of $\Theta$ that are more likely than others
 * Dacă nu se cunoaște vreo distribuție *a priori* se folosește metoda
 estimării de plauzibilitate maximă ("Maximum Likelihood", ML)
 
-* Distribuția vectorului recepționat, $w(\vec{r}; \Theta)$, reprezintă **funcția de plauzibilitate**
-    * vectorul recepționat $\vec{r}$ este cunoscut, deci e o constantă
-    * necunoscuta aici este $\Theta$ 
-    $$L(\Theta) = w(\vec{r}; \Theta)$$
+\smallskip
+
+* Se consideră $w(\Theta)$ constant, astfel încât funcția de plauzibilitate devine:
+
+    $$L(\Theta) = w(\vec{r} | \Theta) \cdot constant$$
 
 ### Estimarea tip Maximum Likelihood
 
 Estimarea de plauzibilitate maximă (Maximum Likelihood, ML): 
 
 * Estimatul $\hat{\Theta}$ este 
-**valoarea care maximizează plauzibilitatea semnalului recepționat**
-    * i.e. valoarea $\Theta$ care maximizează $w(\vec{r}; \Theta)$
-    $$\hat{\Theta} = \arg\max_{\Theta} L(\Theta) = \arg\max_{\Theta} w(\vec{r}; \Theta)$$
+**valoarea care maximizează plauzibilitatea (probabilitatea) semnalului recepționat**
+    * i.e. valoarea $\Theta$ care maximizează $w(\vec{r} | \Theta)$
+    $$\hat{\Theta} = \arg\max_{\Theta} L(\Theta) = \arg\max_{\Theta} w(\vec{r} | \Theta)$$
 
 * Dacă $\Theta$ aparține doar unui anumit domeniu, se face maximizarea
 doar asupra acelui domeniu.
@@ -175,7 +154,7 @@ $$\frac{d \ln\left(L(\Theta)\right)}{d\Theta} = 0$$
 
 Procedura de găsire a estimatului ML:
 
-1. Se găsește expresia funcției $$L(\Theta) = w(\vec{r}; \Theta)$$
+1. Se găsește expresia funcției $$L(\Theta) = w(\vec{r} | \Theta)$$
 
 1. Se pune condiția ca derivata lui $L(\Theta)$ sau a lui $\ln(\left(L(\Theta)\right)$ să fie 0
 $$\frac{d L(\Theta)}{d\Theta} = 0, \text{ or }\frac{d \ln\left(L(\Theta)\right)}{d\Theta} = 0$$
@@ -198,14 +177,6 @@ $r_i = A + noise$, cu valori egale cu $[5, 7, 8, 6.1, 5.3]$. Zgomotul este AWGN 
 
 ### Simulare numerică
 
-
-```
-/home/ncleju/.local/bin/pweave:5: UserWarning: In Matplotlib 3.3
-individual lines on a stem plot will be added as a LineCollection
-instead of individual lines. This significantly improves the
-performance of a stem plot. To remove this warning and switch to the
-new behaviour, set the "use_line_collection" keyword argument to True.
-```
 
 ![](figures/03_EstimareaParametrilor_figure1_1.png){width=8cm}\
 
@@ -303,11 +274,6 @@ Funcția de plauzibilitate este
 
 
 ```
-/home/ncleju/.local/bin/pweave:15: UserWarning: In Matplotlib 3.3
-individual lines on a stem plot will be added as a LineCollection
-instead of individual lines. This significantly improves the
-performance of a stem plot. To remove this warning and switch to the
-new behaviour, set the "use_line_collection" keyword argument to True.
 Frecventa originala = 0.070000, estimatul = 0.071515
 ```
 
