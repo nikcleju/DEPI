@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# See https://tex.stackexchange.com/a/526902
+#
+# Call like this:
+#  ./pdfmargins 03_ErrorControlCoding.pdf
+#
+#
+fname="$1"
+pagesize=( $(pdfinfo "$fname" | grep "Page size" | cut -d ":" -f2 | \
+    awk '{ print $1,$3 }') )
+rm "${fname//.pdf/-crop.pdf}"
+echo Page size: ${pagesize[0]} ${pagesize[1]}
+rightbbox="$(python -c "print( 1.5 * ${pagesize[0]})")"
+pdfcrop --bbox "0 0 $rightbbox ${pagesize[1]}" "$fname" "online/$fname"
