@@ -33,7 +33,7 @@
 	
 	\smallskip
 
-    ![](img/RandomVariable_img.svg){.id width=50%}
+    ![](img/RandomVariable_img.pdf){.id width=50%}
 
 (sursa imaginii: *https://www.mathsisfun.com/data/random-variables.html*)
 
@@ -215,17 +215,40 @@ $$\sum_{x = -\infty}^\infty w_A(x) = 1$$
 
 * Semnal sinusoidal
 
-
-![](figures/01_SemnaleAleatoare_figure1_1.png){width=8cm}\
+```{.python .cb.run session=plot}
+import matplotlib.pyplot as plt, numpy as np, math;
+x = np.linspace(0, 99, 100);
+s = np.sin(2*math.pi*0.02*x)
+plt.figure(figsize=(10,6));
+plt.plot(x,s);
+plt.ylim(-3,3)
+plt.xlabel('t');
+plt.ylabel('sin(x)');
+plt.title('Sinusiodal signal');
+plt.savefig('fig/01_RandomSignals_Sine.png', transparent=True, bbox_inches='tight', dpi=300)
+plt.close()
+```
+![](fig/01_RandomSignals_Sine.png){width=70% max-width=1000px}
 
 
 ### Diferite distribuții
 
 * Sinus + zgomot (normal, $\mu = 0, \sigma^2 = 1$)
 
-
-![](figures/01_SemnaleAleatoare_figure2_1.png){width=8cm}\
-
+```{.python .cb.run session=plot}
+import matplotlib.pyplot as plt, numpy as np, math;
+x = np.linspace(0, 99, 100);
+s = np.sin(2*math.pi*0.02*x)
+sn = s + np.random.randn(100)
+plt.plot(x,s, x, sn);
+plt.ylim(-3,3)
+plt.xlabel('t');
+plt.ylabel('sin(x)');
+plt.title('Sinusiodal signal + random noise');
+plt.savefig('fig/01_RandomSignals_SinePlusRandn.png', transparent=True, bbox_inches='tight', dpi=300)
+plt.close()
+```
+![](fig/01_RandomSignals_SinePlusRandn.png){width=70% max-width=1000px}
 
 ### Diferite distribuții
 
@@ -233,40 +256,89 @@ $$\sum_{x = -\infty}^\infty w_A(x) = 1$$
 
 * Ce diferă? Tipul distribuției
 
-
-![](figures/01_SemnaleAleatoare_figure3_1.png){width=8cm}\
+```{.python .cb.run session=plot}
+import matplotlib.pyplot as plt, numpy as np, math;
+x = np.linspace(0, 99, 100);
+s = np.sin(2*math.pi*0.02*x)
+sn = s + np.random.uniform(-1,1,100)
+plt.plot(x,s,x,sn);
+plt.ylim(-3,3)
+plt.xlabel('t');
+plt.ylabel('sin(x)');
+plt.title('Sinusiodal signal  + random noise');
+plt.savefig('fig/01_RandomSignals_SinePlusRand.png', transparent=True, bbox_inches='tight', dpi=300)
+plt.close()
+```
+![](fig/01_RandomSignals_SinePlusRand.png){width=70% max-width=1000px}
 
 
 ### Diferite distribuții
 
 * Imagine originală
 
-
-![](figures/01_SemnaleAleatoare_figure4_1.png){width=8cm}\
+```{.python .cb.run session=plot}
+import matplotlib.pyplot as plt, numpy as np, math, PIL;
+from PIL import Image
+myImage = Image.open("img/TestImageGirl.gif").convert("L");
+im = np.array(myImage)
+plt.imshow(im, cmap='gray', vmin=0, vmax=255)
+plt.savefig('fig/01_RandomSignals_ImageClean.png', transparent=True, bbox_inches='tight', dpi=300)
+plt.close()
+```
+![](fig/01_RandomSignals_ImageClean.png){width=70% max-width=1000px}
 
 
 ### Diferite distribuții
 
 * Imagine + zgomot (normal, $\mu = 0, \sigma^2 = 1$)
 
-
-![](figures/01_SemnaleAleatoare_figure5_1.png){width=8cm}\
+```{.python .cb.run session=plot}
+import matplotlib.pyplot as plt, numpy as np, math, PIL;
+from PIL import Image
+myImage = Image.open("img/TestImageGirl.gif").convert("L");
+im = np.array(myImage)
+sigma = math.sqrt(225);
+imn = im + sigma*np.random.randn(im.shape[0], im.shape[1])
+plt.imshow(imn, cmap='gray', vmin=0, vmax=255)
+plt.savefig('fig/01_RandomSignals_ImageRandn1.png', transparent=True, bbox_inches='tight', dpi=300)
+plt.close()
+```
+![](fig/01_RandomSignals_ImageRandn1.png){width=70% max-width=1000px}
 
 
 ### Diferite distribuții
 
 * Imagine + zgomot mai mare (normal, $\mu = 0, \sigma^2 = 10$)
 
-
-![](figures/01_SemnaleAleatoare_figure6_1.png){width=8cm}\
+```{.python .cb.run session=plot}
+import matplotlib.pyplot as plt, numpy as np, math, PIL;
+from PIL import Image
+myImage = Image.open("img/TestImageGirl.gif").convert("L");
+im = np.array(myImage)
+sigma = math.sqrt(1500);
+imn = im + sigma*np.random.randn(im.shape[0], im.shape[1])
+plt.imshow(imn, cmap='gray', vmin=0, vmax=255)
+plt.savefig('fig/01_RandomSignals_ImageRandn2.png', transparent=True, bbox_inches='tight', dpi=300)
+plt.close()
+```
+![](fig/01_RandomSignals_ImageRandn2.png){width=70% max-width=1000px}
 
 
 ### Diferite distribuții
 
 * Imagine + zgomot (uniform, $\mathcal{U} [-5, 5]$)
 
-
-![](figures/01_SemnaleAleatoare_figure7_1.png){width=8cm}\
+```{.python .cb.run session=plot}
+import matplotlib.pyplot as plt, numpy as np, math, PIL;
+from PIL import Image
+myImage = Image.open("img/TestImageGirl.gif").convert("L");
+im = np.array(myImage)
+imn = im + sigma*np.random.uniform(-5, 5, im.shape)
+plt.imshow(imn, cmap='gray', vmin=0, vmax=255)
+plt.savefig('fig/01_RandomSignals_ImageRandUnif.png', transparent=True, bbox_inches='tight', dpi=300)
+plt.close()
+```
+![](fig/01_RandomSignals_ImageRandUnif.png){width=70% max-width=1000px}
 
 
 
@@ -276,8 +348,20 @@ $$\sum_{x = -\infty}^\infty w_A(x) = 1$$
 
 $$w_A(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}$$
 
-
-![](figures/01_SemnaleAleatoare_figure8_1.png){width=8cm}\
+```{.python .cb.run session=plot}
+import matplotlib.pyplot as plt, numpy as np, math;
+mu = 3;
+sigma = 1;
+x = np.linspace(mu-5*sigma,mu+5*sigma,200);
+pdf = 1/(sigma*math.sqrt(2*math.pi))*np.exp(-(x-mu)**2/(2*sigma**2)); #**
+plt.plot(x,pdf);
+plt.xlabel('x');
+plt.ylabel('fdp(x)');
+plt.title('The normal distribution $\mathcal{N}(\mu=3,\sigma=1)$');
+plt.savefig('fig/01_RandomSignals_DistributionNormal.png', transparent=True, bbox_inches='tight', dpi=300)
+plt.close()
+```
+![](fig/01_RandomSignals_DistributionNormal.png){width=60% max-width=1000px}
 
 
 ### Distribuția normală
@@ -308,14 +392,36 @@ cu probabilitate din ce în ce mai scăzută la valori mai depărtate de $\mu$
 
 ### Exemple de valori generate cu distribuția normală (mu=0, sigma^2=1)
 
-
-![](figures/01_SemnaleAleatoare_figure9_1.png){width=8cm}\
+```{.python .cb.run session=plot}
+import matplotlib.pyplot as plt, numpy as np, math;
+mu = 0;
+sigma = 1;
+x = np.linspace(1, 200, 200)
+v = mu + np.sqrt(sigma)*np.random.randn(200)
+plt.plot(x,v)
+plt.ylim(-5,5)
+plt.title('Sample values from the normal distribution');
+plt.savefig('fig/01_RandomSignals_DistributionNormalSampleValues1.png', transparent=True, bbox_inches='tight', dpi=300)
+plt.close()
+```
+![](fig/01_RandomSignals_DistributionNormalSampleValues1.png){width=70% max-width=1000px}
 
 
 ### Exemple de valori generate cu distribuția normală (mu=2, sigma^2=4)
 
-
-![](figures/01_SemnaleAleatoare_figure10_1.png){width=8cm}\
+```{.python .cb.run session=plot}
+import matplotlib.pyplot as plt, numpy as np, math;
+mu = 2;
+sigma = 4;
+x = np.linspace(1, 200, 200)
+v = mu + np.sqrt(sigma)*np.random.randn(200)
+plt.plot(x,v)
+plt.ylim(-5,5)
+plt.title('Sample values from the normal distribution');
+plt.savefig('fig/01_RandomSignals_DistributionNormalSampleValues2.png', transparent=True, bbox_inches='tight', dpi=300)
+plt.close()
+```
+![](fig/01_RandomSignals_DistributionNormalSampleValues2.png){width=70% max-width=1000px}
 
 
 ### Distribuția uniformă
@@ -328,8 +434,20 @@ $$w_A(x) =
  0, &elsewhere
 \end{cases}$$
 
-
-![](figures/01_SemnaleAleatoare_figure11_1.png){width=8cm}\
+```{.python .cb.run session=plot}
+import matplotlib.pyplot as plt, numpy as np, math
+a = -1
+b = 3
+x = np.linspace(-2, 4, 60)
+pdf = np.hstack( (np.zeros((10)), 1/(b-a)*np.ones((40)),  np.zeros((10))))  #*
+plt.plot(x,pdf)
+plt.xlabel('x')
+plt.ylabel('fdp(x)')
+plt.title('The uniform distribution $\mathcal{U}\;[-1,3]$')
+plt.savefig('fig/01_RandomSignals_DistributionUniform.png', transparent=True, bbox_inches='tight', dpi=300)
+plt.close()
+```
+![](fig/01_RandomSignals_DistributionUniform.png){width=60% max-width=1000px}
 
 
 ### Distribuția uniformă
@@ -618,41 +736,46 @@ $$w_C(x) = w_A(x) \star w_B(x)$$
     * media = suma mediilor: $\mu_C = \mu_A + \mu_B$
     * varianța = suma varianțelor: $\sigma_C^2 = \sigma_A^2 + \sigma_B^2$
     
+    
 ## II.2 Procese aleatoare
 
 ### Procese aleatoare
 
-* Un **proces aleator** = o secvență de variabile aleatoare indexate (înșiruite) în timp
+- Un **proces aleator** = o secvență de variabile aleatoare indexate (înșiruite) în timp
 
-* Proces aleator **în timp discret** $f[n]$ = o secvență de v.a. la momente de timp discrete
-    * ex: o secvență de 50 aruncări de zar, cotația zilnică a unor acțiuni la bursă
+- Proces aleator **în timp discret** $f[n]$ = o secvență de v.a. la momente de timp discrete
+    - ex: o secvență de 50 aruncări de zar, cotația zilnică a unor acțiuni la bursă
 
-* Proces aleator **în timp continuu** $f(t)$ = o secvență de v.a. la orice moment de timp
-    * ex: un semnal tip zgomot de tensiune
+- Proces aleator **în timp continuu** $f(t)$ = o secvență de v.a. la orice moment de timp
+    - ex: un semnal tip zgomot de tensiune
 
-* Fiecare eșantion dintr-un proces aleator este o v.a. de sine stătătoare
-    * ex:. $f(t_0)$  = valoarea la momentul $t_0$ este o v.a.
+- Fiecare eșantion dintr-un proces aleator este o v.a. de sine stătătoare
+    - ex:. $f(t_0)$  = valoarea la momentul $t_0$ este o v.a.
 
 ### Realizări ale proceselor aleatoare
 
-* **Realizare** a unui p.a. = o secvență particulară de realizări ale v.a. componente
-    * ex: un anume semnal de zgomot măsurat cu un osciloscop; dar am fi putut
-    măsura orice altă realizare
+- **Realizare** a unui p.a. = o secvență particulară de realizări ale v.a. componente
 
-* Notația uzuală: $f^{(k)}[n]$ sau $f^{(k)}(t)$
-   * $k$ indică realizarea particulară care se consideră
-   * $t$ sau $n$ este timpul
+    - ex: un anume semnal de zgomot măsurat cu un osciloscop; am obținut o anume realizare, dar am fi putut obține orice altă realizare
 
-* Când considerăm un p.a., considerăm întregul set de realizări posibile
-    * la fel ca atunci când considerăm o v.a.
+- Notația uzuală: $f^{(k)}[n]$ sau $f^{(k)}(t)$
+
+   - $k$ indică realizarea particulară care se consideră
+   - $t$ sau $n$ este timpul
+
+- Când considerăm un p.a., considerăm întregul set de realizări posibile
+    - la fel ca atunci când considerăm o v.a.
 
 
 ### Proces aleator = un fenomen 2-D
 
-* Un proces aleator este un fenomen 2-Dimensional
-  * $f^{(k)}[n]$ sau $f^{(k)}(t)$ depind de două variabile:
-    * $k$ = realizarea 
-    * $t$ sau $n$ = timpul
+- Un proces aleator trebuie vizualizat în două dimensiuni:
+
+  - $f^{(k)}[n]$ sau $f^{(k)}(t)$ depind de două variabile:
+  
+    - $k$ = realizarea 
+    
+    - $t$ sau $n$ = timpul
 
 ### Proces aleator = un fenomen 2-D
 
@@ -675,9 +798,10 @@ Edited by Tadeusz J. Ulrych, Mauricio D. Sacchi, Volume 36,
 
 ### Două feluri de valori medii
 
-* Procesele aleatoare au două feluri de valori medii:
-  * Valori medii **statistice** = la un timp $t$ sau $n$ fixat, de-a lungul tuturor realizărilor posibile
-  * Valori medii **temporale** = pentru o realizare $k$ fixată, de-a lungul timpului
+- Procesele aleatoare au două tipuri de valori medii:
+
+  - Valori medii **statistice** = calculate la un timp $t$ sau $n$ fixat, de-a lungul tuturor realizărilor posibile
+  - Valori medii **temporale** = calculate pentru o realizare $k$ fixată, de-a lungul timpului
 
 ### Două feluri de valori medii
 
@@ -694,85 +818,88 @@ Edited by Tadeusz J. Ulrych, Mauricio D. Sacchi, Volume 36,
     - are FDP / FMP $w_1(x;t_1) = \frac{dF_1(x;t_1)}{dx}$
     - distribuția depinde de momentul $t_1$
 
-* Un eșantion la alt moment $t_2$ este o v.a. diferită, cu funcții posibil diferite
-    * altă FR $F_1(x;t_2)$
-    * altă FDP / FMP $w_2(x;t_2) = \frac{dF_1(x;t_2)}{dx}$
+- Un eșantion la alt moment $t_2$ este o v.a. diferită, cu funcții posibil diferite
+    - altă FR $F_1(x;t_2)$
+    - altă FDP / FMP $w_2(x;t_2) = \frac{dF_1(x;t_2)}{dx}$
 
-* Aceste funcții descriu distribuția valorilor unui eșantion
+- Aceste funcții descriu distribuția valorilor unui eșantion
 
-* Indicele $w_1$ arată că considerăm o singură v.a. din proces (distribuții *de ordin 1*)
+- Indicele $w_1$ arată că considerăm o singură v.a. din proces (distribuții de ordin 1-)
 
-* Similar pentru p.a. discrete
+- Similar pentru p.a. discrete
 
 ### Distribuții de ordin 2
 
 * O pereche de v.a. $f(t_1)$ și $f(t_2)$ formează un sistem de 2 v.a.:
+
     - sunt descrise de o **distribuție de ordin 2**
     - au FR comună $F_2(x_i, x_j; t_1, t_2)$
     - au FDP / FMP comună $w_2(x_i, x_j; t_1, t_2) = \frac{\partial^2 F_2(x_i, x_j;t_1, t_2)}{\partial x_i \partial x_j}$
     - distribuția depinde de momentele $t_1$ și $t_2$
 
-* Aceste funcții descriu cum sunt distribuite valorile perechilor (distribuții *de ordin 2*)
+- Aceste funcții descriu cum sunt distribuite valorile perechilor (distribuții *de ordin 2*)
 
-* Similar pentru p.a. discrete
+- Similar pentru p.a. discrete
 
 ### Distribuții de ordin n
 
-* Generalizare la $n$ eșantioane ale unui p.a.
+- Generalizare la un grup de $n$ eșantioane dintr-un p.a.
 
-* Un set de $n$ v.a. $f(t_1), ...f(t_n)$ dintr-un proces aleator $f(t)$:
+- Un set de $n$ v.a. $f(t_1), ...f(t_n)$ dintr-un proces aleator $f(t)$:
     - sunt descrise de o **distribuție de ordin n**
     - au FR comună $F_n(x_1,... x_n; t_1,... t_n)$
     - au FDP / FMP comună $w_n(x_1,... x_n; t_1,... t_n) = \frac{\partial^2 F_n(x_1,... x_n;t_1,... t_n)}{\partial x_1 ... \partial x_n}$
     - depind de momentele de timp $t_1$, $t_2$, ... $t_n$
 
-* Aceste funcții descriu cum sunt distribuite valorile seturilor de $n$ valori (distribuții *de ordin n*)
+- Aceste funcții descriu cum sunt distribuite valorile seturilor de $n$ eșantioane (distribuții *de ordin n*)
 
-* Similar pentru p.a. discrete
+- Similar pentru p.a. discrete
 
 ### Medii statistice
 
-Procesele aleatoare sunt caracterizate de medii statistice și temporale
+Procesele aleatoare sunt caracterizate de medii **statistice** și **temporale**
 
 Pentru procese continue:
 
-1. Valoarea medie
+1. **Valoarea medie**
 $$\overline{f(t_1)} = \mu(t_1) = \int_{-\infty}^{\infty} x \cdot w_1(x; t_1) dx$$
 
-2. Valoarea pătratică medie
+2. **Valoarea pătratică medie**
 $$\overline{f^2(t_1)} = \int_{-\infty}^{\infty} x^2 \cdot w_1(x; t_1) dx$$
 
 ### Medii statistice - varianța
 
-3. Varianța
+3. **Varianța**
 $$\sigma^2(t_1) = \overline{\left\{ f(t_1) - \mu(t_1) \right\}^2} = \int_{-\infty}^{\infty} (x-\mu(t_1)^2 \cdot w_1(x; t_1) dx$$
 
-* Varianța se poate calcula pe baza celorlalte două:
-$$\begin{split}
-\sigma^2(t_1) =& \overline{\left\{ f(t_1) - \mu(t_1) \right\}^2} \\
-=& \overline{f(t_1)^2 - 2f(t_1)\mu(t_1) + \mu(t_1)^2} \\
-=& \overline{f^2(t_1)} - \mu(t_1)^2
-\end{split}$$
+- Legătura între aceste trei mărimi:
+    $$\begin{split}
+    \sigma^2(t_1) =& \overline{\left\{ f(t_1) - \mu(t_1) \right\}^2} \\
+    =& \overline{f(t_1)^2 - 2f(t_1)\mu(t_1) + \mu(t_1)^2} \\
+    =& \overline{f^2(t_1)} - \mu(t_1)^2
+    \end{split}$$
 
 * Observații:
-    * aceste trei valori sunt calculate pentru toate realizările, la momentul $t_1$
-    * ele caracterizează doar eșantionul de la momentul $t_1$
-    * la alt moment de timp $t_2$, v.a. $f(t_2)$ este diferită, și valorile medii pot diferi
+    - aceste trei valori sunt calculate pentru toate realizările, la momentul $t_1$
+    - ele caracterizează doar eșantionul de la momentul $t_1$
+    - la alt moment de timp $t_2$, v.a. $f(t_2)$ este diferită, și valorile medii pot diferi
 
 ### Medii statistice - autocorelația
 
-4. Funcția de autocorelație
+Medii statistice care caracterizează **o pereche** de eșantioane:
+
+4. **Funcția de autocorelație**
 $$R_{ff}(t_1,t_2) = \overline{f(t_1) f(t_2)} = \int_{-\infty}^\infty \int_{-\infty}^\infty x_1 x_2 w_2(x_1, x_2; t_1, t_2) dx_1 dx_2$$
 
-5. The correlation function (for different random processes $f(t)$ and $g(t)$)
+5. **Funcția de corelație** (pentru două procese aleatoare diferite $f(t)$ și $g(t)$)
 $$R_{fg}(t_1,t_2) = \overline{f(t_1) g(t_2)} = \int_{-\infty}^\infty \int_{-\infty}^\infty x_1 y_2 w_2(x_1, y_2; t_1, t_2) dx_1 dy_2$$
 
-* Observații:
-    * aceste funcții au valori diferite pentru diverse perechi de valori ($t_1$,$t_2$)
+- Observații:
+    - aceste funcții pot fi diferite pentru perechi de valori luate la momente diferite ($t_1$,$t_2$)
 
 ### Procese aleatoare discrete
 
-Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$:
+Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$, și notația $f(t)$ cu $f[t]$:
 
 1. $\overline{f[t_1]} = \mu(t_1) = \sum_{x=-\infty}^{\infty} x \cdot w_1(x; t_1)$
 
@@ -787,44 +914,48 @@ Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$:
 
 ### Medii temporale
 
-* Dacă avem acces doar la o singură realizare $f^{(k)}(t)$ a procesului?
-* Calculăm valorile medii **pentru o singură realizare $f^{(k)(t)}$, în timp**
-* Pentru procese continue:
+- Dacă avem acces doar la o singură realizare $f^{(k)}(t)$ a procesului?
 
-1. Valoarea medie temporală
-$$\overline{f^{(k)}(t)} = \mu^{(k)} = \lim_{T \to \infty} \frac{1}{T} \int_{T/2}^{T/2} f^{(k)}(t) dt$$
+- Calculăm valorile medii **pentru o singură realizare $f^{(k)(t)}$, de-a lungul timpului**
 
-2. Valoarea medie pătratică temporală 
-$$\overline{[f^{(k)}(t)]^2} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} [f^{(k)}(t)]^2 dt$$
+### Medii temporale
+
+**Medii temporale** pentru procese aleatoare continue:
+
+1. **Valoarea medie temporală**
+    $$\overline{f^{(k)}(t)} = \mu^{(k)} = \lim_{T \to \infty} \frac{1}{T} \int_{T/2}^{T/2} f^{(k)}(t) dt$$
+
+2. **Valoarea medie pătratică temporală**
+    $$\overline{[f^{(k)}(t)]^2} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} [f^{(k)}(t)]^2 dt$$
 
 ### Varianța temporală
-3. Varianța temporală
-$$\sigma^2 = \overline{\left\{ f^{(k)}(t) - \mu^{(k)} \right\}^2} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} (f^{(k)}(t)-\mu^{(k)})^2 dt$$
 
-* Poate fi calculată ca:
-$$\sigma^2 = \overline{[f^{(k)}(t)]^2} - [\mu^{(k)}]^2$$
+3. **Varianța temporală**
+    $$\sigma^2 = \overline{\left\{ f^{(k)}(t) - \mu^{(k)} \right\}^2} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} (f^{(k)}(t)-\mu^{(k)})^2 dt$$
 
-* Observație:
-    * aceste valori nu mai depind de timpul $t$
+- Relația dintre cele trei mărimi:
+    $$\sigma^2 = \overline{[f^{(k)}(t)]^2} - [\mu^{(k)}]^2$$
+
+- Observație:
+    - aceste valori nu mai depind de timpul $t$
 
 ### Autocorelația temporală
 
-4. Funcția de autocoreație temporală
-$$\begin{split}
-R_{ff}(t_1,t_2) =& \overline{f^{(k)}(t_1 + t) f^{(k)}(t_2+t)} \\
-=& \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t_1+t) f^{(k)}(t_2 + t) dt
-\end{split}$$
+4. **Funcția de autocoreație temporală**
+    $$\begin{split}
+    R_{ff}(t_1,t_2) =& \overline{f^{(k)}(t_1 + t) f^{(k)}(t_2+t)} \\
+    =& \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t_1+t) f^{(k)}(t_2 + t) dt
+    \end{split}$$
 
-5. Funcția de corelație temporală (pentri două procese diferite $f(t)$ și $g(t)$)
-$$\begin{split}
-R_{fg}(t_1,t_2) =& \overline{f^{(k)}(t_1 + t) g^{(k)}(t_2+t)}\\
-=& \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t_1+t) g^{(k)}(t_2 + t) dt
-\end{split}$$
+5. **Funcția de corelație temporală** (pentru două procese diferite $f(t)$ și $g(t)$)
+    $$\begin{split}
+    R_{fg}(t_1,t_2) =& \overline{f^{(k)}(t_1 + t) g^{(k)}(t_2+t)}\\
+    =& \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t_1+t) g^{(k)}(t_2 + t) dt
+    \end{split}$$
 
 ### Procese aleatoare discrete
 
-Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$, $T$ cu $N$,
-și se împarte la $2N+1$ în loc de $2T$
+Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$, $T$ cu $N$, și se împarte la $2N+1$ în loc de $2T$
 
 1. $\overline{f^{(k)}[t]} = \mu^{(k)} = \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} f^{(k)}[t]$
 
@@ -850,50 +981,61 @@ R_{fg}(t_1,t_2) =& \overline{f^{(k)}[t_1 + t] g^{(k)}[t_2+t]}\\
 
 ### Realizări de lungime finită
 
-Dacă o realizare nu se întinde de la timpul $-\infty$ la $\infty$, 
-ci doar de la un $t_{min}$ la $t_{max}$,
-se folosește $\int_{t_{min}}^{t_{max}}$ sau $\sum_{t_{min}}^{t_{max}}$ pentru mediile temporale
+- E posibil să avem o realizare de **lungime finită** (de ex. un vector cu 1000 de eșantioane dintr-o realizare a unui p.a.)
 
-* Exemplu: calculați mediile temporale pentru realizarea de lungime finită
+- Cum calculăm mediile temporale?
+
+- Se fac sumele/integralele de la $\int_{t_{min}}^{t_{max}}$ sau $\sum_{t_{min}}^{t_{max}}$ în loc de la $-\infty$ la $\infty$
+
+- Exemplu: calculați mediile temporale pentru realizarea de lungime finită
 $$\{1,-1,2,-2,3,-3,4,-4,5,-5\}$$
 
 
 ### Medii statistice și temporale
 
-* Mediile statistice sunt, de obicei, cele de interes
-    - dar necesită cunoașterea distribuțiilor
-* În practică, pentru semnale necunoscute, se poate măsura doar o singură realizare
-    - putem calcula doar mediile temporale
-* Din fericire, în multe cazuri mediile statistice și temporale sunt identice ("*ergodicitate*")
+- Mediile statistice sunt, de obicei, cele de dorit
+
+    - dar necesită cunoașterea distribuțiilor $w(x)$, care în practică sunt rareori cunoscute
+    
+- În practică, de obicei avem acces doar la o singură realizare, obținută printr-o măsurătoare
+
+    - deci putem calcula doar mediile temporale pe acea realizare
+    
+- Din fericire, în multe cazuri mediile statistice și temporale sunt **identice** ("ergodicitate")
 
 ### Procese aleatoare staționare
 
-* În general, mediile statistice depind de timp
-    * pot fi diferite la alt moment de timp $t_2$
+- Până acum, am considerat că mediile statistice depind de timp
+    
+    - pot fi diferite pentru un eșantion de la $t_1$ și de la $t_2$
 
-* Proces aleator **staționar** = mediile statistice rămân aceleași 
+- Proces aleator **staționar** = dacă mediile statistice rămân aceleași 
 la modificarea originii timpului (întârzierea semnalului)
 
-* Echivalent: Distribuțiile (FDP/FMP) eșantioanelor rămân identice la modificarea originii timpului
-$$w_n(x_1,...x_n; t_1,...t_n) = w_n(x_1,...x_n; t_1+\tau,... t_n + =tau)$$
+- Altfel spus: distribuțiile (FDP/FMP) eșantioanelor rămân identice la modificarea originii timpului
+    $$w_n(x_1,...x_n; t_1,...t_n) = w_n(x_1,...x_n; t_1+\tau,... t_n + =tau)$$
 
-* Practic, mediile nu trebuie să mai depindă de timp $t$
+- Practic, pentru a fi staționar trebuie ca **toate mediile statistice să nu mai depindă de timp** $t$
 
 ### Staționar în sens strict sau larg
 
-* Proces aleator **staționar în sens strict**:
-    * relația e valabilă pentru toți $n$
-    * valoarea medie, valoarea pătratică medie, varianța, autocorelația și toate celelalte statistici de ordin superior
+- Proces aleator **staționar în sens strict**:
+
+    - relația e valabilă pentru distribuțiile de orice ordin $n$
+    
+    - valoarea medie, valoarea pătratică medie, varianța, autocorelația **și toate celelalte** statistici de ordin superior
     nu depind de originea timpului $t$    
 
-* Proces aleator **staționar în sens larg**:
-    * relația e valabilă doar pentru $n=1$ și $n=2$  (cele mai folosite)
-    * doar valoarea medie, valoarea pătratică medie, varianța și autocorelația nu de originea timpului $t$, 
+- Proces aleator **staționar în sens larg**:
+
+    - relația e valabilă doar pentru distribuțiile de ordin $n=1$ și $n=2$ (distribuțiile unui singur eșantion, sau a două eșantioane)
+    
+    - **doar** valoarea medie, valoarea pătratică medie, varianța și autocorelația nu depind de originea timpului $t$, dar
     statisticile de ordin superior pot depinde
 
 ### Procese aleatoare staționare
 
-* Este procesul aleator schițat mai jos staționar sau nu?
+- Este procesul aleator schițat mai jos staționar sau nu?
 
 ![](img/RandomProcess_NonStat.png){.id width=60%}
 
@@ -901,184 +1043,215 @@ $$w_n(x_1,...x_n; t_1,...t_n) = w_n(x_1,...x_n; t_1+\tau,... t_n + =tau)$$
 
 ### Procese aleatoare staționare
 
-* Răspuns: ne-staționar
+- Răspuns: ne-staționar
 
-* Se observă că varianța nu este aceeași la toate momentele de timp
+- Se observă că varianța nu este aceeași la toate momentele de timp
 
 
 ### Consecințe ale staționarității
 
-* Pentru $n=1$:
-$$w_1(x_i;t_1) = w_1(x_i; t_2) = w_1(x_i)$$
+- Pentru distribuții ale unui singur eșantion (de ordin $n=1$):
+    $$w_1(x_i;t_1) = w_1(x_i; t_2) = w_1(x_i)$$
 
-* Valoarea medie, valoarea medie pătratică, varianța
-unui eșantion sunt **aceleași** la orice moment de timp $t$
+- Valoarea medie, valoarea medie pătratică, varianța
+unui eșantion sunt **identice la orice moment de timp** $t$
 $$\overline{f(t)} = constant, \forall t$$
 $$\overline{f^2(t)} = constant, \forall t$$
 $$\sigma^2(t) = constant, \forall t$$
 
 ### Consecințe ale staționarității
 
-* Pentru $n=2$:
-$$w_2(x_i,x_j;t_1,t_2) = w_2(x_i,x_j;0, t_2-t_1) = w_2(x_i,x_2; t_2-t_1)$$
+* Pentru distribuții ale unor perechi de eșantioane (de ordin $n=2$):
+    $$w_2(x_i,x_j;t_1,t_2) = w_2(x_i,x_j;0, t_2-t_1) = w_2(x_i,x_2; t_2-t_1)$$
 
-* Funcția de autocorelație depinde doar de **diferența de timp**
+- Funcția de autocorelație depinde doar de **diferența de timp** 
 $\tau = t_2 - t_1$ dintre eșantioane
 $$R_{ff}(t_1,t_2) = R_{ff}(0, t_2 - t_1) = R_{ff}(\tau) = \overline{f(t) f(t + \tau)}$$
 
-* Depinde doar de valoarea $\tau$ = diferența de timp dintre cele două eșantioane
+- Depinde doar de valoarea $\tau = t_2 - t_1$ = diferența de timp dintre cele două eșantioane
 
 ### Consecințe ale staționarității
 
-* Definiția funcției de autocorelație pentru p.a. **staționare**:
-    * funcția depinde numai de $\tau = t_2 - t_1$, în loc de $t_1$ și $t_2$
+Definiția funcției de autocorelație pentru p.a. **staționare**:
 
-* Autocorelația statistică: formula rămâne aceeași
+- Autocorelația statistică: formula rămâne aceeași
 
-* Autocorelația temporală:
-    * pentru p.a. continue
+- Autocorelația temporală:
+    - pentru p.a. continue
     $$\begin{split}
     R_{ff}(\tau) = \overline{f(t) f(t + \tau)} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t) f^{(k)}(t + \tau) dt
     \end{split}$$
 
-    * pentru p.a. discrete
+    - pentru p.a. discrete
     $$\begin{split}
     R_{ff}(\tau) = \overline{f(t) f(t + \tau)} = \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} f^{(k)}[t] f^{(k)}[t + \tau]
     \end{split}$$
     
-    * lungime finită: se limitează integralele / sumele la intervalul avut la dispoziție, $\int_{t_{min}}^{t_{max}}$ sau $\sum_{t_{min}}^{t_{max}}$
+    - lungime finită: se limitează integralele / sumele la intervalul avut la dispoziție, $\int_{t_{min}}^{t_{max}}$ sau $\sum_{t_{min}}^{t_{max}}$
 
 
 ### Consecințe ale staționarității
 
-* Idem pentru funcția de corelație dintre procese aleatoare diferite
+- Pentru funcția de **corelație**, definiția este similară cu cea de la autocorelație de mai sus
 
-* Depinde doar de **diferența de timp** $\tau = t_2 - t_1$ dintre două eșantioane
+- Corelația depinde doar de **diferența de timp** $\tau = t_2 - t_1$ dintre cele două eșantioane
 $$R_{fg}(t_1,t_2) = R_{fg}(0, t_2 - t_1) = R_{fg}(\tau) = \overline{f(t) g(t + \tau)}$$
 
-* Definiția este similară cu formulele de la f. de autocorelație de pe slide-ul anterior
+
 
 ### Interpretarea autocorelației
 
-- $R_{ff}(\tau)$ = media produsului a două eșantioane situate la distanță de $\tau$
-    - ne spune dacă eșantioanele variază în același sens sau nu
+- $R_{ff}(\tau) = \overline{f(t) f(t + \tau)}$ = **media produsului a două eșantioane situate la distanță de $\tau$**
+
+    - ne spune dacă eșantioanele variază la fel sau nu
 
 - Idem pentru corelație, doar că eșantioanele provin din p.a. diferite, $f$ și $g$
 
-- Exemplu:
-    - $R_{ff}(0.5) > 0$: două eșantioane decalate cu $0.5$ secunde tind să varieze în aceeași direcție
-(ambele pozitive, ambele negative => produsele sunt majoritar pozitive)
-    - $R_{ff}(1) < 0$: două eșantioane decalate cu 1 secundă tind să varieze în direcții opuse
-(când unul e pozitiv, celălalt e negativ => produsele sunt majoritar negative)
-    - $R_{ff}(2) = 0$: două eșantioane decalate cu 2 secunde sunt necorelate
-(produsele sunt în medie 0, deci la fel de multe pozitive cât negative)
+### Interpretarea autocorelației
+
+- Exemple:
+
+    - $R_{ff}(0.5) > 0$: două eșantioane decalate cu $0.5$ secunde tind să varieze în aceeași direcție (ambele pozitive, ambele negative => produsele sunt majoritar pozitive)
+    
+        - dacă se cunoaște una dintre ele, se poate "ghici" ceva despre cealaltă
+        
+    - $R_{ff}(1) < 0$: două eșantioane decalate cu 1 secundă tind să varieze în direcții opuse (când unul e pozitiv, celălalt e negativ => produsele sunt majoritar negative)
+    
+        - dacă se cunoaște una dintre ele, se poate "ghici" ceva despre cealaltă
+
+    - $R_{ff}(2) = 0$: două eșantioane decalate cu 2 secunde sunt **necorelate**
+(produsele sunt în medie 0, deci cele două eșantioane au la fel de multe șanse de a fi de același semn sau cu semne contrare)
+
+        - dacă se cunoaște una dintre ele, **nu** se mai poate "ghici" ceva despre cealaltă
 
 ### Procese aleatoare ergodice
 
-* În practică, avem acces la o singură realizare
+- În practică, avem acces la o singură realizare
 
-* Proces aleator **ergodic** = dacă mediile temporale pe orice realizare sunt **identice** cu mediile statistice
+- Proces aleator **ergodic** = dacă mediile temporale pe orice realizare sunt **identice cu mediile statistice**
 
-* Ergodicitatea înseamnă:
-    * Se pot calcule toate mediile pe baza unei singure realizări
-        * dar realizarea trebuie să fie foarte lungă (lungimea $\to \infty$) pentru valori precise
-    * Toate realizările sunt similare unele cu altele, dpdv statistic
-        * o realizare este caracteristică pentru întreg procesul aleator
+- Ergodicitatea înseamnă:
+
+    - Se pot calcula toate mediile pe baza unei singure realizări (oricare)
+        - dar realizarea respectivă trebuie să fie foarte lungă (lungimea $\to \infty$) pentru valori precise
+        
+    - Toate realizările sunt similare unele cu altele, dpdv statistic
+        - o realizare este caracteristică pentru întreg procesul aleator
 
 ### Procese aleatoare ergodice
 
-* Majoritatea proceselor aleatoare de interes sunt ergodice și staționare
-    * de ex. zgomote de tensiune
+- Majoritatea proceselor aleatoare de interes sunt ergodice și staționare
+    
+    - de ex. zgomote de tensiune
 
-* Exemplu de proces ne-ergodic:
-    * se aruncă un zar, următoarele 50 valori sunt identice cu prima valoare
-    * o singură realizare nu e caracteristică pentru tot procesul
+- Exemplu de proces aleator **ne-ergodic**:
+
+    - se aruncă un zar, următoarele 50 valori sunt identice cu prima valoare
+    
+        - o singură realizare nu e caracteristică pentru tot procesul
 
 ### Procese aleatoare ergodice
 
 ![](img/XKCD_random_number.png){.id width=60%}
 
-* sursa: XKCD (221)
+- XKCD 221 (link aici: [https://xkcd.com/221/](https://xkcd.com/221/))
 
-* Considerând toate numerele care s-ar fi putut obține în loc de 4 (1,2,3,4,5 sau 6)
+- Se consideră toate numerele care s-ar fi putut obține în loc de 4 (1,2,3,5 sau 6)
 
-* Care e problema aici?
-    * staționar sau ne-staționar?
-    * ergodic sau ne-ergodic?
+- Care e problema aici?
+    - proces aleator staționar sau ne-staționar?
+    - proces aleator ergodic sau ne-ergodic?
+
 
 ## I.3 Proprietăți ale autocorelației
 
 ### Densitatea spectrală de putere
 
-* Densitatea spectrală de putere (DSP) $S_{ff}(\omega)$ reprezintă 
+- **Densitatea spectrală de putere** (DSP) $S_{ff}(\omega)$ reprezintă 
 puterea procesului aleator la fiecare frecvență $f$ ($\omega = 2 \pi f$)
 
-* DSP descrie cum este distribuită puterea semnalului în frecvență
+- DSP descrie cum este distribuită puterea semnalului în frecvență
+    
     * de ex. unele procese au mai multă putere la frecvențe joase, altele la frecvențe înalte
 
-* Puterea în banda de frecvență $[f_1, f_2]$ este $\int_{f_1}^{f_2} S_{ff}(\omega) d\omega$
+- Puterea în banda de frecvență $[f_1, f_2]$ este $\int_{f_1}^{f_2} S_{ff}(\omega) d\omega$
 
-* Puterea totală a procesului aleator este $P = \int_{-\infty}^{\infty} S_{ff}(\omega) d\omega$
+- Puterea totală a procesului aleator este $P = \int_{-\infty}^{\infty} S_{ff}(\omega) d\omega$
 
-* DSP este o funcție măsurabilă practic
-    * poate fi determinată experimental
-    * este importantă în aplicații practice (inginerești)
+- DSP este o funcție măsurabilă practic
+
+    - poate fi determinată experimental
+    - este importantă în aplicații practice (inginerești)
 
 ### Teorema Wiener-Hincin
 
-Teoremă:
+**Teorema Wiener-Hincin**:
 
-* **Densitatea spectrală de putere = transformata Fourier a funcției de autocorelație**
-$$S_{ff}(\omega) = \int_{-\infty}^{\infty} R_{ff}(\tau) e^{- j \omega \tau} d\tau$$
-$$R_{ff}(\tau) = \frac{1}{2 \pi}\int_{-\infty}^{\infty} S_{ff}(\omega) e^{j \omega \tau} d\omega$$
+- Densitatea spectrală de putere = **transformata Fourier a funcției de autocorelație**
+    $$S_{ff}(\omega) = \int_{-\infty}^{\infty} R_{ff}(\tau) e^{- j \omega \tau} d\tau$$
+    $$R_{ff}(\tau) = \frac{1}{2 \pi}\int_{-\infty}^{\infty} S_{ff}(\omega) e^{j \omega \tau} d\omega$$
 
-* Fără demonstrație
+- Fără demonstrație, prea complicat
 
-* Leagă două concepte de natură diferită
-    * funcția de autocorelație: o proprietate *statistică*
-    * DSP: o proprietate *fizică* (ține de energia semnalului; importantă în aplicații practice)
+- Leagă două concepte de natură diferită
+    - funcția de autocorelație: o proprietate *statistică*
+    - DSP: o proprietate *fizică* (ține de energia semnalului; importantă în aplicații practice)
 
 ### Zgomot alb
 
-* Zgomot alb = proces aleator cu funcția de autocorelație egală cu un Dirac
-$$R_{ff}(\tau) = \delta(\tau)$$
+- **Zgomot alb** = un proces aleator cu **funcția de autocorelație egală cu un Dirac**
+    $$R_{ff}(\tau) = \delta(\tau)$$
 
     - este proces aleator: orice eșantion este o variabilă aleatoare
     - autocorelația este un Dirac: este 0 pentru orice $\tau \neq 0$
     - oricare două eșantioane diferite ($\tau \neq 0$) au corelație zero (necorelate)
-        - valorile a două eșantioane nu au legătură între ele
+        - valorile a două eșantioane distincte nu au legătură între ele
     
-* Densitatea spectrală de putere = transf. Fourier a unui Dirac = constantă $\forall \omega$
-    * putere constantă la toate frecvențele, până la $f = \infty$
+### Zgomot alb
 
-* Zgomotul alb poate avea orice distribuție (normală, uniformă etc.)
+- **Densitatea spectrală de putere** = transf. Fourier a unui Dirac = **constantă** $\forall \omega$
+    $$S_{ff}(\omega) = constant, \forall \omega $$
+
+    - putere constantă pentru toate frecvențele, până la $f = \infty$
+
+- Zgomotul alb poate avea **orice distribuție** (normală, uniformă etc.)
+
     - termenul "zgomot alb" nu se referă la distribuția eșantioanelor,
     ci la faptul că valorile eșantioanele sunt necorelate
     
 ### Zgomot alb de bandă limitată    
     
-* În practică, puterea scade la 0 la frecvențe foarte înalte
+- În lumea reală, pentru orice semnal puterea scade la 0 la frecvențe foarte înalte
+
     - pentru că puterea totală $P = \int_{-\infty}^{\infty} S_{ff}{\omega}$ nu poate fi infinită
-    - zgomot alb "*de bandă limitată*"
     
-* În acest caz, autocorelația = aproximativ un Dirac, dar nu infinit de "subțire"
-    * eșantioane foarte apropiate sunt totuși corelate
-    * de ex. din cauza unor mici capacități parazite
+    - se numește zgomot alb **de bandă limitată**
+    
+- În acest caz, autocorelația = aproximativ un Dirac, dar nu chiar infinit de "subțire"
+
+    - eșantioane foarte apropiate sunt totuși corelate
+    
+    - de ex. din cauza unor mici capacități parazite
 
 ### AWGN
 
 - **AWGN** = Additive White Gaussian Noise
+
     - Zgomot alb, Gaussian, aditiv
+    
     - tipul de zgomot cel mai frecvent întâlnit în aplicații
 
 - Înseamnă:
-    - aditiv: zgomotul se adună cu semnalul original (de ex. nu se multiplică cu acesta)
-    - gaussian: eșantioanele au distribuția normală
-    - alb: valorile eșantioanelor sunt necorelate între ele 
 
-### Examen 2018-2019
+    - **aditiv**: zgomotul se adună peste semnalul original (adică de ex. nu se multiplică cu acesta)
+    
+    - **gaussian**: eșantioanele au distribuția normală
+    
+    - **alb**: valorile eșantioanelor sunt necorelate între ele 
 
-- Până aici s-a făcut în 2018-2019. Celelalte slide-uri din acest fișier nu se cer.
+### Examen 2020-2021
+
+- Până aici s-a făcut în 2020-2021. Celelalte slide-uri din acest fișier nu se cer.
 
 ### Proprietățile funcției de autocorelație
 
@@ -1174,47 +1347,48 @@ $$S_{yy}(\omega) = S_{xx}(\omega) \cdot |H(\omega)|^2$$
     
 ### Semnalul căutat
 
+```{.python .cb.run session=plot}
+import matplotlib.pyplot as plt, numpy as np
+x1 = np.array([1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1])
+x2 = np.hstack((np.random.randn(800), x1, np.random.randn(300)))
+corr = np.correlate(x2, x1)
+plt.figure(figsize=(12,6))
+plt.stem(x1); plt.title ('Signal to look for');plt.axis([0, 20, -1.5, 1.5])
+plt.savefig('fig/01_RandomSignals_CorrSearch_Pattern.png', transparent=True, bbox_inches='tight', dpi=300)
+plt.close()
 ```
-/home/ncleju/.local/bin/pweave:6: UserWarning: In Matplotlib 3.3
-individual lines on a stem plot will be added as a LineCollection
-instead of individual lines. This significantly improves the
-performance of a stem plot. To remove this warning and switch to the
-new behaviour, set the "use_line_collection" keyword argument to True.
-  from pweave.scripts import weave
-```
-
-![](figures/01_SemnaleAleatoare_figure12_1.png)\
-
+![](fig/01_RandomSignals_CorrSearch_Pattern.png){width=70% max-width=1000px}
 
 
 ### Semnalul de dimensiuni mari
 
-
+```{.python .cb.run session=plot}
+import matplotlib.pyplot as plt, numpy as np
+x1 = np.array([1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1])
+x2 = np.hstack((np.random.randn(800), x1, np.random.randn(300)))
+corr = np.correlate(x2, x1)
+plt.figure(figsize=(12,6))
+plt.stem(x2); plt.title ('Signal to search in');
+plt.savefig('fig/01_RandomSignals_CorrSearch_CompleteSignal.png', transparent=True, bbox_inches='tight', dpi=300)
+plt.close()
 ```
-/home/ncleju/.local/bin/pweave:6: UserWarning: In Matplotlib 3.3
-individual lines on a stem plot will be added as a LineCollection
-instead of individual lines. This significantly improves the
-performance of a stem plot. To remove this warning and switch to the
-new behaviour, set the "use_line_collection" keyword argument to True.
-  from pweave.scripts import weave
-```
-
-![](figures/01_SemnaleAleatoare_figure13_1.png)\
+![](fig/01_RandomSignals_CorrSearch_CompleteSignal.png){width=70% max-width=1000px}
 
 
 ### Rezultatul corelației
 
-
+```{.python .cb.run session=plot}
+import matplotlib.pyplot as plt, numpy as np
+x1 = np.array([1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1])
+x2 = np.hstack((np.random.randn(800), x1, np.random.randn(300)))
+corr = np.correlate(x2, x1)
+plt.figure(figsize=(12,6))
+plt.stem(corr); plt.title ('Correlation signal');
+plt.savefig('fig/01_RandomSignals_CorrSearch_Result.png', transparent=True, bbox_inches='tight', dpi=300)
+plt.close()
 ```
-/home/ncleju/.local/bin/pweave:6: UserWarning: In Matplotlib 3.3
-individual lines on a stem plot will be added as a LineCollection
-instead of individual lines. This significantly improves the
-performance of a stem plot. To remove this warning and switch to the
-new behaviour, set the "use_line_collection" keyword argument to True.
-  from pweave.scripts import weave
-```
+![](fig/01_RandomSignals_CorrSearch_Result.png){width=70% max-width=1000px}
 
-![](figures/01_SemnaleAleatoare_figure14_1.png)\
 
 
 ### Identificare de sistem
