@@ -1168,20 +1168,33 @@ $$R_{fg}(t_1,t_2) = R_{fg}(0, t_2 - t_1) = R_{fg}(\tau) = \overline{f(t) g(t + \
 ### Densitatea spectrală de putere
 
 - **Densitatea spectrală de putere** (DSP) $S_{ff}(\omega)$ reprezintă 
-puterea procesului aleator la fiecare frecvență $f$ ($\omega = 2 \pi f$)
+puterea unui semnal în funcție de frecvență ($f$ sau $\omega = 2 \pi f$)
 
-- DSP descrie cum este distribuită puterea semnalului în frecvență
-    
-    * de ex. unele procese au mai multă putere la frecvențe joase, altele la frecvențe înalte
+- Pentru un semnal **determinist** (ne-aleator), este dată de modului transf. Fourier la pătrat:
+    $$S_{ff}(\omega) = |F(\omega)|^2$$
 
 - Puterea în banda de frecvență $[f_1, f_2]$ este $\int_{f_1}^{f_2} S_{ff}(\omega) d\omega$
 
 - Puterea totală a procesului aleator este $P = \int_{-\infty}^{\infty} S_{ff}(\omega) d\omega$
 
-- DSP este o funcție măsurabilă practic
+- DSP este o funcție măsurabilă practic:
 
     - poate fi determinată experimental
     - este importantă în aplicații practice (inginerești)
+
+### Densitatea spectrală de putere
+
+- Ce reprezintă DSP pentru un proces aleator?
+    - nu mai avem un singur semnal, cu o infinitate de realizări posibile
+    - fiecare realizare are o transformată Fourier proprie, diferită
+    - DSP fiind diferită pentru fiecare realizare în parte, este, ea însăși, un proces aleator
+
+- **DSP a unui proces aleator** = media DSP pentru toate realizările posibile
+
+- Are aceeași utilitate și semnificație ca în cazul unui semnal determinist, 
+doar că **în medie** în raport cu toate realizările posibile
+    - pentru o realizare particulară, DSP poate varia în jurul DSP medii
+
 
 ### Teorema Wiener-Hincin
 
@@ -1191,10 +1204,10 @@ puterea procesului aleator la fiecare frecvență $f$ ($\omega = 2 \pi f$)
     $$S_{ff}(\omega) = \int_{-\infty}^{\infty} R_{ff}(\tau) e^{- j \omega \tau} d\tau$$
     $$R_{ff}(\tau) = \frac{1}{2 \pi}\int_{-\infty}^{\infty} S_{ff}(\omega) e^{j \omega \tau} d\omega$$
 
-- Fără demonstrație, prea complicat
+- Fără demonstrație
 
 - Leagă două concepte de natură diferită
-    - funcția de autocorelație: o proprietate *statistică*
+    - Funcția de autocorelație: o proprietate *statistică*
     - DSP: o proprietate *fizică* (ține de energia semnalului; importantă în aplicații practice)
 
 ### Zgomot alb
@@ -1227,7 +1240,7 @@ puterea procesului aleator la fiecare frecvență $f$ ($\omega = 2 \pi f$)
     
     - se numește zgomot alb **de bandă limitată**
     
-- În acest caz, autocorelația = aproximativ un Dirac, dar nu chiar infinit de "subțire"
+- În acest caz, autocorelația = **aproximativ** un Dirac, dar nu chiar infinit de "subțire"
 
     - eșantioane foarte apropiate sunt totuși corelate
     
@@ -1239,15 +1252,20 @@ puterea procesului aleator la fiecare frecvență $f$ ($\omega = 2 \pi f$)
 
     - Zgomot alb, Gaussian, aditiv
     
-    - tipul de zgomot cel mai frecvent întâlnit în aplicații
+    - tipul/modelul de zgomot cel mai frecvent întâlnit în aplicații
 
 - Înseamnă:
 
-    - **aditiv**: zgomotul se adună peste semnalul original (adică de ex. nu se multiplică cu acesta)
+    - **zgomot**: este un proces aleator (fiecare eșantion este aleator, fiecare realizare este diferită)
     
     - **gaussian**: eșantioanele au distribuția normală
     
     - **alb**: valorile eșantioanelor sunt necorelate între ele 
+    
+    - **aditiv**: zgomotul se adună peste semnalul original (adică de ex. nu se multiplică cu acesta)
+    
+    
+    
 
 ### Examen 2020-2021
 
