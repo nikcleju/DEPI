@@ -413,169 +413,307 @@ vom avea $M$ derivate
    - căutați cursuri sau cărți online
    - IASI AI Meetup
 
+    
+### Deplasarea și varianța estimatorilor
+
+- Cum caracterizăm calitatea unui estimator?
+    
+- Un estimator $\hat{\Theta}$ este **o variabilă aleatoare**
+
+   - poate avea diverse valori, pentru că se calculează pe baza eșantioanelor recepționate, care depind de zgomot
+   - exemplu: se repetă aceeași estimare pe calculatoare diferite => valori estimate ușor diferite
+
+- Fiind o variabilă aleatoare, se pot defini:
+
+   - valoarea medie a estimatorului: $E \left\{ \hat{\Theta} \right\}$
+   - varianța estimatorului: $E \left\{ (\hat{\Theta} - \Theta)^2 \right\}$
+   
+### Deplasarea și varianța estimatorilor
+
+![Deplasarea și varianța estimatorilor](img/BiasVariance.png){width=65%}
+
+### Deplasarea unui estimator
+
+- **Deplasarea** ("bias") unui estimator = diferența dintre valoarea medie a estimatorului 
+și valoarea adevărată $\Theta$
+	$$Deplasare = E \left\{ \hat{\Theta} \right\} - \Theta$$
+
+- Estimator **nedeplasat** = valoarea medie a estimatorului este egală cu valoarea adevărată a parametrului $\Theta$
+	$$E \left\{ \hat{\Theta} \right\} = \Theta$$
+      
+- Estimator **deplasat** = valoarea medie a estimatorului diferă de valoarea adevărată a parametrului $\Theta$
+   - diferența $E \left\{ \hat{\Theta} \right\} - \Theta$ este **deplasarea** estimatorului
+
+
+### Deplasarea unui estimator
+
+- Exemplu: semnal constant A, zgomot Gaussian (cu media), estimatorul de plauzibilitate maximă este $\hat{A}_{ML} = \frac{1}{N}\sum_i r_i$
+
+- Atunci:
+$$\begin{split}
+E \left\{ \hat{A}_{ML} \right\} =& \frac{1}{N}E \left\{ \sum_i r_i \right\} \\
+=& \frac{1}{N} \sum_{i=1}^N E \left\{ r_i \right\} \\
+=& \frac{1}{N} \sum_{i=1}^N E \left\{ A + zgomot \right\} \\
+=& \frac{1}{N} \sum_{i=1}^N A \\
+=& A
+\end{split}$$
+
+- Acest estimator este nedeplasat
+
+### Varianța unui estimator
+
+- **Varianța** unui estimator măsoară "abaterile" estimatorului în jurul valorii medii
+   
+   - aceasta e definiția varianței $\sigma^2$ în general
+   
+- Dacă un estimator are **varianța** mare, valoarea estimată poate fi departe de cea reală,
+chiar daca estimatorul este nedeplasat
+
+- De obicei se preferă estimatori cu **varianță mică**, tolerându-se o eventuală mică deplasare
+
 
 ## II.3 Estimare Bayesiană
 
 
-### Regula lui Bayes
+### Estimare Bayesiană
 
-- Se poate utiliza regula lui Bayes
+- **Estimarea Bayesiană** ia în calcul termeni suplimentari pe lângă $w(\vec{r} | \Theta$:
 
-$$L(\Theta) = w(\Theta | \vec{r}) = \frac{w(\vec{r} | \Theta) \cdot w(\Theta)}{w(\vec{r})}$$
+   - o distribuție *a priori* $w(\Theta)$
+   - opțional, o funcție de cost
+
+- Se obține echivalentul din estimare pentru criteriile de decizie MPE și MR
+
+### Estimare Bayesiană
+
+- Se definește **distribuția *a posteriori* ** a lui $\Theta$, 
+dat fiind observațiile $\vec{r}$, folosind **regula lui Bayes**:
+
+	$$w(\Theta | \vec{r}) = \frac{w(\vec{r} | \Theta) \cdot w(\Theta)}{w(\vec{r})}$$
 
 - Termenii:
- - $\Theta$ este parametrul necunoscut
- - $\vec{r}$ este vectorul de observații
- - $L(\Theta) = w(\Theta | \vec{r})$ este plauzibilitatea lui $\Theta$, dat fiind vectorul de observații $\vec{r}$;
- - $w(\vec{r} | \Theta)$ este probabilitatea lui $\vec{r}$ pentru un $\Theta$ dat, depinde de distribuția zgomotului
- - $w(\Theta)$ este distribuția **a priori** a lui $\Theta$
- - $w(\vec{r})$ este distribuția **a priori** a lui $\vec{r}$, se presupune a fi constantă
+
+	- $\Theta$ este parametrul necunoscut
+	- $\vec{r}$ este vectorul de observații
+	- $w(\Theta | \vec{r})$ este probabilitatea ca parametrul să aibă valoarea $\Theta$, 
+	dat fiind vectorul de observații $\vec{r}$;
+	- $w(\vec{r} | \Theta)$ este funcția de plauzibilitate
+	- $w(\Theta)$ este distribuția **a priori** a lui $\Theta$
+	- $w(\vec{r})$ este distribuția **a priori** a lui $\vec{r}$; se presupune a fi constantă
 
 
 ### Regula lui Bayes
 
 - Relația precedentă arată că, în general, estimarea lui $\Theta$ depinde de două lucruri:
 
-  1. De observațiile $r_i$, prin termenul $w(\vec{r} | \Theta)$
+  1. De vectorul observațiilor $\vec{r}$, prin termenul $w(\vec{r} | \Theta)$
   2. De informația "a priori" avută despre $\Theta$, prin termenul $w(\Theta)$
   
-\smallskip
-  
-(termenul $w(\vec{r})$ se presupune a fi constant, și nu joacă un rol important)
-  
-  
-  
+- Numele este "estimare Bayesiană"
+
+   - Thomas Bayes = matematician englez, a descoperit regula cu acest nume
+   - Noțiunile bazate pe regula lui Bayes poartă deseori numele de "Bayesiane"
+    
 ### Distribuția *a priori*
 - Presupunem că se știe de dinainte o distribuție a lui $\Theta$, $w(\Theta)$
+
    - știm de dinainte care e probabilitatea de a fi a anume valoare sau alta
    - se numește distribuția *a priori*
 - Estimarea trebuie să ia în calcul și distribuția *a priori*
+   
    - estimatul va fi "tras" înspre valori mai probabile
-    - Cunoscută sub numele de "estimare Bayesiană"
-   - Thomas Bayes = a descoperit regula lui Bayes
-   - Chestiile bazate pe regula lui Bayes poartă deseori numele de "Bayesian"
+   
+### Estimatorul MAP
+
+- Cunoaștem distribuția *a posteriori* $w(\Theta | \vec{r})$. 
+Care este valoarea estimată?
+
+- Se poate alege valoarea care are probabilitate maximă
+
+- Estimatorul **Maximum A Posteriori (MAP)** este
+	$$\hat{\Theta}_{MAP} = \arg\max_\Theta w(\Theta | \vec{r}) = \arg\max\Theta w(\vec{r} | \Theta) \cdot w(\Theta)$$
+
+- Estimatorul MAP alege acea valoare $\Theta$ unde distribuția *a posteriori* $w(\Theta | \vec{r})$ este maximă
+
+- Estimatorul MAP maximizează **produsul** dintre plauzibilitate și
+**distribuția *a priori* $w(\Theta)$**
+
+### Estimatorul MAP
+
+Exemplu: Imagine 
+
+
+### Relația dintre estimarea MAP și ML
+
+- Estimatorul ML: $$\arg\max w(\vec{r} | \Theta)$$
+
+- Estimatorul MAP: $$\arg\max w(\vec{r} | \Theta) \cdot w(\Theta)$$
+
+- Estimatorul ML este un caz particular de MAP pentru $w(\Theta)$ constant
+   
+   - $w(\Theta)$ = constant înseamnă că toate valorile lui $\Theta$ sunt *a priori* echiprobabile
+   - i.e. nu avem extra informații despre valoarea lui $\Theta$
+
+
+### Relația cu detecția semnalelor
+
+- Criteriul probabilității minime de eroare: 
+$\frac{w(r | H_1)}{w(r | H_0)} \grtlessH \frac{P(H_0)}{P(H_1)}$
+
+- Se poate rescrie ca $w(r | H_1)\cdot P(H_1) \grtlessH w(r | H_0) P(H_0)$
+   
+   - adică se alege ipoteza pentru care $w(r | H_i)\cdot P(H_i)$este mai mare
+
+- **Criteriul de decizie MPE**: se alege ipoteza care maximizează $w(r | H_i)\cdot P(H_i)$
+    
+	- dintre cele două ipoteze $H_0$, $H_1$
+
+- **Estimarea MAP**: se alege valoarea care maximizează $w(\vec{r} | \Theta) \cdot w(\Theta)$
+    
+	- dintre toate valorile posibile pentru $\Theta$
+
+- Același principiu!
+
 
 ### Funcția de cost
+
+- Vrem s găsim un echivalent și pentru criteriul MR
+
+- Avem nevoie de un echivalent pentru costurile $C_{ij}$
 - **Eroarea de estimare** = diferența între estimatul $\hat{\Theta}$ și valoarea reală $\Theta$
-$$\epsilon = \hat{\Theta} - \Theta$$
-- **Funcția de cost $C(\epsilon)$** atribuie un cost pentru fiecare eroare de estimare posibilă
+	$$\epsilon = \hat{\Theta} - \Theta$$
+- **Funcția de cost $C(\epsilon)$** = atribuie un cost pentru fiecare eroare de estimare posibilă
+
    - când $\epsilon = 0$, costul $C(0) = 0$ 
    - erori $\epsilon$ mici au costuri mici
    - erori $\epsilon$ mari au costuri mari
+
+### Funcția de cost
 - Funcții de cost uzuale:
-   - Pătratică: $C(\epsilon) = \epsilon^2 = \left( \hat{\Theta} - \Theta \right)^2$
+
+   - Pătratică: 
+		$$C(\epsilon) = \epsilon^2 = \left( \hat{\Theta} - \Theta \right)^2$$
    - Uniformă: 
-    $C(\epsilon) = \begin{cases}
-    0, \text{ if } |\epsilon| = |\hat{\Theta} - \Theta | \leq E \\
-    1, \text{ if } |\epsilon| = |\hat{\Theta} - \Theta | > E \\
-    \end{cases}$
-   - Liniară: $C(\epsilon) = |\epsilon| = | \hat{\Theta} - \Theta |$
-   - (desenate la tablă)
+		$$C(\epsilon) = \begin{cases}
+		0, \text{ if } |\epsilon| = |\hat{\Theta} - \Theta | \leq E \\
+		1, \text{ if } |\epsilon| = |\hat{\Theta} - \Theta | > E \\
+		\end{cases}$$
+   - Liniară: 
+		$$C(\epsilon) = |\epsilon| = | \hat{\Theta} - \Theta |$$
+   
+- De desenat la tablă
+
+### Funcția de cost
+
+- Funcția de cost $C(\epsilon)$ reprezintă echivalentul costurilor $C_{ij}$ de la detecție
+  
+    - la detecție aveam doar 4 valori: $C_{00}$, $C_{01}$, $C_{10}$, $C_{11}$
+	- aici avem un cost pentru fiecare eroare posibilă $\epsilon$
+
+- Funcția de cost dictează ce valoarea alegem din distribuția $w(\Theta | \vec{r})$
+
+
+### IUmportanța funcției de cost
+
+- Fie distribuția *a posteriori* următoare:
+
+![Unbalanced posterior distribution](img/UnbalancedPosterior.png){height=35%}
+
+- Care este estimatorul MAP?
+
+- Dacă avem funcția de cost următoare:
+    
+	- dacă estimarea $\hat{\Theta}$ este < valoarea reală $\Theta$, te costă 1000 \$
+	- dacă estimarea $\hat{\Theta}$ este > valoarea reală $\Theta$, platești 1 \$
+	- schimbăm valoarea estimată ? :)
 
 ### Riscul Bayesian
-- Pentru fiecare pereche de valori $\vec{r}$ și $\Theta$, $w(\vec{r}; \Theta)$ 
-indică cât de probabilă este acea pereche de valori
-- Prin multiplicare cu $C(\epsilon$ se obține costul pentru fiecare pereche $\vec{r}$ și $\Theta$
-$$C(\epsilon) w(\vec{r}; \Theta)$$
-- Integrând după $\Theta$ se obține costul total pentru un anume $\vec{r}$ și toți $\Theta$
-$$\int_{-\infty}^\infty C(\epsilon) w(\vec{r}; \Theta) d\Theta$$
-- Integrând mai de parte și după $\vec{r}$ se obține costul global pentru toți $\vec{r}$ și toți $\Theta$
-$$R = \int_{-\infty}^\infty \int_{-\infty}^\infty C(\epsilon) w(\vec{r}; \Theta) d\Theta d\vec{r}$$
 
-### Minimizarea riscului
-- Se dorește minimizarea riscului R (= a costului global)
-- Regula lui Bayes: $w(\vec{r}; \Theta) = w(\Theta | \vec{r}) w(\vec{r})$
-- Înlocuind în R, se obține
-$$\begin{split}
-R =& \int_{-\infty}^\infty \int_{-\infty}^\infty C(\epsilon) w(\Theta | \vec{r}) w(\vec{r}) d\Theta d\vec{r} \\
-=& \int_{-\infty}^\infty w(\vec{r}) \left[ \int_{-\infty}^\infty C(\epsilon) w(\Theta | \vec{r}) d\Theta \right] d\vec{r}
-\end{split}$$
-- Cum $w(\vec{r}) \geq 0$, minimizarea integralei $I$ din interior asigură minimul lui $R$
-$$I = \int_{-\infty}^\infty C(\epsilon) w(\Theta | \vec{r}) d\Theta$$
-- Vom înlocui $C(\epsilon)$ cu definiția sa și derivăm după $\hat{\Theta}$
-   - Atenție: derivăm după $\hat{\Theta}$, nu $\Theta$!
+- Distribuția *a posteriori* $w(\Theta | \vec{r})$ dă probabilitatea fiecărei valori $\hat{\Theta}$ 
+de a fi cea corectă
+  
+- Alegerea unui estimat $\hat{\Theta}$ implică o anume eroare $\epsilon$
+
+- Eroarea de estimare are un anumit cost $C(\epsilon)$
+
+- **Riscul** = valoarea medie a costului = $C(\epsilon$) $\times$ probabilitatea:
+	$$R = \int_{-\infty}^\infty C(\epsilon) w(\Theta | \vec{r}) d\Theta$$
+	
+### The Bayesian risk
+
+- Alegem valoarea $\hat{\Theta}$ care **minimizează costul mediu $R$**
+	$$\hat{\Theta} = \arg\min_\Theta \int_{-\infty}^\infty C(\epsilon) w(\Theta | \vec{r}) d\Theta$$
+
+- O obținem înlocuind $C(\epsilon)$ cu definiția sa, și derivând după $\hat{\Theta}$
+   
+   - Atenție: se derivează după $\hat{\Theta}$, nu $\Theta$!
+
 
 ### Estimatorul EPMM (eroare pătratică medie minimă)
 - Când funcția de cost este pătratică $C(\epsilon) = \epsilon^2 = \left( \hat{\Theta} - \Theta \right)^2$
-$$I = \int_{-\infty}^\infty (\hat{\Theta} - \Theta)^2 w(\Theta | \vec{r}) d\Theta$$
-- Vrem $\hat{\Theta}$ care minimizează $I$, deci derivăm
-$$\frac{dI}{d\hat{\Theta}} = 2 \int_{-\infty}^\infty (\hat{\Theta} - \Theta) w(\Theta | \vec{r}) d\Theta = 0$$
+	$$R = \int_{-\infty}^\infty (\hat{\Theta} - \Theta)^2 w(\Theta | \vec{r}) d\Theta$$
+- Vrem $\hat{\Theta}$ care minimizează $R$, deci derivăm
+	$$\frac{dR}{d\hat{\Theta}} = 2 \int_{-\infty}^\infty (\hat{\Theta} - \Theta) w(\Theta | \vec{r}) d\Theta = 0$$
 - Echivalent cu
-$$\hat{\Theta} \underbrace{\int_{-\infty}^\infty w(\Theta | \vec{r})}_1 d\Theta = \int_{-\infty}^\infty \Theta w(\Theta | \vec{r}) d\Theta$$
+	$$\hat{\Theta} \underbrace{\int_{-\infty}^\infty w(\Theta | \vec{r})}_1 d\Theta = \int_{-\infty}^\infty \Theta w(\Theta | \vec{r}) d\Theta$$
 - Estimatorul de **eroare pătratică medie minimă (EPMM) ("Minimum Mean Squared Error, MMSE")**:
-$$\hat{\Theta} = \int_{-\infty}^\infty \Theta \cdot w(\Theta | \vec{r}) d\Theta$$
+	$$\hat{\Theta}_{EPMM} = \int_{-\infty}^\infty \Theta \cdot w(\Theta | \vec{r}) d\Theta$$
 
 ### Interpretare
-- $w(\Theta | \vec{r})$ este distribuția **a posteriori** a lui $\Theta$
-   - este distribuția lui $\Theta$ **după** ce cunoaștem semnalul recepționat $\vec{r}$
-   - distribuția *a priori* $w(\Theta)$ este cea de dinainte de a recepționa datele
-    - Estimatorul EPMM este **valoarea medie** a distribuției *a posteriori*
+
+- **Estimatorul EPMM**: estimatorul $\hat{\Theta}$ este **valoarea medie** a distribuției *a posteriori* $w(\Theta | \vec{r})$
+
+	$$\hat{\Theta}_{EPMM} = \int_{-\infty}^\infty \Theta \cdot w(\Theta | \vec{r}) d\Theta$$
+
+    - EPMM = "Eroare Pătratică Medie Minimă"
+	- valoarea medie = sumă (integrală) din fiecare $\Theta$ ori probabilitatea sa $w(\Theta | \vec{r})$
+
+- Estimatprul EPMM se obține din distribuția *a posteriori* $w(\Theta | \vec{r})$, 
+considerând funcția de cost pătratică
 
 ### Estimatorul MAP
-- Dacă funcția de cost este uniformă $C(\epsilon) = \begin{cases}
-    0, \text{ if } |\epsilon| = |\hat{\Theta} - \Theta | \leq E \\
-    1, \text{ if } |\epsilon| = |\hat{\Theta} - \Theta | > E \\
-    \end{cases}$
+- Dacă funcția de cost este uniformă 
+	$$C(\epsilon) = \begin{cases}
+	0, \text{ if } |\epsilon| = |\hat{\Theta} - \Theta | \leq E \\
+	1, \text{ if } |\epsilon| = |\hat{\Theta} - \Theta | > E \\
+	\end{cases}$$
 - Știm că $\Theta = \hat{\Theta} - \epsilon$
 - Se obține
-$$\begin{split}
-I =& \int_{-\infty}^{\hat{\Theta}-E} w(\Theta | \vec{r}) d\Theta + \int_{\hat{\Theta} + E}^\infty w(\Theta | \vec{r}) d\Theta \\
-I =& 1 - \int_{\hat{\Theta}-E}^{\hat{\Theta}+E} w(\Theta | \vec{r}) d\Theta
-\end{split}$$
+	$$\begin{split}
+	R =& \int_{-\infty}^{\hat{\Theta}-E} w(\Theta | \vec{r}) d\Theta + \int_{\hat{\Theta} + E}^\infty w(\Theta | \vec{r}) d\Theta \\
+	R =& 1 - \int_{\hat{\Theta}-E}^{\hat{\Theta}+E} w(\Theta | \vec{r}) d\Theta
+	\end{split}$$
 
 ### Estimatorul MAP
-- Pentru minimizarea $I$, trebuie să maximizăm $\int_{\hat{\Theta}-E}^{\hat{\Theta}+E} w(\Theta | \vec{r}) d\Theta$, integrala
-din jurul punctului $\hat{\Theta}$
+- Pentru minimizarea $R$, trebuie să maximizăm $\int_{\hat{\Theta}-E}^{\hat{\Theta}+E} w(\Theta | \vec{r}) d\Theta$, 
+integrala din jurul punctului $\hat{\Theta}$
 - Pentru $E$ foarte mic, funcția $w(\Theta | \vec{r})$ este aproximativ constantă, deci se va alege punctul unde funcția este maximă
-- Estimatorul **Maximum A Posteriori (MAP)** este
-$$\hat{\Theta} = \arg\max w(\Theta | \vec{r})$$
-- $\arg\max$ = "valoarea la care funcția este maximă"
-   - $\max f(x)$ = valoarea maximă a unei funcții
-   - $\arg\max f(x)$ = valoarea $x$ pentru care funcția atinge valoarea maximă
+
+- **Estimatorul Maximum A Posteriori (MAP)** = valoarea $\hat{\Theta}$ care maximizează $w(\Theta | \vec{r})$
+	$$\hat{\Theta}_{MAP} = \arg\max_\Theta w(\Theta | \vec{r}) = \arg\max\Theta w(\vec{r} | \Theta) \cdot w(\Theta)$$
+
 
 ### Interpretare
-- Estimatorul MAP: $\hat{\Theta}$ = valoarea care maximizează distribuția *a posteriori*
-- Estimatorul EPMM: $\hat{\Theta}$ = valoarea medie a distribuției *a posteriori*
+
+- Estimatorul MAP: $\hat{\Theta}$ = valoarea care maximizează distribuția *a posteriori*
+
+- Estimatorul EPMM: $\hat{\Theta}$ = valoarea medie a distribuției *a posteriori*
 
 ![Estimatorul MAP vs EPMM(MMSE)](img/MAPvsMMSE.png){#id .class width=60%}
 
 *[image from https://allenlu2007.wordpress.com]*
 
 
-### Cum se găsește distribuția *a posteriori*
-- Cum găsim distribuția *a posteriori* $w(\Theta | \vec{r})$?
-- Regula lui Bayes
-$$w(\Theta | \vec{r}) = \frac{w(\vec{r}; \Theta)}{w(\vec{r})} = \frac{w(\vec{r} | \Theta) \cdot w(\Theta)}{w(\vec{r})}$$
-- Cum $w(\vec{r})$ e constant pentru un $\vec{r}$ dat, estimatorul MAP este
-$$\hat{\Theta} = \arg\max w(\Theta | \vec{r}) = \arg\max w(\vec{r} | \Theta) w(\Theta)$$
-- Estimatorul MAP este valoarea care maximizează plauzibilitatea datelor recepționate, 
-dar **multiplicate** cu distribuția *a priori* $w(\Theta)$
-- Estimatorul EPMM  este valoarea medie a aceleiași funcții
+### Relația între estim. MAP and EPMM
 
+- Estimatorul MAP = minimizează costul mediu, folosind funcția de cost uniformă
 
-### Relația cu estimatorul ML
-- Estimatorul ML este $\arg\max w(\vec{r} | \Theta)$
-- Estimatorul MAP = similar cu cel ML dar multiplicând în prealabil funcția cu distribuția *a priori* $w(\Theta)$
-- Dacă $w(\Theta)$ ar fi constant, estimatorul MAP se reduce la cel ML
-   - $w(\Theta)$ = constant înseamnă că toate valorile $\Theta$ sunt la fel de posibile
-   - adică nu avem nici o idee/preferință unde s-ar afla valoarea reală $\Theta$
-
-### Relația cu detecția semnalelor
-- Criteriul probabilității minime de eroare $\frac{w(r | H_1)}{w(r | H_0)} \grtlessH \frac{P(H_0)}{P(H_1)}$
-- Se poate rescrie ca $w(r | H_1)\cdot P(H_1) \grtlessH w(r | H_0) P(H_0)$
-   - adică se alege ipoteza pentru care $w(r | H)\cdot P(H)$ este mai mare
-   - $w(r | H_1)$, $w(r | H_0)$ sunt plauzibilitățile semnalului recepționat
-   - $P(H_1)$, $P(H_0)$ sunt probabilitățile *a priori* (inițiale) ale ipotezelor
-- Estimatorul MAP = valoarea pentru care $w(\vec{r} | \Theta) w(\Theta)$ e maxim
-   - $w(\vec{r} | \Theta)$ este plauzibilitatea semnalului recepționat
-   - $w(\Theta)$ este distribuția *a priori*
-- Același principiu, doar în contexte diferite:
-   - la detecție, avem de ales doar între câteva opțiuni predefinite
-   - la estimare, nu avem constrângeri => se alege valoarea care maximizează întreaga funcție
-
-### Examen 2018-2019
-- Până aici s-a făcut în 2018-2019. Celelalte slide-uri din acest fișier nu se cer.
-
+	- ca le detecție: criteriul MPE = criteriul MR când costurile sunt la fel
+	
+- Estimatorul MMSE = minimizează costul mediu, folosind funcția de cost pătratică
+ 
+    - similar cu criteriul MR, dar la estimare
+	
 ### Exercițiu
 
 Exercițiu: valoare constantă, 1 măsurătoare, zgomot Gaussian același $\sigma$
@@ -631,44 +769,12 @@ face ca semnalul adevărat să fie apropiat de eșantioanele recepționate $\vec
 
 ### Aplicații
 - În general, aplicațiile practice:
+
    - utilizează diverse tipuri de distribuții "a priori"
    - estimează **mai mulți parametri** (un vector de parametri)
 - Aplicații
+
    - reducerea zgomotului din semnale
    - restaurarea semnalelor (parți lipsă din imagini, imagini *blurate* etc)
    - compresia semnalelor
-    
-### Estimatori nedeplasați
-- Cum caracterizăm calitatea unui estimator?
-   - Există diverse abordări
-    - Un estimator $\hat{\Theta}$ este **o variabilă aleatoare**
-   - poate avea diverse valori, pentru că se calculează pe baza eșantioanelor recepționate, care depind de zgomot
-   - exemplu: se repetă aceeași estimare pe calculatoare diferite => valori estimate ușor diferite
-- Fiind o variabilă aleatoare, se pot defini:
-   - valoarea medie a estimatorului: $E \left\{ \hat{\Theta} \right\}$
-   - varianța estimatorului: $E \left\{ (\hat{\Theta} - \Theta)^2 \right\}$
-    
-### Estimatori nedeplasați
-- Estimator **nedeplasat** = valoarea medie a estimatorului este egală cu valoarea adevărată a parametrului $\Theta$
-$$E \left\{ \hat{\Theta} \right\} = \Theta$$
-      - Estimator **deplasat** = valoarea medie a estimatorului diferă de valoarea adevărată a parametrului $\Theta$
-   - diferența $E \left\{ \hat{\Theta} \right\} - \Theta$ se numește **deplasarea** estimatorului
-
-
-### Estimatori nedeplasați
-- Exemplu: semnal constant A, zgomot Gaussian (cu media), estimatorul de plauzibilitate maximă este $\hat{A}_{ML} = \frac{1}{N}\sum_i r_i$
-- Atunci:
-$$\begin{split}
-E \left\{ \hat{A}_{ML} \right\} =& \frac{1}{N}E \left\{ \sum_i r_i \right\} \\
-=& \frac{1}{N} \sum_{i=1}^N E \left\{ r_i \right\} \\
-=& \frac{1}{N} \sum_{i=1}^N E \left\{ A + zgomot \right\} \\
-=& \frac{1}{N} \sum_{i=1}^N A \\
-=& A
-\end{split}$$
-- Acest estimator este nedeplasat
-
-### Varianța unui estimator
-- Dacă un estimator are **varianța** mare, valoarea estimată poate fi departe de cea reală
-   - indiferent dacă estimatorul este nedeplasat sau nu
-- De obicei se preferă estimatori de **varianță redusă**, tolerându-se o eventuală mică deplasare
 
