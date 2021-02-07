@@ -1,7 +1,7 @@
 # Decizie și Estimare în Prelucrarea Informației
 
 Aici sunt disponibile materialele de curs de la disciplina Decizie și Estimare în Prelucrarea Informației,
-predată în semestrul I 2019-2020 la ETTI, TUIASI.
+predată în semestrul I 2020-2021 la ETTI, TUIASI.
 
 <!--
 ## Observații pentru examen 2018-2019
@@ -16,18 +16,22 @@ predată în semestrul I 2019-2020 la ETTI, TUIASI.
 
 ### Cursuri
 
-Toate prezentările de la curs sunt disponibile în format pdf în directorul Lectures:
+Toate prezentările de la curs sunt disponibile în format pdf în directorul [Lectures](Lectures/):
 
 - [Lectures\00_Introducere.pdf](Lectures/00_Introducere.pdf)
 - [Lectures\01_SemnaleAleatoare.pdf](Lectures/01_SemnaleAleatoare.pdf)
 - [Lectures\02_DetectiaSemnalelor.pdf](Lectures/02_DetectiaSemnalelor.pdf)
 - [Lectures\03_EstimareaParametrilor.pdf](Lectures/03_EstimareaParametrilor.pdf)
 
+Prezentările **adnotate** (pe care am scris în timpul cursurilor) sunt disponibile în directorul [Lectures/online/](Lectures/online).
+Fișierele au numele de forma `<capitol>_annotated.pdf`.
+
+
 ## Evaluare
 
 ### Examen
 
-Un model de examen este disponibil aici: [SampleExam\SampleExamSheet.pdf](SampleExam/SampleExamSheet.pdf)
+Modele de examen sunt disponibile pn directorul [SampleExam](SampleExam/)
 
 ### Note
 
