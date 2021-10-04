@@ -29,7 +29,7 @@
 
 ### Aruncarea unei monede
 
-- Variabila aleatoare X = "fața obținută la atuncarea unei monede"
+- Variabila aleatoare X = "fața obținută la aruncarea unei monede"
 	
 	\smallskip
 

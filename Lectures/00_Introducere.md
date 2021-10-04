@@ -4,8 +4,8 @@
 
 - 4 credite
 - Profesori
-    - Curs: Nicolae Cleju
-    - Laborator & Seminar: Mirela Rotopănescu
+    - Curs & Seminar: Nicolae Cleju
+    - Laborator: Lucian Trifina
 
 - Orar
     - 14 cursuri (2h)
@@ -23,13 +23,13 @@
     - Similar cu examenul de Information Theory (engl.)
     
 - Aplicații = 40%
-    - Laborator = 20% (jumătate din nota de aplicații)
-        - 20% din nota finală
-        - în Matlab / Simulink
-	   
-    - Seminar = 20% din nota finală (jumătate din nota de aplicații)
 
-- Nota finală = 60% Examen + 40% Aplicații( Laborator + Teste)
+    - Laborator = 20% din nota finală
+   
+    - Seminar = 20% din nota finală
+		- 2 teste pe parcursul semestrului
+
+- Nota finală = 60% Examen + 40% Aplicații( Laborator + Seminar)
 
 
 ### Structura cursului
