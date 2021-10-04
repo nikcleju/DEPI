@@ -16,11 +16,10 @@ fontsize: 12pt
 
 \smallbreak
 
-2. Fie A o variabilă aleatoare continuă cu distribuția normală $\mathcal{N}(\mu = 1, \sigma^2 = 20)$
-(distribuție uniformă între 0 și $\pi$). 
+2. Fie A o variabilă aleatoare continuă cu distribuția normală $\mathcal{N}(\mu = 1, \sigma^2 = 20)$.
 
 	a. Calculați probabilitatea $P(A \in [2, \; 4])$
-	e. Care e distribuția variabile aleatoare $B$ definită ca $B = A - 2$?
+	e. Care e distribuția variabilei aleatoare $B$ definită ca $B = A - 2$?
 	b. Care este valoarea maximă a distribuției $w_A(x)$, și pentru ce valoare $x$ se atinge?
 
 \smallbreak
@@ -35,7 +34,7 @@ toate având aceeași probabilitate.
 \smallbreak
 
 4. Calculați probabilitatea ca 3 variabile aleatoare X, Y, Z, independente și identic distribuite (i.i.d) 
-cu distribuția normală $\mathcal{N}(\mu = 1, \sigma^2 = 1)$ să fie pozitive simultan
+cu distribuția normală $\mathcal{N}(\mu = 1, \sigma^2 = 1)$ să fie pozitive simultan.
 
 \smallbreak
 
