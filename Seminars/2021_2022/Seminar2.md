@@ -10,9 +10,15 @@ fontsize: 12pt
 1. Calculați valoarea medie, valoarea pătratică medie și varianța unui proces aleator staționar
 având distribuția unui eșantion egală cu:
 
-    a) $w_1(x) = \mathcal{U}[a,b]$ pentru niște valori $a, b \in \mathbb{R}$;
-    b) $w_1(x) = \frac{1}{2} - \frac{1}{8} x$. În acest caz, reprezentați și distribuția și verificați faptul că integrala sa face 1.
-
+    a. $w_1(x) = \mathcal{U}[a,b]$ pentru niște valori $a, b \in \mathbb{R}$;
+	
+    b. $w_1(x) = \begin{cases}
+		\frac{1}{2} - \frac{1}{8} x, &x \in [0,4] \\
+		0, &în  \;\; rest
+		\end{cases}$ 
+		
+	   În acest caz, reprezentați și distribuția și verificați faptul că integrala sa este egală cu 1.
+		
 \smallbreak
 
 2. Calculați valoarea medie temporală, valoarea pătratică medie temporală, varianța temporală și funcția de autocorelație temporală pentru
