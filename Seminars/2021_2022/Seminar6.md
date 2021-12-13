@@ -41,6 +41,8 @@ Valorile măsurate la momentele $t_i = [1,2,3,4,5]$ sunt $r_i = [4.9, 9.8, 14.3,
     *Hint*: Dacă viteza e constantă, distanta parcursă ar trebui să fie $x = V \cdot t$ 
 
     a. Estimați viteza $V$ a robotului folosind estimarea ML
+	b. Dacă presupunem la momentul inițial poziția robotului nu este 0, ci o valoare necunoscută $x_0$, estimați perechea de parametri [V, $x_0$]
+	folosind estimarea ML
 
     \smallskip
     
