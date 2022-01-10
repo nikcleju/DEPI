@@ -50,3 +50,10 @@ Presupunând că zgomotul are distribuția $\mathcal{N}(0,\sigma^2=1)$
 	   Folosiți estimarea Bayesiană pentru a estima poziția la acest moment, considerând ca distribuție *a priori* distribuția prezisă la punctul a). 
 	
 5. Dacă distribuția *a posteriori* a unui parametru $\Theta$ este $w(\Theta | r) = U[-3, 7]$, calculați estimatul MMSE și estimatul MAP.
+
+
+**Notă**: 
+
+- Se știe că produsul a două distribuții normale cu $\mu_1, \sigma^2_1$ și $\mu_2, \sigma^2_2$ 
+este tot o fistribuție normală cu media $\mu = \frac{\mu_1 \sigma^2_2 + \mu_2 \sigma^2_1}{\sigma_1^2 + \sigma_2^2}$
+și varianța $\sigma^2 = \frac{\sigma_1^2 \sigma_2^2}{\sigma_1^2 + \sigma_2^2}$
