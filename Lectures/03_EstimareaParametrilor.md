@@ -781,7 +781,7 @@ face ca semnalul adevărat să fie apropiat de eșantioanele recepționate $\vec
 
 ### Aplicații practice
 
-1. Urmărirea unui obiect ("single object tracking")
+1. Urmărirea unui obiect ("single object tracking") prin filtrare Kalman
 
   - urmărirea unui obiect prin măsurători succesive (e.g. din imagini succesive)
   
