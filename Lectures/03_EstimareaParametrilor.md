@@ -710,7 +710,7 @@ integrala din jurul punctului $\hat{\Theta}$
 
 	- ca le detecție: criteriul MPE = criteriul MR când costurile sunt la fel
 	
-- Estimatorul MMSE = minimizează costul mediu, folosind funcția de cost pătratică
+- Estimatorul EPMM = minimizează costul mediu, folosind funcția de cost pătratică
  
     - similar cu criteriul MR, dar la estimare
 	
@@ -778,3 +778,45 @@ face ca semnalul adevărat să fie apropiat de eșantioanele recepționate $\vec
    - restaurarea semnalelor (parți lipsă din imagini, imagini *blurate* etc)
    - compresia semnalelor
 
+
+### Aplicații practice
+
+1. Urmărirea unui obiect ("single object tracking")
+
+  - urmărirea unui obiect prin măsurători succesive (e.g. din imagini succesive)
+  
+  - la fiecare nouă măsurătoare avem două distribuții ale poziției:
+     
+	  1. cea dată de măsurătoare respectivă, $w(r | \Theta)$
+	  2. cea prezisă pe baza poziției și vitezei de data trecută
+	  
+	  - presupuse a fi Gaussiene, caracterizate doar prin medie și varianță
+ 
+   - cele două se combină prin regula lui Bayes => o distribuție mai precisă $w(\Theta | r)$, tot Gaussiană
+   - poziția exactă se estimează prin EPMM (media lui $w(\Theta | r)$
+   - $w(\Theta | r)$ prezice poziția de la momentul următor
+   
+  
+### Single object tracking
+
+### Single object tracking
+
+### Aplicații practice
+
+2. Constrained Least Squares (CLS) image restoration
+
+  - Avem o imagine $I$ afectată de erori (zgomot, pixeli lipsă, blurare)
+  $$I_{zg} = I_{true} + Z$$
+  
+  - Estimăm imaginea originală prin:
+  $$\hat{I_{true}} = argmin_{I} \|I - I_{zg}\|_2 + \lambda \cdot \|HighPass\lbrace I \rbrace\|_2$$
+
+  - Exemple:
+
+    - [https://www.mathworks.com/help/images/deblurring-images-using-a-regularized-filter.html](https://www.mathworks.com/help/images/deblurring-images-using-a-regularized-filter.html)
+
+    - [https://demonstrations.wolfram.com/ImageRestorationForDegradedImages](https://demonstrations.wolfram.com/ImageRestorationForDegradedImages)
+	
+	- Google it
+	
+### Constrained Least Squares (CLS) image restoration
