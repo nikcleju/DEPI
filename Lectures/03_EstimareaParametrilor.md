@@ -787,10 +787,9 @@ face ca semnalul adevărat să fie apropiat de eșantioanele recepționate $\vec
   
   - la fiecare nouă măsurătoare avem două distribuții ale poziției:
      
-	  1. cea dată de măsurătoare respectivă, $w(r | \Theta)$
-	  2. cea prezisă pe baza poziției și vitezei de data trecută
-	  
-	  - presupuse a fi Gaussiene, caracterizate doar prin medie și varianță
+	  - cea dată de măsurătoare respectivă, $w(r | \Theta)$
+	  - cea prezisă pe baza poziției și vitezei de data trecută
+	  - ambele presupuse a fi Gaussiene, caracterizate doar prin medie și varianță
  
    - cele două se combină prin regula lui Bayes => o distribuție mai precisă $w(\Theta | r)$, tot Gaussiană
    - poziția exactă se estimează prin EPMM (media lui $w(\Theta | r)$
