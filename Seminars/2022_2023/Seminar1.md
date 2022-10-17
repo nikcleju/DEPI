@@ -1,6 +1,6 @@
 ---
-title: Seminar 1
-subtitle: DEPI
+title: DEPI - Seminar 1
+subtitle: Variabile aleatoare și probabilități
 documentclass: scrartcl
 fontsize: 12pt
 ---
