@@ -29,6 +29,20 @@ dintre două sau mai multe posibilități
     - Receptor: **decide** ce mesaj $a_n$ s-a fost recepționat
     - Utilizator: primește mesajele recuperate
 
+### Formularea problemei
+
+- Două mesaje $a_0$ și $a_1$ (0 logic sau 1 logic)
+
+- Mesajele sunt modulate cu semnalele $s_0(t)$ și $s_1(t)$
+    - pentru $a_0$: se transmite $s(t) = s_0(t)$
+    - pentru $a_1$: se transmite $s(t) = s_1(t)$
+    
+- Peste semnal se suprapune zgomotul $n(t)$
+
+- Se recepționează un semnal cu zgomot, $r(t) = s(t) + n(t)$
+
+- **Problema deciziei**: pe baza $r(t)$, care semnal a fost cel transmis?
+
 ### Scenarii practice
 
 - Transmisie de date cu diverse modulații binare:
@@ -41,7 +55,7 @@ dintre două sau mai multe posibilități
     
     - modulație OFDM (Orthogonal Frequency Division Multiplexing): caz particular de FSK
     
-    - la recepție se primește semnalul cu zgomot, **se decide** dacă s-a primit 0 sau 1
+    - la recepție se primește un semnal afectat de zgomot, **se decide** dacă s-a primit 0 sau 1
 
 ### Scenarii practice
 
@@ -67,23 +81,36 @@ dintre două sau mai multe posibilități
 
 ## II.2 Detecția semnalelor folosind 1 eșantion
 
+### Formularea problemei
+
+- Două mesaje $a_0$ și $a_1$ (0 logic sau 1 logic)
+
+- Mesajele sunt modulate cu semnalele $s_0(t)$ și $s_1(t)$
+    - pentru $a_0$: se transmite $s(t) = s_0(t)$
+    - pentru $a_1$: se transmite $s(t) = s_1(t)$
+    
+- Peste semnal se suprapune zgomotul $n(t)$
+
+- Se recepționează un semnal cu zgomot, $r(t) = s(t) + n(t)$
+
+- **Problema deciziei**: pe baza $r(t)$, care semnal a fost cel transmis?
+
 ### Detecția unui semnal cu 1 eșantion
 
-- Cel mai simplu caz: detecția (decizia) folosind un singur eșantion
+- Două mesaje $a_0$ și $a_1$ (0 logic sau 1 logic)
 
-    - două mesaje $a_0$ și $a_1$ (0 logic sau 1 logic)
+- Mesajele sunt modulate cu semnalele $s_0(t)$ și $s_1(t)$
+    - pentru $a_0$: se transmite $s(t) = s_0(t)$
+    - pentru $a_1$: se transmite $s(t) = s_1(t)$
     
-    - mesajele sunt modulate cu semnalele $s_0(t)$ și $s_1(t)$
-        - pentru $a_0$: se transmite $s(t) = s_0(t)$
-        - pentru $a_1$: se transmite $s(t) = s_1(t)$
-        
-    - peste semnal se suprapune zgomotul $n(t)$
-    
-    - se recepționează un semnal cu zgomot, $r(t) = s(t) + n(t)$
-    
-    - la recepție: se preia un singur eșantion la timpul $t_0$, $r = r(t_0)$
-    
-    - **decizie**: pe baza $r(t_0)$, care semnal a fost cel transmis?
+- Peste semnal se suprapune zgomotul $n(t)$
+
+- Se recepționează un semnal cu zgomot, $r(t) = s(t) + n(t)$
+
+- **Decizie**: pe baza $r(t)$, care semnal a fost cel transmis?
+
+- Cel mai simplu scenariu: la recepție **se ia un singur eșantion** 
+la momentul $t_0$, $r = r(t_0)$, și se decide pe baza sa
 
 ### Ipoteze și decizii
 
@@ -174,7 +201,7 @@ dintre două sau mai multe posibilități
     - fiind un eșantion de zgomot (un eșantion dintr-un proces aleator)
     - v.a. continuă , intervalul valorilor posibile e continuu
 
-- $r(t_0) = s(t_0) + n(t_0$ = o constantă + o variabilă aleatoare
+- $r(t_0) = s(t_0) + n(t_0)$ = o constantă + o variabilă aleatoare
 
     - este de asemenea o variabilă aleatoare
     - $s(t_0)$ este o constantă, egală fie cu $s_0(t_0)$, fie cu $s_1(t_0)$
@@ -286,7 +313,7 @@ Alegem copacul cu **plauzibilitatea maximă**:
 
 - Raportul de plauzibilitate este $\frac{w(r|H_1)}{w(r|H_0)} = \frac{e^{-\frac{(r-s_1(t_0))^2}{2\sigma^2}}}{e^{-\frac{(r-s_0(r_0))^2}{2\sigma^2}}} \grtlessH 1$
 
-- Pentru distribuția normală, e preferabil să aplicăm **logaritmul natural**
+- Pentru distribuția normală, aplicăm **logaritmul natural**
     - logaritmul este o funcție monoton crescătoare, deci nu schimbă rezultatul comparației
     - dacă $A < B$, atunci $\log(A) < \log(B)$
 
@@ -360,9 +387,9 @@ Receptorul ia un singur eșantion, cu valoarea $r = 2.25$
 
 ### Plauzibilitate vs probabilitate
 
-- Distincție subtilă între termenii "probabilitate" și "plauzibilitate"
+- Există o distincție subtilă între termenii "probabilitate" și "plauzibilitate"
 
-- Să considerăm distribuția condiționată $w(r | H_i)$ de le exemplul anterior:
+- Să considerăm distribuția condiționată $w(r | H_i)$ de la exemplul anterior:
     
     $$\frac{1}{\sigma \sqrt{2 \pi}}e^{-\frac{(r - s_i(t_0))^2}{2\sigma^2}}$$
 
@@ -434,9 +461,9 @@ atunci avem o **funcție de plauzibilitate**
 
 - Va fi tratat separat într-un subcapitol ulterior
 
-### Multiple separate detection 
+### Detecții succesive
 
-- Într-un proces de comunicație, fiecare detecție/decizie produce valoarea unui bit (mesaj)
+- Într-o comunicație binară, fiecare detecție/decizie produce valoarea unui bit (mesaj)
 
 - Se repetă o altă detecție separată pentru bitul (mesajul) următor, și tot așa
 
@@ -498,6 +525,20 @@ $$P(D_1 | H_1) = \int_{R_1} w(r|H_1) dx$$
 - Ignorați textul, contează zonele colorate
 - [sursa: hhttp://gru.stanford.edu/doku.php/tutorials/sdt]*
 
+
+### Optimalitatea criteriului ML
+
+**Teoremă:**
+
+  Criteriul ML **minimizează probabilitatea totală de eroare condiționată $P(D_1 | H_0) + P(D_0 | H_1)$**
+    
+**Demonstrație:**
+
+  Informal: de pe figura precedentă, dacă pragul $T$ se deplasează fie la dreapta fie la stânga,
+suma celor două arii hașurate (probabilități) pentru alarmă falsă + pierdere crește
+
+  TODO: demonstrație riguroasă
+  
 ### Probabilitățile celor 4 rezultate
 
 - Probabilitățile condiționate sunt calculate **dat fiind** una sau alta dintre ipoteze
@@ -570,13 +611,26 @@ TODO
 
 - Se iau în calcul probabilitățile $P(H_0)$ și $P(H_1)$
 
-- Se urmărește **minimizarea probabilității totale de eroare $P_e = P_{af} + P_p$**
-    - erori = alarmă falsă și pierdere
+- **Criteriul probabilității minime de eroare** (MPE):
 
-- Trebuie să găsim un nou criteriu 
-    - adică, alte regiuni de decizie $R_0$ și $R_1$
+$$\frac{w(r | H_1)}{w(r | H_0)} \grtlessH \frac{P(H_0)}{P(H_1)}$$
 
-### Probabilitatea de eroare
+$$\frac{P(H_1) \cdot w(r | H_1)}{P(H_0) \cdot w(r | H_0)} \grtlessH 1$$
+    
+  - prescurtat MPE (Minimum Probability of Error)
+
+### Criteriul probabilității minime de eroare
+
+**Teoremă:**
+
+  Criteriul MPE **minimizează probabilitatea totală de eroare**: 
+  $$P_e = P_{af} + P_p = P(D_1 \cap H_0) + P(D_0 \cap H_1)$$
+    
+  - nu probabilitățile condiționate, ci cele care includ $P(H_i)$
+  
+### Criteriul probabilității minime de eroare
+
+**Demonstrație:**
 
 - Probabilitatea unei alarme false este:
 $$\begin{split}
@@ -607,16 +661,12 @@ termenul din integrala este **negativ**
 - Așadar, când $w(r|H_1) \cdot P(H_1) - w(r|H_0) \cdot P(H_0) < 0$ avem $r \in R_0$, adică decizia $D_0$
 - Invers, dacă $w(r|H_1) \cdot P(H_1) - w(r|H_0) \cdot P(H_0) > 0$ avem $r \in R_1$, adică decizia $D_1$
 
+### Probabilitatea de eroare minimă
+
 - Astfel
 $$w(r|H_1) \cdot P(H_1) - w(r|H_0) \cdot P(H_0) \grtlessH 0$$
 $$\frac{w(r | H_1)}{w(r | H_0)} \grtlessH \frac{P(H_0)}{P(H_1)}$$
 
-### Criteriul probabilității minime de eroare
-
-- **Criteriul probabilității minime de eroare** (MPE):
-$$\frac{w(r | H_1)}{w(r | H_0)} \grtlessH \frac{P(H_0)}{P(H_1)}$$
-    
-    - prescurtat MPE (Minimum Probability of Error)
 
 ### Interpretare
 
@@ -766,6 +816,23 @@ $$ r \grtlessH \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_
     - ce se întâmplă dacă costul $C_{10}$ crește, iar celelalte rămân la fel?
     - ce se întâmplă dacă ambele costuri $C_{01}$ și $C_{10}$ cresc, iar celelalte rămân la fel?
 
+### Pariul lui Pascal
+
+Raționamentul filozofului și matematicianului Blaise Pascal (1623–1662):
+
+
+> Dumnezeu există sau nu. Rațiunea nu poate decide între cele două alternative.
+>
+> Tu trebuie să pariezi (nu este opțional).
+>
+> În cazul în care câștigi, câștigi totul; dacă pierzi, nu pierzi nimic.
+>
+> Pariază fără ezitare că El există. Ai de câștigat o infinitate de vieți fericite, împotriva unui număr finit de șanse de a pierde.[^PW]
+
+- Un exemplu filozofic de utilizare a criteriului riscului minim
+
+[^PW]: sursa textului: Wikipedia
+
 ### Forma generală a criteriilor ML, MPE și MR
 
 - Criteriile ML, MPE și MR au toate forma următoare
@@ -817,33 +884,6 @@ pentru diverse valori ale $\lambda$.
     b. Care este probabilitatea de detecție corectă?
 
 
-### Aplicație: Semnale diferențiale sau unipolare
-
-- Aplicație: transmisie binară cu semnale constante (de ex. nivele constante de tensiune)
-
-- Două modalități frecvent întâlnite:
-    - Semnal unipolar: o valoare este 0, cealaltă este nenulă
-        - $s_0(t) = 0$, $s_1(t) = A$
-    
-    - Semnal diferențial: două valori nenule cu semne contrare, aceeași valoare absolută
-        - $s_0(t) = -\frac{A}{2}$, $s_1(t) = \frac{A}{2}$
-
-- Care metodă este mai bună?
-
-### Semnale diferențiale sau unipolare
-
-- Pentru că există aceeași diferență între nivele, performanțele deciziei sunt identice
-
-- Dar puterea medie a semnalelor diferă
-
-- Pentru semnale diferențiale: $P = \left( \pm \frac{A}{2} \right)^2 = \frac{A^2}{4}$
-
-- Pentru semnale unipolare: $P = P(H_0) \cdot 0 + P(H_1) \left( A \right)^2 = \frac{A^2}{2}$
-
-    - presupunând probabilități egale $P(H_0) = P(H_1) = \frac{1}{2}$
-
-- Semnalul diferențial necesită putere la jumătate față de cel unipolar (mai bine)
-
 ### Sumar: criterii de decizie
 
 - Am văzut: decizie între două semnale, bazată pe 1 eșantion
@@ -862,13 +902,25 @@ $$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH K$$
 $$T = \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot\ln \left(K \right)$$
 
 
+### Compararea a două probleme de decizie
+
+- Fie o problemă de decize cu $s_0(t) = 0$, $s_1(t) = 10$, și zgomot $\mathcal{N}(\mu=0, \sigma^2 = 4)$
+
+- Fie o altă problemă de decizie cu $s_0(t) = 10$, $s_1(t) = 16$, and noise $\mathcal{U}[-8, 8]$
+
+- Care e mai ușoară? Cum să le comparăm
+
+- Cum se evaluează performanțele rezultatelor într-o problemă de decizie?
+
+   - Trebuie să comparăm probabilitățile "bune" ($P_{cd}$, $P_{cr}$) și cele "rele" ($P_{fa}$, $P_m$)
+
 
 ### Caracteristica de operare a receptorului (ROC)
 
 - Performanța unui receptor este ilustrată cu un grafic numit **"Caracteristica de operare a receptorului"** 
 (**"Receiver Operating Characteristic", ROC)**
 
-- Reprezintă probabilitatea $P_{cd} = P(D_1 | H_1)$
+- Reprezintă probabilitatea $P_{dc} = P(D_1 | H_1)$
 în funcție de probabilitatea $P_{af} = P(D_1 | H_0)$
   
   - pentru diferite praguri T
@@ -893,6 +945,8 @@ $$T = \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot
   
   - indiferent de alegerea unui prag sau a altuia
 
+- Două situații diferite (două semnale diferite, algoritmi etc) se pot compara prin 
+afișarea ROC si compararea AUC-urilor asociate
 
 ### Caracteristica Precision vs Recall
 
@@ -1751,13 +1805,13 @@ Algoritmul *k-Means* explicat video:
 
 - Urmăriți video-ul următor, de la 6:28 to 7:08
 
-    [https://www.youtube.com/watch?v=4b5d3muPQmA](https://www.youtube.com/watch?v=4b5d3muPQmA)
+    [https: //www.youtube.com/watch?v=4b5d3muPQmA](https://www.youtube.com/watch?v=4b5d3muPQmA)
 
 \smallskip
 
 - Urmăriți video-ul următor, de la 3:05 la final
 
-    [https://www.youtube.com/watch?v=IuRb3y8qKX4](https://www.youtube.com/watch?v=IuRb3y8qKX4)
+    [https: //www.youtube.com/watch?v=IuRb3y8qKX4](https://www.youtube.com/watch?v=IuRb3y8qKX4)
     
 
 ### Algoritmul *k-Means*
