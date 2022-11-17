@@ -1362,6 +1362,17 @@ cu $s_1(t)$ sau cu  $s_0(t)$
 
 *[sursa: Fundamentals of Statistical Signal Processing, Steven Kay]*
 
+### Exemplu: BPSK
+
+- Demodulare BPSK:
+
+![Decizie BPSK: implementare directă](img/BPSK_Decision_1.png)
+
+### Exemplu: BPSK
+
+- Demodulare BPSK:
+
+![Decizie BPSK: implementare mai eficientă](img/BPSK_Decision_2.png)
 
 ### Filtru adaptat
 
