@@ -1374,6 +1374,14 @@ cu $s_1(t)$ sau cu  $s_0(t)$
 
 ![Decizie BPSK: implementare mai eficientă](img/BPSK_Decision_2.png)
 
+### Exemplu: QPSK
+
+![Decizie QPSK: implementare directă](img/QPSK_Decision_1.png){#id .class height=80%}
+
+### Example: QPSK
+
+![Decizie QKSP: implementare mai eficientă](img/QPSK_Decision_2.png)
+
 ### Filtru adaptat
 
 - Cum se calculează produsul scalar a două semnale $r[n]$ și $s[n]$ de lungime $N$?
