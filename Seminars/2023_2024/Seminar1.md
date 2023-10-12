@@ -5,7 +5,7 @@ documentclass: scrartcl
 fontsize: 12pt
 ---
 
-1. Fie A o variabilă aleatoare continuă cu distribuția $mathcal{U}[0, \; 6]$
+1. Fie A o variabilă aleatoare continuă cu distribuția $\mathcal{U}[0, \; 6]$
 (distribuție uniformă între 0 și 6). 
 
 	a. Reprezentați grafic funcția densitate de probabilitate a lui A (distribuția lui A)
