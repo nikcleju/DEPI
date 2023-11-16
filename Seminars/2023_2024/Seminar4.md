@@ -34,8 +34,7 @@ cu 2 valori posibile: $s_0(t) = 0$ (OK) sau $s_1(t) = A$ (accident), unde $A = 5
     c. Repetați cerințele considerând zgomot uniform $U[-3, 3]$
 
 
-2. Un semnal poate avea două valori, $s_0(t) = 0$ (ipoteza $H_0$) sau $s_1(t) = 6$ (ipoteza $H_1$), 
-   unde $A = 6$. 
+2. Un semnal poate avea două valori, $s_0(t) = 0$ (ipoteza $H_0$) sau $s_1(t) = 6$ (ipoteza $H_1$). 
 
    Semnalul este afectat de zgomot gaussian $\mathcal{N}(0, \sigma^2=1)$.
    
