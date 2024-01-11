@@ -480,7 +480,7 @@ vom avea $M$ derivate
 - Fiind o variabilă aleatoare, se pot defini:
 
    - valoarea medie a estimatorului: $E \left\{ \hat{\Theta} \right\}$
-   - varianța estimatorului: $E \left\{ (\hat{\Theta} - \Theta)^2 \right\}$
+   - varianța estimatorului: $E \left\{ (\hat{\Theta} - E \left\{ \hat{\Theta} \right\})^2 \right\}$
 
 ### Deplasarea și varianța estimatorilor
 
@@ -531,7 +531,7 @@ chiar daca estimatorul este nedeplasat
 
 ### Estimare Bayesiană
 
-- **Estimarea Bayesiană** ia în calcul termeni suplimentari pe lângă $w(\vec{r} | \Theta$:
+- **Estimarea Bayesiană** ia în calcul termeni suplimentari pe lângă $w(\vec{r} | \Theta)$:
 
    - o distribuție *a priori* $w(\Theta)$
    - opțional, o funcție de cost
@@ -548,7 +548,7 @@ chiar daca estimatorul este nedeplasat
 ### Estimare Bayesiană
 
 - Se definește **distribuția *a posteriori* ** a lui $\Theta$,
-dat fiind observațiile $\vec{r}$, folosind **regula lui Bayes**:
+date fiind observațiile $\vec{r}$, folosind **regula lui Bayes**:
 
 	$$w(\Theta | \vec{r}) = \frac{w(\vec{r} | \Theta) \cdot w(\Theta)}{w(\vec{r})}$$
 
