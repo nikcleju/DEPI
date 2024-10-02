@@ -16,7 +16,7 @@
 
 ### Realizări ale unei variabile aleatoare
 
-- **Realizare** a unei v.a. = o valoare particulară posibilă 
+- O **realizare** a unei v.a. = o valoare particulară posibilă
 
 - **Spațiul realizărilor** $\Omega$ = mulțimea valorilor posibile ale unei v.a
     - mulțimea tuturor realizărilor
@@ -27,22 +27,20 @@
     - Dar s-ar fi putut obține orice valoare din spațiul realizărilor
     $$\Omega = \left\{1, 2, 3, 4, 5, 6\right\}$$
 
+- V.a. **discretă**: dacă $\Omega$ este o mulțime discretă
+  - Exemplu: Numărul obținut prin aruncarea unui zar
+- V.a. **continuă**: dacă $\Omega$ este o mulțime compactă
+  - Exemplu: Valoarea tensiunii măsurate într-un punct
+
 ### Aruncarea unei monede
 
 - Variabila aleatoare X = "fața obținută la aruncarea unei monede"
-	
+
 	\smallskip
 
     ![](img/RandomVariable_img.pdf){.id width=50%}
 
 (sursa imaginii: *https://www.mathsisfun.com/data/random-variables.html*)
-
-### V.a. discrete și continue
-
-- V.a. **discretă**: dacă $\Omega$ este o mulțime discretă
-    - Exemplu: Numărul obținut prin aruncarea unui zar
-- V.a. **continuă**: dacă $\Omega$ este o mulțime compactă
-    - Exemplu: Valoarea tensiunii măsurate într-un punct
 
 ### Unde se întâlnesc variabile aleatoare?
 
@@ -58,15 +56,13 @@
 
 - Fie o v.a. discretă $A$
 
-- **Funcția masă de probabilitate** (FMP) (*probability mass function*) = 
+- **Funcția masă de probabilitate** (FMP) (*probability mass function*) =
 probabilitatea ca $A$ să aibă valoarea egală cu $x$
 $$w_A(x)= P\left\{ A = x\right\}$$
 
-- pe scurt, se mai numește **distribuția** variabilei A
+- Se mai numește **distribuția** variabilei A
 
 - Exemplu: FMP pentru valoarea unui zar, grafic pe tablă
-
-### Calculul probabilității cu FMP
 
 - Probabilitatea ca $A$ să aibă valoarea $v$
 $$P\left\{ A = v\right\} = w_A(v)$$
@@ -76,15 +72,13 @@ $$P\left\{ a \leq A \leq b\right\} = \sum_{x=a}^b w_A(x)$$
 
 ### Funcția de repartiție
 
-- **Funcția de repartiție (FR)** = probabilitatea ca $A$ 
+- **Funcția de repartiție (FR)** = probabilitatea ca $A$
 să aibă valoarea mai mică sau egală cu $x$
 $$F_A(x) = P\left\{ A \leq x \right\}$$
 
 - Exemplu: FR pentru un zar, grafic la tablă
 
 - Pentru v.a. discrete, FR este "în trepte"
-
-### Calculul probabilității cu FR
 
 - Probabilitatea ca $A$ să aibă valoarea $v$
 $$P\left\{ A = v\right\} = F_A(v) - F_A(v-1)$$
@@ -99,17 +93,6 @@ $$F_A(x) = \sum_{t = -\infty}^{t = x} w_A(t)$$
 
 - Exemplu pentru zar: grafic, la tablă
 
-### Funcția densitate de probabilitate
-
-- Fie o v.a. **continuă** $A$
-
-- **Funcția densitate de probabilitate (FDP)** 
-= probabilitatea ca valoarea lui $A$ să fie într-o vecinătate $\epsilon$ mică în jurul lui $x$, totul supra $\epsilon$
-
-- Se notează $w_A(x)$, se mai numește **distribuția** variabilei A
-
-- Informal: FDP reprezintă probabilitatea ca valoarea lui $A$ să fie **în jurul lui** $x$
-
 ### Variabile aleatoare discrete și continue
 
 \smallskip
@@ -118,16 +101,30 @@ $$F_A(x) = \sum_{t = -\infty}^{t = x} w_A(t)$$
 
 (sursa imaginii: "Probability Distributions: Discrete and Continuous", Seema Singh, *https://towardsdatascience.com/probability-distributions-discrete-and-continuous-7a94ede66dc0*)
 
+### Funcția de repartiție
+
+- Fie o v.a. **continuă** $A$
+
+- **Funcția de repartiție (FR)** = probabilitatea ca $A$
+să aibă valoarea mai mică sau egală cu $x$
+$$F_A(x) = P\left\{ A \leq x \right\}$$
+
+- **Funcția densitate de probabilitate (FDP)** (sau **distribuția** lui A)
+este derivata funcției de repartiție:
+$$w_A(x) = \frac{\mathrm{d}F_A(x)}{\mathrm{d}x}$$
+
+- Informal: densitatea de probabilitate $w_A(x)$ este proporțională
+  cu probabilitatea ca valoarea lui $A$ să fie **în jurul lui** unei $x$
 
 ### Probabilitatea unei valori exacte
 
 - Probabilitatea ca o v.a. continuă $A$ să ia **exact** o valoare $x$ este **zero**
-    - pentru că există o infinitate de valori posibile (v.a. continuă)
-    - de aceea nu se poate defini o funcție masă de probabilitate ca la v.a. discrete
+  - pentru că există o infinitate de valori posibile (v.a. continuă)
+  - de aceea nu se poate defini o funcție masă de probabilitate ca la v.a. discrete
 
 - De aceea FDP reprezintă probabilitatea de a fi **într-o vecinătate** a valorii $x$, și nu exact egal cu $x$
 
-### Calculul probabilității cu FDP
+### Calculul probabilității cu FDP și FR
 
 - Probabilitatea ca $A$ să aibă exact valoarea $v$ este întotdeauna 0
 $$P\left\{ A = v\right\} = 0$$
@@ -135,22 +132,12 @@ $$P\left\{ A = v\right\} = 0$$
 - Probabilitatea ca A să fie între valorile $a$ și $b$  = integrala FDP între $a$ și $b$:
 $$P\left\{ a \leq A \leq b\right\} = \int_a^b w_A(x) dx$$
 
-### Funcția de repartiție
-
-- **Funcția de repartiție (FR)** = probabilitatea ca $A$ 
-să aibă valoarea mai mică sau egală cu $x$
-$$F_A(x) = P\left\{ A \leq x \right\}$$
-
-- Aceeași definiție ca și la v.a. discrete
-
-### Calculul probabilității cu FR
-
 - Probabilitatea ca valoarea lui A să fie între $a$ și $b$:
 $$P\left\{ a \leq A \leq b\right\} = F_A(b) - F_A(a)$$
 
 - Nu contează dacă intervalul este deschis sau închis
-    - $[a,b]$ sau $(a,b)$, nu contează
-    - de ce? 
+  - $[a,b]$ sau $(a,b)$, nu contează
+  - de ce?
 
 ### Relația între FDP și FR
 
@@ -373,7 +360,7 @@ plt.close()
         - $\sigma$ mare = funcție largă și joasă
 
 * Constanta de la începutul expresiei asigură normalizarea (faptul că integrala = 1)
-    
+
 * Extrem de des întâlnită în practică
 
 * Orice valoare reală este posibilă ($w_A(x) > 0, \forall x \in \mathbb{R}$)
@@ -387,7 +374,7 @@ plt.close()
     - Valorile cele mai probabile sunt în jurul lui $\mu$ ($x - \mu = 0$)
     - Valorile apropiate de $\mu$ sunt mai probabile, valorile mai depărtate de $\mu$ sunt mai puțin probabile
 
-- Distribuția exprimă o preferință pentru valori apropiate de $\mu$, 
+- Distribuția exprimă o preferință pentru valori apropiate de $\mu$,
 cu probabilitate din ce în ce mai scăzută la valori mai depărtate de $\mu$
 
 ### Exemple de valori generate cu distribuția normală (mu=0, sigma^2=1)
@@ -426,9 +413,9 @@ plt.close()
 
 ### Distribuția uniformă
 
-* Densitatea de probabilitate = constantă între două limite 
+* Densitatea de probabilitate = constantă între două limite
 
-$$w_A(x) = 
+$$w_A(x) =
 \begin{cases}
 \frac{1}{b-a}, & x \in [a, b] \\
  0, &elsewhere
@@ -456,7 +443,7 @@ plt.close()
 
 * "Înălțimea" funcției este $\frac{1}{b-a}$ pentru normalizare
     - pentru ca integrala (aria) să fie 1
-    
+
 * Sunt posibile doar valori din intervalul $[a, b]$
     - valorile din afara intervalului au probabilitatea 0
 
@@ -483,11 +470,11 @@ $$F_A(X) = \frac{1}{2}(1 + erf(\frac{x - \mu}{\sigma \sqrt{2}}))$$
         - $erf(-\infty) = -1$
         - $erf(\infty) = 1$
 
-### Exercițiu 
+### Exercițiu
 
 Exercițiu:
 
-  - Fie $A$ o v.a. cu distribuția $\mathcal{N}(3, 2)$. 
+  - Fie $A$ o v.a. cu distribuția $\mathcal{N}(3, 2)$.
 Calculați probabilitatea ca $A \in [2, 4]$
 
 ### Suma unei constante cu o v.a.
@@ -514,7 +501,7 @@ Exemplu:
     - $B = 5 + A$ este o altă v.a., distribuită $\mathcal{U}\;[5,15]$
     - $C = A^2$ este de asemenea o v.a.
     - $D = cos(A)$ este de asemenea o v.a.
-    
+
 - Motivație: dacă $A$ este aleatoare, și valorile $B$, $C$, $D$ sunt aleatoare
 
 - A, B, C, D nu sunt independente
@@ -530,9 +517,9 @@ Exemplu:
 - Distribuția valorilor perechii $(A,B)$ este descrisă de:
     - Densitatea de probabilitate comună $w_{AB}(x,y)$
     - Funcția de repartiție comună $F_{AB}(x,y)$
-    
+
 ### Sisteme de mai multe variabile aleatoare
-    
+
 - Funcția de repartiție comună:
 $$F_{AB}(x,y) = P_{AB}\left\{ A \leq x \cap B \leq y \right\}$$
 
@@ -547,7 +534,7 @@ $$w_{AB}(x,y) = P\left\{ A = x \cap B = y \right\}$$
 
 ### Variabile independente
 
-- Două v.a. $A$ și $B$ sunt **independente** dacă valoarea uneia nu 
+- Două v.a. $A$ și $B$ sunt **independente** dacă valoarea uneia nu
 influențează în nici un fel valoarea celeilalte
 
 - Pentru v.a. independente, probabilitatea ca $A$ să fie în jurul lui
@@ -561,55 +548,24 @@ $$w_{AB}(x,y) = w_A(x) \cdot w_B(y)$$
 
 ### Variabile independente
 
-Exercițiu: 
+Exercițiu:
 
   - Calculați probabilitatea ca trei v.a. $X$, $Y$ și $Z$ i.i.d. $\mathcal{N}(-1,1)$
   să fie toate pozitive
       - ***i.i.d*** = "independente și identic distribuite"
 
-### Multiple v.a. normale
+### Distribuția normală 2D
 
-- Fie un set de $N$ v.a. normale $(A_1, ...A_N)$, 
-cu medii diferite $\mu_i$ dar aceeași deviație standard $\sigma$
+- Distribuția normală 2D pentru o pereche de variabile aleatoare $\mathbf{x} = \begin{bmatrix}x_1 \\ x_2 \end{bmatrix}$
+  este:
 
-- Probabilitatea ca $(A_1,...A_N)$ să fie în jurul valorii 
-$(x_1, ...x_N)$ este
-$$w_{A_1,...A_N}(x_1,...x_N) = \frac{1}{(\sigma\sqrt{2\pi})^N} e^{\frac{(x_1-\mu_1)^2+...+(x_N - \mu_N)^2}{2\sigma^2}}$$
+  $$w_\mathbf{x}(\mathbf{x}) = \frac{1}{2 \pi \sqrt{\det \Sigma}} e^{\left( -\frac{1}{2} (\mathbf{x} - \boldsymbol{\mu})^\top \Sigma^{-1} (\mathbf{x} - \boldsymbol{\mu}) \right)} $$
 
-- Probabilitatea depinde de **distanța Euclideană** dintre
-$\mathbf{x}=(x_1,...x_N)$ și $\mathbf{\mu} = (\mu_1,...\mu_N)$
-
-### Distanța Euclideană
-
-- **Distanța Euclideană (geometrică)** între 2 vectori N-dimensionali
- $$d(\mathbf{u},\mathbf{v}) = \| \mathbf{u}-\mathbf{v} \| = \sqrt{(u_1-v_1)^2+...+(u_N - v_N)^2}$$
-
-- Unidimensional: $\|\mathbf{u}-\mathbf{v}\| = |u-v|$
-
-- 2D: $\|\mathbf{u}-\mathbf{v}\| = \sqrt{(u_1 - v_1)^2 + (u_2 - v_2)^2}$
-       
-- 3D: $\|\mathbf{u}-\mathbf{v}\| = \sqrt{(u_1 - v_1)^2 + (u_2 - v_2)^2 + (u_3 - v_3)^2}$
-
-- ...
-
-- N-dimensional: $\|\mathbf{u}-\mathbf{v}\| = \sqrt{\sum_{i=1}^N(u_i - v_i)^2}$
-
-- ...
-
-- Semnale continue: $\|\mathbf{u}-\mathbf{v}\| = \sqrt{\int_{-\infty}^{\infty}(u(t) - v(t))^2 dt}$
-
-### Multiple v.a. normale
-
-- Probabilitatea a $N$ v.a. normale, independente,
-cu același $\sigma$ dar diferite $\mu_i$
-depinde de **pătratul distanței Euclidiene față de vectorul medie** $\mathbf{\mu} = (\mu_1,...\mu_N)$
-    - Aproape de $\mu$: probabilitate mai mare
-    - Departe de $\mu$: probabilitate redusă
-    - Două puncte la aceeași distanță de $\mu$ au aceeași probabilitate
+- Ea este caracterizată de o medie $\boldsymbol{\mu} = \begin{bmatrix}\mu_1 \\ \mu_2 \end{bmatrix}$, care stabilește centrul,
+  și o matrice de covarianță $\Sigma$ cu dimensiunea $2 \times 2$ care stabilește forma elipsoidală
 
 ### Distribuția normală 2D
 
-- Distribuția a 2 v.a. normale (distribuția normală 2D)
 ![](img/2DNormal.png)
 
 ### Distribuția normală 2D  - vedere de sus
@@ -617,10 +573,16 @@ depinde de **pătratul distanței Euclidiene față de vectorul medie** $\mathbf
 - Vedere de sus
 - Aici, $\mu = (0,0)$
 - Probabilitatea scade pe măsură ce crește distanța față de centru,
-în cercuri concentrice (simetric)
+în elipse concentrice (simetric)
 
 ![](img/2DNormal-TopView.png){.id width=50%}
 
+### Altă distribuție normală 2D
+
+- Vedere de sus
+- Forma elipsoidală (orientare, alungire) este dată de matricea de covarianță
+
+![](img/2DNormal-ellips.jpg){.id width=75%}
 
 ### Medii statistice
 
@@ -643,14 +605,14 @@ $$\overline{A} = E\{A\} = \sum_{x=-\infty}^{\infty} x \cdot w_A(x)$$
 
 * Ce înseamnă, practic, valoarea medie a unei variabile aleatoare?
 
-  * Dacă avem $N \to \infty$ valori aleatoare conform distribuției respective, 
+  * Dacă avem $N \to \infty$ valori aleatoare conform distribuției respective,
   valoarea medie = media tuturor acestor valori;
   * Dacă trebuie să prezicem valoarea unei variabile aleatoare $X$, și plătim un cost proporțional
-  cu pătratul erorii pe care o facem, $(u - X)^2$, valoarea medie $\mu$ este cea mai bună alegere, 
+  cu pătratul erorii pe care o facem, $(u - X)^2$, valoarea medie $\mu$ este cea mai bună alegere,
   întrucât minimizează costul global:
-  
+
   $$\mu = \arg\min_u \int_{-\infty}^{\infty} (u - x)^2\cdot w(x) dx$$
-  
+
   * Demonstrație: la tablă: derivare, derivata = 0
 
 ### Ce înseamna valoarea medie
@@ -659,7 +621,7 @@ $$\overline{A} = E\{A\} = \sum_{x=-\infty}^{\infty} x \cdot w_A(x)$$
 
 * Pentru distribuții cu formă simetrică (de ex. distribuția normală),
 valoarea medie = valoarea centrală a funcției
-  * Demonstrație: ambele laturi ale funcției "trag" valoare medie înspre ele în mod egal, 
+  * Demonstrație: ambele laturi ale funcției "trag" valoare medie înspre ele în mod egal,
   valoarea medie rămâne la mijloc
 
 * Pentru distribuția normală, $\overline{X} = \mu$
@@ -735,8 +697,8 @@ $$w_C(x) = w_A(x) \star w_B(x)$$
     * $C$ este tot o v.a. cu distribuție normală, $\mathcal{N}(\mu_C, \sigma_C^2)$, având:
     * media = suma mediilor: $\mu_C = \mu_A + \mu_B$
     * varianța = suma varianțelor: $\sigma_C^2 = \sigma_A^2 + \sigma_B^2$
-    
-    
+
+
 ## II.2 Procese aleatoare
 
 ### Procese aleatoare
@@ -772,9 +734,9 @@ $$w_C(x) = w_A(x) \star w_B(x)$$
 - Un proces aleator trebuie vizualizat în două dimensiuni:
 
   - $f^{(k)}[n]$ sau $f^{(k)}(t)$ depind de două variabile:
-  
-    - $k$ = realizarea 
-    
+
+    - $k$ = realizarea
+
     - $t$ sau $n$ = timpul
 
 ### Proces aleator = un fenomen 2-D
@@ -996,20 +958,20 @@ $$\{1,-1,2,-2,3,-3,4,-4,5,-5\}$$
 - Mediile statistice sunt, de obicei, cele de dorit
 
     - dar necesită cunoașterea distribuțiilor $w(x)$, care în practică sunt rareori cunoscute
-    
+
 - În practică, de obicei avem acces doar la o singură realizare, obținută printr-o măsurătoare
 
     - deci putem calcula doar mediile temporale pe acea realizare
-    
+
 - Din fericire, în multe cazuri mediile statistice și temporale sunt **identice** ("ergodicitate")
 
 ### Procese aleatoare staționare
 
 - Până acum, am considerat că mediile statistice depind de timp
-    
+
     - pot fi diferite pentru un eșantion de la $t_1$ și de la $t_2$
 
-- Proces aleator **staționar** = dacă mediile statistice rămân aceleași 
+- Proces aleator **staționar** = dacă mediile statistice rămân aceleași
 la modificarea originii timpului (întârzierea semnalului)
 
 - Altfel spus: distribuțiile (FDP/FMP) eșantioanelor rămân identice la modificarea originii timpului
@@ -1022,14 +984,14 @@ la modificarea originii timpului (întârzierea semnalului)
 - Proces aleator **staționar în sens strict**:
 
     - relația e valabilă pentru distribuțiile de orice ordin $n$
-    
+
     - valoarea medie, valoarea pătratică medie, varianța, autocorelația **și toate celelalte** statistici de ordin superior
-    nu depind de originea timpului $t$    
+    nu depind de originea timpului $t$
 
 - Proces aleator **staționar în sens larg**:
 
     - relația e valabilă doar pentru distribuțiile de ordin $n=1$ și $n=2$ (distribuțiile unui singur eșantion, sau a două eșantioane)
-    
+
     - **doar** valoarea medie, valoarea pătratică medie, varianța și autocorelația nu depind de originea timpului $t$, dar
     statisticile de ordin superior pot depinde
 
@@ -1064,7 +1026,7 @@ $$\sigma^2(t) = constant, \forall t$$
 * Pentru distribuții ale unor perechi de eșantioane (de ordin $n=2$):
     $$w_2(x_i,x_j;t_1,t_2) = w_2(x_i,x_j;0, t_2-t_1) = w_2(x_i,x_2; t_2-t_1)$$
 
-- Funcția de autocorelație depinde doar de **diferența de timp** 
+- Funcția de autocorelație depinde doar de **diferența de timp**
 $\tau = t_2 - t_1$ dintre eșantioane
 $$R_{ff}(t_1,t_2) = R_{ff}(0, t_2 - t_1) = R_{ff}(\tau) = \overline{f(t) f(t + \tau)}$$
 
@@ -1086,7 +1048,7 @@ Definiția funcției de autocorelație pentru p.a. **staționare**:
     $$\begin{split}
     R_{ff}(\tau) = \overline{f(t) f(t + \tau)} = \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} f^{(k)}[t] f^{(k)}[t + \tau]
     \end{split}$$
-    
+
     - lungime finită: se limitează integralele / sumele la intervalul avut la dispoziție, $\int_{t_{min}}^{t_{max}}$ sau $\sum_{t_{min}}^{t_{max}}$
 
 
@@ -1112,11 +1074,11 @@ $$R_{fg}(t_1,t_2) = R_{fg}(0, t_2 - t_1) = R_{fg}(\tau) = \overline{f(t) g(t + \
 - Exemple:
 
     - $R_{ff}(0.5) > 0$: două eșantioane decalate cu $0.5$ secunde tind să varieze în aceeași direcție (ambele pozitive, ambele negative => produsele sunt majoritar pozitive)
-    
+
         - dacă se cunoaște una dintre ele, se poate "ghici" ceva despre cealaltă
-        
+
     - $R_{ff}(1) < 0$: două eșantioane decalate cu 1 secundă tind să varieze în direcții opuse (când unul e pozitiv, celălalt e negativ => produsele sunt majoritar negative)
-    
+
         - dacă se cunoaște una dintre ele, se poate "ghici" ceva despre cealaltă
 
     - $R_{ff}(2) = 0$: două eșantioane decalate cu 2 secunde sunt **necorelate**
@@ -1134,20 +1096,20 @@ $$R_{fg}(t_1,t_2) = R_{fg}(0, t_2 - t_1) = R_{fg}(\tau) = \overline{f(t) g(t + \
 
     - Se pot calcula toate mediile pe baza unei singure realizări (oricare)
         - dar realizarea respectivă trebuie să fie foarte lungă (lungimea $\to \infty$) pentru valori precise
-        
+
     - Toate realizările sunt similare unele cu altele, dpdv statistic
         - o realizare este caracteristică pentru întreg procesul aleator
 
 ### Procese aleatoare ergodice
 
 - Majoritatea proceselor aleatoare de interes sunt ergodice și staționare
-    
+
     - de ex. zgomote de tensiune
 
 - Exemplu de proces aleator **ne-ergodic**:
 
     - se aruncă un zar, următoarele 50 valori sunt identice cu prima valoare
-    
+
         - o singură realizare nu e caracteristică pentru tot procesul
 
 ### Procese aleatoare ergodice
@@ -1167,7 +1129,7 @@ $$R_{fg}(t_1,t_2) = R_{fg}(0, t_2 - t_1) = R_{fg}(\tau) = \overline{f(t) g(t + \
 
 ### Densitatea spectrală de putere
 
-- **Densitatea spectrală de putere** (DSP) $S_{ff}(\omega)$ reprezintă 
+- **Densitatea spectrală de putere** (DSP) $S_{ff}(\omega)$ reprezintă
 puterea unui semnal în funcție de frecvență ($f$ sau $\omega = 2 \pi f$)
 
 - Pentru un semnal **determinist** (ne-aleator), este dată de modului transf. Fourier la pătrat:
@@ -1191,7 +1153,7 @@ puterea unui semnal în funcție de frecvență ($f$ sau $\omega = 2 \pi f$)
 
 - **DSP a unui proces aleator** = media DSP pentru toate realizările posibile
 
-- Are aceeași utilitate și semnificație ca în cazul unui semnal determinist, 
+- Are aceeași utilitate și semnificație ca în cazul unui semnal determinist,
 doar că **în medie** în raport cu toate realizările posibile
     - pentru o realizare particulară, DSP poate varia în jurul DSP medii
 
@@ -1219,7 +1181,7 @@ doar că **în medie** în raport cu toate realizările posibile
     - autocorelația este un Dirac: este 0 pentru orice $\tau \neq 0$
     - oricare două eșantioane diferite ($\tau \neq 0$) au corelație zero (necorelate)
         - valorile a două eșantioane distincte nu au legătură între ele
-    
+
 ### Zgomot alb
 
 - **Densitatea spectrală de putere** = transf. Fourier a unui Dirac = **constantă** $\forall \omega$
@@ -1231,19 +1193,19 @@ doar că **în medie** în raport cu toate realizările posibile
 
     - termenul "zgomot alb" nu se referă la distribuția eșantioanelor,
     ci la faptul că valorile eșantioanele sunt necorelate
-    
-### Zgomot alb de bandă limitată    
-    
+
+### Zgomot alb de bandă limitată
+
 - În lumea reală, pentru orice semnal puterea scade la 0 la frecvențe foarte înalte
 
     - pentru că puterea totală $P = \int_{-\infty}^{\infty} S_{ff}{\omega}$ nu poate fi infinită
-    
+
     - se numește zgomot alb **de bandă limitată**
-    
+
 - În acest caz, autocorelația = **aproximativ** un Dirac, dar nu chiar infinit de "subțire"
 
     - eșantioane foarte apropiate sunt totuși corelate
-    
+
     - de ex. din cauza unor mici capacități parazite
 
 ### AWGN
@@ -1251,21 +1213,21 @@ doar că **în medie** în raport cu toate realizările posibile
 - **AWGN** = Additive White Gaussian Noise
 
     - Zgomot alb, Gaussian, aditiv
-    
+
     - tipul/modelul de zgomot cel mai frecvent întâlnit în aplicații
 
 - Înseamnă:
 
     - **zgomot**: este un proces aleator (fiecare eșantion este aleator, fiecare realizare este diferită)
-    
+
     - **gaussian**: eșantioanele au distribuția normală
-    
-    - **alb**: valorile eșantioanelor sunt necorelate între ele 
-    
+
+    - **alb**: valorile eșantioanelor sunt necorelate între ele
+
     - **aditiv**: zgomotul se adună peste semnalul original (adică de ex. nu se multiplică cu acesta)
-    
-    
-    
+
+
+
 
 ### Examen 2020-2021
 
@@ -1306,7 +1268,7 @@ $$\sigma^2 = R_{ff}(0) - R_{ff}(\infty)$$
 * Fie un proces aleator aplicat la intrarea unui sistem
     * fie în timp continuu: intrarea $x(t)$, sistemul $H(s)$, ieșirea $y(t)$
     * fie în timp discret: intrarea $x[n]$, sistemul $H(z)$, ieșirea $y[n]$
-    
+
 * Cum depinde autocorelația ieșirii $y$ de cea a intrării $x$?
 
 * Se știe că $y$ este convoluția lui $x$ cu răspunsul la impuls $h$
@@ -1333,7 +1295,7 @@ S_{yy}(\omega) = \sum_{\tau=-\infty}^{\infty} \sum_{k_1=-\infty}^\infty \sum_{k_
 $$
 
 * Schimbare de variabilă $\tau - k_1 + k_2 = u$
-    * rezultă $\tau = u + k_1 - k_2$ 
+    * rezultă $\tau = u + k_1 - k_2$
 
 $$\begin{split}
 S_{yy}(\omega) =& \sum_{u=-\infty}^{\infty} \sum_{k_1=-\infty}^\infty \sum_{k_2=-\infty}^\infty h[k_1] h[k_2] R_{xx}[u] e^{- j \omega (u + k_1 + k_2)}\\
@@ -1357,12 +1319,12 @@ $$S_{yy}(\omega) = S_{xx}(\omega) \cdot |H(\omega)|^2$$
 * Corelația a două semnale = o măsura a **similarității** celor două semnale
     * Funcția de corelație măsoară similaritatea unui semnal cu toate versiunile decalate ale celuilalt
     * Exemplu numeric la tablă, semnale de lungime finită
-    
+
 * Corelația poate fi utilizată pentru localizare
     * Funcția de (auto)corelație are valori mari atunci când cele două semnale se potrivesc
     * Valori mari sunt atunci când valorile pozitive / negative ale semnalelor se potrivesc
     * Valori mici atunci când nu se potrivesc
-    
+
 ### Semnalul căutat
 
 ```{.python .cb.run session=plot}
