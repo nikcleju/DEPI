@@ -584,6 +584,19 @@ Exercițiu:
 
 ![](img/2DNormal-ellips.jpg){.id width=75%}
 
+### Exemplu: traiectorii
+
+Distribuția (lungime, durată, unghi) pentru traiectorii in Podu Roș
+
+![](img/ScreenshotTrajs.png){.id width=75%}
+
+### Exemplu: traiectorii
+
+Distribuția (lungime, durată, unghi) pentru traiectorii in Podu Roș
+
+![](img/outliers_In_PoduRos_Out_Palat_3D.png){.id width=75%}
+
+
 ### Medii statistice
 
 * V.a. sunt caracterizate prin medii statistice ("*momente*")
