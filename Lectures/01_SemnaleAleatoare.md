@@ -588,7 +588,7 @@ Exercițiu:
 
 Traiectorii ale vehiculelor in intersecția Podu Roș
 
-![Treiectorii ale vehiculelor, In Podu Ros -> Out Palat](img/ScreenshotTrajs.png)
+![Traiectorii ale vehiculelor, In Podu Ros -> Out Palat](img/ScreenshotTrajs.png)
 
 ### Exemplu: traiectorii
 
