@@ -586,15 +586,36 @@ Exercițiu:
 
 ### Exemplu: traiectorii
 
-Distribuția (lungime, durată, unghi) pentru traiectorii in Podu Roș
+Traiectorii ale vehiculelor in intersecția Podu Roș
 
-![](img/ScreenshotTrajs.png){.id width=75%}
+![Treiectorii ale vehiculelor, In Podu Ros -> Out Palat](img/ScreenshotTrajs.png)
 
 ### Exemplu: traiectorii
 
-Distribuția (lungime, durată, unghi) pentru traiectorii in Podu Roș
+Distribuția duratei traiectoriilor
 
-![](img/outliers_In_PoduRos_Out_Palat_3D.png){.id width=75%}
+- a. In Splai -> Out Palat
+- b. In Splai -> Out Podu Ros
+
+![](img/outliers_1D_In_Splai_Out_Palat.png){.id width=49%} ![](img/outliers_1D_In_Splai_Out_PoduRos.png){.id width=49%}
+
+### Exemplu: traiectorii
+
+Distribuția (lungime, durată) pentru traiectorii
+
+- a. In Podu Ros -> Out Splai
+- b. In Splai -> Out Podu Ros
+
+![](img/outliers_2D_In_PoduRos_Out_Splai.png){.id width=49%} ![](img/outliers_2D_In_Splai_Out_Palat.png){.id width=49%}
+
+### Exemplu: traiectorii
+
+Distribuția (lungime, durată, curbură) pentru traiectorii
+
+a. In Podu Ros -> Out Palat
+b. In Splai -> Out Podu Ros
+
+![](img/outliers_3D_In_PoduRos_Out_Palat.png){.id width=49%}  ![](img/outliers_3D_In_Splai_Out_PoduRos.png){.id width=49%}
 
 
 ### Medii statistice
