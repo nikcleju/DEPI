@@ -816,11 +816,11 @@ Edited by Tadeusz J. Ulrych, Mauricio D. Sacchi, Volume 36,
 
 - Un eșantion la alt moment $t_2$ este o v.a. diferită, cu funcții posibil diferite
     - altă FR $F_1(x;t_2)$
-    - altă FDP / FMP $w_2(x;t_2) = \frac{dF_1(x;t_2)}{dx}$
+    - altă FDP / FMP $w_1(x;t_2) = \frac{dF_1(x;t_2)}{dx}$
 
 - Aceste funcții descriu distribuția valorilor unui eșantion
 
-- Indicele $w_1$ arată că considerăm o singură v.a. din proces (distribuții de ordin 1-)
+- Indicele $w_1$ arată că considerăm o singură v.a. din proces (distribuții de ordin 1)
 
 - Similar pentru p.a. discrete
 
@@ -866,7 +866,7 @@ $$\overline{f^2(t_1)} = \int_{-\infty}^{\infty} x^2 \cdot w_1(x; t_1) dx$$
 ### Medii statistice - varianța
 
 3. **Varianța**
-$$\sigma^2(t_1) = \overline{\left\{ f(t_1) - \mu(t_1) \right\}^2} = \int_{-\infty}^{\infty} (x-\mu(t_1)^2 \cdot w_1(x; t_1) dx$$
+$$\sigma^2(t_1) = \overline{\left\{ f(t_1) - \mu(t_1) \right\}^2} = \int_{-\infty}^{\infty} (x-\mu(t_1)^2) \cdot w_1(x; t_1) dx$$
 
 - Legătura între aceste trei mărimi:
     $$\begin{split}
@@ -912,14 +912,14 @@ Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$, și no
 
 - Dacă avem acces doar la o singură realizare $f^{(k)}(t)$ a procesului?
 
-- Calculăm valorile medii **pentru o singură realizare $f^{(k)(t)}$, de-a lungul timpului**
+- Calculăm valorile medii **pentru o singură realizare $f^{(k)}(t)$, de-a lungul timpului**
 
 ### Medii temporale
 
 **Medii temporale** pentru procese aleatoare continue:
 
 1. **Valoarea medie temporală**
-    $$\overline{f^{(k)}(t)} = \mu^{(k)} = \lim_{T \to \infty} \frac{1}{T} \int_{T/2}^{T/2} f^{(k)}(t) dt$$
+    $$\overline{f^{(k)}(t)} = \mu^{(k)} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t) dt$$
 
 2. **Valoarea medie pătratică temporală**
     $$\overline{[f^{(k)}(t)]^2} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} [f^{(k)}(t)]^2 dt$$
