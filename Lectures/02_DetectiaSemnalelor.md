@@ -1687,15 +1687,15 @@ Algoritmul *k-Nearest Neighbours* (k-NN)
 }
 
 
-### Algoritmul k-NN și decizia ML
+### Algoritmul k-NN și decizia MPE
 
-- Dacă setul de antrenare este foarte mare, algoritmul k-NN devine simular cu decizia pe baza criteriului ML
+- Dacă setul de antrenare este foarte mare, algoritmul k-NN devine simular cu decizia pe baza criteriului MPE
 
-- Numărul de vectori situați într-o vecinătate a unui punct $r$ este proporțional cu $w(r|H_i)$
+- Numărul de vectori situați într-o vecinătate a unui punct $r$ este proporțional cu $w(r|H_i) P(H_i)$
 
-- Mai mulți vecini din clasa A decât din clasa B $\Leftrightarrow$ $w(r|H_A)$ > $w(r|H_B)$
+- Mai mulți vecini din clasa A decât din clasa B $\Leftrightarrow$ $w(r|H_A) P(H_A)$ > $w(r|H_B) P(H_B)$
 
-### Algoritmul k-NN și decizia ML
+### Algoritmul k-NN și decizia MPE
 
 - Exemplu: frunze și copaci :) de povestit
 
