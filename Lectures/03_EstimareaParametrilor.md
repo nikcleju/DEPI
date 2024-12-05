@@ -388,6 +388,82 @@ plt.close()
 ```
 ![](fig/03_NumericalSim_CosineFreq.png){width=70% max-width=1000px}
 
+### Estimarea paremetrilor unor distribuții
+
+- Estimarea ML se poate folosi și pentru a estima parametrii unor distribuții
+
+- Avem un set de valori $r_i$, pe care le modelăm ca fiind eșantioane dintr-o distribuție.
+  Cum găsim parametrii acelei distribuții?
+
+- Momentan, considerăm un singur parametru necunoscut
+
+### Estimarea parametrilor distribuției normale
+
+- Presupunem că $r_i$ sunt eșantioane dintr-o distribuție normală $\mathcal{N}(\mu, \sigma^2)$
+- Distribuția are doi parametri: media $\mu$ și deviația standard $\sigma$
+
+- Estimarea lui $\mu$:
+
+  Este identică cu estimarea unui semnal constant în zgomot gaussian cu media 0:
+  $$\hat{\mu}_{ML} = \frac{1}{N} \sum_{i=1}^N r_i$$
+
+- Estimarea lui $\sigma^2$:
+
+  Nu se poate formula ca estimarea unui semnal afectat, prin adunare, de zgomot gaussian,
+  dar cu toate acestea se poate utiliza în continuare metoda ML:
+
+  $$\hat{\sigma}_{ML} = \arg\max_{\sigma} w(\vec{r} | \sigma)$$
+
+### Estimarea parametrilor distribuției normale
+
+$$\begin{aligned}
+\hat{\sigma}_{ML} &= \arg\max_{\sigma} w(\vec{r} | \sigma) \\
+=& \arg\max_{\sigma} \left( \frac{1}{\sigma \sqrt{2 \pi}} \right)^N e^{- \frac{\sum(r_i - \mu)^2}{2 \sigma^2}}   \quad \textrm{( aplicăm ln() )}\\
+=& \arg\max_{\sigma} \left( -N \ln(\sigma \sqrt{2 \pi}) - \frac{\sum(r_i - \mu)^2}{2 \sigma^2} \right)\\
+\end{aligned}$$
+
+Derivăm și egalăm cu 0 pentru a obține minimul:
+
+$$\begin{split}
+-N \frac{1}{\sigma \sqrt{2 \pi}} \sqrt{2 \pi} - \frac{\sum(r_i - \mu)^2}{2} (-2) \sigma^{-3} &= 0 \\
+-\frac{N}{\sigma} + \frac{\sum(r_i - \mu)^2}{\sigma^3} &= 0 \\
+\sigma^2 &= \frac{\sum(r_i - \mu)^2}{N} \\
+\end{split}$$
+
+### Estimarea parametrilor distribuției normale
+
+- Estimarea parametrilor unei distribuții normale e similară cu definițiile mediei și varianței:
+
+  $$\begin{aligned}
+  \hat{\mu}_{ML} &= \frac{1}{N} \sum_{i=1}^N r_i \\
+  \hat{\sigma}_{ML} &= \sqrt{\frac{\sum_{i=1}^N (r_i - \mu)^2}{N}}
+  \end{aligned}$$
+
+- Notă: estimarea lui $\sigma_{ML}$ necesită valoarea lui $\mu$
+  - Dacă $\mu$ este cunoscut, totul e în regulă
+  - Dacă $\mu$ este necunoscut, se poate folosi $\hat{\mu}_{ML}$,
+    dar atunci estimăm pe baza unei alte estimări, ceea ce e problematic
+    (estimatorul este deplasat, vom vedea)
+
+### Estimarea parametrilor distribuției uniforme
+
+- Presupunem că $r_i$ sunt eșantioane dintr-o distribuție uniformă $\mathcal{U}[a, b]$
+- Distribuția are doi parametri: limitele $a$ și $b$
+- Estimarea lui $a$ și $b$:
+
+  $$\begin{aligned}
+  \hat{a}_{ML} &= \arg\max_{a} w(\vec{r} | a)\\
+  \hat{b}_{ML} &= \arg\max_{b} w(\vec{r} | b)
+  \end{aligned}$$
+
+  Prin raționament:
+  $$\begin{aligned}
+  \hat{a}_{ML} &= \min(r_i) \\
+  \hat{b}_{ML} &= \max(r_i)
+  \end{aligned}$$
+
+- Intervalul trebuie să cuprindă toate valorile (altfel, probabilitatea ar fi 0),
+  dar nu trebuie să fie mai mare decât strict necesar (altfel, probabilitatea ar fi mai mică)
 
 ### Parametri multipli
 
@@ -429,6 +505,14 @@ vom avea $M$ derivate
 - Se îmbunătățesc valorile în mod iterativ cu algoritmi tip  **coborâre după gradient**
 (Gradient Descent)
 
+- Gradient Descent este o metodă generală d găsire a minimului (sau a maximului) unei funcții
+
+### Coborâre după gradient (Gradient Descent)
+
+![Coborâre după gradient[^GD]](img/GradientDescent.jpg){width=70%}
+
+[^GD]: Imagine: [Quick Guide to Gradient Descent and Its Variants, Sahdev Kansal, Towards Data Science, 2020](https://towardsdatascience.com/quick-guide-to-gradient-descent-and-its-variants-97a7afb33add)
+
 ### Coborâre după gradient (Gradient Descent)
 
 1. Se inițializează parametrii cu valori aleatoare $\bm{\Theta}^{(0)}$
@@ -446,9 +530,20 @@ vom avea $M$ derivate
 
 3. Până la îndeplinirea unui criteriu de terminare (de ex. parametrii nu se mai modifică mult)
 
+
 ### Coborâre după gradient (Gradient Descent)
 
-- Explicații la tablă
+- În fiecare punct, derivata ne spune în ce direcție să mergem
+
+- Pentru găsirea minimului unei funcții, se scade derivata (coborâre după gradient)
+  $$\Theta^{(k+1)} = \Theta^{(k)} - \mu \frac{\partial L}{\partial \Theta^{(k)}}$$
+
+- Pentru găsirea maximului unei funcții, se adună derivata (urcare după gradient)
+  $$\Theta^{(k+1)} = \Theta^{(k)} + \mu \frac{\partial L}{\partial \Theta^{(k)}}$$
+
+- Parametrul $\mu$ se numește **rată de învățare** (learning rate) și se alege empiric, la o valoare mică
+
+- Alte explicații la tablă
 
 - Exemplu: regresia logistică cu valori 2D
    - exemplu la tablă
@@ -501,7 +596,7 @@ vom avea $M$ derivate
 
 ### Deplasarea unui estimator
 
-- Exemplu: semnal constant A, zgomot Gaussian (cu media), estimatorul de plauzibilitate maximă este $\hat{A}_{ML} = \frac{1}{N}\sum_i r_i$
+- Exemplu: semnal constant A, zgomot Gaussian (cu media 0), estimatorul de plauzibilitate maximă este $\hat{A}_{ML} = \frac{1}{N}\sum_i r_i$
 
 - Atunci:
 $$\begin{split}
@@ -513,6 +608,36 @@ E \left\{ \hat{A}_{ML} \right\} =& \frac{1}{N}E \left\{ \sum_i r_i \right\} \\
 \end{split}$$
 
 - Acest estimator este nedeplasat
+
+### Deplasarea unui estimator
+
+- Exemplu: estimatorul varianței unei distribuții normale, când se folosește media estimată $\hat{\mu}_{ML}$:
+	$$\begin{split}
+	\hat{\sigma}_{ML}^2 &= \frac{\sum_{i=1}^N (r_i - \hat{\mu}_{ML})^2}{N} \\
+	\end{split}$$
+
+- Acest estimator este **deplasat**:
+  $$\begin{split}
+  E \left\{ \hat{\sigma}_{ML}^2 \right\} &= E \left\{ \frac{\sum_{i=1}^N (r_i - \hat{\mu}_{ML})^2}{N} \right\} \\
+  &= \dots \\
+  &= \frac{N-1}{N} \sigma^2
+  \end{split}$$
+  unde $\sigma^2$ este varianța reală a distribuției
+
+
+- Demonstrație: [*Wikipedia*](https://en.wikipedia.org/wiki/Variance#Sample_variance)
+  sau ["*Maximum Likelihood Estimator for Variance is Biased: Proof*", Dawen Liang, Carnegie Mellon University](https://dawenl.github.io/files/mle_biased.pdf)
+
+### Estimatorul nedeplasat al varianței
+
+- Estimatorul MLE al varianței este deplasat, și **subestimează** varianța reală a distribuției
+
+- Pentru a obține un estimator nedeplasat al varianței, se folosește formula:
+  $$\hat{\sigma}_{ML}^2 = \frac{1}{N-1} \sum_{i=1}^N (r_i - \hat{\mu}_{ML})^2$$
+
+- Diferența: se împarte la $N-1$ în loc de $N$
+
+- Justificare intuitivă: discuție la tablă, cazul cu 2 puncte; medie este la mijloc; varianța e minimizată, deci subestimează varianța reală
 
 ### Varianța unui estimator
 
