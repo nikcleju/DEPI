@@ -543,10 +543,11 @@ vom avea $M$ derivate
 
 - Parametrul $\mu$ se numește **rată de învățare** (learning rate) și se alege empiric, la o valoare mică
 
+- GD depinde de valoarea inițială, și poate ajunge la minimul local, nu global
+
 - Alte explicații la tablă
 
-- Exemplu: regresia logistică cu valori 2D
-   - exemplu la tablă
+- Exemplu practic: regresia logistică cu valori 2D
 
 ### Rețele Neurale
 
