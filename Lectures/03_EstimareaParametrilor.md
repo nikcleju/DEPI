@@ -388,7 +388,7 @@ plt.close()
 ```
 ![](fig/03_NumericalSim_CosineFreq.png){width=70% max-width=1000px}
 
-### Estimarea paremetrilor unor distribuții
+### Estimarea parametrilor unor distribuții
 
 - Estimarea ML se poate folosi și pentru a estima parametrii unor distribuții
 
@@ -505,7 +505,7 @@ vom avea $M$ derivate
 - Se îmbunătățesc valorile în mod iterativ cu algoritmi tip  **coborâre după gradient**
 (Gradient Descent)
 
-- Gradient Descent este o metodă generală d găsire a minimului (sau a maximului) unei funcții
+- Gradient Descent este o metodă generală de găsire a minimului (sau a maximului) unei funcții
 
 ### Coborâre după gradient (Gradient Descent)
 
@@ -613,9 +613,9 @@ E \left\{ \hat{A}_{ML} \right\} =& \frac{1}{N}E \left\{ \sum_i r_i \right\} \\
 ### Deplasarea unui estimator
 
 - Exemplu: estimatorul varianței unei distribuții normale, când se folosește media estimată $\hat{\mu}_{ML}$:
-	$$\begin{split}
-	\hat{\sigma}_{ML}^2 &= \frac{\sum_{i=1}^N (r_i - \hat{\mu}_{ML})^2}{N} \\
-	\end{split}$$
+  $$\begin{split}
+  \hat{\sigma}_{ML}^2 &= \frac{\sum_{i=1}^N (r_i - \hat{\mu}_{ML})^2}{N} \\
+  \end{split}$$
 
 - Acest estimator este **deplasat**:
   $$\begin{split}
@@ -625,20 +625,19 @@ E \left\{ \hat{A}_{ML} \right\} =& \frac{1}{N}E \left\{ \sum_i r_i \right\} \\
   \end{split}$$
   unde $\sigma^2$ este varianța reală a distribuției
 
-
 - Demonstrație: [*Wikipedia*](https://en.wikipedia.org/wiki/Variance#Sample_variance)
   sau ["*Maximum Likelihood Estimator for Variance is Biased: Proof*", Dawen Liang, Carnegie Mellon University](https://dawenl.github.io/files/mle_biased.pdf)
 
 ### Estimatorul nedeplasat al varianței
 
-- Estimatorul MLE al varianței este deplasat, și **subestimează** varianța reală a distribuției
+- Estimatorul ML al varianței este deplasat, și **subestimează** varianța reală a distribuției cu un factor (N-1)/N
 
 - Pentru a obține un estimator nedeplasat al varianței, se folosește formula:
   $$\hat{\sigma}_{ML}^2 = \frac{1}{N-1} \sum_{i=1}^N (r_i - \hat{\mu}_{ML})^2$$
 
 - Diferența: se împarte la $N-1$ în loc de $N$
 
-- Justificare intuitivă: discuție la tablă, cazul cu 2 puncte; medie este la mijloc; varianța e minimizată, deci subestimează varianța reală
+- Justificare intuitivă: discuție la tablă, cazul cu 2 puncte; media este la mijloc; varianța e minimizată, deci subestimează varianța reală
 
 ### Varianța unui estimator
 
@@ -653,7 +652,6 @@ chiar daca estimatorul este nedeplasat
 
 
 ## II.3 Estimare Bayesiană
-
 
 ### Estimare Bayesiană
 
