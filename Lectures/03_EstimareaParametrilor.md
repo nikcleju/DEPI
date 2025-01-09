@@ -667,7 +667,7 @@ chiar daca estimatorul este nedeplasat
 - Conceptual, estimarea Bayesiană constă în doi pași:
 
   1. Găsirea distribuției **posterioare** $w(\Theta | \vec{r})$
-  2. Estimaea unei valori de pe distribuție, pe baza unei **funcții de cost**
+  2. Estimarea unei valori din această distribuție, pe baza unei **funcții de cost**
 
 ### Estimare Bayesiană
 
@@ -684,15 +684,19 @@ date fiind observațiile $\vec{r}$, folosind **regula lui Bayes**:
 	dat fiind vectorul de observații $\vec{r}$;
 	- $w(\vec{r} | \Theta)$ este funcția de plauzibilitate
 	- $w(\Theta)$ este distribuția **a priori** a lui $\Theta$
-	- $w(\vec{r})$ este distribuția **a priori** a lui $\vec{r}$; se presupune a fi constantă
+	- $w(\vec{r})$ este o constantă (distribuția **a priori** a lui $\vec{r}$); singurul său rol este să normalizeze expresia, astfel încât integrala lui $w(\Theta | \vec{r})$ să fie 1, așa cum stă bine unei distribuții de probabilitate
 
 ### Estimare Bayesiană
 
+Comentarii:
+
 - La estimarea ML, avem doar termenul $w(\vec{r} | \Theta)$.
-  Văzut ca o funcție de $\Theta$, acesta nu e o o distrubție a $\Theta$.
+  Acesta este o funcție de $\Theta$, dar nu e chiar distribuția de probabilitate lui $\Theta$.
   E doar o mărime pe care vrem să o maximizăm.
 
-- Estimarea Bayesiană folosește însă $w(\Theta | \vec{r})$, care **este** chiar distribuția valorilor posibile ale lui $\Theta$
+- Estimarea Bayesiană folosește însă chiar distribuția de probabilitate a lui $\Theta$, $w(\Theta | \vec{r})$,
+  calculată cu regula lui Bayes,
+  care ne spune riguros șansele ca $\Theta$ să aibă o anumită valoare sau alta.
 
 ### Regula lui Bayes
 
@@ -701,23 +705,30 @@ date fiind observațiile $\vec{r}$, folosind **regula lui Bayes**:
   1. De vectorul observațiilor $\vec{r}$, prin termenul $w(\vec{r} | \Theta)$
   2. De informația "a priori" avută despre $\Theta$, prin termenul $w(\Theta)$
 
-  - (termenul $w(\vec{r})$ se presupune constant)
+  - (numitorul $w(\vec{r})$ se presupune constant și are doar rol de normalizare)
+
+- Distribuția a priori $w(\Theta)$ reflectă cunoștințele noastre anterioare despre parametrul $\Theta$,
+  înainte de a avea observațiile $\vec{r}$.
+
+- Distribuția a posteriori $w(\Theta | \vec{r})$ reflectă cunoștințele noastre după ce avem și observațiile $\vec{r}$.
 
 - Numele este "estimare Bayesiană"
 
    - Thomas Bayes = matematician englez, a descoperit regula cu acest nume
-   - Noțiunile bazate pe regula lui Bayes poartă deseori numele de "Bayesiane"
+   - Noțiunile bazate pe regula lui Bayes poartă deseori numele de "Bayesiene"
 
 ### Distribuția *a priori*
 
 - Presupunem că se știe de dinainte o distribuție a lui $\Theta$, $w(\Theta)$
 
-   - știm de dinainte care e probabilitatea de a fi a anume valoare sau alta
-   - se numește distribuția *a priori*
+   - adică, știm de dinainte care e probabilitatea de a fi a anume valoare sau alta, sau un anume interval interzis etc.
+   - se numește distribuția *a priori*, adică "de dinainte de a avea observațiile"
 
-- Estimarea trebuie să ia în calcul și distribuția *a priori*
+- Care este efectul ei? Estimarea va fi "trasă" puțin înspre valorile preferate de distribuția *a priori*
 
-   - estimatul va fi "tras" înspre valori mai probabile
+   - de exemplu, dacă distribuția *a priori* este concentrată în jurul unei valori, estimarea va fi mai probabil să cadă în jurul acelei valori
+
+- Dacă nu avem informații *a priori*, putem folosi o distribuție uniformă, adică $w(\Theta)$ = constant
 
 ### Estimatorul MAP
 
@@ -738,7 +749,6 @@ Care este valoarea estimată?
 
 Exemplu: Imagine
 
-
 ### Relația dintre estimarea MAP și ML
 
 - Estimatorul ML: $$\arg\max w(\vec{r} | \Theta)$$
@@ -749,7 +759,6 @@ Exemplu: Imagine
 
    - $w(\Theta)$ = constant înseamnă că toate valorile lui $\Theta$ sunt *a priori* echiprobabile
    - i.e. nu avem extra informații despre valoarea lui $\Theta$
-
 
 ### Relația cu detecția semnalelor
 
@@ -769,7 +778,6 @@ $\frac{w(r | H_1)}{w(r | H_0)} \grtlessH \frac{P(H_0)}{P(H_1)}$
 	- dintre toate valorile posibile pentru $\Theta$
 
 - Același principiu!
-
 
 ### Funcția de cost
 
@@ -820,37 +828,36 @@ $\frac{w(r | H_1)}{w(r | H_0)} \grtlessH \frac{P(H_0)}{P(H_1)}$
 - Care este estimatorul MAP?
 
 - Dar dacă avem funcția de cost următoare:
-
-	- dacă estimarea $\hat{\Theta}$ este < valoarea reală $\Theta$, te costă 1000 \$
-	- dacă estimarea $\hat{\Theta}$ este > valoarea reală $\Theta$, platești 1 \$
-	- schimbăm valoarea estimată ? :)
+  - dacă estimarea $\hat{\Theta}$ este < valoarea reală $\Theta$, te costă 1000 dolari
+  - dacă estimarea $\hat{\Theta}$ este > valoarea reală $\Theta$, platești 1 dolar
+  - schimbăm valoarea estimată ? :)
 
 ### Importanța funcției de cost
 
-- Funcția de cost este cea care impune alegerea unei anume valori $\hat{\Theta}$ de pe distribuția valorilor posibile
+- Funcția de cost este cea care impune alegerea unei anume valori estimate $\hat{\Theta}$ de pe distribuția valorilor posibile
 
-- Valoarea cea mai probabilă nu este întotdeauna cea mai bună
+- Valoarea cea mai probabilă nu este întotdeauna cea mai bună!
 
-- Valoarea cea mai bună este cea care minimizează valoarea medie a costului
+- Valoarea cea mai bună este cea care minimizează costul (adică, valoarea medie ("expected value") a costului, întrucât acesta poate fi unoeri mai mic, alteori mai mare)
 
 ### Riscul Bayesian
 
-- Distribuția *a posteriori* $w(\Theta | \vec{r})$ dă probabilitatea fiecărei valori $\hat{\Theta}$
+- Distribuția *a posteriori* $w(\Theta | \vec{r})$ dă probabilitatea fiecărei valori $\Theta$
 de a fi cea corectă
 
 - Alegerea unui estimat $\hat{\Theta}$ implică o anume eroare $\epsilon$
 
-- Eroarea de estimare are un anumit cost $C(\epsilon)$
+- Eroarea de estimare are un anumit cost $C(\epsilon) = C(\hat{\Theta} - \Theta)$
 
-- **Riscul** = valoarea medie a costului = $C(\epsilon$) $\times$ probabilitatea:
-	$$R = \int_{-\infty}^\infty C(\epsilon) w(\Theta | \vec{r}) d\Theta$$
+- **Riscul** = costul mediu în raport cu toate valorile posibile ale $\Theta$ = integrala din $C(\epsilon$) $\times$ probabilitatea:
+	$$R = \int_{-\infty}^\infty C(\hat{\Theta} - \Theta) w(\Theta | \vec{r}) d\Theta$$
 
 ### The Bayesian risk
 
 - Alegem valoarea $\hat{\Theta}$ care **minimizează costul mediu $R$**
-	$$\hat{\Theta} = \arg\min_\Theta \int_{-\infty}^\infty C(\epsilon) w(\Theta | \vec{r}) d\Theta$$
+  $$\hat{\Theta} = \arg\min_{\hat{\Theta}} \int_{-\infty}^\infty C(\hat{\Theta} - \Theta) w(\Theta | \vec{r}) d\Theta$$
 
-- O obținem înlocuind $C(\epsilon)$ cu definiția sa, și derivând după $\hat{\Theta}$
+- O obținem înlocuind $C(\epsilon) = C(\hat{\Theta} - \Theta)$ cu definiția sa, și derivând după $\hat{\Theta}$
 
    - Atenție: se derivează după $\hat{\Theta}$, nu $\Theta$!
 
