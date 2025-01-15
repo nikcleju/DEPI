@@ -936,16 +936,16 @@ integrala din jurul punctului $\hat{\Theta}$
 
     - similar cu criteriul MR, dar la estimare
 
-### Exercițiu
+<!-- ### Exercițiu
 
 Exercițiu: valoare constantă, 1 măsurătoare, zgomot Gaussian același $\sigma$
 
 - Vrem să estimam temperatura de astăzi din Sahara
 - Termometrul indică 40 grade, dar valoarea este afectată de zgomot Gaussian $\mathcal{N}(0, \sigma^2=2)$ (termometru ieftin)
 - Se știe că de obicei în această perioadă a anului temperatura este în jur de 35 grade, cu o distribuție Gaussiană $\mathcal{N}(35, \sigma^2 = 2)$.
-- Estimați valoarea reală a temperaturii folosind estimarea ML, MAP și EPMM(MMSE)
+- Estimați valoarea reală a temperaturii folosind estimarea ML, MAP și EPMM(MMSE) -->
 
-
+<!--
 ### Exercițiu
 
 Exercițiu: valoare constantă, 1 măsurătoare, zgomot Gaussian același $\sigma$
@@ -1018,46 +1018,63 @@ face ca semnalul adevărat să fie apropiat de eșantioanele recepționate $\vec
 
    - reducerea zgomotului din semnale
    - restaurarea semnalelor (parți lipsă din imagini, imagini *blurate* etc)
-   - compresia semnalelor
+   - compresia semnalelor -->
 
 
 ### Aplicații practice
 
-1. Urmărirea unui obiect ("single object tracking") prin filtrare Kalman
+1. Filtru Kalman: estimarea poziției unui obiect în mișcare
 
-  - urmărirea unui obiect prin măsurători succesive (e.g. din imagini succesive)
+  - Se cunosc poziția și viteza inițiale ale obiectului
+  - Se fac măsurători succesive ale poziției obiectului
+  - Se estimează poziția obiectului la fiecare măsurătoare nouă
 
-  - la fiecare nouă măsurătoare avem două distribuții ale poziției:
+La fiecare măsuratoare nouă, avem două distribuții ale poziției:
 
-	  - cea dată de măsurătoare respectivă, $w(r | \Theta)$
-	  - cea prezisă pe baza poziției și vitezei de data trecută
-	  - ambele presupuse a fi Gaussiene, caracterizate doar prin medie și varianță
+  - cea dată de măsurătoare respectivă, $w(r | \Theta)$ ("likelihood"   )
+  - cea **prezisă** pe baza poziției și vitezei de data trecută, $w(\Theta)$ ("prior")
+  - ambele presupuse a fi Gaussiene, caracterizate doar prin medie și varianță
 
-   - cele două se combină prin regula lui Bayes => o distribuție mai precisă $w(\Theta | r)$, tot Gaussiană
-   - poziția exactă se estimează prin EPMM (media lui $w(\Theta | r)$
-   - $w(\Theta | r)$ prezice poziția de la momentul următor
+Cele două se combină prin regula lui Bayes => o distribuție mai precisă $w(\Theta | r)$, tot Gaussiană
+  - poziția exactă se estimează prin EPMM (media lui $w(\Theta | r)$
+  - $w(\Theta | r)$ prezice poziția de la momentul următor
+
+### Filtru Kalman pentru estimarea poziției unui obiect în mișcare
+
+![Estimarea poziției cu filtru Kalman [^1]](img/Kalman_example_1.png){width=80%}
+
+[^1]: Image source: https://www.lancaster.ac.uk/stor-i-student-sites/jack-trainer/how-nasa-used-the-kalman-filter-in-the-apollo-program/
+
+### Filtru Kalman pentru estimarea poziției unui obiect în mișcare
+
+- Predicția poziției obiectului la pasul următor necesită cunoașterea vitezei
+- În exemplul anterior, viteza este constantă (sau cu o cunoscută)
+- În general, filtrele Kalman estimează și viteza unui obiect în mișcare, doar pe baza pozițiilor măsurate
+
+### Filtru Kalman pentru estimarea poziției unui obiect în mișcare
+
+Filtru Kalman pentru estimarea poziției și vitezei simultan (de-a lungul unei singure axe)
+
+- Se estimează simultan poziția și viteza,
+  adică starea $\mathbf{s} = \begin{bmatrix} x \\ v \end{bmatrix}$
+- Se lucrează cu distribuții Gaussiene 2D (poziție, viteză) (mișcarea este pe o singură axă)
+
+Etape:
+
+  1. La pasul $k$, se cunoaște distribuția stării $s^k$, adică:
+  2. Se prezice distribuția stării la pasul $k+1$ ("prior distribution")
+  3. Se face o măsurătoare a poziției $z^{k+1}$ ("likelihood")
+  4. Se calculează noua distribuție a stării ("posterior distibution"), pe baza regulii lui Bayes, înmulțindu-le
+  5. Media acestei distribuții este estimatul stării (poziției și vitezei) la pasul $k+1$ (estimare EPMM)
+
+### Filtru Kalman pentru estimarea poziției unui obiect în mișcare
+
+Ilustrare:
+
+1. [https://www.bzarg.com/p/how-a-kalman-filter-works-in-pictures/](https://www.bzarg.com/p/how-a-kalman-filter-works-in-pictures/)
+2. [https://towardsdatascience.com/what-i-was-missing-while-using-the-kalman-filter-for-object-tracking-8e4c29f6b795](https://towardsdatascience.com/what-i-was-missing-while-using-the-kalman-filter-for-object-tracking-8e4c29f6b795)
 
 
-### Single object tracking
+Aplicație:
 
-### Single object tracking
-
-### Aplicații practice
-
-2. Constrained Least Squares (CLS) image restoration
-
-  - Avem o imagine $I$ afectată de erori (zgomot, pixeli lipsă, blurare)
-  $$I_{zg} = I_{true} + Z$$
-
-  - Estimăm imaginea originală prin:
-  $$\hat{I_{true}} = argmin_{I} \|I - I_{zg}\|_2 + \lambda \cdot \|HighPass\lbrace I \rbrace\|_2$$
-
-  - Exemple:
-
-    - [https://www.mathworks.com/help/images/deblurring-images-using-a-regularized-filter.html](https://www.mathworks.com/help/images/deblurring-images-using-a-regularized-filter.html)
-
-    - [https://demonstrations.wolfram.com/ImageRestorationForDegradedImages](https://demonstrations.wolfram.com/ImageRestorationForDegradedImages)
-
-	- Google it
-
-### Constrained Least Squares (CLS) image restoration
+- Netezirea traiectoriilor: proiect TrafAlert
