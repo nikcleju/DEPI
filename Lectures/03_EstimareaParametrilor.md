@@ -1035,8 +1035,9 @@ La fiecare măsuratoare nouă, avem două distribuții ale poziției:
   - cea **prezisă** pe baza poziției și vitezei de data trecută, $w(\Theta)$ ("prior")
   - ambele presupuse a fi Gaussiene, caracterizate doar prin medie și varianță
 
-Cele două se combină prin regula lui Bayes => o distribuție mai precisă $w(\Theta | r)$, tot Gaussiană
-  - poziția exactă se estimează prin EPMM (media lui $w(\Theta | r)$
+Cele două se combină prin regula lui Bayes => o distribuție mai precisă $w(\Theta | r)$, tot Gaussiană ("posterior")
+
+  - poziția exactă se estimează prin EPMM (media lui $w(\Theta | r)$)
   - $w(\Theta | r)$ prezice poziția de la momentul următor
 
 ### Filtru Kalman pentru estimarea poziției unui obiect în mișcare
@@ -1048,8 +1049,8 @@ Cele două se combină prin regula lui Bayes => o distribuție mai precisă $w(\
 ### Filtru Kalman pentru estimarea poziției unui obiect în mișcare
 
 - Predicția poziției obiectului la pasul următor necesită cunoașterea vitezei
-- În exemplul anterior, viteza este constantă (sau cu o cunoscută)
-- În general, filtrele Kalman estimează și viteza unui obiect în mișcare, doar pe baza pozițiilor măsurate
+- În exemplul anterior, viteza este cunoscută (constantă, sau cu o distribuție cunoscută)
+- În general, filtrele Kalman estimează și **viteza** unui obiect în mișcare, doar pe baza pozițiilor măsurate
 
 ### Filtru Kalman pentru estimarea poziției unui obiect în mișcare
 
@@ -1061,7 +1062,7 @@ Filtru Kalman pentru estimarea poziției și vitezei simultan (de-a lungul unei 
 
 Etape:
 
-  1. La pasul $k$, se cunoaște distribuția stării $s^k$, adică:
+  1. La pasul $k$, se cunoaște distribuția stării $s^k$
   2. Se prezice distribuția stării la pasul $k+1$ ("prior distribution")
   3. Se face o măsurătoare a poziției $z^{k+1}$ ("likelihood")
   4. Se calculează noua distribuție a stării ("posterior distibution"), pe baza regulii lui Bayes, înmulțindu-le
