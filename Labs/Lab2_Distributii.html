@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Distribuții ale variabilelor aleatoare</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Lab2_Distributii_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Lab2_Distributii_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Lab2_Distributii_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Lab2_Distributii_files/libs/quarto-html/popper.min.js"></script>
+<script src="Lab2_Distributii_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Lab2_Distributii_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Lab2_Distributii_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Lab2_Distributii_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Lab2_Distributii_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Lab2_Distributii_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Lab2_Distributii_files/libs/bootstrap/bootstrap-7c6a896853115d4253cd2a0127942323.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#obiectiv" id="toc-obiectiv" class="nav-link active" data-scroll-target="#obiectiv"><span class="header-section-number">1</span> Obiectiv</a></li>
+  <li><a href="#considerații-teoretice" id="toc-considerații-teoretice" class="nav-link" data-scroll-target="#considerații-teoretice"><span class="header-section-number">2</span> Considerații teoretice</a>
+  <ul class="collapse">
+  <li><a href="#densitate-de-probabilitate" id="toc-densitate-de-probabilitate" class="nav-link" data-scroll-target="#densitate-de-probabilitate"><span class="header-section-number">2.1</span> Densitate de probabilitate</a>
+  <ul class="collapse">
+  <li><a href="#eșantioane-aleatoare" id="toc-eșantioane-aleatoare" class="nav-link" data-scroll-target="#eșantioane-aleatoare">Eșantioane aleatoare</a></li>
+  </ul></li>
+  <li><a href="#distribuția-uniformă" id="toc-distribuția-uniformă" class="nav-link" data-scroll-target="#distribuția-uniformă"><span class="header-section-number">2.2</span> Distribuția uniformă</a>
+  <ul class="collapse">
+  <li><a href="#definiție-și-parametri" id="toc-definiție-și-parametri" class="nav-link" data-scroll-target="#definiție-și-parametri">Definiție și parametri</a></li>
+  <li><a href="#generarea-eșantioanelor-uniforme-în-matlab" id="toc-generarea-eșantioanelor-uniforme-în-matlab" class="nav-link" data-scroll-target="#generarea-eșantioanelor-uniforme-în-matlab">Generarea eșantioanelor uniforme în Matlab</a></li>
+  <li><a href="#probabilități-pentru-distribuția-uniformă" id="toc-probabilități-pentru-distribuția-uniformă" class="nav-link" data-scroll-target="#probabilități-pentru-distribuția-uniformă">Probabilități pentru distribuția uniformă</a></li>
+  </ul></li>
+  <li><a href="#distribuția-normală" id="toc-distribuția-normală" class="nav-link" data-scroll-target="#distribuția-normală"><span class="header-section-number">2.3</span> Distribuția normală</a>
+  <ul class="collapse">
+  <li><a href="#definiție-și-parametri-1" id="toc-definiție-și-parametri-1" class="nav-link" data-scroll-target="#definiție-și-parametri-1">Definiție și parametri</a></li>
+  <li><a href="#generarea-eșantioanelor-normale-în-matlab" id="toc-generarea-eșantioanelor-normale-în-matlab" class="nav-link" data-scroll-target="#generarea-eșantioanelor-normale-în-matlab">Generarea eșantioanelor normale în Matlab</a></li>
+  <li><a href="#calcularea-probabilităților-pentru-distribuția-normală" id="toc-calcularea-probabilităților-pentru-distribuția-normală" class="nav-link" data-scroll-target="#calcularea-probabilităților-pentru-distribuția-normală">Calcularea probabilităților pentru distribuția normală</a></li>
+  </ul></li>
+  <li><a href="#histogramele-ca-reprezentare-vizuală-a-distribuțiilor" id="toc-histogramele-ca-reprezentare-vizuală-a-distribuțiilor" class="nav-link" data-scroll-target="#histogramele-ca-reprezentare-vizuală-a-distribuțiilor"><span class="header-section-number">2.4</span> Histogramele ca reprezentare vizuală a distribuțiilor</a></li>
+  <li><a href="#rezumat-funcții-și-notații-pe-care-trebuie-să-le-cunoașteți" id="toc-rezumat-funcții-și-notații-pe-care-trebuie-să-le-cunoașteți" class="nav-link" data-scroll-target="#rezumat-funcții-și-notații-pe-care-trebuie-să-le-cunoașteți"><span class="header-section-number">2.5</span> Rezumat: funcții și notații pe care trebuie să le cunoașteți</a></li>
+  </ul></li>
+  <li><a href="#exerciții" id="toc-exerciții" class="nav-link" data-scroll-target="#exerciții"><span class="header-section-number">3</span> Exerciții</a>
+  <ul class="collapse">
+  <li><a href="#exerciții-suplimentare" id="toc-exerciții-suplimentare" class="nav-link" data-scroll-target="#exerciții-suplimentare"><span class="header-section-number">3.1</span> Exerciții suplimentare</a></li>
+  </ul></li>
+  <li><a href="#întrebări-finale" id="toc-întrebări-finale" class="nav-link" data-scroll-target="#întrebări-finale"><span class="header-section-number">4</span> Întrebări finale</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Lab2_Distributii.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="Lab2_Distributii.ipynb" download="Lab2_Distributii.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Distribuții ale variabilelor aleatoare</h1>
+<p class="subtitle lead">Laboratorul 2, DEDP</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="obiectiv" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Obiectiv</h1>
+<p>Generarea în Matlab a unor eșantioane cu distribuții uniforme și normale, cu diferiți parametri. Calcularea probabilităților teoretice și din vectori de eșantioane. Crearea de histograme. Folosirea funcției <code>erf()</code> pentru funcția de repartiție normală.</p>
+</section>
+<section id="considerații-teoretice" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Considerații teoretice</h1>
+<section id="densitate-de-probabilitate" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="densitate-de-probabilitate"><span class="header-section-number">2.1</span> Densitate de probabilitate</h2>
+<p>În acest laborator considerăm <strong>variabile aleatoare continue</strong>.</p>
+<p>O variabilă aleatoare continuă <span class="math inline">A</span> este descrisă de o <strong>funcție densitate de probabilitate</strong> (PDF) <span class="math inline">w_A(x)</span>, care arată cât de probabil este ca <span class="math inline">A</span> să ia valori în jurul lui <span class="math inline">x</span>. Densitatea de probabilitate mai este numită și <strong>distribuția</strong> lui <span class="math inline">A</span>.</p>
+<p>Probabilitatea ca <span class="math inline">A</span> să se afle în intervalul <span class="math inline">[a,b]</span> este <strong>aria de sub PDF</strong> pe acel interval, adică integrala PDF de la <span class="math inline">a</span> la <span class="math inline">b</span>:</p>
+<p><span class="math display">P(a&lt;A\le b)=\int_a^b w_A(x)\,dx,</span></p>
+<p>Probabilitatea se calculează numai pentru <strong>intervale</strong> de valori. Probabilitatea ca <span class="math inline">A</span> să fie exact egală cu o anumită valoare este întotdeauna zero.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/RandomVariable_AreaPDFProb.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Probabilitatea = aria de sub densitate</figcaption>
+</figure>
+</div>
+<p>PDF satisface întotdeauna <span class="math inline">w_A(x)\ge 0</span>, iar integrala sa este 1, însă valorile sale pot fi mai mari decât 1.</p>
+<p><strong>Funcția de repartiție</strong> (CDF) este definită ca probabilitatea ca <span class="math inline">A \le x</span>:</p>
+<p><span class="math display">
+F_A(x)=P(A\le x)
+</span></p>
+<p>CDF este nedescrescătoare și ia valori între 0 și 1.</p>
+<p>CDF poate fi folosită și pentru a calcula probabilități pe intervale:</p>
+<p><span class="math display">
+P(a&lt;A\le b)=F_A(b)-F_A(a).
+</span></p>
+<p>Cele două funcții sunt legate. PDF este derivata CDF:</p>
+<p><span class="math display">
+w_A(x)=\frac{dF_A(x)}{dx} \qquad \qquad F_A(x)=\int_{-\infty}^{x} w_A(t)\,dt.
+</span></p>
+<section id="eșantioane-aleatoare" class="level3">
+<h3 class="anchored" data-anchor-id="eșantioane-aleatoare">Eșantioane aleatoare</h3>
+<p>O valoare sau un vector cu <span class="math inline">N</span> valori generate dintr-o anumită distribuție reprezintă un <strong>eșantion aleator</strong>:</p>
+<p><span class="math display">x = [x_1, x_2, \ldots, x_N].</span></p>
+<p>Valorile se schimbă la fiecare rulare, dar comportamentul lor statistic ar trebui să rămână același.</p>
+<p>Media și varianța (sau deviația standard) calculate dintr-un anumit vector de eșantioane se numesc <strong>media eșantionului</strong> și <strong>varianța eșantionului</strong> (sau deviația standard a eșantionului).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">% Media, deviația standard și varianța eșantionului, calculate din date</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">sample_mean</span> <span class="op">=</span> <span class="va">mean</span>(<span class="va">x_normal</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">sample_std</span> <span class="op">=</span> <span class="va">std</span>(<span class="va">x_normal</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="va">sample_var</span> <span class="op">=</span> <span class="va">var</span>(<span class="va">x_normal</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Media și varianța eșantionului sunt apropiate, dar nu exact egale cu media și varianța teoretică ale distribuției (sunt „estimări” ale acestor valori teoretice).</p>
+</section>
+</section>
+<section id="distribuția-uniformă" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="distribuția-uniformă"><span class="header-section-number">2.2</span> Distribuția uniformă</h2>
+<section id="definiție-și-parametri" class="level3">
+<h3 class="anchored" data-anchor-id="definiție-și-parametri">Definiție și parametri</h3>
+<p>Distribuția uniformă descrie o variabilă aleatoare care are șanse egale să ia orice valoare dintr-un interval dat <span class="math inline">[a,b]</span>.</p>
+<p>Se notează:</p>
+<p><span class="math display">A \sim \mathcal{U}[a,b], \qquad \textrm{  unde  } a &lt; b.</span></p>
+<p>Funcția sa densitate de probabilitate (PDF) este definită astfel:</p>
+<p><span class="math display">
+f_A(x) =
+\begin{cases}
+\dfrac{1}{b-a}, &amp; a \le x \le b, \\
+0, &amp; \text{în rest}.
+\end{cases}
+</span></p>
+<p>PDF este constantă pe <span class="math inline">[a,b]</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/Lab2_uniform_pdf.png" class="img-fluid figure-img" style="width:72.0%"></p>
+<figcaption>PDF pentru <span class="math inline">\mathcal{U}[-2,2]</span>.</figcaption>
+</figure>
+</div>
+<p>Media și varianța sa statistică sunt</p>
+<p><span class="math display">
+\mathrm{E}\{A\} = \frac{a+b}{2},
+\qquad
+\sigma_A^2 = \frac{(b-a)^2}{12}.
+</span></p>
+</section>
+<section id="generarea-eșantioanelor-uniforme-în-matlab" class="level3">
+<h3 class="anchored" data-anchor-id="generarea-eșantioanelor-uniforme-în-matlab">Generarea eșantioanelor uniforme în Matlab</h3>
+<p><code>rand()</code> generează valori uniforme cu <span class="math inline">0&lt;A&lt;1</span>. Nu contează dacă valorile extreme <span class="math inline">0</span> și <span class="math inline">1</span> sunt incluse sau nu, deoarece oricum există o infinitate de valori în interval.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">A</span> <span class="op">=</span> <span class="va">rand</span>()          <span class="co">% o valoare din U[0,1]</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">A</span> <span class="op">=</span> <span class="va">rand</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">10</span>)     <span class="co">% vector linie cu 10 valori independente din U[0,1]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Pentru a obține valori dintr-un interval general <span class="math inline">[a,b]</span>, scalați și deplasați valorile:</p>
+<p><span class="math display">B = a + (b-a)A, \qquad A \sim \mathcal{U}[0,1].</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">a</span> <span class="op">=</span> <span class="fl">5</span><span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">b</span> <span class="op">=</span> <span class="fl">7</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">N</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="va">x_uniform</span> <span class="op">=</span> <span class="va">a</span> <span class="op">+</span> (<span class="va">b</span><span class="op">-</span><span class="va">a</span>)<span class="op">*</span><span class="va">rand</span>(<span class="fl">1</span><span class="op">,</span> <span class="va">N</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Aici, <span class="math inline">b-a</span> stabilește lățimea, iar <span class="math inline">a</span> stabilește limita inferioară.</p>
+</section>
+<section id="probabilități-pentru-distribuția-uniformă" class="level3">
+<h3 class="anchored" data-anchor-id="probabilități-pentru-distribuția-uniformă">Probabilități pentru distribuția uniformă</h3>
+<p>Probabilitățile sunt arii de sub PDF.</p>
+<p>Pentru o variabilă uniformă, calcularea probabilităților se reduce la calcularea ariei unui dreptunghi și se poate face ușor.</p>
+<p>Exemplu: pentru <span class="math inline">X \sim \mathcal{U}[2, 10]</span>, probabilitatea ca <span class="math inline">X</span> să fie între 3 și 5 este <span class="math inline">\frac{2}{8} = 0.25</span>.</p>
+</section>
+</section>
+<section id="distribuția-normală" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="distribuția-normală"><span class="header-section-number">2.3</span> Distribuția normală</h2>
+<section id="definiție-și-parametri-1" class="level3">
+<h3 class="anchored" data-anchor-id="definiție-și-parametri-1">Definiție și parametri</h3>
+<p>Distribuția normală descrie o variabilă aleatoare care ia mai probabil valori apropiate de media sa <span class="math inline">\mu</span> decât valori îndepărtate, conform unei PDF în formă de clopot („clopotul lui Gauss”).</p>
+<p>O variabilă normală se notează:</p>
+<p><span class="math display">X \sim \mathcal{N}(\mu,\sigma^2), \qquad \sigma &gt; 0.</span></p>
+<p>Funcția sa densitate de probabilitate este</p>
+<p><span class="math display">
+f_X(x) = \frac{1}{\sigma\sqrt{2\pi}}
+\exp\left[-\frac{(x-\mu)^2}{2\sigma^2}\right].
+</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/Lab2_normal_pdf.png" class="img-fluid figure-img" style="width:72.0%"></p>
+<figcaption>Modificarea lui <span class="math inline">\mu</span> deplasează PDF normală; creșterea lui <span class="math inline">\sigma</span> o face mai lată și mai aplatizată.</figcaption>
+</figure>
+</div>
+<p>Parametrii sunt:</p>
+<ul>
+<li><span class="math inline">\mu</span>: media (centrul);</li>
+<li><span class="math inline">\sigma^2</span>: varianța;</li>
+<li><span class="math inline">\sigma = \sqrt{\sigma^2}</span>: abaterea standard.</li>
+</ul>
+<p>Modificarea lui <span class="math inline">\mu</span> înseamnă deplasarea PDF. Un <span class="math inline">\sigma</span> mai mare înseamnă o funcție mai lată și mai aplatizată, iar un <span class="math inline">\sigma</span> mai mic înseamnă una mai îngustă și mai înaltă.</p>
+<p><strong>Distribuția normală standard</strong> este distribuția normală cu <span class="math inline">\mu=0</span> și <span class="math inline">\sigma=1</span>:</p>
+<p><span class="math display">Z \sim \mathcal{N}(\mu=0,\sigma^2=1).</span></p>
+</section>
+<section id="generarea-eșantioanelor-normale-în-matlab" class="level3">
+<h3 class="anchored" data-anchor-id="generarea-eșantioanelor-normale-în-matlab">Generarea eșantioanelor normale în Matlab</h3>
+<p><code>randn()</code> generează valori din distribuția normală standard <span class="math inline">\mathcal{N}(\mu=0,\sigma^2=1)</span>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">z</span> <span class="op">=</span> <span class="va">randn</span>()          <span class="co">% o valoare din N(0,1)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="va">z</span> <span class="op">=</span> <span class="va">randn</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">10</span>)     <span class="co">% 10 valori independente din N(0,1)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Pentru valori arbitrare <span class="math inline">\mu</span> și <span class="math inline">\sigma</span>, scalați cu <span class="math inline">\sigma</span> și deplasați cu <span class="math inline">\mu</span>:</p>
+<p><span class="math display">B = \mu + \sigma A, \qquad \text{ unde } A \sim \mathcal{N}(\mu=0,\sigma^2=1).</span></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">mu</span> <span class="op">=</span> <span class="fl">5</span><span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">sigma</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="va">N</span> <span class="op">=</span> <span class="fl">1000</span><span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="va">x_normal</span> <span class="op">=</span> <span class="va">mu</span> <span class="op">+</span> <span class="va">sigma</span><span class="op">*</span><span class="va">randn</span>(<span class="fl">1</span><span class="op">,</span> <span class="va">N</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notă: înmulțiți cu abaterea standard <span class="math inline">\sigma</span>, nu cu varianța <span class="math inline">\sigma^2</span>.</p>
+</section>
+<section id="calcularea-probabilităților-pentru-distribuția-normală" class="level3">
+<h3 class="anchored" data-anchor-id="calcularea-probabilităților-pentru-distribuția-normală">Calcularea probabilităților pentru distribuția normală</h3>
+<p>Integrala din densitatea de probabilitate normală nu poate fi calculată analitic. În schimb, folosim funcția predefinită <code>erf()</code> din Matlab pentru acest scop.</p>
+<p>Pentru o variabilă normală <span class="math inline">A \sim \mathcal{N}(\mu,\sigma^2)</span>, probabilitatea ca <span class="math inline">A</span> să se afle în intervalul <span class="math inline">[a,b]</span> este:</p>
+<p><span class="math display">P(a \le A \le b) = F_A(b) - F_A(a),</span></p>
+<p>unde <span class="math inline">F_A(x)</span> este funcția de repartiție (CDF) a lui <span class="math inline">A</span> și se calculează folosind funcția de eroare <code>erf()</code>:</p>
+<p><span class="math display">
+F_A(x) = P(A \le x) = \frac{1}{2}\left[1 + \operatorname{erf}\left(\frac{x-\mu}{\sigma\sqrt{2}}\right)\right].
+</span></p>
+<p>În Matlab:</p>
+<p>Exemplu: <span class="math inline">A \sim \mathcal{N}(\mu=10,\sigma^2=4)</span> și <span class="math inline">P(8 \le X \le 12)</span>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">mu</span> <span class="op">=</span> <span class="fl">10</span><span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="va">sigma</span> <span class="op">=</span> <span class="fl">2</span><span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="va">a</span> <span class="op">=</span> <span class="fl">8</span><span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="va">b</span> <span class="op">=</span> <span class="fl">12</span><span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="va">F_a</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">erf</span>((<span class="va">a</span><span class="op">-</span><span class="va">mu</span>)<span class="op">/</span>(<span class="va">sigma</span><span class="op">*</span><span class="va">sqrt</span>(<span class="fl">2</span>))))<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="va">F_b</span> <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span>(<span class="fl">1</span> <span class="op">+</span> <span class="va">erf</span>((<span class="va">b</span><span class="op">-</span><span class="va">mu</span>)<span class="op">/</span>(<span class="va">sigma</span><span class="op">*</span><span class="va">sqrt</span>(<span class="fl">2</span>))))<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="va">p_normal_theory</span> <span class="op">=</span> <span class="va">F_b</span> <span class="op">-</span> <span class="va">F_a</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Rezultatul este aproximativ 0.6827. Probabilitatea poate fi estimată și din eșantioane, empiric:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">N</span> <span class="op">=</span> <span class="fl">10000</span><span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">x_normal</span> <span class="op">=</span> <span class="va">mu</span> <span class="op">+</span> <span class="va">sigma</span><span class="op">*</span><span class="va">randn</span>(<span class="fl">1</span><span class="op">,</span> <span class="va">N</span>)<span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="va">p_normal_estimated</span> <span class="op">=</span> <span class="va">sum</span>(<span class="va">x_normal</span> <span class="op">&gt;=</span> <span class="va">a</span> <span class="op">&amp;</span> <span class="va">x_normal</span> <span class="op">&lt;=</span> <span class="va">b</span>)<span class="op">/</span><span class="va">N</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="histogramele-ca-reprezentare-vizuală-a-distribuțiilor" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="histogramele-ca-reprezentare-vizuală-a-distribuțiilor"><span class="header-section-number">2.4</span> Histogramele ca reprezentare vizuală a distribuțiilor</h2>
+<p>O <strong>histogramă</strong> este un grafic cu bare care afișează distribuția eșantioanelor, numărând câte eșantioane se află in fiecare interval de valori. În Matlab, se poate folosi funcția <code>histogram()</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">% Generează 10000 de eșantioane dintr-o distribuție uniformă pe [-4, 10]</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="va">x_uniform</span> <span class="op">=</span> <span class="op">-</span><span class="fl">4</span> <span class="op">+</span> <span class="fl">14</span><span class="op">*</span><span class="va">rand</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">10000</span>)<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">% Afișează o histogramă cu 30 de clase</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="va">histogram</span>(<span class="va">x_uniform</span><span class="op">,</span> <span class="fl">30</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="va">xlabel</span>(<span class="ss">'Valoare'</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="va">ylabel</span>(<span class="ss">'Număr de eșantioane'</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="va">title</span>(<span class="ss">'Eșantioane uniforme'</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="va">grid</span> <span class="va">on</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Pentru a o compara cu o PDF, trebuie să-i normalizăm aria la 1, folosind opțiunea <code>'Normalization','pdf'</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">% Generează 10000 de eșantioane dintr-o distribuție normală cu media 5 și abaterea standard 2</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="va">x_normal</span> <span class="op">=</span> <span class="fl">5</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="va">randn</span>(<span class="fl">1</span><span class="op">,</span> <span class="fl">10000</span>)<span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">% Afișează o histogramă normalizată ca PDF, cu 35 de clase</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="va">histogram</span>(<span class="va">x_normal</span><span class="op">,</span> <span class="fl">35</span><span class="op">,</span> <span class="ss">'Normalization'</span><span class="op">,</span> <span class="ss">'pdf'</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="va">xlabel</span>(<span class="ss">'Valoare'</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="va">ylabel</span>(<span class="ss">'Densitate de probabilitate estimată'</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="va">title</span>(<span class="ss">'Eșantioane normale'</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="va">grid</span> <span class="va">on</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Histogramele sunt o metodă practică de a vizualiza distribuția eșantioanelor (valori, pixeli etc.) pentru a înțelege datele.</p>
+</section>
+<section id="rezumat-funcții-și-notații-pe-care-trebuie-să-le-cunoașteți" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="rezumat-funcții-și-notații-pe-care-trebuie-să-le-cunoașteți"><span class="header-section-number">2.5</span> Rezumat: funcții și notații pe care trebuie să le cunoașteți</h2>
+<style>
+table td, table th { border-bottom: 1px solid #ddd; }
+</style>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Signatură sau notație</th>
+<th>Exemplu</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">X \sim \mathcal{U}[a,b]</span></td>
+<td><span class="math inline">X \sim \mathcal{U}[-4,10]</span></td>
+<td>Distribuție uniformă pe <span class="math inline">[a,b]</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">X \sim \mathcal{N}(\mu,\sigma^2)</span></td>
+<td><span class="math inline">X \sim \mathcal{N}(5,2^2)</span></td>
+<td>Distribuție normală: media <span class="math inline">\mu</span>, varianța <span class="math inline">\sigma^2</span></td>
+</tr>
+<tr class="odd">
+<td><code>rand(m,n)</code></td>
+<td><code>rand(1,1000)</code></td>
+<td><span class="math inline">m \times n</span> eșantioane din <span class="math inline">\mathcal{U}[0,1]</span></td>
+</tr>
+<tr class="even">
+<td><code>a + (b-a)*rand(m,n)</code></td>
+<td><code>-4 + 14*rand(1,1000)</code></td>
+<td>Eșantioane din <span class="math inline">\mathcal{U}[a,b]</span></td>
+</tr>
+<tr class="odd">
+<td><code>randn(m,n)</code></td>
+<td><code>randn(1,1000)</code></td>
+<td><span class="math inline">m \times n</span> eșantioane din <span class="math inline">\mathcal{N}(0,1)</span></td>
+</tr>
+<tr class="even">
+<td><code>mu + sigma*randn(m,n)</code></td>
+<td><code>5 + 2*randn(1,1000)</code></td>
+<td>Eșantioane din <span class="math inline">\mathcal{N}(\mu,\sigma^2)</span></td>
+</tr>
+<tr class="odd">
+<td><code>mean(x)</code>, <code>std(x)</code>, <code>var(x)</code></td>
+<td><code>mean(x)</code>, <code>std(x)</code>, <code>var(x)</code></td>
+<td>Media, abaterea standard și varianța eșantionului</td>
+</tr>
+<tr class="even">
+<td><code>histogram(x,n)</code></td>
+<td><code>histogram(x,30)</code></td>
+<td>Histogramă cu <code>n</code> clase; adăugați <code>'Normalization','pdf'</code> pentru arie unitară</td>
+</tr>
+<tr class="odd">
+<td><code>erf(x)</code></td>
+<td><code>erf(1/sqrt(2))</code></td>
+<td>Funcția de eroare folosită în CDF normală</td>
+</tr>
+<tr class="even">
+<td><code>sum(condition)/N</code></td>
+<td><code>sum(x &gt;= a &amp; x &lt;= b)/N</code></td>
+<td>Probabilitate empirică</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="exerciții" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Exerciții</h1>
+<p>Scrieți singuri toate comenzile într-un script sau live script. Etichetați figurile și răspundeți la întrebările de interpretare în comentarii.</p>
+<ol type="1">
+<li><p>Eșantioane aleatoare uniforme:</p>
+<ol type="a">
+<li>Generați <span class="math inline">N=10000</span> de eșantioane din <span class="math inline">\mathcal{U}[-4,10]</span>.</li>
+<li>Afișați valorile minime și maxime ale vectorului. De ce lipsesc valorile extreme? Și de ce acest lucru nu schimbă distribuția teoretică?</li>
+<li>Comparați <code>mean()</code> cu <span class="math inline">(a+b)/2</span>.</li>
+<li>Reprezentați grafic primele 100 de valori generate folosind <code>plot()</code>.</li>
+<li>Reprezentați o histogramă normalizată a datelor, cu 30 de intervale. Care este înălțimea sa teoretică?</li>
+</ol></li>
+<li><p>Efectul parametrilor distribuției uniforme:</p>
+<ol type="a">
+<li>Generați câte 10000 de eșantioane din <span class="math inline">\mathcal{U}[0,1]</span> și <span class="math inline">\mathcal{U}[5,7]</span>.</li>
+<li>Reprezentați histogramele normalizate, cu același număr de clase, în ferestre separate (<code>figure</code>).</li>
+<li>Descrieți modificările poziției, lățimii și înălțimii PDF.</li>
+</ol></li>
+<li><p>Eșantioane aleatoare normale:</p>
+<ol type="a">
+<li>Stabiliți <code>mu1 = 2</code>, <code>sigma1 = sqrt(2)</code> și generați 10000 de eșantioane din <span class="math inline">\mathcal{N}(\mu=2,\sigma^2=2)</span> în <code>x_normal_1</code>. Al doilea parametru este varianța.</li>
+<li>Reprezentați grafic primele 100 de valori din vector.</li>
+<li>Reprezentați histograma tuturor valorilor.</li>
+<li>Calculați media și abaterea standard ale eșantionului cu <code>mean()</code> și <code>std()</code> și comparați-le cu <span class="math inline">2</span> și <span class="math inline">\sqrt{2}</span>. De ce nu sunt exact egale?</li>
+<li>Păstrați <code>sigma1</code>, schimbați <span class="math inline">\mu</span> la <span class="math inline">-3</span> și comparați histogramele. Ce se schimbă?</li>
+<li>Păstrați <code>mu1</code>, schimbați <span class="math inline">\sigma</span> la <span class="math inline">0.5</span> și comparați din nou.</li>
+</ol></li>
+<li><p>Probabilități pentru o variabilă uniformă:</p>
+<p>Fie <span class="math inline">X \sim \mathcal{U}[-4,10]</span>.</p>
+<ol type="a">
+<li>Calculați teoretic <span class="math inline">P(-1 \le X \le 3)</span>.</li>
+<li>Estimați-o din Exercițiul 1 folosind comparații logice și <code>sum()</code>.</li>
+<li>Calculați și estimați <span class="math inline">P(X&gt;7)</span>.</li>
+<li>Repetați pentru <span class="math inline">N=100</span>, <span class="math inline">1000</span> și <span class="math inline">100000</span>. Cum tinde să se modifice eroarea? Trebuie să scadă la fiecare rulare?</li>
+</ol></li>
+<li><p>Probabilități pentru o variabilă normală folosind <code>erf()</code>:</p>
+<p>Fie <span class="math inline">X \sim \mathcal{N}(\mu=2,\sigma^2=2)</span>.</p>
+<ol type="a">
+<li>Folosiți <code>erf()</code> pentru a calcula valorile teoretice ale <span class="math inline">P(X \le 3)</span>, apoi <span class="math inline">P(0 \le X \le 4)</span> și apoi <span class="math inline">P(X&gt;5)</span>.</li>
+<li>Estimați-le pe toate trei din <code>x_normal_1</code>.</li>
+<li>Folosiți funcția <code>normcdf()</code> pentru a calcula aceleași probabilități (citiți documentația despre utilizarea ei).</li>
+</ol></li>
+</ol>
+<section id="exerciții-suplimentare" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="exerciții-suplimentare"><span class="header-section-number">3.1</span> Exerciții suplimentare</h2>
+<ol start="6" type="1">
+<li><p>Scrieți <code>p = myCDF(v, x)</code> pentru a estima <span class="math inline">P(V \le x)</span>:</p>
+<p><span class="math display">\widehat{F}_V(x) = \frac{\text{numărul elementelor lui }v\text{ care sunt}\le x}
+{\text{numărul total de elemente ale lui }v}.</span></p>
+<p>Evaluați-o în 100 de puncte folosind o buclă <code>for</code>. Reprezentați estimările uniforme și normale împreună cu funcțiile lor de repartiție teoretice.</p></li>
+<li><p>Scrieți <code>p = myPDF(v, x, epsilon)</code> pentru a estima PDF în jurul lui <code>x</code> din eșantioanele aflate în <span class="math inline">[x-\varepsilon,x+\varepsilon]</span>:</p>
+<p><span class="math display">
+\widehat{f}_V(x) =
+\frac{\text{numărul eșantioanelor din }[x-\varepsilon,x+\varepsilon]}
+{2\varepsilon\,N}.
+</span></p>
+<p>Încercați mai multe valori <span class="math inline">\varepsilon</span>. Explicați compromisul dintre netezime și detalii.</p></li>
+</ol>
+</section>
+</section>
+<section id="întrebări-finale" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Întrebări finale</h1>
+<ol type="1">
+<li>Poate o PDF să fie mai mare decât 1? De ce probabilitățile nu pot totuși să depășească 1?</li>
+<li>De ce o estimare din <span class="math inline">N=1000</span> de eșantioane poate fi mai slabă decât una din <span class="math inline">N=100</span>?</li>
+<li>Două seturi de date au aceeași medie și varianță. Trebuie să aibă aceeași distribuție?</li>
+<li>Cum ați putea decide dacă datele măsurate sunt modelate mai bine de o distribuție uniformă sau de una normală?</li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
