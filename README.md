@@ -34,6 +34,18 @@ Toate prezentările de la curs sunt disponibile în format pdf în directorul [L
 Prezentările **adnotate** (pe care am scris în timpul cursurilor) sunt disponibile în directorul [Lectures/online/](Lectures/online).
 Fișierele au numele de forma `<capitol>_annotated.pdf`.
 
+### Construirea prezentărilor
+
+Pentru generarea prezentărilor, activați mediul Quarto:
+
+```sh
+conda activate quarto
+```
+
+Din directorul `Lectures/`, folosiți `make pdf` pentru PDF-uri Beamer,
+`make revealjs` pentru prezentări HTML, `make both` pentru ambele formate,
+`make all` pentru PDF-uri sau `make clean` pentru eliminarea produselor generate.
+
 
 ## Evaluare
 

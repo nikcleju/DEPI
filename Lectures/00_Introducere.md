@@ -5,13 +5,11 @@
 - 4 credite
 - Profesori
     - Curs: Nicolae Cleju
-    - Seminar: Irina Pavel
-    - Laborator: Lucian Trifina
+    - Laborator: Nicolae Cleju / Stefania Gall
 
 - Orar
     - 14 cursuri (2h)
-    - 7 laboratoare (2h)
-    - 7 seminarii (2h)
+    - 14 laboratoare (2h)
 
 - Ore de consultații: *To Be Announced*
     - cel mai bine prin programare prealabilă
@@ -23,11 +21,9 @@
     - teorie și exerciții
     - Similar cu examenul de Information Theory (engl.)
 
-- Aplicații = 40%
+- Laborator = 40%
 
-    - Nota aplicatii = (Nota laborator + Nota seminar) / 2
-
-    - Seminar: 2 teste pe parcursul semestrului
+    - Nota laborator = Quiz-uri săptămânale (+ eventuale teste anunțate)
 
 - Nota finală = 60% Examen + 40% Aplicații
 

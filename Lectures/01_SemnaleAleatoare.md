@@ -18,7 +18,7 @@
 
 - O **realizare** a unei v.a. = o valoare particulară posibilă
 
-- **Spațiul realizărilor** $\Omega$ = mulțimea valorilor posibile ale unei v.a
+- Spațiul realizărilor $\Omega$ = mulțimea valorilor posibile ale unei v.a
     - mulțimea tuturor realizărilor
 
 - Exemplu: aruncarea unui zar
@@ -27,9 +27,9 @@
     - Dar s-ar fi putut obține orice valoare din spațiul realizărilor
     $$\Omega = \left\{1, 2, 3, 4, 5, 6\right\}$$
 
-- V.a. **discretă**: dacă $\Omega$ este o mulțime discretă
+- V.a. **discretă**: dacă ia valori dintr-o mulțime discretă
   - Exemplu: Numărul obținut prin aruncarea unui zar
-- V.a. **continuă**: dacă $\Omega$ este o mulțime compactă
+- V.a. **continuă**: dacă ia valori dintr-un domeniu continuu
   - Exemplu: Valoarea tensiunii măsurate într-un punct
 
 ### Aruncarea unei monede
@@ -114,7 +114,7 @@ este derivata funcției de repartiție:
 $$w_A(x) = \frac{\mathrm{d}F_A(x)}{\mathrm{d}x}$$
 
 - Informal: densitatea de probabilitate $w_A(x)$ este proporțională
-  cu probabilitatea ca valoarea lui $A$ să fie **în jurul lui** unei $x$
+  cu probabilitatea ca valoarea lui $A$ să fie **în jurul lui** $x$
 
 ### Probabilitatea unei valori exacte
 
@@ -144,7 +144,7 @@ $$P\left\{ a \leq A \leq b\right\} = F_A(b) - F_A(a)$$
 - FR este **integrala** FDP
 - FDP este **derivata** FR
 
-$$F_A(x) = \int_{-\infty}^x w_A(x) \mathrm{d}x$$
+$$F_A(x) = \int_{-\infty}^x w_A(u) \mathrm{d}u$$
 
 $$\begin{split}
 w_A(x) &= \frac{\mathrm{d}F_A(x)}{\mathrm{d}x} \\
@@ -164,8 +164,7 @@ w_A(x) &= \frac{\mathrm{d}F_A(x)}{\mathrm{d}x} \\
 
 ![](img/RandomVariable_AreaPDFProb.png){.id width=50%}
 
-(sursa: "https://intellipaat.com/blog/tutorial/statistics-and-probability-tutorial/probability-distributions-of-continuous-variables/*)
-
+[sursa imaginii](https://intellipaat.com/blog/tutorial/statistics-and-probability-tutorial/probability-distributions-of-continuous-variables/)
 
 
 ### V.a. discrete vs continue
@@ -669,7 +668,7 @@ valoarea medie = valoarea centrală a funcției
 * Calculul valorii medii este o operație **liniară**
     * pentru că, la bază, integrala / suma este o operație liniară
 
-* Pentru două variabile aleatoare A și B (independente):
+* Pentru două variabile aleatoare A și B:
 
 * Liniaritate
 $$E\{c_1A + c_2B\} = c_1E\{A\} + c_2E\{B\}$$
@@ -720,9 +719,9 @@ $$\begin{split}
 
 ### Suma variabilelor aleatoare
 
-* Suma a două sau mai multe v.a. **independente** este tot o v.a.
+* Suma a două sau mai multe v.a. este tot o v.a.
 
-* Distribuția ei = **convoluția** distribuțiilor v.a. componente
+* Dacă variabilele sunt **independente**, distribuția sumei = **convoluția** distribuțiilor v.a. componente
 
 * Dacă $C = A + B$, atunci:
 $$w_C(x) = w_A(x) \star w_B(x)$$
@@ -733,7 +732,7 @@ $$w_C(x) = w_A(x) \star w_B(x)$$
     * varianța = suma varianțelor: $\sigma_C^2 = \sigma_A^2 + \sigma_B^2$
 
 
-## II.2 Procese aleatoare
+## I.2 Procese aleatoare
 
 ### Procese aleatoare
 
@@ -866,7 +865,7 @@ $$\overline{f^2(t_1)} = \int_{-\infty}^{\infty} x^2 \cdot w_1(x; t_1) dx$$
 ### Medii statistice - varianța
 
 3. **Varianța**
-$$\sigma^2(t_1) = \overline{\left\{ f(t_1) - \mu(t_1) \right\}^2} = \int_{-\infty}^{\infty} (x-\mu(t_1)^2) \cdot w_1(x; t_1) dx$$
+$$\sigma^2(t_1) = \overline{\left\{ f(t_1) - \mu(t_1) \right\}^2} = \int_{-\infty}^{\infty} \left(x-\mu(t_1)\right)^2 \cdot w_1(x; t_1) dx$$
 
 - Legătura între aceste trei mărimi:
     $$\begin{split}
@@ -901,7 +900,7 @@ Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$, și no
 
 2. $\overline{f^2[t_1]} = \sum_{x=-\infty}^{\infty} x^2 \cdot w_1(x; t_1)$
 
-3. $\sigma^2(t_1) = \overline{\left\{ f[t_1] - \mu(t_1) \right\}^2} = \sum_{x=-\infty}^{\infty} (x-\mu(t_1)^2 \cdot w_1(x; t_1)$
+3. $\sigma^2(t_1) = \overline{\left\{ f[t_1] - \mu(t_1) \right\}^2} = \sum_{x=-\infty}^{\infty} \left(x-\mu(t_1) \right)^2 \cdot w_1(x; t_1)$
 
 4. $R_{ff}(t_1,t_2) = \overline{f[t_1] f[t_2]} = \sum_{x_1=-\infty}^\infty \sum_{x_2=-\infty}^\infty x_1 x_2 w_2(x_1, x_2; t_1, t_2)$
 
@@ -937,7 +936,7 @@ Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$, și no
 
 ### Autocorelația temporală
 
-4. **Funcția de autocoreație temporală**
+4. **Funcția de autocorelație temporală**
     $$\begin{split}
     R_{ff}(t_1,t_2) =& \overline{f^{(k)}(t_1 + t) f^{(k)}(t_2+t)} \\
     =& \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t_1+t) f^{(k)}(t_2 + t) dt
@@ -1009,7 +1008,7 @@ $$\{1,-1,2,-2,3,-3,4,-4,5,-5\}$$
 la modificarea originii timpului (întârzierea semnalului)
 
 - Altfel spus: distribuțiile (FDP/FMP) eșantioanelor rămân identice la modificarea originii timpului
-    $$w_n(x_1,...x_n; t_1,...t_n) = w_n(x_1,...x_n; t_1+\tau,... t_n + =tau)$$
+    $$w_n(x_1,\ldots,x_n;t_1,\ldots,t_n) = w_n(x_1,\ldots,x_n;t_1+\tau,\ldots,t_n+\tau)$$
 
 - Practic, pentru a fi staționar trebuie ca **toate mediile statistice să nu mai depindă de timp** $t$
 
@@ -1226,13 +1225,13 @@ doar că **în medie** în raport cu toate realizările posibile
 - Zgomotul alb poate avea **orice distribuție** (normală, uniformă etc.)
 
     - termenul "zgomot alb" nu se referă la distribuția eșantioanelor,
-    ci la faptul că valorile eșantioanele sunt necorelate
+    ci la faptul că eșantioanele sunt necorelate
 
 ### Zgomot alb de bandă limitată
 
 - În lumea reală, pentru orice semnal puterea scade la 0 la frecvențe foarte înalte
 
-    - pentru că puterea totală $P = \int_{-\infty}^{\infty} S_{ff}{\omega}$ nu poate fi infinită
+    - pentru că puterea totală $P = \int_{-\infty}^{\infty} S_{ff}{\omega} \,\mathrm{d}\omega$ nu poate fi infinită
 
     - se numește zgomot alb **de bandă limitată**
 
@@ -1409,7 +1408,7 @@ plt.close()
 
 * Determinarea răspunsului la impuls al unui sistem necunoscut, liniar și invariant în timp
 
-* Se bazează pe corelația intrării cu ieșirea sistemlui
+* Se bazează pe corelația intrării cu ieșirea sistemului
 
 ![System identification setup](img/SystemIdentif.png){#id .class width=60%}
 
