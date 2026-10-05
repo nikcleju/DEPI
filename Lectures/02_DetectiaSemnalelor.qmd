@@ -1,4 +1,3 @@
-
 # Capitolul II. Elemente de teorie statistică a detecției
 
 ## II.1 Introducere
@@ -36,7 +35,7 @@ dintre două sau mai multe posibilități
 - Mesajele sunt modulate cu semnalele $s_0(t)$ și $s_1(t)$
     - pentru $a_0$: se transmite $s(t) = s_0(t)$
     - pentru $a_1$: se transmite $s(t) = s_1(t)$
-    
+
 - Peste semnal se suprapune zgomotul $n(t)$
 
 - Se recepționează un semnal cu zgomot, $r(t) = s(t) + n(t)$
@@ -48,13 +47,13 @@ dintre două sau mai multe posibilități
 - Transmisie de date cu diverse modulații binare:
 
     - nivele constante de tensiune (de ex. $s_n(t)$ = constant 0 sau 5V)
-    
+
     - modulație PSK (Phase Shift Keying): $s_n(t)$ = cosinus cu aceeași frecvență dar faze inițiale diferite
-    
+
     - modulație FSK (Frequency Shift Keying): $s_n(t)$ = cosinus cu frecvențe diferite
-    
+
     - modulație OFDM (Orthogonal Frequency Division Multiplexing): caz particular de FSK
-    
+
     - la recepție se primește un semnal afectat de zgomot, **se decide** dacă s-a primit 0 sau 1
 
 ### Scenarii practice
@@ -62,9 +61,9 @@ dintre două sau mai multe posibilități
 - Detecții radar
 
     - se emite un semnal; în cazul unui obstacol, semnalul se reflectă înapoi
-    
+
     - receptorul așteaptă posibilele reflecții ale semnalului emis și **decide**
-    
+
         - nu este prezentă o reflecție -> nici un obiect
         - semnalul reflectat este prezent -> obiect detectat
 
@@ -88,7 +87,7 @@ dintre două sau mai multe posibilități
 - Mesajele sunt modulate cu semnalele $s_0(t)$ și $s_1(t)$
     - pentru $a_0$: se transmite $s(t) = s_0(t)$
     - pentru $a_1$: se transmite $s(t) = s_1(t)$
-    
+
 - Peste semnal se suprapune zgomotul $n(t)$
 
 - Se recepționează un semnal cu zgomot, $r(t) = s(t) + n(t)$
@@ -102,14 +101,14 @@ dintre două sau mai multe posibilități
 - Mesajele sunt modulate cu semnalele $s_0(t)$ și $s_1(t)$
     - pentru $a_0$: se transmite $s(t) = s_0(t)$
     - pentru $a_1$: se transmite $s(t) = s_1(t)$
-    
+
 - Peste semnal se suprapune zgomotul $n(t)$
 
 - Se recepționează un semnal cu zgomot, $r(t) = s(t) + n(t)$
 
 - **Decizie**: pe baza $r(t)$, care semnal a fost cel transmis?
 
-- Cel mai simplu scenariu: la recepție **se ia un singur eșantion** 
+- Cel mai simplu scenariu: la recepție **se ia un singur eșantion**
 la momentul $t_0$, $r = r(t_0)$, și se decide pe baza sa
 
 ### Ipoteze și decizii
@@ -117,13 +116,13 @@ la momentul $t_0$, $r = r(t_0)$, și se decide pe baza sa
 - Există **două ipoteze**:
 
     - $H_0$: semnalul adevărat este $s(t) = s_0(t)$ (s-a transmis $a_0$)
-    
+
     - $H_1$: semnalul adevărat este $s(t) = s_1(t)$ (s-a transmis $a_1$)
 
 - Receptorul poate lua una din **două decizii**:
 
     - $D_0$: receptorul decide că semnalul corect este $s(t) = s_0(t)$
-    
+
     - $D_1$: receptorul decide că semnalul corect este $s(t) = s_1(t)$
 
 ### Rezultate posibile
@@ -131,22 +130,22 @@ la momentul $t_0$, $r = r(t_0)$, și se decide pe baza sa
 - Există 4 situații posibile:
 
     1. **Rejecție corectă**: ipoteza corectă este $H_0$, decizia este $D_0$
-    
+
         - Probabilitatea este $P_r = P(D_0 \cap H_0)$
         - "**True Negative**"
-        
+
     2. **Alarmă falsă**: ipoteza corectă este $H_0$, decizia este $D_1$
-    
+
         - Probabilitatea este $P_{af} = P(D_1 \cap H_0)$
         - "**False Positive**"
-        
+
     3. **Pierdere**: ipoteza corectă este $H_1$, decizia este $D_0$
-        
+
         - Probabilitatea este $P_p = P(D_0 \cap H_1)$
         - "**False Negative**"
-        
+
     4. **Detecție corectă**: ipoteza corectă este $H_1$, decizia este $D_1$
-    
+
          - Probabilitatea este $P_d = P(D_1 \cap H_1)$
          - "**True Positive**"
 
@@ -155,13 +154,13 @@ la momentul $t_0$, $r = r(t_0)$, și se decide pe baza sa
 - Terminologia are la origine aplicații radar:
 
     - un semnal se emite de către sursă
-    
+
     - semnal recepționat = o posibilă reflecție din partea unei ținte, puternic afectată de zgomot
-    
+
     - $H_0$ = nu există un obiect, nu există semnal reflectat (doar zgomot)
-    
+
     - $H_1$ = există un obiect, există un semnal reflectat
-    
+
     - de aici numele "alarmă falsa", "pierdere" etc.
 
 ### Zgomotul
@@ -169,15 +168,15 @@ la momentul $t_0$, $r = r(t_0)$, și se decide pe baza sa
 - În general se consideră zgomot **aditiv**, **alb**, **staționar**
 
     - aditiv = zgomotul se adună cu semnalul
-    
+
     - alb = eșantioane distincte sunt necorelate
-    
+
     - staționar = are aceleași proprietăți statistice la orice moment de timp
 
 - Semnalul de zgomot $n(t)$ este necunoscut
 
     - este o realizare a unui proces aleator
-    
+
     - se cunoaște doar distribuția sa, nu și valorile particulare
 
 ### Eșantionul preluat la recepție
@@ -185,13 +184,13 @@ la momentul $t_0$, $r = r(t_0)$, și se decide pe baza sa
 - La recepție se primește semnalul $r(t) = s(t) + n(t)$
 
     - $s(t)$ = semnalul original, fie $s_0(t)$, fie $s_1(t)$
-    
+
     - $n(t)$ = semnalul de zgomot necunoscut
 
 - Valoarea eșantionului luat la momentul $t_0$ este $r(t_0) = s(t_0) + n(t_0)$
 
     - $s(t_0)$ = fie $s_0(t_0)$, fie $s_1(t_0)$
-    
+
     - $n(t_0)$ este un eșantion din semnalul de zgomot
 
 ### Eșantionul preluat la recepție
@@ -230,7 +229,7 @@ la momentul $t_0$, $r = r(t_0)$, și se decide pe baza sa
 
 Exemplu:
 
-- Un semnal constant $s(t)$ poate avea două valori posibile, 0 sau 4. 
+- Un semnal constant $s(t)$ poate avea două valori posibile, 0 sau 4.
 Semnalul este afectat de zgomot $\mathcal{N}(\mu=0, \sigma^2 = 2)$.
 Care e distribuția unui eșantion $r$, în ambele ipoteze?
 
@@ -247,8 +246,8 @@ Decizie pe baza celor două distribuții:
 
 ### Plauzibilitatea unui parametru
 
-- În general, **plauzibilitatea** (**likelihood**) unui parametru $P$ 
-pe baza unor **observații** $O$ = densitatea de probabilitate a lui $O$, dacă parametrul are valoarea $P$:  
+- În general, **plauzibilitatea** (**likelihood**) unui parametru $P$
+pe baza unor **observații** $O$ = densitatea de probabilitate a lui $O$, dacă parametrul are valoarea $P$:
   $$L(P | O) = w(O | P)$$
 
 - În cazul nostru:
@@ -263,24 +262,24 @@ pe baza unor **observații** $O$ = densitatea de probabilitate a lui $O$, dacă 
 
 ### Criteriul plauzibilității maxime (Maximum Likelihood)
 
-- **Criteriul plauzibilității maxime** ("Maximum Likelihood"): se alege ipoteza 
+- **Criteriul plauzibilității maxime** ("Maximum Likelihood"): se alege ipoteza
 cu **cea mai mare plauzibilitate** de a fi generat eșantionul observat $r = r(t_0)$
 
     - "alegem ipoteza cea mai plauzibilă"
     - "se alege ipoteza cu plauzibilitatea mai mare"
-    
+
     $$\frac{L(H_1 | r)}{L(H_0 | r)} = \frac{w(r|H_1)}{w(r|H_0)} \grtlessH 1$$
 
-- Se alege valoarea maximă dintre $w(r(t_0)|H_0)$ și $w(r(t_0) | H_1)$    
-    
+- Se alege valoarea maximă dintre $w(r(t_0)|H_0)$ și $w(r(t_0) | H_1)$
+
 - Se compară **raportul de plauzibilitate** cu 1
-    
+
 
 ### Exemplu: zgomot gaussian
 
 Exemplu (continuare):
 
-- Un semnal constant $s(t)$ poate avea două valori posibile, 0 sau 4. 
+- Un semnal constant $s(t)$ poate avea două valori posibile, 0 sau 4.
 Semnalul este afectat de zgomot $\mathcal{N}(\mu=0, \sigma^2 = 2)$.
 
 - Care e decizia luată cu criteriul ML, pentru un eșantion $r=1.6$?
@@ -333,7 +332,7 @@ $$|r-s_0(t_0)| \grtlessH |r - s_1(t_0)|$$
 
 ### Criteriul ML pentru zgomot gaussian
 
-- Criteriul ML **pentru zgomot gaussian**: ipoteza se alege pe baza 
+- Criteriul ML **pentru zgomot gaussian**: ipoteza se alege pe baza
 **celei mai apropiate** valori dintre $s_0(t_0)$ și $s_1(t_0)$ față de eșantionul $r = r(t_0)$
 
     - principiul **cel mai apropiat vecin** ("*nearest neighbor*")
@@ -357,14 +356,14 @@ $$|r-s_0(t_0)| \grtlessH |r - s_1(t_0)|$$
 ### Decizie pe bază de prag
 
 - Alegerea valorii celei mai apropiate = același lucru cu **compararea $r$ cu un prag** $T = \frac{s_0(t_0) + s_1(t_0)}{2}$
-    
+
     - i.e. dacă cele două valori sunt 0 și 5, luăm o decizie prin compararea lui $r$ cu 2.5
- 
+
 - La **criteriul ML** , pragul = **punctul de intersecție** al celor două distribuții condiționate
 
 ### Exercițiu
 
-- Un semnal poate avea două valori posibile, $0$ sau $5$. 
+- Un semnal poate avea două valori posibile, $0$ sau $5$.
 Semnalul este afectat de zgomot alb, gaussian, cu distribuția $\mathcal{N}\;(\mu=0, \sigma^2=2)$.
 Receptorul ia un singur eșantion, cu valoarea $r = 2.25$
 
@@ -381,7 +380,7 @@ Receptorul ia un singur eșantion, cu valoarea $r = 2.25$
 - Regiunea de decizie $R_1$ = intervalul de valori ale lui $r$ care conduc la decizia $D_1$
 - Regiunile de decizie acoperă întreg domeniul de valori ale lui $r$ (toată axa reală)
 
-- Exemplu: indicați regiunile de decizie la exercițiul anterior 
+- Exemplu: indicați regiunile de decizie la exercițiul anterior
     - $R_0 = [-\infty, 2.5]$
     - $R_1 = [2.5, \infty]$
 
@@ -390,11 +389,11 @@ Receptorul ia un singur eșantion, cu valoarea $r = 2.25$
 - Există o distincție subtilă între termenii "probabilitate" și "plauzibilitate"
 
 - Să considerăm distribuția condiționată $w(r | H_i)$ de la exemplul anterior:
-    
+
     $$\frac{1}{\sigma \sqrt{2 \pi}}e^{-\frac{(r - s_i(t_0))^2}{2\sigma^2}}$$
 
 - Care este necunoscuta în această expresie?
-   
+
    - în general, $r$
    - dar în cazul deciziei nosatre este $i$, iar $r$ este cunoscut
 
@@ -423,7 +422,7 @@ atunci avem o **funcție de plauzibilitate**
 
 ### Generalizări
 
-- Dacă zgomotul are distribuție diferită în ipoteza $H_0$ față de ipoteza $H_1$? 
+- Dacă zgomotul are distribuție diferită în ipoteza $H_0$ față de ipoteza $H_1$?
 
 - Similar:
     - Se schițează distribuțiile condiționate
@@ -436,7 +435,7 @@ atunci avem o **funcție de plauzibilitate**
 
 - **Nu contează forma** semnalelor
 
-- Tot ce contează sunt **valorile celor două semnale la momentul de eșantionare $t_0$**: 
+- Tot ce contează sunt **valorile celor două semnale la momentul de eșantionare $t_0$**:
     - $s_0(t_0)$
     - $s_1(t_0)$
 
@@ -447,13 +446,13 @@ atunci avem o **funcție de plauzibilitate**
 - Se extinde raționamentul la $n$ ipoteze
 
     - Avem $n$ semnale posibile $s_0(t)$, ... $s_{n-1}(t)$
-    
+
     - Avem $n$ valori diferite $s_0(t_0)$, ... $s_{n-1}(t_0)$
-    
+
     - Avem $n$ distribuții condiționate $w(r|H_i)$
-    
-    - Se alege distribuția $w(r|H_i)$ **cea mai înaltă**     
-    pentru $r = r(t_0)$ dat 
+
+    - Se alege distribuția $w(r|H_i)$ **cea mai înaltă**
+    pentru $r = r(t_0)$ dat
 
 ### Generalizări
 
@@ -469,9 +468,9 @@ atunci avem o **funcție de plauzibilitate**
 
 ### Exercițiu
 
-- Un semnal poate avea patru valori posibile: -6, -2, 2, 6. 
-Fiecare valoare este transmisă timp de o secundă. 
-Semnalul este afectat de zgomot alb cu distribuție normală. 
+- Un semnal poate avea patru valori posibile: -6, -2, 2, 6.
+Fiecare valoare este transmisă timp de o secundă.
+Semnalul este afectat de zgomot alb cu distribuție normală.
 Receptorul ia un singur eșantion pe secundă.
 Folosind criteriul plauzibilității maxime, decideți ce semnal s-a transmis, dacă receptorul primește
 eșantioanele următoare:
@@ -487,24 +486,24 @@ $$4,\; 6.6,\; -5.2,\; 1.1,\; 0.3,\; -1.5,\; 7,\; -7,\; 4.4$$
 
 - Probabilitatea condiționată a rejecției corecte
     - = probabilitatea de a lua decizia $D_0$ când ipoteza este $H_0$
-    - = probabilitatea ca $r$ să fie în $R_0$, calculată pe distribuția $w(r|H_0)$ 
+    - = probabilitatea ca $r$ să fie în $R_0$, calculată pe distribuția $w(r|H_0)$
 $$P(D_0 | H_0) = \int_{R_0} w(r|H_0) dx$$
 
 - Probabilitatea condiționată a alarmei false
     - = probabilitatea de a lua decizia $D_1$ când ipoteza este $H_0$
-    - = probabilitatea ca $r$ să fie în $R_1$, calculată pe distribuția $w(r|H_0)$ 
+    - = probabilitatea ca $r$ să fie în $R_1$, calculată pe distribuția $w(r|H_0)$
 $$P(D_1 | H_0) = \int_{R_1} w(r|H_0) dx$$
 
 ### Probabilități condiționate
 
 - Probabilitatea condiționată de pierdere
     - = probabilitatea de a lua decizia $D_0$ când ipoteza este $H_1$
-    - = probabilitatea ca $r$ să fie în $R_0$, calculată pe distribuția $w(r|H_1)$ 
+    - = probabilitatea ca $r$ să fie în $R_0$, calculată pe distribuția $w(r|H_1)$
 $$P(D_0 | H_1) = \int_{R_0} w(r|H_1) dx$$
 
 - Probabilitatea condiționată a detecției corecte
     - = probabilitatea de a lua decizia $D_1$ când ipoteza este $H_1$
-    - = probabilitatea ca $r$ să fie în $R_1$, calculată pe distribuția $w(r|H_1)$ 
+    - = probabilitatea ca $r$ să fie în $R_1$, calculată pe distribuția $w(r|H_1)$
 $$P(D_1 | H_1) = \int_{R_1} w(r|H_1) dx$$
 
 
@@ -513,9 +512,9 @@ $$P(D_1 | H_1) = \int_{R_1} w(r|H_1) dx$$
 - Relații între probabilitățile condiționate
 
     - suma $P(D_0 | H_0) + P(D_1 | H_0) = 1$ (rejecție corectă + alarmă falsă)
-    
+
     - suma $P(D_0 | H_1) + P(D_1 | H_1) = 1$ (pierdere + detecție corectă)
-    
+
     - De ce? Justificați.
 
 ### Probabilități condiționate
@@ -531,14 +530,14 @@ $$P(D_1 | H_1) = \int_{R_1} w(r|H_1) dx$$
 **Teoremă:**
 
   Criteriul ML **minimizează probabilitatea totală de eroare condiționată $P(D_1 | H_0) + P(D_0 | H_1)$**
-    
+
 **Demonstrație:**
 
   Informal: de pe figura precedentă, dacă pragul $T$ se deplasează fie la dreapta fie la stânga,
 suma celor două arii hașurate (probabilități) pentru alarmă falsă + pierdere crește
 
   TODO: demonstrație riguroasă
-  
+
 ### Probabilitățile celor 4 rezultate
 
 - Probabilitățile condiționate sunt calculate **dat fiind** una sau alta dintre ipoteze
@@ -560,12 +559,12 @@ $$P(A \cap B) = P(B | A) \cdot P(A)$$
 - Interpretare:
 
     - Probabilitatea $P(A)$ este extrasă afară din din $P(B|A)$
-    
+
     - $P(B|A)$ nu mai conține nici o informație despre $P(A)$, șansele ca $A$ chiar să aibă loc
-    
+
     - Exemplu: P(gol | șut la poartă) = $\frac{1}{2}$. Câte goluri se înscriu?
 
-- La noi: 
+- La noi:
     $$P(D_i \cap H_j) = P(D_i | H_j) \cdot P(H_j)$$
 
     - pentru toți $i$ și $j$ (în toate cele 4 cazuri)
@@ -575,7 +574,7 @@ $$P(A \cap B) = P(B | A) \cdot P(A)$$
 
 - Un semnal constant poate avea două valori posibile, $0$ sau $5$.
 Semnalul este afectat de zgomot gaussian $\mathcal{N}\;(\mu=0, \sigma^2=2)$.
-Receptorul decide pe baza criteriului plauzibilității maxime, 
+Receptorul decide pe baza criteriului plauzibilității maxime,
 folosind un singur eșantion din semnal.
 
     a. Calculați probabilitatea condiționată a alarmei false
@@ -598,7 +597,7 @@ sau invers
 - Dacă $P(H_0) > P(H_1)$, am vrea să împingem pragul de decizie înspre $H_1$, și vice-versa
 
     - pentru că este mai probabil ca semnalul să fie $s_0(t)$
-    - și de aceea vrem să "favorizăm"/"încurajăm" decizia $D_0$ 
+    - și de aceea vrem să "favorizăm"/"încurajăm" decizia $D_0$
 
 - Avem nevoie de un criteriu mai general ...
 
@@ -616,18 +615,18 @@ TODO
 $$\frac{w(r | H_1)}{w(r | H_0)} \grtlessH \frac{P(H_0)}{P(H_1)}$$
 
 $$\frac{P(H_1) \cdot w(r | H_1)}{P(H_0) \cdot w(r | H_0)} \grtlessH 1$$
-    
+
   - prescurtat MPE (Minimum Probability of Error)
 
 ### Criteriul probabilității minime de eroare
 
 **Teoremă:**
 
-  Criteriul MPE **minimizează probabilitatea totală de eroare**: 
+  Criteriul MPE **minimizează probabilitatea totală de eroare**:
   $$P_e = P_{af} + P_p = P(D_1 \cap H_0) + P(D_0 \cap H_1)$$
-    
+
   - nu probabilitățile condiționate, ci cele care includ $P(H_i)$
-  
+
 ### Criteriul probabilității minime de eroare
 
 **Demonstrație:**
@@ -654,7 +653,7 @@ $$P_e = P(H_0) + \int_{-\infty}^T [w(r|H_1) \cdot P(H_1) - w(r|H_0) \cdot P(H_0)
 
 - Putem alege $R_0$ cum dorim, pentru acest scop
 
-- Pentru a minimiza integrala, se alege $R_0$ astfel încât pentru toți $r \in R_0$, 
+- Pentru a minimiza integrala, se alege $R_0$ astfel încât pentru toți $r \in R_0$,
 termenul din integrala este **negativ**
     - integrarea pe întregul interval în care o funcție este negativă conduce la valoarea minimă
 
@@ -676,7 +675,7 @@ $$\frac{w(r | H_1)}{w(r | H_0)} \grtlessH \frac{P(H_0)}{P(H_1)}$$
 - Când una dintre ipoteze este mai probabilă decât cealaltă, pragul
     este împins în favoarea sa, înspre cealaltă ipoteză
 
-- Criteriul ML este un caz particular al MPE pentru 
+- Criteriul ML este un caz particular al MPE pentru
 for $P(H_0) = P(H_1) = \frac{1}{2}$
 
 ### Criteriul probabilității minime de eroare - zgomot gaussian
@@ -703,7 +702,7 @@ $$(r-s_0(t_0))^2 \grtlessH (r - s_1(t_0))^2$$
 în favoarea ipotezei mai probabile:
 $$(r-s_0(t_0))^2 \grtlessH (r-s_1(t_0))^2 + 2\sigma^2 \cdot\ln \left(\frac{P(H_0)}{P(H_1)} \right)$$
     - termenul depinde de raportul $\frac{P(H_0)}{P(H_1)}$
-    
+
 ### Interpretarea 2: valoarea de prag
 
 - La criteriul ML, se compară $r$ cu un prag $T$
@@ -714,7 +713,7 @@ $$ r \grtlessH \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_
     - în funcție de raportul $\frac{P(H_0)}{P(H_1)}$
 
 
-### Exerciții 
+### Exerciții
 
 - Fie decizia între două semnale constante: $s_0(t) = -5$ și $s_1(t)=5$.
 Semnalele sunt afectate de zgomot alb cu distribuție gaussiană $\mathcal{N}(0, \sigma^2=1)$
@@ -722,7 +721,7 @@ Receptorul ia un singur eșantion cu valoarea $r$.
     a. Să se găsească regiunile de decizie conform criteriului MPE
     b. Calculați probabilitatea alarmei false și probabilitatea de pierdere
     c. Repetați a) și b) dacă $s_1(t)$ este afectat de zgomot uniform $\mathcal{U}[-4,4]$?
-    
+
 
 
 ### Criteriul riscului minim
@@ -755,7 +754,7 @@ $$R = C_{00} P(D_0 \cap H_0) + C_{10} P(D_1 \cap H_0) + C_{01} P(D_0 \cap H_1) +
 
 ### Calcule
 
-- Demonstrație la tablă 
+- Demonstrație la tablă
     - se folosește regula lui Bayes
 
 - Concluzie: regula de decizie este
@@ -790,13 +789,13 @@ $$ r \grtlessH \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_
 
 ### Interpretarea 1: Comparație între distanțe
 
-- La criteriul MPE, se compară pătratul distanțelor, 
+- La criteriul MPE, se compară pătratul distanțelor,
 dar cu un termen suplimentar în favoarea ipotezei mai probabile:
 $$(r-s_0(t_0))^2 \grtlessH (r-s_1(t_0))^2 + 2\sigma^2 \cdot\ln \left(\frac{P(H_0)}{P(H_1)} \right)$$
     - termenul depinde de raportul $\frac{P(H_0)}{P(H_1)}$
-    
+
 - La criteriul MR, pe lângă probabilități apar și costurile
-$$(r-s_0(t_0))^2 \grtlessH (r-s_1(t_0))^2 + 2 \sigma^2 \cdot \ln \left( \frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)} \right)$$    
+$$(r-s_0(t_0))^2 \grtlessH (r-s_1(t_0))^2 + 2 \sigma^2 \cdot \ln \left( \frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)} \right)$$
 
 ### Interpretarea 2: Valoarea de prag
 
@@ -846,7 +845,7 @@ $$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH K$$
 În zgomot gaussian, criteriile se reduc la:
 
 - Compararea pătratului distanțelor:
-$$(r-s_0(t_0))^2 \grtlessH (r-s_1(t_0))^2 + 2 \sigma^2 \cdot \ln \left( K \right)$$    
+$$(r-s_0(t_0))^2 \grtlessH (r-s_1(t_0))^2 + 2 \sigma^2 \cdot \ln \left( K \right)$$
 
 - Compararea eșantionului $r$ cu un prag $T$:
 $$r \grtlessH \underbrace{\frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot\ln \left(K \right)}_T$$
@@ -870,7 +869,7 @@ păstrând probabilitatea alarmei false sub o limită fixată $(P(D_1 \cap H_0) 
 
     - Se deduce pragul $T$ din constrângerea la limită $P(D_1 \cap H_0) = \lambda$
 
-- Criteriile ML, MPE și MR sunt cazuri particulare ale Neyman-Pearson, 
+- Criteriile ML, MPE și MR sunt cazuri particulare ale Neyman-Pearson,
 pentru diverse valori ale $\lambda$.
 
 
@@ -897,7 +896,7 @@ $$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH K$$
 
     - regiunea $R_0$: dacă $r$ este aici, se decide $D_0$
     - regiunea $R_1$: dacă $r$ este aici, se decide $D_1$
-    
+
 - Pentru zgomot gaussian, granița între regiuni (valoarea de prag) este:
 $$T = \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot\ln \left(K \right)$$
 
@@ -917,12 +916,12 @@ $$T = \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot
 
 ### Caracteristica de operare a receptorului (ROC)
 
-- Performanța unui receptor este ilustrată cu un grafic numit **"Caracteristica de operare a receptorului"** 
+- Performanța unui receptor este ilustrată cu un grafic numit **"Caracteristica de operare a receptorului"**
 (**"Receiver Operating Characteristic", ROC)**
 
 - Reprezintă probabilitatea $P_{dc} = P(D_1 | H_1)$
 în funcție de probabilitatea $P_{af} = P(D_1 | H_0)$
-  
+
   - pentru diferite praguri T
   - fiecare T corespunde unui punct de pe grafic
 
@@ -936,16 +935,16 @@ $$T = \frac{s_0(t_0) + s_1(t_0)}{2} + \frac{\sigma^2}{s_1(t_0) - s_0(t_0)} \cdot
 
   - creșterea $P_d$ implică și creșterea $P_{fa}$
   - pentru a fi siguri că nu ratăm nici un semnal (creșterea $P_d$), plătim prin creșterea probabilității de alarme false
-    
+
 - Criterii diferite = diferite praguri $K$ = diferite puncte pe grafic = compromisuri diferite
-  
+
   - dar întotdeauna e vorba de un compromis
 
 - O măsură a performanței globale este **Area Under the Curve** (AUC)
-  
+
   - indiferent de alegerea unui prag sau a altuia
 
-- Două situații diferite (două semnale diferite, algoritmi etc) se pot compara prin 
+- Două situații diferite (două semnale diferite, algoritmi etc) se pot compara prin
 afișarea ROC si compararea AUC-urilor asociate
 
 ### Caracteristica Precision vs Recall
@@ -953,7 +952,7 @@ afișarea ROC si compararea AUC-urilor asociate
 - Un grafic similar este cel de **Precision vs Recall**
 
 - **Precision** = $\frac{P(D_1 \cap H_1)}{P(D_1 \cap H_1) + P(D_1 \cap H_0)}$
-    
+
   - = True Positives  / (True Positives + False Positives)
 
 - **Recall** = $\frac{P(D_1 \cap H_1)}{P(D_1 \cap H_1) + P(D_0 \cap H_1)} = P(D_1 | H_1)$
@@ -977,15 +976,15 @@ Aplicația pentru care este obținut graficul precedent:
 - Cum putem îmbunătăți performanțele de detecție?
 
   - i.e. creșterea $P_d$ pentru același $P_{af}$
-  
+
   - independent de alegerea unui prag sau a altuia
 
 - Două soluții:
-   
+
   - Creșterea diferenței dintre $s_0(t)$ și $s_1(t)$ (se crește **puterea semnalului**)
-  
+
   - Scăderea zgomotului (se scade **puterea zgomotului**)
-  
+
   - i.e. se crește **raportul Semnal-Zgomot**
 
 ### Examen 2020-2021
@@ -1021,7 +1020,7 @@ P_{fa} =& P(D_1 | H_0) \\
 =& Q \left( \frac{T - s_0(t_0)}{\sqrt{2}\sigma} \right) \\
 \end{split}$$
 
-- Rezultă $\frac{T - s_0(t_0)}{\sqrt{2}\sigma} = Q^{-1} \left( P_{fa}\right)$, 
+- Rezultă $\frac{T - s_0(t_0)}{\sqrt{2}\sigma} = Q^{-1} \left( P_{fa}\right)$,
 
 - Și: $\frac{T - s_1(t_0)}{\sqrt{2}\sigma} = Q^{-1} \left( P_{fa}\right) + \frac{s_0(t_0) - s_1(t_0)}{\sqrt{2}\sigma}$
 
@@ -1044,7 +1043,7 @@ $$P_d = Q \left( \underbrace{Q^{-1} \left(P_{fa}\right)}_{constant} - \frac{A}{\
 - Puterea medie a unui semnal = valoarea pătratică medie = $\overline{X^2}$
     - Puterea semnalului original este $\frac{A^2}{2}$
     - Puterea zgomotului este $\overline{X^2} = \sigma^2$ (pentru valoare medie nulă $\mu = 0$)
-    
+
 - În cazul nostru, SNR = $\frac{A^2}{2 \sigma^2}$
 $$P_d = Q \left( \underbrace{Q^{-1} \left(P_{fa}\right)}_{constant} - \sqrt{SNR} \right)$$
 
@@ -1057,7 +1056,7 @@ $$P_d = Q \left( \underbrace{Q^{-1} \left(P_{fa}\right)}_{constant} - \sqrt{SNR}
 - Performanța receptorului crește odată cu creșterea SNR
     - SNR mare: performanță bună
     - SNR mic:  performanță slabă
-    
+
 ![Performanțele detecției depind de SNR](img/PD_SNR.png){#id .class width=47%}
 
 *[sursa: Fundamentals of Statistical Signal Processing, Steven Kay]*
@@ -1067,7 +1066,7 @@ $$P_d = Q \left( \underbrace{Q^{-1} \left(P_{fa}\right)}_{constant} - \sqrt{SNR}
 
 - Se pot utiliza aceste criterii de decizie în alte aplicații?
     - nu pentru a decide între semnale, ci în alte scopuri
-    
+
 - Matematic, problema se pune sub forma următoare:
     - avem 2 (sau mai multe) distribuții posibile
     - avem 1 valoare observată
@@ -1083,7 +1082,7 @@ $$P_d = Q \left( \underbrace{Q^{-1} \left(P_{fa}\right)}_{constant} - \sqrt{SNR}
 
 ### Alte aplicații ale teoriei deciziei
 
-Exemplu (pur imaginar): 
+Exemplu (pur imaginar):
 
 - O persoană sănătoasă cu greutatea = X kg are concentrația de trombocite pe ml de sânge distribuită aproximativ $\mathcal{N} \; (\mu=10 \cdot X, \sigma^2 = 20)$.
 
@@ -1128,7 +1127,7 @@ Exemplu (pur imaginar):
 
 - Eșantioanele formează **vectorul de eșantioanelor**
   $$\vec{r} = [r_1, r_2, ... r_N]$$
-  
+
 ### Eșantioane multiple dintr-un semnal
 
 - Fiecare eșantion $r_i$ este o **variabilă aleatoare**
@@ -1136,13 +1135,13 @@ Exemplu (pur imaginar):
 
 - Vectorul $\vec{r}$ reprezintă un set de $N$ v.a. dintr-un proces aleator
 
-- Considerând întreg vectorul $\vec{r}$, 
+- Considerând întreg vectorul $\vec{r}$,
 valorile vectorului $\vec{r}$ sunt descrise de **distribuții de ordin $N$**
 
-- În ipoteza $H_0$: 
+- În ipoteza $H_0$:
     $$w_N(\vec{r} | H_0) = w_N(r_1, r_2, ...r_N | H_0)$$
 
-- În ipoteza $H_1$: 
+- În ipoteza $H_1$:
     $$w_N(\vec{r} | H_1) = w_N(r_1, r_2, ...r_N | H_1)$$
 
 
@@ -1161,13 +1160,13 @@ valorile vectorului $\vec{r}$ sunt descrise de **distribuții de ordin $N$**
 - Interpretare: se alege ipoteza cea mai plauzibilă de a fi generat datele observate
 
     - identic ca la 1 eșantion, doar că acum datele = mai multe eșantioane
-    
+
 ### Descompunere
 
 - Presupunând că zgomotul este alb, eșantioanele $r_i$ sunt independente
 
 - În acest caz, distribuția totală $w_N(\vec{r} | H_j)$ se poate descompune ca un produs
-    
+
     $$w_N(\vec{r} | H_j) = w(r_1|H_j) \cdot w(r_2|H_j) \cdot ... \cdot w(r_N|H_j)$$
 
     - de ex. plauzibilitatea obținerii vectorului $[5.1, 4.7, 4.9]$ = plauzibilitatea obținerii lui $5.1$ $\times$
@@ -1180,19 +1179,19 @@ valorile vectorului $\vec{r}$ sunt descrise de **distribuții de ordin $N$**
 ### Descompunere
 
 - Prin urmare, criteriile bazate pe raportul de plauzibilitate devin
-    $$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{w(r_1|H_1)}{w(r_1|H_0)}  \cdot 
+    $$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{w(r_1|H_1)}{w(r_1|H_0)}  \cdot
     \frac{w(r_2|H_1)}{w(r_2|H_0)} ... \frac{w(r_N|H_1)}{w(r_N|H_0)} \grtlessH K$$
 
 - Raportul de plauzibilitate al unui vector de eșantioane = produsul rapoartelor plauzibilitate ale fiecărui eșantion
 
-- **Se înmulțesc** rapoartele de plauzibilitate 
-ale fiecărui eșantion în parte, 
+- **Se înmulțesc** rapoartele de plauzibilitate
+ale fiecărui eșantion în parte,
 și se aplică criteriile asupra rezultatului final
 
 ### Criterii de decizie
 
 - Toate criteriile de decizie pot fi scrise astfel:
-    $$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{w(r_1|H_1)}{w(r_1|H_0)}  \cdot 
+    $$\frac{w_N(\vec{r} | H_1)}{w_N(\vec{r} | H_0)} = \frac{w(r_1|H_1)}{w(r_1|H_0)}  \cdot
     \frac{w(r_2|H_1)}{w(r_2|H_0)} ... \frac{w(r_N|H_1)}{w(r_N|H_0)} \grtlessH K$$
 
 - Valoarea lui $K$ se alege ca pentru 1 eșantion:
@@ -1202,7 +1201,7 @@ ale fiecărui eșantion în parte,
     - criteriul MR: $K=\frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)}$
 
 
-### Caz particular: AWGN 
+### Caz particular: AWGN
 
 - AWGN = "Additive White Gaussian Noise" = Zgomot alb, gaussian, aditiv
 
@@ -1226,10 +1225,10 @@ ale fiecărui eșantion în parte,
 - Sumele reprezintă **distanța geometrică** la pătrat:
     $$\sum (r_i - s_1(t_i))^2 = \|\vec{r} - \vec{s_1(t)}\|^2 = d(\vec{r}, s_1(t))^2$$
     $$\sum (r_i - s_0(t_i))^2 = \|\vec{r} - \vec{s_0(t)}\|^2 = d(\vec{r}, s_0(t))^2$$
-    
-    - distanța între vectorul observat $\vec{r}$ și 
+
+    - distanța între vectorul observat $\vec{r}$ și
     semnalele originale $s_1(t)$, respectiv $s_0(t)$
-    
+
     - vectori cu N eșantioane => distanța între vectori de dimensiune $N$
 
 - Totul se reduce la a compara distanțele
@@ -1242,7 +1241,7 @@ ale fiecărui eșantion în parte,
     - se alege **distanța minimă** între $\vec{r}$
     și vectorii $s_1(t)$, respectiv $s_0(t)$)
     - de unde și numele "receptor de distanță minimă"
-    
+
 - Criteriul Minimum Probability of Error:
 
     - $K = \frac{P(H_0)}{P(H_1)}$
@@ -1258,7 +1257,7 @@ ale fiecărui eșantion în parte,
 
 Exercițiu:
 
-- Un semnal poate avea două valori, $0$ (ipoteza $H_0$) sau $6$ (ipoteza $H_1$). 
+- Un semnal poate avea două valori, $0$ (ipoteza $H_0$) sau $6$ (ipoteza $H_1$).
 Semnalul este afectat de AWGN $\mathcal{N}(0, \sigma^2=1)$.
 Receptorul ia 5 eșantioane cu valorile $\left\{ 1.1, 4.4, 3.7, 4.1, 3.8 \right\}$.
 
@@ -1269,7 +1268,7 @@ Receptorul ia 5 eșantioane cu valorile $\left\{ 1.1, 4.4, 3.7, 4.1, 3.8 \right\
     $P(H_0) = 2/3$ și $P(H_1) = 1/3$, iar $C_{00} = 0$, $C_{10} = 10$, $C_{01} = 20$, $C_{11} = 5$?
 
 ### Alt exercițiu
-    
+
 Alt exercițiu:
 
 - Fie detecția unui semnal $s(t) = 3 \sin(2 \pi f t)$ care poate fi prezent (ipoteza $H_1$) sau absent ($s_0(t) = 0$, ipoteza $H_0$).
@@ -1303,7 +1302,7 @@ $$\sum r_i s_1(t_i) - \frac{ \sum (s_1(t_i))^2}{2} \grtlessH \sum r_i s_0(t_i) -
 
 ### Interpretarea 2: produs scalar
 
-- Algebră: **produsului scalar** al vectorilor $\vec{a}$ și $\vec{b}$: 
+- Algebră: **produsului scalar** al vectorilor $\vec{a}$ și $\vec{b}$:
 $$\langle a,b \rangle = \sum_i a_i b_i$$
 
 - $\sum r_i s_1(t_i) = \langle \vec{r}, \vec{s_1(t)} \rangle$ este produsul scalar al vectorului $\vec{r} = [r_1, r_2, ... r_N]$
@@ -1332,12 +1331,12 @@ $$\langle \vec{r}, \vec{s_1} \rangle - \frac{E_1}{2} \grtlessH \langle \vec{r},\
 
 - Caz particular:
     - Dacă cele două semnale au energii egale: $E_1 = \sum s_1(t_i)^2 = E_0 = \sum s_0(t_i)^2$
-    
+
     - Exemple:
-    
+
         - modulație BPSK: $s_1 = A \cos(2 \pi f t)$, $s_0 = -A \cos(2 \pi f t)$
         - modulație 4-PSK: $s_{n=0,1,2,3} = A \cos(2 \pi f t + n \frac{\pi}{4})$
-    
+
     - Atunci formula se simplifică:
     $$\langle \vec{r}, \vec{s_1} \rangle \grtlessH \langle \vec{r},\vec{s_0} \rangle + \sigma^2 \ln(K)$$
 
@@ -1352,7 +1351,7 @@ cu $s_1(t)$ sau cu  $s_0(t)$
     - Se alege cel mai similar cu $\vec{r}$
     - Se scad și energiile semnalelor (necesar d.p.d.v. matematic)
 
-- **Produsul scalar** a doi vectori $\vec{a}$ și $\vec{b}$: 
+- **Produsul scalar** a doi vectori $\vec{a}$ și $\vec{b}$:
     $$\langle a,b \rangle = \sum_i a_i b_i$$
 
 
@@ -1412,7 +1411,7 @@ oglindirea lui $s[n]$**, luându-se eșantionul de la finalul semnalului de intr
 
 - **Filtru adaptat** = un filtru proiectat să aibă răspunsul la impuls egal cu oglindirea
 semnalului care se dorește a fi detectat (eng. "matched filter")
-    
+
     - filtrul este *adaptat* semnalului dorit
 
 
@@ -1468,10 +1467,10 @@ $$\langle \vec{r},\vec{s} \rangle = \int r(t) s(t) dt$$
 - Similar cu cazul N dimensional, dar cu integrală în loc de sumă
 
 ### Decizie în cazul AWGN: distanțe
-    
+
 - În cazul AWGN este aceeași regula de decizie:
 $$d(\vec{r}, \vec{s_0})^2 \grtlessH d(\vec{r}, \vec{s_1})^2  + 2 \sigma^2 \ln(K)$$
-    
+
 - Distanța = se calculează cu formula precedentă, cu integrală
 
 - Aceleași criterii de decizie:
@@ -1480,12 +1479,12 @@ $$d(\vec{r}, \vec{s_0})^2 \grtlessH d(\vec{r}, \vec{s_1})^2  + 2 \sigma^2 \ln(K)
         - se alege **distanța minimă**
     - Criteriul Minimum Probability of Error: $K = \frac{P(H_0)}{P(H_1)}$
     - Criteriul Minimum Risk: $K=\frac{(C_{10}-C_{00})p(H_0)}{(C_{01}-C_{11})p(H_1)}$
-    
+
 ### Decizie în cazul AWGN: produse scalare
 
 - În cazul AWGN este aceeași regulă de decizie:
 $$\langle \vec{r}, \vec{s_1} \rangle - \frac{E_1}{2} \grtlessH \langle \vec{r},\vec{s_0} \rangle - \frac{E_0}{2} + \sigma^2 \ln(K)$$
-    
+
 - Produsul scalar = formula precedentă, cu integrală
 
 - Toate interpretările rămân identice
@@ -1531,14 +1530,14 @@ cu produsul scalar al intrării $r(t)$ cu $s(t)$
         - 3D = spațiu tridimensional
         - N-D = ...
         - $\infty$-D = ..
-    
+
 ### Spații vectoriale Euclidiene
 
 - Operația fundamentală: **produsul scalar**
     - pentru semnale discrete
         $$\langle \vec{x},\vec{y} \rangle = \sum_i x_i y_i$$
     - pentru semnale continue
-        $$\langle \vec{x},\vec{y} \rangle = \int x(t) y(t)$$        
+        $$\langle \vec{x},\vec{y} \rangle = \int x(t) y(t)$$
 
 - Norma (lungimea) unui vector = radical(produsul scalar cu sine însuși)
 $$\|\vec{x}\| = \sqrt{ \langle \vec{x},\vec{x} \rangle }$$
@@ -1562,13 +1561,13 @@ $$cos(\alpha) = \frac{\langle x,y \rangle}{||x|| \cdot ||y||}$$
 $$\mathcal{F} \{ x(t)\} = \langle x(t), e^{j \omega t}\rangle = \int x(t) e^{-j \omega t}$$
     - pentru semnale complexe, al doilea termen se conjugă, de aceea este $-j$ în loc de $j$
         $$\langle \vec{x},\vec{y} \rangle = \sum_i x_i y_i^*$$
-        $$\langle \vec{x},\vec{y} \rangle = \int x(t) y(t)^*$$        
- 
+        $$\langle \vec{x},\vec{y} \rangle = \int x(t) y(t)^*$$
+
 - Identic pentru semnale discrete
 
 ### Spații vectoriale Euclidiene
 
-- Concluzie: definirea algoritmilor în mod generic, 
+- Concluzie: definirea algoritmilor în mod generic,
 pe bază de produse scalare / distanțe / norme, este extrem de folositoare!
     - se aplică automat tuturor spațiilor vectoriale
     - un singur algoritm, utilizări pentru multiple tipuri de semnale
@@ -1582,16 +1581,16 @@ pe bază de produse scalare / distanțe / norme, este extrem de folositoare!
 tuturor datelor:
 
   - Se cunoșteau semnalele:
-  
+
     - $s_0(t) = ...$
     - $s_1(t) = ...$
-    
+
   - Se cunoștea zgomotul
-  
+
     - gaussian, uniform, etc.
-    
+
   - Se cunoșteau distribuțiile condiționate:
-  
+
     - $w(r|H_0) = ...$
     - $w(r|H_1) = ...$
 
@@ -1625,7 +1624,7 @@ nu există / nu se cunosc?
     - nu există semnalele "originale" $s_0(t) = ...$ și $s_1(t)...$
     - (fețele persoanelor A și B nu pot fi exprimate matematic ca semnale)
     - în schimb, avem multe exemple din fiecare distribuție
-    
+
         - 100 imagini ale lui A = exemple ale $\vec{r}$ în ipoteza $H_0$
         - 100 imagini ale lui B = exemple ale $\vec{r}$ în ipoteza $H_1$
 
@@ -1635,11 +1634,11 @@ nu există / nu se cunosc?
 
     - Acest tip de problemă = problemă de **clasificare** a semnalelor
         - se dă un vector de date, găsiți-i clasa
-        
+
     - **Clase de semnal** = categoriile posibile ale semnalelor (ipotezele $H_i$, persoanele A/B etc)
-    
+
     - **Set de antrenare** = un set de semnale cunoscute inițial
-    
+
         - de ex. 100 de imagini ale fiecărei persoane
         - setul de date va fi folosit în procesul de decizie
 
@@ -1659,7 +1658,7 @@ pe care le-ar conține distribuțiile condiționate $w(r|H_0)$ și $w(r|H_1)$
 
 Algoritmul *k-Nearest Neighbours* (k-NN)
 
-- Intrare: 
+- Intrare:
 
     - set de antrenare cu vectorii $\vec{x}_1 ... \vec{x}_N$,
     din $L$ clase posibile de semnal $C_1$...$C_L$
@@ -1668,7 +1667,7 @@ Algoritmul *k-Nearest Neighbours* (k-NN)
     - parametrul $k$
 
 1. Se calculează distanța între $\vec{r}$ și fiecare vector de antrenare $\vec{x}_i$
-    - se poate utiliza distanța Euclidiană, aceeași utilizată 
+    - se poate utiliza distanța Euclidiană, aceeași utilizată
     pentru detecția semnalelor din secțiunile precedente
 
 2. Se aleg cei mai apropiați $k$ vectori de $\vec{r}$ (cei *$k$ "nearest neighbours*")
@@ -1682,9 +1681,9 @@ Algoritmul *k-Nearest Neighbours* (k-NN)
 
 ![Algoritmul k-NN ilustrat [1]](img/kNN.png){#id .class width=58%}
 
-\maketiny{
+::: {.smaller}
 [1] sursa: "KNN Classification using Scikit-learn", Avinash Navlani, https://www.datacamp.com/community/tutorials/k-nearest-neighbor-classification-scikit-learn
-}
+:::
 
 
 ### Algoritmul k-NN și decizia MPE
@@ -1712,7 +1711,7 @@ Exercițiu
 \vec{v}_3 = \begin{bmatrix} -4 \\  2 \end{bmatrix}\;
 \vec{v}_4 = \begin{bmatrix}  2 \\  1 \end{bmatrix}\;
 \vec{v}_5 = \begin{bmatrix} -2 \\ -2 \end{bmatrix}$$
-    
+
     - Clasa B:
     $$
 \vec{v}_6    = \begin{bmatrix}  7 \\ 0 \end{bmatrix}\;
@@ -1729,13 +1728,9 @@ utilizând algoritmul k-NN, cu $k=1$, $k=3$, $k=5$, $k=7$ and $k=9$
 - k-NN este un algoritm de învățare supervizată
     - se cunosc clasele vectorilor din setul de antrenare
 
-\smallskip
-
 - Efectul lui $k$: netezirea frontierei de decizie:
     - $k$ mic: frontieră foarte cotită / "șifonată" / cu multe coturi
     - $k$ mare: frontieră mai netedă
-
-\smallskip
 
 - Cum se găsește o valoare optimă pentru  $k$?
 
@@ -1743,8 +1738,6 @@ utilizând algoritmul k-NN, cu $k=1$, $k=3$, $k=5$, $k=7$ and $k=9$
 
 - Cum se găsește o valoare optimă pentru  $k$?
     - prin încercări ("băbește")
-
-\smallskip
 
 - "**Cross-validation**" = folosirea unui mic set de test pentru a verifica care valoare a parametrului e mai bună
 
@@ -1758,33 +1751,24 @@ utilizând algoritmul k-NN, cu $k=1$, $k=3$, $k=5$, $k=7$ and $k=9$
 - Cum se evaluează performanța algoritmului k-NN?
     - Se folosește un set de date de testare, și se calculează procentajul vectorilor clasificați corect
 
-\smallskip
-
 - Setul de date pentru evaluarea finală trebuie să fie diferit de setul de "*cross-validare*"
     - pentru evaluarea finală se folosesc date pe care algoritmul nu le-a mai utilizat niciodată
-
-\smallskip
 
 - Cum se împarte setul de date disponibile?
 
 
 ### Seturi de date
-    
-- Presupunem că avem în total 200 imagini tip fețe, 100 imagini ale persoanei A și 100 ale lui B    
 
-\smallskip
-    
+- Presupunem că avem în total 200 imagini tip fețe, 100 imagini ale persoanei A și 100 ale lui B
+
 - Setul de date total se împarte în:
-	\smallskip
     - Set de antrenare
         - vectorii care vor fi utilizați de algoritm
         - cel mai numeros, aprox. 60% din datele totale
         - de ex. 60 imagini ale persoanei A și 60 ale lui B
-    \smallskip
     - Set de *cross-validare*
         - utilizat pentru a testa algoritmul în vederea alegerii parametrilor optimi ($k$)
         - mai mic, aprox. 20% din date (de ex. 20 imagini ale lui of A și 20 ale lui B)
-    \smallskip
     - Set de testare
         - utilizat pentru evaluarea finală a algoritmului, cu valorile parametrilor fixate
         - mai mic, aprox. 20% din date (de ex. 20 imagini ale lui of A și 20 ale lui B)
@@ -1794,8 +1778,6 @@ utilizând algoritmul k-NN, cu $k=1$, $k=3$, $k=5$, $k=7$ and $k=9$
 - k-Means: un algoritm pentru ***clusterizarea*** datelor
     - identificarea grupurilor de date apropiate între ele
 
-\smallskip
-
 - Un exemplu de algoritm de învățare nesupervizată
     - "învățare nesupervizată" = nu se cunosc clasele semnalelor din setul de antrenare
 
@@ -1803,7 +1785,7 @@ utilizând algoritmul k-NN, cu $k=1$, $k=3$, $k=5$, $k=7$ and $k=9$
 
 Algoritmul *k-Means*
 
-- Intrare: 
+- Intrare:
     - set de antrenare cu vectorii $\vec{x}_1 ... \vec{x}_N$
     - numărul de clase C
 
@@ -1826,12 +1808,10 @@ Algoritmul *k-Means* explicat video:
 
     [https: //www.youtube.com/watch?v=4b5d3muPQmA](https://www.youtube.com/watch?v=4b5d3muPQmA)
 
-\smallskip
-
 - Urmăriți video-ul următor, de la 3:05 la final
 
     [https: //www.youtube.com/watch?v=IuRb3y8qKX4](https://www.youtube.com/watch?v=IuRb3y8qKX4)
-    
+
 
 ### Algoritmul *k-Means*
 
@@ -1846,10 +1826,9 @@ Algoritmul *k-Means* explicat video:
 Exercițiu
 
 1. Fie datele următoare:
-    $$\left\lbrace \vec{v_n} \right\rbrace = 
+    $$\left\lbrace \vec{v_n} \right\rbrace =
 [ 1.3, -0.1, 0.5, 4.7, 5.1, 5.8, 0.4, 4.8, -0.7, 4.9 ] $$
 
     Utilizați algoritmul k-Means pentru a găsi doi centroizi $\vec{c}_1$ și $\vec{c}_2$,
-pornind de la valorile aleatoare $\vec{c}_1 = -0.5$ și $\vec{c}_2 = 0.9$. 
+pornind de la valorile aleatoare $\vec{c}_1 = -0.5$ și $\vec{c}_2 = 0.9$.
 Realizați 5 iterații ale algoritmului.
-

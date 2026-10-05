@@ -1,0 +1,27 @@
+project:
+  type: default
+
+jupyter: python3
+execute-dir: project
+
+execute:
+  echo: false
+  output: true
+  error: false
+  cache: false
+
+format:
+  beamer:
+    slide-level: 3
+    pdf-engine: pdflatex
+    include-in-header: beamer-header.tex
+
+    code-fold: true
+  # revealjs:
+  #   slide-level: 3
+  # dtslides-revealjs:
+  #   slide-number: true
+  #   transition: fade
+  #   slide-level: 3
+  # illinois-revealjs:
+  #   slide-level: 3
