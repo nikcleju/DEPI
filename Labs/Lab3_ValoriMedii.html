@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Medii temporale și statistice</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Lab3_ValoriMedii_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Lab3_ValoriMedii_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Lab3_ValoriMedii_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Lab3_ValoriMedii_files/libs/quarto-html/popper.min.js"></script>
+<script src="Lab3_ValoriMedii_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Lab3_ValoriMedii_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Lab3_ValoriMedii_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Lab3_ValoriMedii_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Lab3_ValoriMedii_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Lab3_ValoriMedii_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Lab3_ValoriMedii_files/libs/bootstrap/bootstrap-7c6a896853115d4253cd2a0127942323.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#obiectiv" id="toc-obiectiv" class="nav-link active" data-scroll-target="#obiectiv"><span class="header-section-number">1</span> Obiectiv</a></li>
+  <li><a href="#aspecte-teoretice" id="toc-aspecte-teoretice" class="nav-link" data-scroll-target="#aspecte-teoretice"><span class="header-section-number">2</span> Aspecte teoretice</a>
+  <ul class="collapse">
+  <li><a href="#media-varianța-și-devianța-standard-statistică" id="toc-media-varianța-și-devianța-standard-statistică" class="nav-link" data-scroll-target="#media-varianța-și-devianța-standard-statistică"><span class="header-section-number">2.1</span> Media, varianța și devianța standard statistică</a></li>
+  <li><a href="#media-varianța-și-devianța-standard-temporală" id="toc-media-varianța-și-devianța-standard-temporală" class="nav-link" data-scroll-target="#media-varianța-și-devianța-standard-temporală"><span class="header-section-number">2.2</span> Media, varianța și devianța standard temporală</a></li>
+  <li><a href="#calculul-mediilor-în-matlab" id="toc-calculul-mediilor-în-matlab" class="nav-link" data-scroll-target="#calculul-mediilor-în-matlab"><span class="header-section-number">2.3</span> Calculul mediilor în Matlab</a></li>
+  <li><a href="#încărcarea-variabilelor-dintr-un-fișier" id="toc-încărcarea-variabilelor-dintr-un-fișier" class="nav-link" data-scroll-target="#încărcarea-variabilelor-dintr-un-fișier"><span class="header-section-number">2.4</span> Încărcarea variabilelor dintr-un fișier</a></li>
+  <li><a href="#rezumat-funcții-și-notații-de-cunoscut" id="toc-rezumat-funcții-și-notații-de-cunoscut" class="nav-link" data-scroll-target="#rezumat-funcții-și-notații-de-cunoscut"><span class="header-section-number">2.5</span> Rezumat: funcții și notații de cunoscut</a></li>
+  </ul></li>
+  <li><a href="#exerciții" id="toc-exerciții" class="nav-link" data-scroll-target="#exerciții"><span class="header-section-number">3</span> Exerciții</a></li>
+  <li><a href="#întrebări-finale" id="toc-întrebări-finale" class="nav-link" data-scroll-target="#întrebări-finale"><span class="header-section-number">4</span> Întrebări finale</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Lab3_ValoriMedii.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="Lab3_ValoriMedii.ipynb" download="Lab3_ValoriMedii.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Medii temporale și statistice</h1>
+<p class="subtitle lead">Laboratorul 3, DEPI</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="obiectiv" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Obiectiv</h1>
+<p>Folosiți <code>mean()</code>, <code>std()</code> și <code>var()</code> pentru a caracteriza măsurători reale. Distingeți mediile calculate în timp de cele calculate pe un ansamblu de observații, alegeți dimensiunea corectă a matricei și explicați de ce media unor rapoarte diferă de raportul sumelor.</p>
+</section>
+<section id="aspecte-teoretice" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Aspecte teoretice</h1>
+<section id="media-varianța-și-devianța-standard-statistică" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="media-varianța-și-devianța-standard-statistică"><span class="header-section-number">2.1</span> Media, varianța și devianța standard statistică</h2>
+<p>Mediile statistice sunt definite pe baza distribuției de probabilitate, nu pe baza unei anumite secvențe de măsurători.</p>
+<p>Pentru o variabilă aleatoare continuă <span class="math inline">A</span>, cu densitatea de probabilitate <span class="math inline">w_A(x)</span>, <strong>media statistică</strong> este</p>
+<p><span class="math display">\mu_A=\mathrm{E}\{A\}=\int_{-\infty}^{\infty}x\,w_A(x)\,dx.</span></p>
+<p><strong>Varianța statistică</strong> este:</p>
+<p><span class="math display">\sigma_A^2=\mathrm{E}\{(A-\mu_A)^2\}
+=\int_{-\infty}^{\infty}(x-\mu_A)^2w_A(x)\,dx.</span></p>
+<p><strong>Devianța standard</strong> este rădăcina pătrată a varianței:</p>
+<p><span class="math display">\sigma_A=\sqrt{\sigma_A^2}.</span></p>
+<p>Pentru o variabilă aleatoare discretă, integralele se înlocuiesc cu sume.</p>
+<p><strong>Observație:</strong> Când lucrăm cu date, nu putem calcula direct aceste integrale, deoarece ele presupun cunoașterea distribuției de probabilitate. În practică, folosind vectori lungi de date măsurate, calculăm <strong>medii temporale</strong>. Dacă este îndeplinită proprietatea numită <em>ergodicitate</em>, mediile temporale converg către mediile statistice când numărul de eșantioane tinde la infinit.</p>
+</section>
+<section id="media-varianța-și-devianța-standard-temporală" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="media-varianța-și-devianța-standard-temporală"><span class="header-section-number">2.2</span> Media, varianța și devianța standard temporală</h2>
+<p>Mediile temporale sunt cele pe care le calculăm în practică, de exemplu în Matlab, când avem un vector finit de eșantioane.</p>
+<p>Pentru un vector finit <span class="math inline">x[1],\ldots,x[N]</span>, <strong>media temporală</strong> este</p>
+<p><span class="math display">m = \bar{X} =\frac{1}{N}\sum_{n=1}^{N}x[n].</span></p>
+<p><strong>Varianța temporală</strong> este:</p>
+<p><span class="math display">v = \frac{1}{N-1}\sum_{n=1}^{N}(x[n]-\bar{X})^2</span></p>
+<p>sau:</p>
+<p><span class="math display">v = \frac{1}{N}\sum_{n=1}^{N}(x[n]-\bar{X})^2</span></p>
+<p>Diferența constă în primul termen, numit <strong>factor de normalizare</strong>, care este <span class="math inline">\frac{1}{N-1}</span> sau <span class="math inline">\frac{1}{N}</span>. Alegerea depinde de faptul că media <span class="math inline">\bar{X}</span> este estimată din aceleași date sau este cunoscută <em>a priori</em>:</p>
+<ul>
+<li><p>folosiți <span class="math inline">\frac{1}{N-1}</span> când media <span class="math inline">\bar{X}</span> este estimată din aceleași date;</p></li>
+<li><p>folosiți <span class="math inline">\frac{1}{N}</span> când media <span class="math inline">\bar{X}</span> este media adevărată, cunoscută <em>a priori</em>.</p></li>
+</ul>
+<p><strong>Devianța standard temporală</strong> este rădăcina pătrată a varianței:</p>
+<p><span class="math display">s = \sqrt{v}.</span></p>
+<p>Pentru o secvență de lungime infinită, mediile temporale sunt definite ca limite ale mediilor calculate pe intervale din ce în ce mai lungi.</p>
+</section>
+<section id="calculul-mediilor-în-matlab" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="calculul-mediilor-în-matlab"><span class="header-section-number">2.3</span> Calculul mediilor în Matlab</h2>
+<p>Pentru un vector, <code>mean()</code> calculează media aritmetică. Implicit, <code>var()</code> și <code>std()</code> folosesc normalizarea cu <span class="math inline">N-1</span>, iar <code>var(x,1)</code> și <code>std(x,1)</code> folosesc <span class="math inline">N</span>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">x</span> <span class="op">=</span> [<span class="fl">1</span><span class="op">,</span> <span class="fl">2</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">5</span><span class="op">,</span> <span class="fl">6</span><span class="op">,</span> <span class="fl">5</span><span class="op">,</span> <span class="fl">6</span><span class="op">,</span> <span class="fl">6</span><span class="op">,</span> <span class="fl">7</span><span class="op">,</span> <span class="fl">10</span><span class="op">,</span> <span class="fl">14</span><span class="op">,</span> <span class="op">-</span><span class="fl">3</span>]<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">m</span> <span class="op">=</span> <span class="va">mean</span>(<span class="va">x</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">v</span> <span class="op">=</span> <span class="va">var</span>(<span class="va">x</span>)       <span class="co">% numitor N-1</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="va">s</span> <span class="op">=</span> <span class="va">std</span>(<span class="va">x</span>)       <span class="co">% rădăcina pătrată a lui var(x)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="va">vN</span> <span class="op">=</span> <span class="va">var</span>(<span class="va">x</span><span class="op">,</span> <span class="fl">1</span>)   <span class="co">% numitor N</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="va">sN</span> <span class="op">=</span> <span class="va">std</span>(<span class="va">x</span><span class="op">,</span> <span class="fl">1</span>)   <span class="co">% rădăcina pătrată a lui var(x, 1)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Pentru o matrice <code>X</code>, funcțiile <code>mean(X)</code>, <code>std(X)</code> și <code>var(X)</code> operează implicit <strong>de-a lungul coloanelor</strong>, obținând un rezultat pentru fiecare coloană.</p>
+<p>Pentru a calcula mediile de-a lungul liniilor, specificați argumentul de dimensiune <code>dim=2</code> (consultați documentația). De exemplu, pentru o matrice <code>X</code> de dimensiune <code>N</code> × <code>M</code>, următoarele comenzi calculează medii temporale și medii pe ansamblu:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">% mean(X, dim)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">mean</span>(<span class="va">X</span>)     <span class="co">% Operează pe coloane. Produce un vector 1 × M de medii pe coloane</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">mean</span>(<span class="va">X</span><span class="op">,</span> <span class="fl">2</span>)  <span class="co">% Operează pe linii. Produce un vector N × 1 de medii pe linii</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">% La fel pentru var()</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">% Apel: var(X, normalizare, dim)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="va">var</span>(<span class="va">X</span>)         <span class="co">% Folosește 1/(N-1), operează pe coloane</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="va">var</span>(<span class="va">X</span><span class="op">,</span> <span class="fl">1</span>)      <span class="co">% Folosește 1/N, operează pe coloane</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="va">var</span>(<span class="va">X</span><span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">2</span>)   <span class="co">% Folosește 1/(N-1), operează pe linii</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="va">var</span>(<span class="va">X</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">2</span>)   <span class="co">% Folosește 1/N, operează pe linii</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">% La fel pentru std()</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="va">std</span>(<span class="va">X</span>)         <span class="co">% Folosește 1/(N-1), operează pe coloane</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="va">std</span>(<span class="va">X</span><span class="op">,</span> <span class="fl">1</span>)      <span class="co">% Folosește 1/N, operează pe coloane</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="va">std</span>(<span class="va">X</span><span class="op">,</span> <span class="fl">0</span><span class="op">,</span> <span class="fl">2</span>)   <span class="co">% Folosește 1/(N-1), operează pe linii</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="va">std</span>(<span class="va">X</span><span class="op">,</span> <span class="fl">1</span><span class="op">,</span> <span class="fl">2</span>)   <span class="co">% Folosește 1/N, operează pe linii</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="încărcarea-variabilelor-dintr-un-fișier" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="încărcarea-variabilelor-dintr-un-fișier"><span class="header-section-number">2.4</span> Încărcarea variabilelor dintr-un fișier</h2>
+<p><code>load()</code> citește variabile salvate într-un fișier <code>.mat</code>, salvat în prealabil cu <code>save()</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">D</span> <span class="op">=</span> <span class="va">load</span>(<span class="ss">'data.mat'</span>)<span class="op">;</span>   <span class="co">% Stochează variabilele salvate într-o structură</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">x</span> <span class="op">=</span> <span class="va">D</span>.<span class="va">x</span><span class="op">;</span>               <span class="co">% Accesează variabila cu numele x</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="va">load</span>(<span class="ss">'data.mat'</span>)<span class="op">;</span>       <span class="co">% Încarcă variabilele direct în Workspace</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Cu un argument de ieșire, variabilele devin câmpuri ale unei <strong>structuri</strong>, accesibile folosind punctul. Fără un argument de ieșire, ele apar direct în Workspace și pot suprascrie variabile cu aceleași nume. Fișierul trebuie să fie în directorul curent sau să fie indicat prin calea sa.</p>
+</section>
+<section id="rezumat-funcții-și-notații-de-cunoscut" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="rezumat-funcții-și-notații-de-cunoscut"><span class="header-section-number">2.5</span> Rezumat: funcții și notații de cunoscut</h2>
+<style>
+table td, table th { border-bottom: 1px solid #ddd; }
+</style>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sintaxă sau notație</th>
+<th>Exemplu</th>
+<th>Descriere</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\mathrm{E}\{A\}</span></td>
+<td><span class="math inline">\mu_A=\mathrm{E}\{A\}</span></td>
+<td>Media statistică, definită prin distribuție</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\sigma_A^2</span>, <span class="math inline">\sigma_A</span></td>
+<td><span class="math inline">\sigma_A=\sqrt{\sigma_A^2}</span></td>
+<td>Varianța și devianța standard statistică</td>
+</tr>
+<tr class="odd">
+<td><code>mean(x)</code></td>
+<td><code>mean(x)</code></td>
+<td>Media aritmetică a unui vector; media temporală dacă elementele sunt eșantioane în timp</td>
+</tr>
+<tr class="even">
+<td><code>std(x,1)</code>, <code>var(x,1)</code></td>
+<td><code>var(x,1)</code></td>
+<td>Deviația standard și varianța observată, normalizate cu <span class="math inline">N</span></td>
+</tr>
+<tr class="odd">
+<td><code>std(x)</code>, <code>var(x)</code></td>
+<td><code>std(x)</code>, <code>var(x)</code></td>
+<td>Deviația standard și varianța eșantionului, normalizate cu <span class="math inline">N-1</span></td>
+</tr>
+<tr class="even">
+<td><code>mean(X,dim)</code></td>
+<td><code>mean(X,2)</code></td>
+<td>Media de-a lungul dimensiunii alese a matricei</td>
+</tr>
+<tr class="odd">
+<td><code>std(X,w,dim)</code>, <code>var(X,w,dim)</code></td>
+<td><code>std(X,0,1)</code></td>
+<td>Deviația standard și varianța de-a lungul unei dimensiuni: <code>w=0</code> folosește <span class="math inline">N-1</span>, <code>w=1</code> folosește <span class="math inline">N</span></td>
+</tr>
+<tr class="even">
+<td><code>X(:)</code></td>
+<td><code>mean(X(:))</code></td>
+<td>Toate elementele matricei într-un singur vector coloană</td>
+</tr>
+<tr class="odd">
+<td><code>load(filename)</code></td>
+<td><code>load('data.mat')</code></td>
+<td>Încarcă variabilele salvate direct în Workspace</td>
+</tr>
+<tr class="even">
+<td><code>D = load(filename)</code></td>
+<td><code>D = load('data.mat'); x = D.x;</code></td>
+<td>Încarcă variabilele salvate într-o structură; câmpurile se accesează folosind punctul</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="exerciții" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Exerciții</h1>
+<p>Scrieți singuri toate comenzile într-un script sau live script. Etichetați figurile și răspundeți la întrebările de interpretare în comentarii. Rulați scriptul din directorul care conține fișierele <code>ElectionsData.mat</code> și <code>ECG_test.mat</code>, astfel încât căile relative către date să funcționeze.</p>
+<ol type="1">
+<li><p>Media, deviația standard și varianța:</p>
+<ol type="a">
+<li>Generați un vector <code>x</code> cu <span class="math inline">N=1000</span> valori aleatoare din distribuția <span class="math inline">\mathcal{N}(\mu=3,\sigma^2=4)</span>, folosind <code>randn()</code> și operațiile de scalare și deplasare învățate în Laboratorul 2.</li>
+<li>Calculați media, deviația standard și varianța vectorului și comparați-le cu media, deviația standard și varianța teoretică. De ce nu sunt exact egale?</li>
+<li>Rulați din nou toate comenzile (generați din nou vectorul, recalculați statisticile și comparați rezultatele). Se schimbă rezultatele? De ce?</li>
+<li>Calculați media manual, folosind <code>sum()</code> și <code>numel()</code>, apoi comparați rezultatul cu <code>mean()</code>.</li>
+<li>Verificați că <code>std(x)^2</code> coincide cu <code>var(x)</code> în limita preciziei numerice.</li>
+<li>Precizați media, deviația standard și varianța pentru <code>x+10</code> și <code>2*x</code>. Ce mărimi se schimbă la deplasare? Dar la scalare?</li>
+<li>Verificați predicțiile calculând efectiv <code>x+10</code> și <code>2*x</code>, apoi media, deviația standard și varianța lor.</li>
+</ol></li>
+<li><p>Prezența la vot:</p>
+<p>Încărcați <code>ElectionsData.mat</code>, care conține date de la alegerile locale din Iași, din 27 septembrie 2020:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">D</span> <span class="op">=</span> <span class="va">load</span>(<span class="ss">'ElectionsData.mat'</span>)<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">values</span> <span class="op">=</span> <span class="va">double</span>(<span class="va">D</span>.<span class="va">values</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>double()</code> convertește numerele întregi stocate în valori în virgulă mobilă, înainte de efectuarea calculelor.</p>
+<p>Fiecare linie din <code>values</code> corespunde unei secții de votare. Coloanele sunt:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Coloană</th>
+<th>Semnificație</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Alegători înscriși pe listele permanente</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Alegători înscriși pe listele complementare</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Voturi de pe listele permanente</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Voturi de pe listele complementare</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Voturi de pe listele suplimentare</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Voturi prin urna mobilă</td>
+</tr>
+</tbody>
+</table>
+<p>Pentru acest exercițiu, definiți prezența la vot astfel:</p>
+<p><span class="math display">\text{prezența la vot (\%)} = 100\,\frac{\text{total voturi (coloanele 3--6)}}
+{\text{alegători înscriși (coloanele 1--2)}}.</span></p>
+<ol type="a">
+<li>Calculați numărul total de alegători înscriși și numărul total de voturi pentru fiecare secție. Stocați-le în vectorii coloană <code>registered</code> și <code>votes</code>. Indiciu: folosiți <code>sum()</code> și specificați dimensiunea de-a lungul liniilor.</li>
+<li>Asigurați-vă că toate elementele din <code>registered</code> și <code>votes</code> sunt pozitive. Scrieți codul care înlocuiește cu zero toate elementele negative, dacă există.</li>
+<li>Calculați procentul de prezență la vot pentru fiecare secție (folosiți <code>./</code>).</li>
+<li>Reprezentați grafic prezența la vot în funcție de indicele secției. Reprezentați histograma prezenței la vot.</li>
+<li>Calculați media, deviația standard și varianța prezenței la vot. Exprimați deviația standard în puncte procentuale.</li>
+<li>Calculați prezența la vot pentru întregul oraș: numărul total de voturi din toate secțiile împărțit la numărul total de alegători înscriși, înmulțit cu 100. Comparați cu media de la punctul e. De ce diferă?</li>
+<li>Împărțiți secțiile în două grupuri:
+<ul>
+<li>cele cu un număr de alegători înscriși mai mic decât <code>median(registered)</code>;</li>
+<li>cele cu un număr de alegători înscriși mai mare sau egal cu <code>median(registered)</code>.</li>
+</ul>
+Calculați media și deviația standard pentru fiecare grup. Care grup are o împrăștiere mai mare?</li>
+</ol></li>
+<li><p>Semnale ECG:</p>
+<p>Încărcați <code>ECG_test.mat</code>, care conține 80 de semnale ECG:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">E</span> <span class="op">=</span> <span class="va">load</span>(<span class="ss">'ECG_test.mat'</span>)<span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">X</span> <span class="op">=</span> <span class="va">E</span>.<span class="va">test</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Fiecare coloană din <code>X</code> conține un semnal cu 256 de eșantioane. Fiecare linie conține valorile tuturor semnalelor la același indice de eșantion. Folosiți indicele eșantionului pe axa orizontală și amplitudinea, în unitățile setului de date, pe axa verticală.</p>
+<ol type="a">
+<li>Extrageți primul semnal, adică prima coloană din <code>X</code>, și stocați-l într-o variabilă <code>s</code>. Reprezentați-l grafic. Calculați media, deviația standard și varianța.</li>
+<li>Împărțiți <code>s</code> în patru blocuri consecutive de câte 64 de eșantioane. Calculați media și deviația standard pentru fiecare bloc. Care bloc are cea mai mare deviație standard? Comparați cu graficul.</li>
+<li>Calculați media temporală, deviația standard și varianța fiecărui semnal. Stocați rezultatele în trei vectori linie cu câte 80 de elemente. Indiciu: apelați fiecare funcție o singură dată și specificați dimensiunea de-a lungul căreia operează.</li>
+<li>Reprezentați mediile temporale și deviațiile standard în funcție de indicele semnalului, în figuri separate. Au toate semnalele medii similare? Dar împrăștieri similare?</li>
+<li>Calculați media și deviația standard pe ansamblul celor 80 de semnale, la fiecare indice de eșantion. Stocați rezultatele în doi vectori coloană cu câte 256 de elemente. Indiciu: specificați dimensiunea de-a lungul liniilor.</li>
+<li>Reprezentați grafic semnalul mediu de la punctul e.</li>
+<li>Reprezentați semnalele 1, 2 și 3 împreună cu semnalul mediu (folosiți funcția <code>plot()</code> cu o matrice de date; consultați documentația). Apar vârfurile lor la indici de eșantion similari?</li>
+</ol></li>
+</ol>
+</section>
+<section id="întrebări-finale" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Întrebări finale</h1>
+<ol type="1">
+<li>Reordonați aleator eșantioanele unui semnal ECG. Ce se întâmplă cu media și varianța lui? Se schimbă sau nu?</li>
+<li>Împărțiți o secție de votare în două jumătăți identice, împărțind în mod egal atât voturile, cât și alegătorii înscriși. Se poate schimba media prezenței la vot pe secții, deși voturile tuturor alegătorilor au rămas aceleași? Ce se întâmplă cu prezența la vot pentru întregul oraș?</li>
+<li>Deplasați independent fiecare semnal ECG cu un număr diferit de eșantioane, mutând circular eșantioanele care depășesc capetele. Fiecare semnal își păstrează media și varianța. Rămâne neschimbat semnalul mediu calculat pe ansamblul înregistrărilor?</li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,290 @@
+---
+title: "Medii temporale și statistice"
+subtitle: "Laboratorul 3, DEPI"
+
+format:
+  html:
+    html-math-method: katex
+  pdf: default
+  ipynb: default
+
+toc: true
+number-depth: 2
+number-sections: true
+
+jupyter: python3
+execute:
+  freeze: true
+  eval: false
+
+---
+
+# Obiectiv
+
+Folosiți `mean()`, `std()` și `var()` pentru a caracteriza măsurători reale.
+Distingeți mediile calculate în timp de cele calculate pe un ansamblu de observații,
+alegeți dimensiunea corectă a matricei și explicați de ce media unor rapoarte diferă
+de raportul sumelor.
+
+# Aspecte teoretice
+
+## Media, varianța și devianța standard statistică
+
+Mediile statistice sunt definite pe baza distribuției de probabilitate, nu pe baza
+unei anumite secvențe de măsurători.
+
+Pentru o variabilă aleatoare continuă $A$, cu densitatea de probabilitate $w_A(x)$,
+**media statistică** este
+
+$$\mu_A=\mathrm{E}\{A\}=\int_{-\infty}^{\infty}x\,w_A(x)\,dx.$$
+
+**Varianța statistică** este:
+
+$$\sigma_A^2=\mathrm{E}\{(A-\mu_A)^2\}
+=\int_{-\infty}^{\infty}(x-\mu_A)^2w_A(x)\,dx.$$
+
+**Devianța standard** este rădăcina pătrată a varianței:
+
+$$\sigma_A=\sqrt{\sigma_A^2}.$$
+
+Pentru o variabilă aleatoare discretă, integralele se înlocuiesc cu sume.
+
+**Observație:**
+Când lucrăm cu date, nu putem calcula direct aceste integrale, deoarece ele
+presupun cunoașterea distribuției de probabilitate.
+În practică, folosind vectori lungi de date măsurate, calculăm **medii temporale**.
+Dacă este îndeplinită proprietatea numită *ergodicitate*, mediile temporale converg
+către mediile statistice când numărul de eșantioane tinde la infinit.
+
+## Media, varianța și devianța standard temporală
+
+Mediile temporale sunt cele pe care le calculăm în practică, de exemplu în Matlab,
+când avem un vector finit de eșantioane.
+
+Pentru un vector finit $x[1],\ldots,x[N]$, **media temporală** este
+
+$$m = \bar{X} =\frac{1}{N}\sum_{n=1}^{N}x[n].$$
+
+**Varianța temporală** este:
+
+$$v = \frac{1}{N-1}\sum_{n=1}^{N}(x[n]-\bar{X})^2$$
+
+sau:
+
+$$v = \frac{1}{N}\sum_{n=1}^{N}(x[n]-\bar{X})^2$$
+
+Diferența constă în primul termen, numit **factor de normalizare**, care este
+$\frac{1}{N-1}$ sau $\frac{1}{N}$.
+Alegerea depinde de faptul că media $\bar{X}$ este estimată din aceleași date sau
+este cunoscută *a priori*:
+
+- folosiți $\frac{1}{N-1}$ când media $\bar{X}$ este estimată din aceleași date;
+
+- folosiți $\frac{1}{N}$ când media $\bar{X}$ este media adevărată, cunoscută *a priori*.
+
+**Devianța standard temporală** este rădăcina pătrată a varianței:
+
+$$s = \sqrt{v}.$$
+
+Pentru o secvență de lungime infinită, mediile temporale sunt definite ca limite
+ale mediilor calculate pe intervale din ce în ce mai lungi.
+
+## Calculul mediilor în Matlab
+
+Pentru un vector, `mean()` calculează media aritmetică. Implicit, `var()` și `std()`
+folosesc normalizarea cu $N-1$, iar `var(x,1)` și `std(x,1)` folosesc $N$:
+
+```matlab
+x = [1, 2, 1, 5, 6, 5, 6, 6, 7, 10, 14, -3];
+m = mean(x)
+v = var(x)       % numitor N-1
+s = std(x)       % rădăcina pătrată a lui var(x)
+vN = var(x, 1)   % numitor N
+sN = std(x, 1)   % rădăcina pătrată a lui var(x, 1)
+```
+
+Pentru o matrice `X`, funcțiile `mean(X)`, `std(X)` și `var(X)` operează implicit
+**de-a lungul coloanelor**, obținând un rezultat pentru fiecare coloană.
+
+Pentru a calcula mediile de-a lungul liniilor, specificați argumentul de dimensiune
+`dim=2` (consultați documentația).
+De exemplu, pentru o matrice `X` de dimensiune `N` × `M`, următoarele comenzi
+calculează medii temporale și medii pe ansamblu:
+
+```matlab
+% mean(X, dim)
+mean(X)     % Operează pe coloane. Produce un vector 1 × M de medii pe coloane
+mean(X, 2)  % Operează pe linii. Produce un vector N × 1 de medii pe linii
+% La fel pentru var()
+% Apel: var(X, normalizare, dim)
+var(X)         % Folosește 1/(N-1), operează pe coloane
+var(X, 1)      % Folosește 1/N, operează pe coloane
+var(X, 0, 2)   % Folosește 1/(N-1), operează pe linii
+var(X, 1, 2)   % Folosește 1/N, operează pe linii
+% La fel pentru std()
+std(X)         % Folosește 1/(N-1), operează pe coloane
+std(X, 1)      % Folosește 1/N, operează pe coloane
+std(X, 0, 2)   % Folosește 1/(N-1), operează pe linii
+std(X, 1, 2)   % Folosește 1/N, operează pe linii
+```
+
+## Încărcarea variabilelor dintr-un fișier
+
+`load()` citește variabile salvate într-un fișier `.mat`, salvat în prealabil cu `save()`:
+
+```matlab
+D = load('data.mat');   % Stochează variabilele salvate într-o structură
+x = D.x;               % Accesează variabila cu numele x
+
+load('data.mat');       % Încarcă variabilele direct în Workspace
+```
+
+Cu un argument de ieșire, variabilele devin câmpuri ale unei **structuri**,
+accesibile folosind punctul. Fără un argument de ieșire, ele apar direct în
+Workspace și pot suprascrie variabile cu aceleași nume. Fișierul trebuie să fie în
+directorul curent sau să fie indicat prin calea sa.
+
+## Rezumat: funcții și notații de cunoscut
+
+<style>
+table td, table th { border-bottom: 1px solid #ddd; }
+</style>
+
+| Sintaxă sau notație | Exemplu | Descriere |
+|---|---|---|
+| $\mathrm{E}\{A\}$ | $\mu_A=\mathrm{E}\{A\}$ | Media statistică, definită prin distribuție |
+| $\sigma_A^2$, $\sigma_A$ | $\sigma_A=\sqrt{\sigma_A^2}$ | Varianța și devianța standard statistică |
+| `mean(x)` | `mean(x)` | Media aritmetică a unui vector; media temporală dacă elementele sunt eșantioane în timp |
+| `std(x,1)`, `var(x,1)` | `var(x,1)` | Deviația standard și varianța observată, normalizate cu $N$ |
+| `std(x)`, `var(x)` | `std(x)`, `var(x)` | Deviația standard și varianța eșantionului, normalizate cu $N-1$ |
+| `mean(X,dim)` | `mean(X,2)` | Media de-a lungul dimensiunii alese a matricei |
+| `std(X,w,dim)`, `var(X,w,dim)` | `std(X,0,1)` | Deviația standard și varianța de-a lungul unei dimensiuni: `w=0` folosește $N-1$, `w=1` folosește $N$ |
+| `X(:)` | `mean(X(:))` | Toate elementele matricei într-un singur vector coloană |
+| `load(filename)` | `load('data.mat')` | Încarcă variabilele salvate direct în Workspace |
+| `D = load(filename)` | `D = load('data.mat'); x = D.x;` | Încarcă variabilele salvate într-o structură; câmpurile se accesează folosind punctul |
+
+```{=latex}
+\newpage
+```
+
+# Exerciții
+
+Scrieți singuri toate comenzile într-un script sau live script. Etichetați figurile
+și răspundeți la întrebările de interpretare în comentarii. Rulați scriptul din
+directorul care conține fișierele `ElectionsData.mat` și `ECG_test.mat`, astfel încât
+căile relative către date să funcționeze.
+
+1. Media, deviația standard și varianța:
+
+   a. Generați un vector `x` cu $N=1000$ valori aleatoare din distribuția
+      $\mathcal{N}(\mu=3,\sigma^2=4)$, folosind `randn()` și operațiile de scalare
+      și deplasare învățate în Laboratorul 2.
+   b. Calculați media, deviația standard și varianța vectorului și comparați-le
+      cu media, deviația standard și varianța teoretică.
+      De ce nu sunt exact egale?
+   c. Rulați din nou toate comenzile (generați din nou vectorul, recalculați
+      statisticile și comparați rezultatele). Se schimbă rezultatele? De ce?
+   d. Calculați media manual, folosind `sum()` și `numel()`, apoi comparați
+      rezultatul cu `mean()`.
+   e. Verificați că `std(x)^2` coincide cu `var(x)` în limita preciziei numerice.
+   f. Precizați media, deviația standard și varianța pentru `x+10` și `2*x`.
+      Ce mărimi se schimbă la deplasare? Dar la scalare?
+   g. Verificați predicțiile calculând efectiv `x+10` și `2*x`, apoi media,
+      deviația standard și varianța lor.
+
+2. Prezența la vot:
+
+   Încărcați `ElectionsData.mat`, care conține date de la alegerile locale din Iași,
+   din 27 septembrie 2020:
+
+   ```matlab
+   D = load('ElectionsData.mat');
+   values = double(D.values);
+   ```
+
+   `double()` convertește numerele întregi stocate în valori în virgulă mobilă,
+   înainte de efectuarea calculelor.
+
+   Fiecare linie din `values` corespunde unei secții de votare. Coloanele sunt:
+
+   | Coloană | Semnificație |
+   |---|---|
+   | 1 | Alegători înscriși pe listele permanente |
+   | 2 | Alegători înscriși pe listele complementare |
+   | 3 | Voturi de pe listele permanente |
+   | 4 | Voturi de pe listele complementare |
+   | 5 | Voturi de pe listele suplimentare |
+   | 6 | Voturi prin urna mobilă |
+
+   Pentru acest exercițiu, definiți prezența la vot astfel:
+
+   $$\text{prezența la vot (\%)} = 100\,\frac{\text{total voturi (coloanele 3--6)}}
+   {\text{alegători înscriși (coloanele 1--2)}}.$$
+
+   a. Calculați numărul total de alegători înscriși și numărul total de voturi
+      pentru fiecare secție. Stocați-le în vectorii coloană `registered` și `votes`.
+      Indiciu: folosiți `sum()` și specificați dimensiunea de-a lungul liniilor.
+   b. Asigurați-vă că toate elementele din `registered` și `votes` sunt pozitive.
+      Scrieți codul care înlocuiește cu zero toate elementele negative, dacă există.
+   c. Calculați procentul de prezență la vot pentru fiecare secție (folosiți `./`).
+   d. Reprezentați grafic prezența la vot în funcție de indicele secției.
+      Reprezentați histograma prezenței la vot.
+   e. Calculați media, deviația standard și varianța prezenței la vot.
+      Exprimați deviația standard în puncte procentuale.
+   f. Calculați prezența la vot pentru întregul oraș: numărul total de voturi din
+      toate secțiile împărțit la numărul total de alegători înscriși, înmulțit cu 100.
+      Comparați cu media de la punctul e. De ce diferă?
+   g. Împărțiți secțiile în două grupuri:
+      - cele cu un număr de alegători înscriși mai mic decât `median(registered)`;
+      - cele cu un număr de alegători înscriși mai mare sau egal cu `median(registered)`.
+
+      Calculați media și deviația standard pentru fiecare grup.
+      Care grup are o împrăștiere mai mare?
+
+3. Semnale ECG:
+
+   Încărcați `ECG_test.mat`, care conține 80 de semnale ECG:
+
+   ```matlab
+   E = load('ECG_test.mat');
+   X = E.test;
+   ```
+
+   Fiecare coloană din `X` conține un semnal cu 256 de eșantioane. Fiecare linie
+   conține valorile tuturor semnalelor la același indice de eșantion.
+   Folosiți indicele eșantionului pe axa orizontală și amplitudinea, în unitățile
+   setului de date, pe axa verticală.
+
+   a. Extrageți primul semnal, adică prima coloană din `X`, și stocați-l într-o
+      variabilă `s`. Reprezentați-l grafic. Calculați media, deviația standard și varianța.
+   b. Împărțiți `s` în patru blocuri consecutive de câte 64 de eșantioane.
+      Calculați media și deviația standard pentru fiecare bloc.
+      Care bloc are cea mai mare deviație standard? Comparați cu graficul.
+   c. Calculați media temporală, deviația standard și varianța fiecărui semnal.
+      Stocați rezultatele în trei vectori linie cu câte 80 de elemente.
+      Indiciu: apelați fiecare funcție o singură dată și specificați dimensiunea
+      de-a lungul căreia operează.
+   d. Reprezentați mediile temporale și deviațiile standard în funcție de indicele
+      semnalului, în figuri separate. Au toate semnalele medii similare?
+      Dar împrăștieri similare?
+   e. Calculați media și deviația standard pe ansamblul celor 80 de semnale, la
+      fiecare indice de eșantion. Stocați rezultatele în doi vectori coloană cu
+      câte 256 de elemente.
+      Indiciu: specificați dimensiunea de-a lungul liniilor.
+   f. Reprezentați grafic semnalul mediu de la punctul e.
+   g. Reprezentați semnalele 1, 2 și 3 împreună cu semnalul mediu (folosiți
+      funcția `plot()` cu o matrice de date; consultați documentația).
+      Apar vârfurile lor la indici de eșantion similari?
+
+# Întrebări finale
+
+1. Reordonați aleator eșantioanele unui semnal ECG. Ce se întâmplă cu media și
+   varianța lui? Se schimbă sau nu?
+2. Împărțiți o secție de votare în două jumătăți identice, împărțind în mod egal
+   atât voturile, cât și alegătorii înscriși. Se poate schimba media prezenței la
+   vot pe secții, deși voturile tuturor alegătorilor au rămas aceleași?
+   Ce se întâmplă cu prezența la vot pentru întregul oraș?
+3. Deplasați independent fiecare semnal ECG cu un număr diferit de eșantioane,
+   mutând circular eșantioanele care depășesc capetele. Fiecare semnal își păstrează
+   media și varianța. Rămâne neschimbat semnalul mediu calculat pe ansamblul
+   înregistrărilor?
