@@ -37,10 +37,12 @@
 
 ### Bibliografie
 
-1. ***Teoria transmisiunii informatiei***, Valeriu Munteanu, Ed. Gh.Asachi, 2001
-1. *Elements of Information Theory*, Valeriu Munteanu, Daniela Tarniceriu, Ed. CERMI 2007
-1. *Elements of Information Theory*, Thomas M. Cover, Joy A. Thomas, 2nd Edition, Wiley 2006
-1. *Information and Coding Theory*, Gareth A. Jones, J. Mary Jones, Springer 2000
+1. Munteanu V. Detectie si estimare, Editura "Gh. Asachi" Iasi, 1997.
+2. Borda M. E. Teoria transmisiunii informatiei, Partea I-a, Teoria informatiei si codarii (fundamente si aplicatii), Universitatea Tehnica Cluj - Napoca, 1993.
+3. Munteanu, V., Teoria transmiterii informatiei, Editura "Gh. Asachi" Iasi, 2001.
+4. Berlekamp, E. R. Algebraic Coding Theory. New-York: McGraw-Hill Book Company, 1968.
+5. Brown, R. G., Hwang, P. Y. C., Intoduction to random signals and applied Kalman filtering, John Wiley and Sons, Inc., Second Edition, 1992.
+6. Garcia, A. L., Probability and random processes for electrical engineering, Addison-Wesley Publishing Company, 1989
 
 ### Acces online
 
