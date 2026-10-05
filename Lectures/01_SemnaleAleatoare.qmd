@@ -395,7 +395,6 @@ plt.close()
 ```
 ![](fig/01_RandomSignals_DistributionNormalSampleValues1.png){width=70% max-width=1000px}
 
-
 ### Exemple de valori generate cu distribuția normală (mu=2, sigma^2=4)
 
 ```{python}
@@ -413,6 +412,24 @@ plt.close()
 ```
 ![](fig/01_RandomSignals_DistributionNormalSampleValues2.png){width=70% max-width=1000px}
 
+
+### Regula empirică 68-95-99.7
+
+Pentru **orice** distribuție normală $\mathcal{N}(\mu, \sigma^2)$:
+
+- Aproximativ 68% din valori sunt la cel mult o deviație standard față de medie:
+  $$P\left\{ \mu - \sigma \leq A \leq \mu + \sigma\right\} \approx 0.68$$
+- Aproximativ 95% din valori sunt la cel mult două deviații standard față de medie:
+  $$P\left\{ \mu - 2\sigma \leq A \leq \mu + 2\sigma\right\} \approx 0.95$$
+- Aproximativ 99.7% din valori sunt la cel mult trei deviații standard față de medie:
+  $$P\left\{ \mu - 3\sigma \leq A \leq \mu + 3\sigma\right\} \approx 0.997$$
+
+Pentru orice distribuție normală, $\sigma$ funcționează ca o "unitate de măsură implicită"
+  pentru distanța de la medie pe axa Ox.
+
+### The empirical rule of normal distribution
+
+![Empirical rule for any normal distribution](img/EmpiricalRule.png){.id width=75%}
 
 ### Distribuția uniformă
 
