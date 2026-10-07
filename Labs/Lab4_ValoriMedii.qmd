@@ -1,6 +1,6 @@
 ---
 title: "Medii temporale și statistice"
-subtitle: "Laboratorul 3, DEPI"
+subtitle: "Laboratorul 4, DEPI"
 
 format:
   html:
