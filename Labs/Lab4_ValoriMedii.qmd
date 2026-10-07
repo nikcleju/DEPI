@@ -21,14 +21,14 @@ execute:
 
 # Obiectiv
 
-Folosiți `mean()`, `std()` și `var()` pentru a caracteriza măsurători reale.
-Distingeți mediile calculate în timp de cele calculate pe un ansamblu de observații,
-alegeți dimensiunea corectă a matricei și explicați de ce media unor rapoarte diferă
-de raportul sumelor.
+Utilizarea funcțiilor `mean()`, `std()` și `var()` pentru caracterizarea măsurătorilor reale.
+Distingerea mediilor calculate în timp de cele calculate pe un ansamblu de observații,
+alegerea dimensiunii corecte a matricei și explicarea diferenței dintre media unor rapoarte
+și raportul sumelor.
 
 # Aspecte teoretice
 
-## Media, varianța și devianța standard statistică
+## Media, varianța și deviația standard statistică
 
 Mediile statistice sunt definite pe baza distribuției de probabilitate, nu pe baza
 unei anumite secvențe de măsurători.
@@ -36,14 +36,15 @@ unei anumite secvențe de măsurători.
 Pentru o variabilă aleatoare continuă $A$, cu densitatea de probabilitate $w_A(x)$,
 **media statistică** este
 
-$$\mu_A=\mathrm{E}\{A\}=\int_{-\infty}^{\infty}x\,w_A(x)\,dx.$$
+$$\mu_A=\mathrm{E}\{A\}=\overline{A}=\int_{-\infty}^{\infty}x\,w_A(x)\,dx.$$
 
 **Varianța statistică** este:
 
 $$\sigma_A^2=\mathrm{E}\{(A-\mu_A)^2\}
+= \overline{(A-\mu_A)^2}
 =\int_{-\infty}^{\infty}(x-\mu_A)^2w_A(x)\,dx.$$
 
-**Devianța standard** este rădăcina pătrată a varianței:
+**Deviația standard** este rădăcina pătrată a varianței:
 
 $$\sigma_A=\sqrt{\sigma_A^2}.$$
 
@@ -56,33 +57,33 @@ presupun cunoașterea distribuției de probabilitate.
 Dacă este îndeplinită proprietatea numită *ergodicitate*, mediile temporale converg
 către mediile statistice când numărul de eșantioane tinde la infinit.
 
-## Media, varianța și devianța standard temporală
+## Media, varianța și deviația standard temporală
 
 Mediile temporale sunt cele pe care le calculăm în practică, de exemplu în Matlab,
 când avem un vector finit de eșantioane.
 
-Pentru un vector finit $x[1],\ldots,x[N]$, **media temporală** este
+Pentru un vector finit $x[1],\ldots,x[N]$, **media temporală**, numită și **media eșantionului**, este
 
 $$m = \bar{X} =\frac{1}{N}\sum_{n=1}^{N}x[n].$$
 
-**Varianța temporală** este:
+**Varianța temporală**, numită și **varianța eșantionului**, este:
 
 $$v = \frac{1}{N-1}\sum_{n=1}^{N}(x[n]-\bar{X})^2$$
 
 sau:
 
-$$v = \frac{1}{N}\sum_{n=1}^{N}(x[n]-\bar{X})^2$$
+$$v = \frac{1}{N}\sum_{n=1}^{N}(x[n]-\mu_X)^2$$
 
 Diferența constă în primul termen, numit **factor de normalizare**, care este
 $\frac{1}{N-1}$ sau $\frac{1}{N}$.
-Alegerea depinde de faptul că media $\bar{X}$ este estimată din aceleași date sau
+Alegerea depinde de faptul că media $\mu_X$ este estimată din aceleași date sau
 este cunoscută *a priori*:
 
-- folosiți $\frac{1}{N-1}$ când media $\bar{X}$ este estimată din aceleași date;
+- folosiți $\frac{1}{N-1}$ când media $\mu_X$ este estimată din aceleași date;
 
-- folosiți $\frac{1}{N}$ când media $\bar{X}$ este media adevărată, cunoscută *a priori*.
+- folosiți $\frac{1}{N}$ când media $\mu_X$ este media adevărată, cunoscută *a priori*.
 
-**Devianța standard temporală** este rădăcina pătrată a varianței:
+**Deviația standard temporală (sau a eșantionului)** este rădăcina pătrată a varianței:
 
 $$s = \sqrt{v}.$$
 
@@ -153,7 +154,7 @@ table td, table th { border-bottom: 1px solid #ddd; }
 | Sintaxă sau notație | Exemplu | Descriere |
 |---|---|---|
 | $\mathrm{E}\{A\}$ | $\mu_A=\mathrm{E}\{A\}$ | Media statistică, definită prin distribuție |
-| $\sigma_A^2$, $\sigma_A$ | $\sigma_A=\sqrt{\sigma_A^2}$ | Varianța și devianța standard statistică |
+| $\sigma_A^2$, $\sigma_A$ | $\sigma_A=\sqrt{\sigma_A^2}$ | Varianța și deviația standard statistică |
 | `mean(x)` | `mean(x)` | Media aritmetică a unui vector; media temporală dacă elementele sunt eșantioane în timp |
 | `std(x,1)`, `var(x,1)` | `var(x,1)` | Deviația standard și varianța observată, normalizate cu $N$ |
 | `std(x)`, `var(x)` | `std(x)`, `var(x)` | Deviația standard și varianța eșantionului, normalizate cu $N-1$ |
@@ -178,7 +179,7 @@ căile relative către date să funcționeze.
 
    a. Generați un vector `x` cu $N=1000$ valori aleatoare din distribuția
       $\mathcal{N}(\mu=3,\sigma^2=4)$, folosind `randn()` și operațiile de scalare
-      și deplasare învățate în Laboratorul 2.
+      și deplasare învățate în Laboratorul 3.
    b. Calculați media, deviația standard și varianța vectorului și comparați-le
       cu media, deviația standard și varianța teoretică.
       De ce nu sunt exact egale?
