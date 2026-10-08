@@ -226,7 +226,7 @@ plt.plot(x,s, x, sn);
 plt.ylim(-3,3)
 plt.xlabel('t');
 plt.ylabel('sin(x)');
-plt.title('Sinusiodal signal + random noise');
+plt.title('Sinusoidal signal + random noise');
 plt.savefig('fig/01_RandomSignals_SinePlusRandn.png', transparent=True, bbox_inches='tight', dpi=300)
 plt.close()
 ```
@@ -427,7 +427,7 @@ Pentru **orice** distribuție normală $\mathcal{N}(\mu, \sigma^2)$:
 Pentru orice distribuție normală, $\sigma$ funcționează ca o "unitate de măsură implicită"
   pentru distanța de la medie pe axa Ox.
 
-### The empirical rule of normal distribution
+### Regula empirică 68-95-99.7
 
 ![Empirical rule for any normal distribution](img/EmpiricalRule.png){.id width=75%}
 
@@ -438,7 +438,7 @@ Pentru orice distribuție normală, $\sigma$ funcționează ca o "unitate de mă
 $$w_A(x) =
 \begin{cases}
 \frac{1}{b-a}, & x \in [a, b] \\
- 0, &elsewhere
+ 0, &în rest
 \end{cases}$$
 
 ```{python}
@@ -483,7 +483,7 @@ plt.close()
 $$erf(z) = \frac{2}{\sqrt{\pi}} \int_0^z e^{-t^2} dt$$
 
 - Funcția de repartiție a unei distribuții normale $\mathcal{N}(\mu, \sigma^2)$
-$$F_A(X) = \frac{1}{2}(1 + erf(\frac{x - \mu}{\sigma \sqrt{2}}))$$
+$$F_A(x) = \frac{1}{2}(1 + erf(\frac{x - \mu}{\sigma \sqrt{2}}))$$
 
 - Valorile funcției *erf()* sunt tabelate / se calculează numeric
     - de ex. pe Google, căutați $erf(0.5)$
@@ -563,7 +563,7 @@ influențează în nici un fel valoarea celeilalte
 
 $$w_{AB}(x,y) = w_A(x) \cdot w_B(y)$$
 
-- Valabilă pentru FR / FDP / FMP, v.a. continue sau aleatoare etc.
+- Valabilă pentru FR / FDP / FMP, v.a. continue sau discrete etc.
 
 - Similar pentru mai mult de două v.a.
 
@@ -677,7 +677,7 @@ $$\overline{A} = E\{A\} = \sum_{x=-\infty}^{\infty} x \cdot w_A(x)$$
 * Notație uzuală: $\mu$
 
 
-### Ce înseamna valoarea medie
+### Ce înseamnă valoarea medie
 
 * Ce înseamnă, practic, valoarea medie a unei variabile aleatoare?
 
@@ -691,7 +691,7 @@ $$\overline{A} = E\{A\} = \sum_{x=-\infty}^{\infty} x \cdot w_A(x)$$
 
   * Demonstrație: la tablă: derivare, derivata = 0
 
-### Ce înseamna valoarea medie
+### Ce înseamnă valoarea medie
 
 * Valorile care au probabilitate ridicată "trag" valoarea medie înspre ele
 
@@ -734,7 +734,7 @@ $$\overline{A^2} = E\{A^2\} = \int_{-\infty}^{\infty} x^2 \cdot w_A(x) dx$$
 * Pentru v.a. discrete:
 $$\overline{A^2} = E\{A^2\} = \sum_{-\infty}^{\infty} x^2 \cdot w_A(x)$$
 
-* Interpretare: media pătratelor = energia medie a unui semnal
+* Interpretare: media pătratelor = puterea medie a unui semnal
 
 ### Varianța
 
@@ -853,12 +853,12 @@ Edited by Tadeusz J. Ulrych, Mauricio D. Sacchi, Volume 36,
 * Fiecare eșantion $f(t_1)$ dintr-un proces aleator este o v.a.
     - descris de o **distribuție de ordin 1**
     - are FR $F_1(x;t_1)$
-    - are FDP / FMP $w_1(x;t_1) = \frac{dF_1(x;t_1)}{dx}$
+    - are FDP $w_1(x;t_1) = \frac{dF_1(x;t_1)}{dx}$
     - distribuția depinde de momentul $t_1$
 
 - Un eșantion la alt moment $t_2$ este o v.a. diferită, cu funcții posibil diferite
     - altă FR $F_1(x;t_2)$
-    - altă FDP / FMP $w_1(x;t_2) = \frac{dF_1(x;t_2)}{dx}$
+    - altă FDP $w_1(x;t_2) = \frac{dF_1(x;t_2)}{dx}$
 
 - Aceste funcții descriu distribuția valorilor unui eșantion
 
@@ -872,7 +872,7 @@ Edited by Tadeusz J. Ulrych, Mauricio D. Sacchi, Volume 36,
 
     - sunt descrise de o **distribuție de ordin 2**
     - au FR comună $F_2(x_i, x_j; t_1, t_2)$
-    - au FDP / FMP comună $w_2(x_i, x_j; t_1, t_2) = \frac{\partial^2 F_2(x_i, x_j;t_1, t_2)}{\partial x_i \partial x_j}$
+    - au FDP comună $w_2(x_i, x_j; t_1, t_2) = \frac{\partial^2 F_2(x_i, x_j;t_1, t_2)}{\partial x_i \partial x_j}$
     - distribuția depinde de momentele $t_1$ și $t_2$
 
 - Aceste funcții descriu cum sunt distribuite valorile perechilor (distribuții *de ordin 2*)
@@ -886,7 +886,7 @@ Edited by Tadeusz J. Ulrych, Mauricio D. Sacchi, Volume 36,
 - Un set de $n$ v.a. $f(t_1), ...f(t_n)$ dintr-un proces aleator $f(t)$:
     - sunt descrise de o **distribuție de ordin n**
     - au FR comună $F_n(x_1,... x_n; t_1,... t_n)$
-    - au FDP / FMP comună $w_n(x_1,... x_n; t_1,... t_n) = \frac{\partial^2 F_n(x_1,... x_n;t_1,... t_n)}{\partial x_1 ... \partial x_n}$
+    - au FDP comună $w_n(x_1,... x_n; t_1,... t_n) = \frac{\partial^n F_n(x_1,... x_n;t_1,... t_n)}{\partial x_1 ... \partial x_n}$
     - depind de momentele de timp $t_1$, $t_2$, ... $t_n$
 
 - Aceste funcții descriu cum sunt distribuite valorile seturilor de $n$ eșantioane (distribuții *de ordin n*)
@@ -947,7 +947,7 @@ Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$, și no
 
 4. $R_{ff}(t_1,t_2) = \overline{f[t_1] f[t_2]} = \sum_{x_1=-\infty}^\infty \sum_{x_2=-\infty}^\infty x_1 x_2 w_2(x_1, x_2; t_1, t_2)$
 
-5. $R_{fg}(t_1,t_2) = \overline{f[t_1] g[t_2]} = \sum_{x_1=-\infty}^\infty \sum_{x_2=-\infty}^\infty x_1 y_2 w_2(x_1, y_2; t_1, t_2)$
+5. $R_{fg}(t_1,t_2) = \overline{f[t_1] g[t_2]} = \sum_{x_1=-\infty}^\infty \sum_{y_2=-\infty}^\infty x_1 y_2 w_2(x_1, y_2; t_1, t_2)$
 
 
 ### Medii temporale
@@ -999,7 +999,7 @@ Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$, $T$ cu
 
 2. $\overline{[f^{(k)}[t]]^2} = \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} (f^{(k)}[t])^2$
 
-3. $\sigma^2 = \overline{\left\{ f^{(k)}[t] - \mu^{[k]} \right\}^2} = \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} (f^{(k)}[t]-\mu^{(k)})^2$
+3. $\sigma^2 = \overline{\left\{ f^{(k)}[t] - \mu^{(k)} \right\}^2} = \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} (f^{(k)}[t]-\mu^{(k)})^2$
 
 ### Procese aleatoare discrete
 
@@ -1100,7 +1100,7 @@ $$\sigma^2(t) = constant, \forall t$$
 ### Consecințe ale staționarității
 
 * Pentru distribuții ale unor perechi de eșantioane (de ordin $n=2$):
-    $$w_2(x_i,x_j;t_1,t_2) = w_2(x_i,x_j;0, t_2-t_1) = w_2(x_i,x_2; t_2-t_1)$$
+    $$w_2(x_i,x_j;t_1,t_2) = w_2(x_i,x_j;0, t_2-t_1) = w_2(x_i,x_j; t_2-t_1)$$
 
 - Funcția de autocorelație depinde doar de **diferența de timp**
 $\tau = t_2 - t_1$ dintre eșantioane
@@ -1208,12 +1208,12 @@ $$R_{fg}(t_1,t_2) = R_{fg}(0, t_2 - t_1) = R_{fg}(\tau) = \overline{f(t) g(t + \
 - **Densitatea spectrală de putere** (DSP) $S_{ff}(\omega)$ reprezintă
 puterea unui semnal în funcție de frecvență ($f$ sau $\omega = 2 \pi f$)
 
-- Pentru un semnal **determinist** (ne-aleator), este dată de modului transf. Fourier la pătrat:
+- Pentru un semnal **determinist** (ne-aleator), este dată de modulul transf. Fourier la pătrat:
     $$S_{ff}(\omega) = |F(\omega)|^2$$
 
-- Puterea în banda de frecvență $[f_1, f_2]$ este $\int_{f_1}^{f_2} S_{ff}(\omega) d\omega$
+- Puterea în banda de frecvență $[f_1, f_2]$ este $\frac{1}{2\pi} \cdot \int_{2 \pi f_1}^{2 \pi f_2} S_{ff}(\omega) d\omega$
 
-- Puterea totală a procesului aleator este $P = \int_{-\infty}^{\infty} S_{ff}(\omega) d\omega$
+- Puterea totală a procesului aleator este $P = \frac{1}{2\pi} \cdot \int_{-\infty}^{\infty} S_{ff}(\omega) d\omega$
 
 - DSP este o funcție măsurabilă practic:
 
@@ -1223,7 +1223,7 @@ puterea unui semnal în funcție de frecvență ($f$ sau $\omega = 2 \pi f$)
 ### Densitatea spectrală de putere
 
 - Ce reprezintă DSP pentru un proces aleator?
-    - nu mai avem un singur semnal, cu o infinitate de realizări posibile
+    - nu mai avem un singur semnal, ci o infinitate de realizări posibile
     - fiecare realizare are o transformată Fourier proprie, diferită
     - DSP fiind diferită pentru fiecare realizare în parte, este, ea însăși, un proces aleator
 
@@ -1251,7 +1251,7 @@ doar că **în medie** în raport cu toate realizările posibile
 ### Zgomot alb
 
 - **Zgomot alb** = un proces aleator cu **funcția de autocorelație egală cu un Dirac**
-    $$R_{ff}(\tau) = \delta(\tau)$$
+    $$R_{ff}(\tau) = A \cdot \delta(\tau)$$
 
     - este proces aleator: orice eșantion este o variabilă aleatoare
     - autocorelația este un Dirac: este 0 pentru orice $\tau \neq 0$
@@ -1274,7 +1274,7 @@ doar că **în medie** în raport cu toate realizările posibile
 
 - În lumea reală, pentru orice semnal puterea scade la 0 la frecvențe foarte înalte
 
-    - pentru că puterea totală $P = \int_{-\infty}^{\infty} S_{ff}{\omega} \,\mathrm{d}\omega$ nu poate fi infinită
+    - pentru că puterea totală $P = \frac{1}{2\pi} \int_{-\infty}^{\infty} S_{ff}{\omega} \,\mathrm{d}\omega$ nu poate fi infinită
 
     - se numește zgomot alb **de bandă limitată**
 
@@ -1376,7 +1376,7 @@ $$
 $$\begin{split}
 S_{yy}(\omega) =& \sum_{u=-\infty}^{\infty} \sum_{k_1=-\infty}^\infty \sum_{k_2=-\infty}^\infty h[k_1] h[k_2] R_{xx}[u] e^{- j \omega (u + k_1 + k_2)}\\
 =& \sum_{u=-\infty}^{\infty} R_{xx}[u] e^{- j \omega u} \sum_{k_1=-\infty}^\infty h[k_1] e^{- j \omega k_1} \sum_{k_2=-\infty}^\infty h[k_2]  e^{ j \omega k_2}\\
-=& S_{xx}(\omega) \cdot H(\omega) \cdot H*^(\omega)\\
+=& S_{xx}(\omega) \cdot H(\omega) \cdot H^*(\omega)\\
 =& S_{xx}(\omega) \cdot |H(\omega)|^2\\
 \end{split}$$
 
@@ -1392,7 +1392,7 @@ $$S_{yy}(\omega) = S_{xx}(\omega) \cdot |H(\omega)|^2$$
 
 * Căutarea unei anume porțiuni într-un semnal mai mare
 
-* Corelația a două semnale = o măsura a **similarității** celor două semnale
+* Corelația a două semnale = o măsură a **similarității** celor două semnale
     * Funcția de corelație măsoară similaritatea unui semnal cu toate versiunile decalate ale celuilalt
     * Exemplu numeric la tablă, semnale de lungime finită
 
