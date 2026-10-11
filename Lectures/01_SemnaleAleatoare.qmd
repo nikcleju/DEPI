@@ -935,9 +935,9 @@ $$R_{fg}(t_1,t_2) = \overline{f(t_1) g(t_2)} = \int_{-\infty}^\infty \int_{-\inf
 - Observații:
     - aceste funcții pot fi diferite pentru perechi de valori luate la momente diferite ($t_1$,$t_2$)
 
-### Procese aleatoare discrete
+### Valori discrete
 
-Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$, și notația $f(t)$ cu $f[t]$:
+Dacă valorile sunt discrete, se înlocuiește $\int$ cu $\sum$, și notația $f(t)$ cu $f[t]$:
 
 1. $\overline{f[t_1]} = \mu(t_1) = \sum_{x=-\infty}^{\infty} x \cdot w_1(x; t_1)$
 
@@ -961,15 +961,15 @@ Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$, și no
 **Medii temporale** pentru procese aleatoare continue:
 
 1. **Valoarea medie temporală**
-    $$\overline{f^{(k)}(t)} = \mu^{(k)} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t) dt$$
+    $$\overline{f^{(k)}(t)} = \mu^{(k)} = \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} f^{(k)}(t) dt$$
 
 2. **Valoarea medie pătratică temporală**
-    $$\overline{[f^{(k)}(t)]^2} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} [f^{(k)}(t)]^2 dt$$
+    $$\overline{[f^{(k)}(t)]^2} = \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} [f^{(k)}(t)]^2 dt$$
 
 ### Varianța temporală
 
 3. **Varianța temporală**
-    $$\sigma^2 = \overline{\left\{ f^{(k)}(t) - \mu^{(k)} \right\}^2} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} (f^{(k)}(t)-\mu^{(k)})^2 dt$$
+    $$\sigma^2 = \overline{\left\{ f^{(k)}(t) - \mu^{(k)} \right\}^2} = \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} (f^{(k)}(t)-\mu^{(k)})^2 dt$$
 
 - Relația dintre cele trei mărimi:
     $$\sigma^2 = \overline{[f^{(k)}(t)]^2} - [\mu^{(k)}]^2$$
@@ -982,18 +982,18 @@ Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$, și no
 4. **Funcția de autocorelație temporală**
     $$\begin{split}
     R_{ff}(t_1,t_2) =& \overline{f^{(k)}(t_1 + t) f^{(k)}(t_2+t)} \\
-    =& \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t_1+t) f^{(k)}(t_2 + t) dt
+    =& \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} f^{(k)}(t_1+t) f^{(k)}(t_2 + t) dt
     \end{split}$$
 
 5. **Funcția de corelație temporală** (pentru două procese diferite $f(t)$ și $g(t)$)
     $$\begin{split}
     R_{fg}(t_1,t_2) =& \overline{f^{(k)}(t_1 + t) g^{(k)}(t_2+t)}\\
-    =& \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t_1+t) g^{(k)}(t_2 + t) dt
+    =& \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} f^{(k)}(t_1+t) g^{(k)}(t_2 + t) dt
     \end{split}$$
 
-### Procese aleatoare discrete
+### Valori discrete
 
-Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$, $T$ cu $N$, și se împarte la $2N+1$ în loc de $2T$
+Dacă valorile sunt discrete, se înlocuiește $\int$ cu $\sum$, $T$ cu $N$, și se împarte la $2N+1$ în loc de $2T$
 
 1. $\overline{f^{(k)}[t]} = \mu^{(k)} = \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} f^{(k)}[t]$
 
@@ -1001,7 +1001,7 @@ Pentru **procese aleatoare discrete**, se înlocuiește $\int$ cu $\sum$, $T$ cu
 
 3. $\sigma^2 = \overline{\left\{ f^{(k)}[t] - \mu^{(k)} \right\}^2} = \lim_{N \to \infty} \frac{1}{2N+1} \sum_{t=-N}^{N} (f^{(k)}[t]-\mu^{(k)})^2$
 
-### Procese aleatoare discrete
+### Valori discrete
 
 4. Autocorelația temporală:
 
@@ -1117,7 +1117,7 @@ Definiția funcției de autocorelație pentru p.a. **staționare**:
 - Autocorelația temporală:
     - pentru p.a. continue
     $$\begin{split}
-    R_{ff}(\tau) = \overline{f(t) f(t + \tau)} = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} f^{(k)}(t) f^{(k)}(t + \tau) dt
+    R_{ff}(\tau) = \overline{f(t) f(t + \tau)} = \lim_{T \to \infty} \frac{1}{2T} \int_{-T}^{T} f^{(k)}(t) f^{(k)}(t + \tau) dt
     \end{split}$$
 
     - pentru p.a. discrete
