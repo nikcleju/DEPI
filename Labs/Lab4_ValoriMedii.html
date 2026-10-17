@@ -329,9 +329,10 @@ table td, table th { border-bottom: 1px solid #ddd; }
 <li><p>Prezența la vot:</p>
 <p>Încărcați <code>ElectionsData.mat</code>, care conține date de la alegerile locale din Iași, din 27 septembrie 2020:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">D</span> <span class="op">=</span> <span class="va">load</span>(<span class="ss">'ElectionsData.mat'</span>)<span class="op">;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">values</span> <span class="op">=</span> <span class="va">double</span>(<span class="va">D</span>.<span class="va">values</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">values</span> <span class="op">=</span> <span class="va">double</span>(<span class="va">D</span>.<span class="va">values</span>)<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="va">names</span> <span class="op">=</span> <span class="va">D</span>.<span class="va">names</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><code>double()</code> convertește numerele întregi stocate în valori în virgulă mobilă, înainte de efectuarea calculelor.</p>
-<p>Fiecare linie din <code>values</code> corespunde unei secții de votare. Coloanele sunt:</p>
+<p>Fiecare linie din <code>values</code> corespunde unei secții de votare. Vectorul de celule <code>names</code> conține denumirile corespunzătoare, în aceeași ordine; <code>names{k}</code> oferă denumirea secției de pe linia <code>k</code>. Coloanele din <code>values</code> sunt:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -373,9 +374,11 @@ table td, table th { border-bottom: 1px solid #ddd; }
 <li>Calculați numărul total de alegători înscriși și numărul total de voturi pentru fiecare secție. Stocați-le în vectorii coloană <code>registered</code> și <code>votes</code>. Indiciu: folosiți <code>sum()</code> și specificați dimensiunea de-a lungul liniilor.</li>
 <li>Asigurați-vă că toate elementele din <code>registered</code> și <code>votes</code> sunt pozitive. Scrieți codul care înlocuiește cu zero toate elementele negative, dacă există.</li>
 <li>Calculați procentul de prezență la vot pentru fiecare secție (folosiți <code>./</code>).</li>
+<li>Identificați denumirile secțiilor cu prezența la vot maximă și minimă. Afișați și procentele de prezență corespunzătoare. Indiciu: folosiți al doilea argument de ieșire al funcțiilor <code>max()</code> și <code>min()</code> pentru a obține indicii, apoi folosiți acești indici pentru a accesa <code>names</code>.</li>
 <li>Reprezentați grafic prezența la vot în funcție de indicele secției. Reprezentați histograma prezenței la vot.</li>
 <li>Calculați media, deviația standard și varianța prezenței la vot. Exprimați deviația standard în puncte procentuale.</li>
-<li>Calculați prezența la vot pentru întregul oraș: numărul total de voturi din toate secțiile împărțit la numărul total de alegători înscriși, înmulțit cu 100. Comparați cu media de la punctul e. De ce diferă?</li>
+<li>Identificați potențialele valori aberante din vectorul prezenței la vot, folosind regula celor trei sigma: marcați orice valoare strict în afara intervalului <span class="math inline">[m-3s,\,m+3s]</span>, unde <span class="math inline">m</span> este media prezenței la vot, iar <span class="math inline">s</span> este deviația standard a eșantionului (folosiți <code>std()</code>). Folosiți indexarea logică pentru a extrage procentele marcate și denumirile secțiilor corespunzătoare. Tratați-le ca potențiale valori aberante, nu neapărat ca erori.</li>
+<li>Calculați prezența la vot pentru întregul oraș: numărul total de voturi din toate secțiile împărțit la numărul total de alegători înscriși, înmulțit cu 100. Comparați cu media de la punctul f.&nbsp;De ce diferă?</li>
 <li>Împărțiți secțiile în două grupuri:
 <ul>
 <li>cele cu un număr de alegători înscriși mai mic decât <code>median(registered)</code>;</li>

@@ -201,12 +201,15 @@ căile relative către date să funcționeze.
    ```matlab
    D = load('ElectionsData.mat');
    values = double(D.values);
+   names = D.names;
    ```
 
    `double()` convertește numerele întregi stocate în valori în virgulă mobilă,
    înainte de efectuarea calculelor.
 
-   Fiecare linie din `values` corespunde unei secții de votare. Coloanele sunt:
+   Fiecare linie din `values` corespunde unei secții de votare. Vectorul de celule
+   `names` conține denumirile corespunzătoare, în aceeași ordine; `names{k}` oferă
+   denumirea secției de pe linia `k`. Coloanele din `values` sunt:
 
    | Coloană | Semnificație |
    |---|---|
@@ -228,14 +231,25 @@ căile relative către date să funcționeze.
    b. Asigurați-vă că toate elementele din `registered` și `votes` sunt pozitive.
       Scrieți codul care înlocuiește cu zero toate elementele negative, dacă există.
    c. Calculați procentul de prezență la vot pentru fiecare secție (folosiți `./`).
-   d. Reprezentați grafic prezența la vot în funcție de indicele secției.
+   d. Identificați denumirile secțiilor cu prezența la vot maximă și minimă.
+      Afișați și procentele de prezență corespunzătoare. Indiciu: folosiți al doilea
+      argument de ieșire al funcțiilor `max()` și `min()` pentru a obține indicii,
+      apoi folosiți acești indici pentru a accesa `names`.
+   e. Reprezentați grafic prezența la vot în funcție de indicele secției.
       Reprezentați histograma prezenței la vot.
-   e. Calculați media, deviația standard și varianța prezenței la vot.
+   f. Calculați media, deviația standard și varianța prezenței la vot.
       Exprimați deviația standard în puncte procentuale.
-   f. Calculați prezența la vot pentru întregul oraș: numărul total de voturi din
+   g. Identificați potențialele valori aberante din vectorul prezenței la vot,
+      folosind regula celor trei sigma: marcați orice valoare strict în afara
+      intervalului $[m-3s,\,m+3s]$, unde $m$ este media prezenței la vot, iar $s$
+      este deviația standard a eșantionului (folosiți `std()`).
+      Folosiți indexarea logică pentru a extrage procentele marcate și denumirile
+      secțiilor corespunzătoare. Tratați-le ca potențiale valori aberante, nu
+      neapărat ca erori.
+   h. Calculați prezența la vot pentru întregul oraș: numărul total de voturi din
       toate secțiile împărțit la numărul total de alegători înscriși, înmulțit cu 100.
-      Comparați cu media de la punctul e. De ce diferă?
-   g. Împărțiți secțiile în două grupuri:
+      Comparați cu media de la punctul f. De ce diferă?
+   i. Împărțiți secțiile în două grupuri:
       - cele cu un număr de alegători înscriși mai mic decât `median(registered)`;
       - cele cu un număr de alegători înscriși mai mare sau egal cu `median(registered)`.
 

@@ -1356,7 +1356,7 @@ $$\begin{split}
 R_{yy}(\tau) =& \overline{y[n] y[n + \tau]}\\
 =& \overline{\sum_{k_1=-\infty}^\infty h[k_1] x[n-k_1] \sum_{k_2=-\infty}^\infty h[k_2] x[n+\tau-k_2]}\\
 =& \sum_{k_1=-\infty}^\infty \sum_{k_2=-\infty}^\infty h[k_1] h[k_2] \overline{x[n-k_1] x[n+\tau-k_2]}\\
-=& \sum_{k_1=-\infty}^\infty \sum_{k_2=-\infty}^\infty h[k_1] h[k_2] R_{xx}[\tau - k_1 + k_2]
+=& \sum_{k_1=-\infty}^\infty \sum_{k_2=-\infty}^\infty h[k_1] h[k_2] R_{xx}[\tau + k_1 - k_2]
 \end{split}$$
 
 * Din teorema Wiener-Hincin se știe că:
@@ -1367,16 +1367,16 @@ $$S_{ff}(\omega) = \sum_{\tau = -\infty}^{\infty} R_{ff}(\tau) e^{- j \omega \ta
 
 * Așadar
 $$
-S_{yy}(\omega) = \sum_{\tau=-\infty}^{\infty} \sum_{k_1=-\infty}^\infty \sum_{k_2=-\infty}^\infty h[k_1] h[k_2] R_{xx}[\tau - k_1 + k_2] e^{- j \omega \tau}
+S_{yy}(\omega) = \sum_{\tau=-\infty}^{\infty} \sum_{k_1=-\infty}^\infty \sum_{k_2=-\infty}^\infty h[k_1] h[k_2] R_{xx}[\tau + k_1 - k_2] e^{- j \omega \tau}
 $$
 
-* Schimbare de variabilă $\tau - k_1 + k_2 = u$
-    * rezultă $\tau = u + k_1 - k_2$
+* Schimbare de variabilă $\tau + k_1 - k_2 = u$
+    * rezultă $\tau = u - k_1 + k_2$
 
 $$\begin{split}
-S_{yy}(\omega) =& \sum_{u=-\infty}^{\infty} \sum_{k_1=-\infty}^\infty \sum_{k_2=-\infty}^\infty h[k_1] h[k_2] R_{xx}[u] e^{- j \omega (u + k_1 + k_2)}\\
-=& \sum_{u=-\infty}^{\infty} R_{xx}[u] e^{- j \omega u} \sum_{k_1=-\infty}^\infty h[k_1] e^{- j \omega k_1} \sum_{k_2=-\infty}^\infty h[k_2]  e^{ j \omega k_2}\\
-=& S_{xx}(\omega) \cdot H(\omega) \cdot H^*(\omega)\\
+S_{yy}(\omega) =& \sum_{u=-\infty}^{\infty} \sum_{k_1=-\infty}^\infty \sum_{k_2=-\infty}^\infty h[k_1] h[k_2] R_{xx}[u] e^{- j \omega (u - k_1 + k_2)}\\
+=& \sum_{u=-\infty}^{\infty} R_{xx}[u] e^{- j \omega u} \sum_{k_1=-\infty}^\infty h[k_1] e^{j \omega k_1} \sum_{k_2=-\infty}^\infty h[k_2]  e^{ - j \omega k_2}\\
+=& S_{xx}(\omega) \cdot H^*(\omega) \cdot H(\omega)\\
 =& S_{xx}(\omega) \cdot |H(\omega)|^2\\
 \end{split}$$
 

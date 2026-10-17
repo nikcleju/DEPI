@@ -3,3 +3,5 @@
 *.autosave.xopp
 *.xopp~
 /.omo/**
+/.omx/*
+/Labs/Lab*_files/libs/*
