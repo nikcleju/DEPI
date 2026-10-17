@@ -139,8 +139,9 @@ window.Quarto = {
   <li><a href="#încărcarea-variabilelor-dintr-un-fișier" id="toc-încărcarea-variabilelor-dintr-un-fișier" class="nav-link" data-scroll-target="#încărcarea-variabilelor-dintr-un-fișier"><span class="header-section-number">2.4</span> Încărcarea variabilelor dintr-un fișier</a></li>
   <li><a href="#rezumat-funcții-și-notații-de-cunoscut" id="toc-rezumat-funcții-și-notații-de-cunoscut" class="nav-link" data-scroll-target="#rezumat-funcții-și-notații-de-cunoscut"><span class="header-section-number">2.5</span> Rezumat: funcții și notații de cunoscut</a></li>
   </ul></li>
-  <li><a href="#exerciții" id="toc-exerciții" class="nav-link" data-scroll-target="#exerciții"><span class="header-section-number">3</span> Exerciții</a></li>
-  <li><a href="#întrebări-finale" id="toc-întrebări-finale" class="nav-link" data-scroll-target="#întrebări-finale"><span class="header-section-number">4</span> Întrebări finale</a></li>
+  <li><a href="#exerciții-teoretice" id="toc-exerciții-teoretice" class="nav-link" data-scroll-target="#exerciții-teoretice"><span class="header-section-number">3</span> Exerciții teoretice</a></li>
+  <li><a href="#exerciții-matlab" id="toc-exerciții-matlab" class="nav-link" data-scroll-target="#exerciții-matlab"><span class="header-section-number">4</span> Exerciții Matlab</a></li>
+  <li><a href="#întrebări-finale" id="toc-întrebări-finale" class="nav-link" data-scroll-target="#întrebări-finale"><span class="header-section-number">5</span> Întrebări finale</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Lab4_ValoriMedii.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="Lab4_ValoriMedii.ipynb" download="Lab4_ValoriMedii.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
 </div>
@@ -177,6 +178,8 @@ window.Quarto = {
 <p>Mediile statistice sunt definite pe baza distribuției de probabilitate, nu pe baza unei anumite secvențe de măsurători.</p>
 <p>Pentru o variabilă aleatoare continuă <span class="math inline">A</span>, cu densitatea de probabilitate <span class="math inline">w_A(x)</span>, <strong>media statistică</strong> este</p>
 <p><span class="math display">\mu_A=\mathrm{E}\{A\}=\overline{A}=\int_{-\infty}^{\infty}x\,w_A(x)\,dx.</span></p>
+<p><strong>Valoarea medie pătratică</strong> (momentul de ordinul doi) este media pătratului variabilei:</p>
+<p><span class="math display">\mathrm{E}\{A^2\}=\overline{A^2}=\int_{-\infty}^{\infty}x^2\,w_A(x)\,dx.</span></p>
 <p><strong>Varianța statistică</strong> este:</p>
 <p><span class="math display">\sigma_A^2=\mathrm{E}\{(A-\mu_A)^2\}
 = \overline{(A-\mu_A)^2}
@@ -264,46 +267,51 @@ table td, table th { border-bottom: 1px solid #ddd; }
 <td>Media statistică, definită prin distribuție</td>
 </tr>
 <tr class="even">
+<td><span class="math inline">\mathrm{E}\{A^2\}</span></td>
+<td><span class="math inline">\overline{A^2}=\int_{-\infty}^{\infty}x^2w_A(x)\,dx</span></td>
+<td>Valoarea medie pătratică (momentul de ordinul doi), nu <span class="math inline">\mu_A^2</span></td>
+</tr>
+<tr class="odd">
 <td><span class="math inline">\sigma_A^2</span>, <span class="math inline">\sigma_A</span></td>
 <td><span class="math inline">\sigma_A=\sqrt{\sigma_A^2}</span></td>
 <td>Varianța și deviația standard statistică</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>mean(x)</code></td>
 <td><code>mean(x)</code></td>
 <td>Media aritmetică a unui vector; media temporală dacă elementele sunt eșantioane în timp</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>std(x,1)</code>, <code>var(x,1)</code></td>
 <td><code>var(x,1)</code></td>
 <td>Deviația standard și varianța observată, normalizate cu <span class="math inline">N</span></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>std(x)</code>, <code>var(x)</code></td>
 <td><code>std(x)</code>, <code>var(x)</code></td>
 <td>Deviația standard și varianța eșantionului, normalizate cu <span class="math inline">N-1</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>mean(X,dim)</code></td>
 <td><code>mean(X,2)</code></td>
 <td>Media de-a lungul dimensiunii alese a matricei</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>std(X,w,dim)</code>, <code>var(X,w,dim)</code></td>
 <td><code>std(X,0,1)</code></td>
 <td>Deviația standard și varianța de-a lungul unei dimensiuni: <code>w=0</code> folosește <span class="math inline">N-1</span>, <code>w=1</code> folosește <span class="math inline">N</span></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>X(:)</code></td>
 <td><code>mean(X(:))</code></td>
 <td>Toate elementele matricei într-un singur vector coloană</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>load(filename)</code></td>
 <td><code>load('data.mat')</code></td>
 <td>Încarcă variabilele salvate direct în Workspace</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>D = load(filename)</code></td>
 <td><code>D = load('data.mat'); x = D.x;</code></td>
 <td>Încarcă variabilele salvate într-o structură; câmpurile se accesează folosind punctul</td>
@@ -312,8 +320,21 @@ table td, table th { border-bottom: 1px solid #ddd; }
 </table>
 </section>
 </section>
-<section id="exerciții" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Exerciții</h1>
+<section id="exerciții-teoretice" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Exerciții teoretice</h1>
+<ol type="1">
+<li><p>Fie <span class="math inline">A</span> o variabilă aleatoare cu distribuție uniformă în intervalul <span class="math inline">[a,b]</span>, unde <span class="math inline">a&lt;b</span>.</p>
+<p>Folosind definițiile mediilor statistice, calculați în funcție de <span class="math inline">a</span> și <span class="math inline">b</span>:</p>
+<ol type="a">
+<li>Valoarea medie statistică <span class="math inline">\mu_A=\mathrm{E}\{A\}</span>.</li>
+<li>Valoarea medie pătratică <span class="math inline">\mathrm{E}\{A^2\}</span>.</li>
+<li>Varianța <span class="math inline">\sigma_A^2=\mathrm{E}\{(A-\mu_A)^2\}</span>.</li>
+</ol>
+<p>Caz particular: <span class="math inline">a=-4</span>, <span class="math inline">b=6</span>.</p></li>
+</ol>
+</section>
+<section id="exerciții-matlab" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Exerciții Matlab</h1>
 <p>Scrieți singuri toate comenzile într-un script sau live script. Etichetați figurile și răspundeți la întrebările de interpretare în comentarii. Rulați scriptul din directorul care conține fișierele <code>ElectionsData.mat</code> și <code>ECG_test.mat</code>, astfel încât căile relative către date să funcționeze.</p>
 <ol type="1">
 <li><p>Media, deviația standard și varianța:</p>
@@ -402,8 +423,8 @@ Calculați media și deviația standard pentru fiecare grup. Care grup are o îm
 </ol></li>
 </ol>
 </section>
-<section id="întrebări-finale" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Întrebări finale</h1>
+<section id="întrebări-finale" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Întrebări finale</h1>
 <ol type="1">
 <li>Reordonați aleator eșantioanele unui semnal ECG. Ce se întâmplă cu media și varianța lui? Se schimbă sau nu?</li>
 <li>Împărțiți o secție de votare în două jumătăți identice, împărțind în mod egal atât voturile, cât și alegătorii înscriși. Se poate schimba media prezenței la vot pe secții, deși voturile tuturor alegătorilor au rămas aceleași? Ce se întâmplă cu prezența la vot pentru întregul oraș?</li>

@@ -38,6 +38,11 @@ Pentru o variabilă aleatoare continuă $A$, cu densitatea de probabilitate $w_A
 
 $$\mu_A=\mathrm{E}\{A\}=\overline{A}=\int_{-\infty}^{\infty}x\,w_A(x)\,dx.$$
 
+**Valoarea medie pătratică** (momentul de ordinul doi) este media pătratului
+variabilei:
+
+$$\mathrm{E}\{A^2\}=\overline{A^2}=\int_{-\infty}^{\infty}x^2\,w_A(x)\,dx.$$
+
 **Varianța statistică** este:
 
 $$\sigma_A^2=\mathrm{E}\{(A-\mu_A)^2\}
@@ -154,6 +159,7 @@ table td, table th { border-bottom: 1px solid #ddd; }
 | Sintaxă sau notație | Exemplu | Descriere |
 |---|---|---|
 | $\mathrm{E}\{A\}$ | $\mu_A=\mathrm{E}\{A\}$ | Media statistică, definită prin distribuție |
+| $\mathrm{E}\{A^2\}$ | $\overline{A^2}=\int_{-\infty}^{\infty}x^2w_A(x)\,dx$ | Valoarea medie pătratică (momentul de ordinul doi), nu $\mu_A^2$ |
 | $\sigma_A^2$, $\sigma_A$ | $\sigma_A=\sqrt{\sigma_A^2}$ | Varianța și deviația standard statistică |
 | `mean(x)` | `mean(x)` | Media aritmetică a unui vector; media temporală dacă elementele sunt eșantioane în timp |
 | `std(x,1)`, `var(x,1)` | `var(x,1)` | Deviația standard și varianța observată, normalizate cu $N$ |
@@ -168,7 +174,20 @@ table td, table th { border-bottom: 1px solid #ddd; }
 \newpage
 ```
 
-# Exerciții
+# Exerciții teoretice
+
+1. Fie $A$ o variabilă aleatoare cu distribuție uniformă în intervalul $[a,b]$,
+   unde $a<b$.
+
+   Folosind definițiile mediilor statistice, calculați în funcție de $a$ și $b$:
+
+   a. Valoarea medie statistică $\mu_A=\mathrm{E}\{A\}$.
+   b. Valoarea medie pătratică $\mathrm{E}\{A^2\}$.
+   c. Varianța $\sigma_A^2=\mathrm{E}\{(A-\mu_A)^2\}$.
+
+   Caz particular: $a=-4$, $b=6$.
+
+# Exerciții Matlab
 
 Scrieți singuri toate comenzile într-un script sau live script. Etichetați figurile
 și răspundeți la întrebările de interpretare în comentarii. Rulați scriptul din
