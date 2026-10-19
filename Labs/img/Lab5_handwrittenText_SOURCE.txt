@@ -1,0 +1,8 @@
+Lab5_handwrittenText.png
+
+Unmodified copy of skimage/data/text.png from scikit-image 0.16.2.
+Description: grayscale photograph of handwritten text (172 rows x 448 columns).
+Source documentation: https://scikit-image.org/docs/stable/api/skimage.data.html#skimage.data.text
+Original source recorded by scikit-image: https://en.wikipedia.org/wiki/File:Corner.png
+Rights statement in scikit-image: No known copyright restrictions, released into the public domain.
+SHA-256: bd84aa3a6e3c9887850d45d606c96b2e59433fbef50338570b63c319e668e6d1
