@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Binarizarea imaginilor: metoda Otsu</title>
+<title>Binarizarea imaginilor prin compararea cu un prag: metoda Otsu</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -134,17 +134,13 @@ window.Quarto = {
   <li><a href="#aspecte-teoretice" id="toc-aspecte-teoretice" class="nav-link" data-scroll-target="#aspecte-teoretice"><span class="header-section-number">2</span> Aspecte teoretice</a>
   <ul class="collapse">
   <li><a href="#o-imagine-în-tonuri-de-gri-este-o-matrice" id="toc-o-imagine-în-tonuri-de-gri-este-o-matrice" class="nav-link" data-scroll-target="#o-imagine-în-tonuri-de-gri-este-o-matrice"><span class="header-section-number">2.1</span> O imagine în tonuri de gri este o matrice</a></li>
-  <li><a href="#de-la-pixeli-la-histogramă" id="toc-de-la-pixeli-la-histogramă" class="nav-link" data-scroll-target="#de-la-pixeli-la-histogramă"><span class="header-section-number">2.2</span> De la pixeli la histogramă</a></li>
-  <li><a href="#observație-egalizarea-histogramei" id="toc-observație-egalizarea-histogramei" class="nav-link" data-scroll-target="#observație-egalizarea-histogramei"><span class="header-section-number">2.3</span> Observație: egalizarea histogramei</a></li>
-  <li><a href="#compararea-cu-un-prag-și-binarizarea-imaginilor" id="toc-compararea-cu-un-prag-și-binarizarea-imaginilor" class="nav-link" data-scroll-target="#compararea-cu-un-prag-și-binarizarea-imaginilor"><span class="header-section-number">2.4</span> Compararea cu un prag și binarizarea imaginilor</a></li>
-  <li><a href="#criteriul-otsu-grupuri-compacte-de-intensități" id="toc-criteriul-otsu-grupuri-compacte-de-intensități" class="nav-link" data-scroll-target="#criteriul-otsu-grupuri-compacte-de-intensități"><span class="header-section-number">2.5</span> Criteriul Otsu: grupuri compacte de intensități</a>
-  <ul class="collapse">
-  <li><a href="#căutarea-tuturor-pragurilor" id="toc-căutarea-tuturor-pragurilor" class="nav-link" data-scroll-target="#căutarea-tuturor-pragurilor">Căutarea tuturor pragurilor</a></li>
-  </ul></li>
+  <li><a href="#histograma-imaginii" id="toc-histograma-imaginii" class="nav-link" data-scroll-target="#histograma-imaginii"><span class="header-section-number">2.2</span> Histograma imaginii</a></li>
+  <li><a href="#compararea-cu-un-prag-și-binarizarea-imaginilor" id="toc-compararea-cu-un-prag-și-binarizarea-imaginilor" class="nav-link" data-scroll-target="#compararea-cu-un-prag-și-binarizarea-imaginilor"><span class="header-section-number">2.3</span> Compararea cu un prag și binarizarea imaginilor</a></li>
+  <li><a href="#întrebare-cum-alegem-pragul-t" id="toc-întrebare-cum-alegem-pragul-t" class="nav-link" data-scroll-target="#întrebare-cum-alegem-pragul-t"><span class="header-section-number">2.4</span> Întrebare: cum alegem pragul <span class="math inline">T</span>?</a></li>
+  <li><a href="#criteriul-otsu-grupurile-trebuie-să-fie-compacte" id="toc-criteriul-otsu-grupurile-trebuie-să-fie-compacte" class="nav-link" data-scroll-target="#criteriul-otsu-grupurile-trebuie-să-fie-compacte"><span class="header-section-number">2.5</span> Criteriul Otsu: grupurile trebuie să fie compacte</a></li>
   <li><a href="#rezumat-funcții-și-notații-de-cunoscut" id="toc-rezumat-funcții-și-notații-de-cunoscut" class="nav-link" data-scroll-target="#rezumat-funcții-și-notații-de-cunoscut"><span class="header-section-number">2.6</span> Rezumat: funcții și notații de cunoscut</a></li>
   </ul></li>
   <li><a href="#exerciții" id="toc-exerciții" class="nav-link" data-scroll-target="#exerciții"><span class="header-section-number">3</span> Exerciții</a></li>
-  <li><a href="#întrebări-finale" id="toc-întrebări-finale" class="nav-link" data-scroll-target="#întrebări-finale"><span class="header-section-number">4</span> Întrebări finale</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Lab5_BinarizareImagini.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="Lab5_BinarizareImagini.ipynb" download="Lab5_BinarizareImagini.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
 </div>
@@ -152,7 +148,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Binarizarea imaginilor: metoda Otsu</h1>
+<h1 class="title">Binarizarea imaginilor prin compararea cu un prag: metoda Otsu</h1>
 <p class="subtitle lead">Laboratorul 5, DEPI</p>
 </div>
 
@@ -172,137 +168,96 @@ window.Quarto = {
 
 <section id="obiectiv" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Obiectiv</h1>
-<p>Citirea și afișarea imaginilor în tonuri de gri în Matlab, interpretarea histogramelor, și implementarea binarizării imaginilor prin metoda Otsu pe baza varianțelor grupurilor.</p>
+<p>Citirea și afișarea imaginilor în tonuri de gri în Matlab, interpretarea histogramelor acestora și implementarea binarizării imaginilor prin căutarea pragului cu metoda Otsu, pe baza varianțelor din interiorul grupurilor.</p>
 </section>
 <section id="aspecte-teoretice" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Aspecte teoretice</h1>
 <section id="o-imagine-în-tonuri-de-gri-este-o-matrice" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="o-imagine-în-tonuri-de-gri-este-o-matrice"><span class="header-section-number">2.1</span> O imagine în tonuri de gri este o matrice</h2>
-<p>O imagine digitală este o matrice de pixeli. O imagine în tonuri de gri stochează câte o valoare a intensității pentru fiecare pixel, într-o matrice <code>I</code>:</p>
+<p>O imagine digitală este o matrice dreptunghiulară de <strong>pixeli</strong>.</p>
+<p>O imagine în tonuri de gri (<em>grayscale</em>) are câte o valoare pentru fiecare pixel, valorile fiind aranjate într-o matrice <code>I</code>.</p>
+<p>Valorile pixelilor sunt numere între 0 și 1 (de tip <code>double</code>) sau între 0 și 255 (de tip <code>uint8</code>).</p>
 <ul>
-<li><code>I(r,c)</code> este pixelul de pe linia <code>r</code>, coloana <code>c</code>.</li>
-<li>Valori mici corespund pixelilor întunecați, iar cele mari pixelilor luminoși.</li>
-<li>Pentru o imagine pe 8 biți, stocată ca <code>uint8</code>, pixelii sunt numere întregi de la 0 (negru) la 255 (alb).</li>
-<li>Dacă imaginea este stocată ca <code>double</code>, pixelii sunt numere reale, fie în intervalul 0–255, fie în intervalul 0–1.</li>
+<li>0 reprezintă negru;</li>
+<li>valoarea maximă (1 sau 255) reprezintă alb;</li>
+<li>valorile intermediare reprezintă nuanțe de gri.</li>
 </ul>
-<p>În acest laborator, preferăm valori ale pixelilor în intervalul 0–1, de tip <code>double</code>, pentru a putea efectua calcule precise.</p>
-<p>De exemplu, aceasta este o imagine mică în tonuri de gri:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">I_small</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">0.25</span> <span class="fl">0.5</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">0</span> <span class="fl">0.25</span> <span class="fl">0.5</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">0</span> <span class="fl">0.25</span> <span class="fl">0.5</span> <span class="fl">1</span>]<span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">figure</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">imshow</span>(<span class="va">I_small</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>În exemplul de mai jos:</p>
+<p>În acest laborator, preferăm valori ale pixelilor în intervalul 0–1, de tip <code>double</code>, care permite calcule precise.</p>
+<p>De exemplu, următoarele comenzi creează și afișează o imagine mică în tonuri de gri:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">I_small</span> <span class="op">=</span> [<span class="fl">0</span> <span class="fl">0.25</span> <span class="fl">0.5</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">0</span> <span class="fl">0.25</span> <span class="fl">0.5</span> <span class="fl">1</span><span class="op">;</span> <span class="fl">0</span> <span class="fl">0.25</span> <span class="fl">0.5</span> <span class="fl">1</span>]<span class="op">;</span> <span class="co">% O matrice de 3 pe 4 cu valori între 0 și 1</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">imshow</span>(<span class="va">I_small</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Imaginile pot fi citite dintr-un fișier cu funcția <code>imread()</code>, ca în exemplul de mai jos:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">I</span> <span class="op">=</span> <span class="va">imread</span>(<span class="ss">'coins.png'</span>)<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">% I = rgb2gray(I);  % Dacă imaginea este RGB, se convertește la grayscale</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">I</span> <span class="op">=</span> <span class="va">im2double</span>(<span class="va">I</span>)<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="va">imshow</span>(<span class="va">I</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Funcții folosite:</p>
 <ul>
-<li><code>imread()</code> citește o imagine dintr-un fișier;</li>
-<li><code>im2double()</code> convertește o imagine cu valori întregi la tipul <code>double</code> și îi rescalează intensitățile în intervalul 0–1;</li>
-<li><code>size(I)</code> întoarce numărul de linii și de coloane (ca pentru orice matrice Matlab);</li>
-<li><code>imshow()</code> afișează imaginea.</li>
+<li><code>imread()</code> citește o imagine dintr-un fișier și returnează matricea pixelilor;</li>
+<li><code>rgb2gray()</code> convertește o imagine RGB în grayscale, dacă este necesar;</li>
+<li><code>im2double()</code> convertește matricea imaginii la tipul <code>double</code> și îi rescalează valorile în intervalul 0–1.</li>
+<li><code>imshow()</code> afișează matricea ca imagine.</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">Iraw</span> <span class="op">=</span> <span class="va">imread</span>(<span class="ss">'coins.png'</span>)<span class="op">;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">I</span> <span class="op">=</span> <span class="va">im2double</span>(<span class="va">Iraw</span>)<span class="op">;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">size</span>(<span class="va">I</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="va">figure</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="va">imshow</span>(<span class="va">I</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Imaginile folosite în acest laborator sunt deja în tonuri de gri, deci nu este necesară conversia culorilor. O imagine color RGB ar avea trei canale, și poate fi convertită în tonuri de gri cu <code>rgb2gray()</code>.</p>
-<p>Pentru imaginile pe 8 biți din acest laborator, <code>im2double(Iraw)</code> este echivalent cu <code>double(Iraw)/255</code>. Valoarea 0 reprezintă negrul, iar 1 reprezintă albul. Conversia folosește întreaga scară de intensități pe 8 biți, nu cea mai mică și cea mai mare valoare prezente efectiv în imagine; acestea nu devin neapărat 0 și 1.</p>
-<p>Conversia nu înseamnă doar schimbarea tipului: <code>double(Iraw)</code> păstrează intensitățile pe 8 biți pe scara 0–255. De asemenea, <code>im2double()</code> nu rescalează un argument care este deja <code>double</code>; convertiți direct imaginea originală cu valori întregi.</p>
-<p>De acum înainte, folosiți imaginea normalizată <code>I</code> atât pentru afișare, cât și pentru calcule. <code>imshow(I)</code> folosește intervalul 0–1 pentru o imagine <code>double</code>; nu este necesar un argument suplimentar pentru intervalul de afișare. Consultați <a href="https://www.mathworks.com/help/matlab/ref/im2double.html">documentația <code>im2double</code></a>.</p>
+<p>Imaginile folosite în acest laborator sunt deja în tonuri de gri, deci nu trebuie convertite din RGB în <em>grayscale</em>.</p>
 </section>
-<section id="de-la-pixeli-la-histogramă" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="de-la-pixeli-la-histogramă"><span class="header-section-number">2.2</span> De la pixeli la histogramă</h2>
-<p>Histograma imaginii numără câți pixeli au fiecare intensitate și arată distribuția intensităților.</p>
-<p>Folosiți <code>imhist()</code> direct pe imagine pentru a afișa histograma intensităților:</p>
+<section id="histograma-imaginii" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="histograma-imaginii"><span class="header-section-number">2.2</span> Histograma imaginii</h2>
+<p>Histograma imaginii numără câți pixeli au fiecare valoare, și arată distribuția valoriloe.</p>
+<p>Folosiți <code>imhist()</code> pentru a afișa histograma imaginii:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="va">figure</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="va">imhist</span>(<span class="va">I</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">xlabel</span>(<span class="ss">'Intensitate'</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="va">ylabel</span>(<span class="ss">'Număr de pixeli'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Pentru o imagine în tonuri de gri, <code>imhist(I)</code> folosește implicit 256 de intervale. Pentru imaginea noastră normalizată, de tip <code>double</code>, pozițiile intervalelor acoperă domeniul 0–1. Folosiți <code>imhist(I,256)</code> pentru a specifica explicit acest număr de intervale la compararea imaginilor. Spre deosebire de o histogramă normalizată ca densitate de probabilitate, acest grafic arată numărul de pixeli. Consultați <a href="https://www.mathworks.com/help/images/ref/imhist.html">documentația <code>imhist</code></a>.</p>
-<p>Pentru calculul pragurilor, <code>I(:)</code> reunește toți pixelii într-un singur vector coloană, fără a le schimba tipul sau scara intensităților:</p>
+<p>Pentru o imagine în tonuri de gri, <code>imhist(I)</code> folosește implicit 256 de intervale. Folosiți <code>imhist(I,64)</code> pentru a specifica un alt număr de intervale (aici 64).</p>
+<p>Pentru a transforma o matrice într-un vector, concatenând toate coloanele, folosiți <code>I(:)</code>. Acest lucru este util pentru calculele care nu depind de pozițiile pixelilor:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="va">pixels</span> <span class="op">=</span> <span class="va">I</span>(<span class="op">:</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Două zone de concentrare a intensităților pot sugera două grupuri, de exemplu regiuni întunecate și luminoase. Histograma numără intensitățile, dar nu descrie pozițiile pixelilor în imagine.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figures/Lab5_camera_thresholding.png" class="img-fluid figure-img" style="width:95.0%"></p>
-<figcaption>O fotografie reală în tonuri de gri, histograma intensităților și binarizarea sa. Linia roșie marchează pragul Otsu în acest exemplu publicat.</figcaption>
+<figcaption>O fotografie reală în tonuri de gri, histograma sa și binarizarea sa. Linia roșie marchează pragul Otsu în acest exemplu.</figcaption>
 </figure>
 </div>
-<p>Fotografie: Lav Varshney (CC0), prin <a href="https://scikit-image.org/docs/stable/api/skimage.data.html#skimage.data.camera">setul de date camera din scikit-image</a>. Figura comparativă: <a href="https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_thresholding.html">exemplul de binarizare din scikit-image</a>. Această ilustrație externă folosește valori pe 8 biți, pe scara 0–255; împărțiți aceste intensități și pragul la 255 pentru a le exprima pe scara 0–1 folosită aici. Imaginea binară separă pixelii întunecați de cei luminoși, nu neapărat întreaga persoană de fundal.</p>
 </section>
-<section id="observație-egalizarea-histogramei" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="observație-egalizarea-histogramei"><span class="header-section-number">2.3</span> Observație: egalizarea histogramei</h2>
-<p>O imagine ale cărei intensități ocupă doar o porțiune îngustă din intervalul 0–1 poate avea un contrast redus. <strong>Egalizarea histogramei</strong> transformă intensitățile pe baza histogramei cumulative (fracțiunea de pixeli cu intensitatea mai mică sau egală cu fiecare valoare, ca în cazul FR din Laboratorul 2). Valorile frecvente sunt distribuite într-un interval mai larg, fără schimbarea pozițiilor pixelilor. Este o metodă de îmbunătățire a contrastului, nu de binarizare sau de eliminare a zgomotului, și nu este o prelucrare preliminară obligatorie pentru metoda Otsu.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">Ieq</span> <span class="op">=</span> <span class="va">histeq</span>(<span class="va">I</span><span class="op">,</span><span class="fl">256</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Rezultatul are aceeași dimensiune și același tip ca <code>I</code>, cu intensități tot în intervalul 0–1. Comparați <code>imshow(I)</code> cu <code>imshow(Ieq)</code> și <code>imhist(I,256)</code> cu <code>imhist(Ieq,256)</code>. Histograma nu devine neapărat perfect uniformă: pixelii cu aceeași intensitate inițială primesc în continuare aceeași valoare de ieșire. Consultați <a href="https://www.mathworks.com/help/images/ref/histeq.html">documentația <code>histeq</code></a>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/Lab5_histogram_equalization.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<figcaption>Egalizarea histogramei unei imagini simulate în tonuri de gri, cu contrast redus. Ambele imagini folosesc același interval de afișare 0–1, iar ambele histograme folosesc 256 de intervale și aceleași scări ale axelor. Contrastul crește, dar histograma nu este perfect uniformă, iar fluctuațiile mici ale intensității devin mai vizibile.</figcaption>
-</figure>
-</div>
-<p>Pentru a compara grafice în aceeași fereastră, <code>subplot(2,2,1)</code> selectează prima poziție dintr-o grilă de 2 pe 2. Apelați apoi <code>imshow()</code> sau <code>imhist()</code> pentru a desena în acea poziție. Pozițiile sunt numerotate de-a lungul primei linii, apoi de-a lungul celei de-a doua. Folosiți același interval de afișare 0–1 pentru imagini și același număr de intervale pentru histograme, înainte și după.</p>
-</section>
-<section id="compararea-cu-un-prag-și-binarizarea-imaginilor" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="compararea-cu-un-prag-și-binarizarea-imaginilor"><span class="header-section-number">2.4</span> Compararea cu un prag și binarizarea imaginilor</h2>
-<p><strong>Binarizarea unei imagini</strong> transformă o imagine în tonuri de gri într-o imagine cu doar două valori (negru și alb). <strong>Compararea cu un prag</strong> este o modalitate de binarizare: se atribuie o valoare binară intensităților de o parte a pragului și cealaltă valoare intensităților de cealaltă parte.</p>
-<p>Un prag <span class="math inline">t</span> împarte intensitățile în două grupuri, cele de sub <span class="math inline">t</span> și cele de deasupra lui <span class="math inline">t</span>:</p>
-<p><span class="math display">C_0(t)=\{x:x\le t\}, \qquad C_1(t)=\{x:x&gt;t\}.</span></p>
-<p>Aici, fiecare <span class="math inline">x</span> este intensitatea unui pixel. Comparația produce o <strong>imagine binară</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">BW</span> <span class="op">=</span> <span class="va">I</span> <span class="op">&gt;</span> <span class="fl">0.5</span><span class="op">;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="va">figure</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="va">imshow</span>(<span class="va">BW</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><code>BW</code> are același număr de linii și de coloane ca <code>I</code>. Valorile sale sunt <code>false</code> (afișat ca negru) și <code>true</code> (afișat ca alb). În această convenție, pixelii albi sunt cei <strong>deasupra</strong> pragului. Aceasta nu înseamnă automat că pixelii albi reprezintă obiectele de interes.</p>
-<p>Exemple tipice de binarizare:</p>
+<section id="compararea-cu-un-prag-și-binarizarea-imaginilor" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="compararea-cu-un-prag-și-binarizarea-imaginilor"><span class="header-section-number">2.3</span> Compararea cu un prag și binarizarea imaginilor</h2>
+<p><strong>Binarizarea unei imagini</strong> transformă o imagine în tonuri de gri într-o imagine binară, cu doar două valori (0=negru și 1=alb).</p>
+<p>Putem face acest lucru prin <strong>compararea cu un prag</strong>, adică prin compararea cu o valoare de prag <span class="math inline">T</span>:</p>
 <ul>
-<li><strong>Text tipărit întunecat pe hârtie albă:</strong> separarea cernelii de hârtie.</li>
-<li><strong>Notițe scrise de mână pe hârtie:</strong> distingerea cernelii întunecate de hârtie, chiar și când fotografierea introduce umbre și iluminare neuniformă.</li>
-<li><strong>Monede luminoase pe un fundal mai întunecat:</strong> separarea monedelor de fundal.</li>
+<li>toți pixelii <span class="math inline">\leq T</span> devin 0</li>
+<li>toți pixelii <span class="math inline">&gt; T</span> devin 1</li>
 </ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/Lab5_handwrittenText.png" class="img-fluid figure-img" style="width:75.0%"></p>
-<figcaption>O fotografie reală în tonuri de gri a unor formule matematice scrise de mână pe hârtie. Binarizarea urmărește separarea cernelii întunecate de hârtie; umbrele pot reduce eficiența unui singur prag global.</figcaption>
-</figure>
-</div>
-<p>Sursă: <a href="https://scikit-image.org/docs/stable/api/skimage.data.html#skimage.data.text">imaginea cu text din scikit-image</a>, provenită inițial de pe Wikipedia și aflată în domeniul public. Imaginea în tonuri de gri, nemodificată, este disponibilă local ca <code>img/Lab5_handwrittenText.png</code>.</p>
-<p>Pentru text sau alte obiecte întunecate, <code>I &gt; t</code> păstrează fundalul alb și obiectele negre. Dacă masca dorită trebuie să marcheze obiectele ca <code>true</code>, folosiți <code>I &lt;= t</code>. Alegerea pragului și alegerea grupului care reprezintă obiectele de interes sunt două decizii separate.</p>
-<p>Problema este alegerea unui prag care să separe bine obiectele de interes de fundal. Metoda Otsu oferă o modalitate de a face acest lucru.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">BW</span> <span class="op">=</span> <span class="va">I</span> <span class="op">&gt;</span> <span class="fl">0.5</span><span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="va">figure</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="va">imshow</span>(<span class="va">BW</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>BW</code> are același număr de linii și de coloane ca <code>I</code>. Valorile sale sunt <code>false</code> (= 0, afișat ca negru) și <code>true</code> (=1, afișat ca alb).</p>
 </section>
-<section id="criteriul-otsu-grupuri-compacte-de-intensități" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="criteriul-otsu-grupuri-compacte-de-intensități"><span class="header-section-number">2.5</span> Criteriul Otsu: grupuri compacte de intensități</h2>
-<p>Dorim ca pixelii din fiecare grup să aibă intensități similare. Metoda Otsu alege un prag care minimizează <strong>varianța ponderată din interiorul grupurilor</strong>.</p>
-<p>Fie <span class="math inline">N</span> numărul total de pixeli, iar <span class="math inline">N_0(t)</span> și <span class="math inline">N_1(t)</span> numerele de pixeli din cele două grupuri. Ponderile lor sunt</p>
-<p><span class="math display">w_0(t)=\frac{N_0(t)}{N}, \qquad w_1(t)=\frac{N_1(t)}{N}.</span></p>
-<p>Pentru un grup nevid <span class="math inline">C_j(t)</span>, media și varianța se calculează astfel:</p>
-<p><span class="math display">m_j(t)=\frac{1}{N_j(t)}\sum_{x\in C_j(t)}x,</span></p>
-<p><span class="math display">v_j(t)=\frac{1}{N_j(t)}\sum_{x\in C_j(t)}(x-m_j(t))^2.</span></p>
-<p>În Matlab, după extragerea intensităților unui grup nevid într-un vector <code>cluster</code>, folosiți <code>mean()</code> și <code>var()</code> pentru a calcula <span class="math inline">m_j(t)</span> și <span class="math inline">v_j(t)</span>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="va">mj</span> <span class="op">=</span> <span class="va">mean</span>(<span class="va">cluster</span>)<span class="op">;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="va">vj</span> <span class="op">=</span> <span class="va">var</span>(<span class="va">cluster</span><span class="op">,</span><span class="fl">1</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Acestea sunt statistici ale <strong>intensităților pixelilor</strong>, nu ale coordonatelor pixelilor sau ale măștii binare. Repetați calculele pentru fiecare dintre cele două grupuri.</p>
-<p>Scorul care trebuie minimizat este</p>
-<p><span class="math display">J(t)=w_0(t)v_0(t)+w_1(t)v_1(t).</span></p>
-<p>Ponderile contează: un grup cu puțini pixeli nu trebuie să contribuie la fel de mult ca unul care conține majoritatea pixelilor. Nu minimizați suma neponderată a celor două varianțe.</p>
-<p><strong>Normalizarea varianței:</strong> aici descriem toți pixelii observați în fiecare grup, deci folosim <code>var(cluster,1)</code>, cu numitorul egal cu numărul de pixeli din grup, nu normalizarea implicită a varianței eșantionului din Matlab. Un grup cu un singur pixel are varianța 0.</p>
-<section id="căutarea-tuturor-pragurilor" class="level3">
-<h3 class="anchored" data-anchor-id="căutarea-tuturor-pragurilor">Căutarea tuturor pragurilor</h3>
-<p>Pentru o imagine obținută prin normalizarea intensităților pe 8 biți, folosiți 256 de praguri candidate pe aceeași scară:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">thresholds</span> <span class="op">=</span> (<span class="fl">0</span><span class="op">:</span><span class="fl">255</span>)<span class="op">/</span><span class="fl">255</span><span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Acestea acoperă intervalul de la 0 la 1, cu pasul <code>1/255</code>. La fiecare prag:</p>
-<ol type="1">
-<li>Extrageți cei doi vectori de pixeli folosind indexarea logică.</li>
-<li>Dacă unul dintre vectori este vid, nu evaluați acel prag.</li>
-<li>Altfel, calculați ambele varianțe, ambele ponderi și scorul <span class="math inline">J(t)</span>.</li>
-<li>Stocați scorul pentru a-l putea reprezenta grafic și a-i identifica minimul.</li>
-</ol>
-<p><code>isempty(x)</code> verifică dacă un vector este vid. Într-o buclă <code>for</code>, <code>continue</code> sare peste restul iterației curente. Folosiți-le pentru a evita calcularea varianței unui grup vid.</p>
-<p>O posibilitate de stocare a scorurilor este inițializarea unui vector cu infinit:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">scores</span> <span class="op">=</span> <span class="va">Inf</span>(<span class="fl">1</span><span class="op">,</span><span class="fl">256</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Păstrați <code>Inf</code> pentru pragurile nevalide, astfel încât acestea să nu poată fi selectate ca minime. Pentru o imagine neconstantă, cel puțin un prag produce două grupuri nevide. O imagine constantă nu permite nicio împărțire validă. Dacă toate scorurile rămân <code>Inf</code>, semnalați că nu există un prag valid, în loc să interpretați indicele returnat de <code>min()</code> ca pe un prag valid.</p>
-<p><strong>Indexare:</strong> pragul este acum o intensitate în intervalul 0–1, nu un indice de vector. Parcurgeți indicii întregi <code>k=1:numel(thresholds)</code>, setați <code>t=thresholds(k)</code> și stocați scorul la poziția <code>k</code>. Al doilea argument de ieșire al funcției <code>min()</code> oferă un indice:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>[<span class="va">value</span><span class="op">,</span> <span class="va">index</span>] <span class="op">=</span> <span class="va">min</span>(<span class="va">v</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Folosiți acel indice pentru a găsi intensitatea corespunzătoare în <code>thresholds</code>. Nu folosiți un prag fracționar ca indice al unui tablou Matlab.</p>
-<p>Mai multe praguri pot produce aceeași împărțire și același scor dacă există goluri în histogramă. Folosiți primul prag care minimizează scorul, returnat de <code>min()</code>. Aceasta este o convenție pentru egalități, nu o limită fizică unică.</p>
-<p>În acest laborator, implementați singuri căutarea. Nu o înlocuiți cu <code>graythresh</code>, <code>otsuthresh</code> sau altă funcție de selectare automată a pragului.</p>
+<section id="întrebare-cum-alegem-pragul-t" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="întrebare-cum-alegem-pragul-t"><span class="header-section-number">2.4</span> Întrebare: cum alegem pragul <span class="math inline">T</span>?</h2>
+<p>Problema este alegerea unui <strong>prag bun</strong>, care să separe partea mai întunecată a imaginii de partea mai luminoasă, nu prin apreciere vizuală, ci pe baza unui criteriu automat.</p>
 </section>
+<section id="criteriul-otsu-grupurile-trebuie-să-fie-compacte" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="criteriul-otsu-grupurile-trebuie-să-fie-compacte"><span class="header-section-number">2.5</span> Criteriul Otsu: grupurile trebuie să fie compacte</h2>
+<p>Metoda Otsu alege un prag care minimizează <strong>varianța ponderată a grupurilor</strong>.</p>
+<ul>
+<li>pentru i = [1:254]:
+<ul>
+<li>calculați pragul <span class="math inline">T = i/255</span> (astfel încât să aibă valori în intervalul 0–1)</li>
+<li>împărțiți pixelii în două grupuri:
+<ul>
+<li><span class="math inline">C_0</span> = pixelii <span class="math inline">\leq T</span></li>
+<li><span class="math inline">C_1</span> = pixelii <span class="math inline">&gt; T</span></li>
+</ul></li>
+<li>calculați numărul de pixeli din fiecare grup, <span class="math inline">N_0</span> și <span class="math inline">N_1</span></li>
+<li>calculați <strong>media</strong> și <strong>varianța</strong> fiecărui grup, <span class="math inline">m_0</span>, <span class="math inline">m_1</span>, <span class="math inline">v_0</span>, <span class="math inline">v_1</span></li>
+<li>calculați <strong>suma ponderată a varianțelor</strong>: <span class="math display"> J = \frac{N_0}{N_0+N_1} v_0 + \frac{N_1}{N_0+N_1} v_1 </span></li>
+<li>salvați scorul <span class="math inline">J</span> pentru acest prag <span class="math inline">i</span> într-un vector <code>scores(i)</code></li>
+</ul></li>
+<li>Alegeți pragul care a produs <strong>scorul minim</strong> din <code>scores</code>.</li>
+</ul>
+<p>În Matlab, pentru a calcula media și varianța unui vector <code>x</code>, folosiți:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">m</span> <span class="op">=</span> <span class="va">mean</span>(<span class="va">x</span>)<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="va">v</span> <span class="op">=</span> <span class="va">var</span>(<span class="va">x</span><span class="op">,</span><span class="fl">1</span>)<span class="op">;</span>  <span class="co">% Folosiți aici normalizarea cu N</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Dacă unul dintre cele două grupuri este gol, nu se poate calcula media sau varianța. Omiteți acel prag și setați scorul său <span class="math inline">J</span> la <code>Inf</code> (infinit).</p>
 </section>
 <section id="rezumat-funcții-și-notații-de-cunoscut" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="rezumat-funcții-și-notații-de-cunoscut"><span class="header-section-number">2.6</span> Rezumat: funcții și notații de cunoscut</h2>
@@ -325,88 +280,73 @@ table td, table th { border-bottom: 1px solid #ddd; }
 <tbody>
 <tr class="odd">
 <td><code>imread(filename)</code></td>
-<td><code>Iraw = imread('coins.png')</code></td>
-<td>Citește o imagine dintr-un fișier</td>
+<td><code>I = imread('coins.png')</code></td>
+<td>Citește o imagine și returnează matricea pixelilor</td>
 </tr>
 <tr class="even">
-<td><code>size(I)</code></td>
-<td><code>size(I)</code></td>
-<td>Dimensiunile imaginii (dimensiunile matricei)</td>
+<td><code>rgb2gray(I)</code></td>
+<td><code>I = rgb2gray(I)</code></td>
+<td>Convertește o imagine RGB în tonuri de gri</td>
 </tr>
 <tr class="odd">
-<td><code>im2double(Iraw)</code></td>
-<td><code>I = im2double(Iraw)</code></td>
-<td>Convertește o imagine cu valori întregi la intensități <code>double</code> normalizate în 0–1</td>
+<td><code>im2double(I)</code></td>
+<td><code>I = im2double(I)</code></td>
+<td>Convertește o imagine la tipul <code>double</code>, rescalând valorile din 0–255 în 0–1</td>
 </tr>
 <tr class="even">
 <td><code>imshow(I)</code></td>
 <td><code>imshow(I)</code></td>
-<td>Afișează o imagine <code>double</code> normalizată sau o imagine logică</td>
+<td>Afișează o imagine I</td>
 </tr>
 <tr class="odd">
-<td><code>I(r,c)</code>, <code>I(:)</code></td>
-<td><code>I(10,20)</code>, <code>I(:)</code></td>
-<td>Accesează un pixel; reunește toți pixelii într-un vector coloană</td>
+<td><code>size(I)</code>, <code>numel(I)</code></td>
+<td><code>size(I)</code>, <code>numel(I)</code></td>
+<td>Dimensiunile imaginii și numărul total de pixeli</td>
 </tr>
 <tr class="even">
+<td><code>I(:)</code></td>
+<td><code>pixels = I(:)</code></td>
+<td>Transformă o matrice într-un vector coloană</td>
+</tr>
+<tr class="odd">
 <td><code>imhist(I)</code>, <code>imhist(I,n)</code></td>
-<td><code>imhist(I,256)</code></td>
-<td>Afișează histograma imaginii; intensitățile normalizate acoperă intervalul 0–1</td>
+<td><code>imhist(I,64)</code></td>
+<td>Afișează histograma imaginii; implicit sunt 256 de intervale pentru imagini în tonuri de gri</td>
 </tr>
-<tr class="odd">
-<td><code>I &gt; t</code></td>
+<tr class="even">
+<td><code>I &gt; T</code></td>
 <td><code>BW = I &gt; 0.5</code></td>
-<td>Mască logică ce selectează pixelii deasupra unui prag</td>
+<td>Binarizare: pixelii deasupra pragului devin 1, ceilalți 0</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Indexare logică</td>
-<td><code>pixels(pixels &lt;= t)</code></td>
-<td>Extrage intensitățile care îndeplinesc o condiție</td>
+<td><code>C0 = pixels(pixels &lt;= T)</code></td>
+<td>Extrage valorile care îndeplinesc o condiție</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>numel(x)</code></td>
-<td><code>numel(pixels)</code></td>
-<td>Numărul de elemente</td>
-</tr>
-<tr class="even">
-<td><code>mean(x)</code></td>
-<td><code>mean(cluster)</code></td>
-<td>Intensitatea medie <span class="math inline">m_j(t)</span> a unui grup</td>
+<td><code>N0 = numel(C0)</code></td>
+<td>Numără pixelii dintr-un vector</td>
 </tr>
 <tr class="odd">
-<td><code>var(x,1)</code></td>
-<td><code>var(cluster,1)</code></td>
-<td>Varianța normalizată cu numărul de elemente din grup</td>
+<td><code>mean(x)</code></td>
+<td><code>m0 = mean(C0)</code></td>
+<td>Intensitatea medie a unui vector</td>
 </tr>
 <tr class="even">
-<td><code>isempty(x)</code>, <code>continue</code></td>
-<td><code>isempty(cluster)</code></td>
-<td>Detectează un grup vid; sare peste o iterație a buclei</td>
+<td><code>var(x,1)</code></td>
+<td><code>v0 = var(C0,1)</code></td>
+<td>Varianța, normalizată cu numărul de pixeli</td>
 </tr>
 <tr class="odd">
 <td><code>Inf(m,n)</code></td>
-<td><code>Inf(1,256)</code></td>
-<td>Inițializează o matrice sau un vector cu infinit</td>
+<td><code>scores = Inf(1,254)</code></td>
+<td>Inițializează scorurile cu infinit, astfel încât pragurile omise să nu poată fi selectate</td>
 </tr>
 <tr class="even">
 <td><code>min(x)</code></td>
-<td><code>[value,index] = min(scores)</code></td>
-<td>Valoarea minimă și indicele primei sale apariții</td>
-</tr>
-<tr class="odd">
-<td><code>plot(x,y)</code></td>
-<td><code>plot(thresholds,scores)</code></td>
-<td>Reprezintă scorul în funcție de pragul candidat</td>
-</tr>
-<tr class="even">
-<td><code>histeq(I,n)</code></td>
-<td><code>histeq(I,256)</code></td>
-<td>Egalizarea histogramei cu <code>n</code> intervale țintă</td>
-</tr>
-<tr class="odd">
-<td><code>subplot(m,n,k)</code></td>
-<td><code>subplot(2,2,3)</code></td>
-<td>Selectează o poziție de afișare într-o grilă</td>
+<td><code>[minScore,index] = min(scores)</code></td>
+<td>Valoarea minimă dintr-un vector și poziția sa (prima sa apariție)</td>
 </tr>
 </tbody>
 </table>
@@ -414,51 +354,41 @@ table td, table th { border-bottom: 1px solid #ddd; }
 </section>
 <section id="exerciții" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Exerciții</h1>
-<p>Scrieți comenzile într-un script sau live script. Etichetați figurile și răspundeți la întrebările de interpretare în comentarii. Folosiți Matlab cu Image Processing Toolbox pentru <code>imhist()</code> și <code>histeq()</code>. Imaginile în tonuri de gri <code>coins.png</code> și <code>pout.tif</code> sunt incluse în acest toolbox. Două imagini didactice suplimentare sunt disponibile în directorul <code>img/</code> al laboratorului: imaginea simulată <code>Lab5_document.png</code> și fotografia reală <code>Lab5_handwrittenText.png</code>. Rulați scriptul din <code>Labs/</code> pentru ca aceste căi relative să funcționeze. <a href="https://www.mathworks.com/help/images/image-import-and-export.html">Tutorialul de import al imaginilor</a> folosește <code>pout.tif</code>, iar <a href="https://www.mathworks.com/help/images/ref/graythresh.html">exemplul Otsu din documentație</a> folosește <code>coins.png</code>; acesta din urmă este o referință, nu un înlocuitor pentru bucla pe care trebuie să o scrieți.</p>
-<p>Alocare orientativă: 15 minute pentru Exercițiul 1, 10 pentru Exercițiul 2, 65 pentru Exercițiul 3, 10 pentru scurtul experiment din Exercițiul 4 și 20 pentru întrebările finale și verificare.</p>
+<p>Scrieți comenzile într-un script sau live script, cu excepția funcției din Exercițiul 2, care se scrie într-un fișier separat.</p>
 <ol type="1">
-<li><p>Prima imagine în tonuri de gri:</p>
+<li><p>Citiți, afișați și binarizați o imagine:</p>
 <ol type="a">
-<li>Citiți <code>coins.png</code> în <code>Iraw</code>. Convertiți-o cu <code>im2double()</code> și stocați imaginea normalizată în <code>I</code>. Afișați <code>I</code> într-o figură.</li>
-<li>Determinați dimensiunile imaginii. Câți pixeli conține? Comparați cea mai mică și cea mai mare intensitate observată în <code>Iraw</code> și <code>I</code>. Valorile din <code>I</code> sunt exact cele din <code>Iraw</code> împărțite la 255?</li>
-<li>Citiți pixelul de pe linia 50, coloana 100. Creșterea indicelui liniei deplasează poziția în jos sau pe orizontală în imaginea afișată?</li>
-<li>Reprezentați histograma intensităților direct cu <code>imhist(I)</code>. Ce intervale de intensități normalizate sunt cele mai frecvente?</li>
-<li>Reuniți pixelii într-un vector coloană <code>pixels</code>, folosind <code>I(:)</code>. Folosiți acest vector pentru calcule și păstrați <code>I</code> ca matrice pentru afișare.</li>
-</ol></li>
-<li><p>Alegerea vizuală a unui prag:</p>
-<ol type="a">
-<li>Anticipați cum se modifică regiunile albe când pragul crește.</li>
-<li>Creați și afișați imaginile binare pentru pragurile 0.3, 0.5 și 0.7. Folosiți o grilă de afișare cu o linie și trei coloane, indicând pragul în titlul fiecărui grafic.</li>
-<li>Alegeți unul dintre aceste praguri și explicați alegerea examinând atât imaginea, cât și histograma. Sunt toate monedele separate clar de fundal?</li>
+<li><p>Citiți imaginea <code>coins.png</code> în variabila <code>I</code>, convertiți imaginea la tipul <code>double</code> și la intervalul 0–1 și afișați-o.</p></li>
+<li><p>Afișați histograma imaginii. Care valori corespund fundalului și care monedelor?</p></li>
+<li><p>Alegeți un prag <span class="math inline">T</span> examinând imaginea și histograma sa. Creați imaginea binară <code>BW</code> prin compararea cu pragul <span class="math inline">T</span> și afișați <code>BW</code>.</p></li>
+<li><p>Afișați histograma lui <code>BW</code>. Care sunt cele două valori ale intensității care rămân?</p></li>
 </ol></li>
 <li><p>Implementați metoda Otsu ca funcție:</p>
 <ol type="a">
-<li><p>Creați un fișier nou <code>otsuManual.m</code>, în același director cu scriptul, cu următorul antet de funcție:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> [<span class="va">bestThreshold</span><span class="op">,</span> <span class="va">minScore</span><span class="op">,</span> <span class="va">scores</span><span class="op">,</span> <span class="va">thresholds</span>] <span class="op">=</span> <span class="va">otsuManual</span>(<span class="va">I</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Argumentul de intrare <code>I</code> este o imagine în tonuri de gri, de tip <code>double</code>, cu valori în intervalul 0–1. Returnați pragul selectat, scorul său, vectorul scorurilor și vectorul pragurilor candidate. Încheiați funcția cu <code>end</code>.</p></li>
-<li><p>În interiorul funcției, reuniți pixelii într-un vector, setați <code>thresholds = (0:255)/255</code> și inițializați scorurile cu <code>Inf</code>. Scrieți o buclă <code>for</code> care împarte pixelii în două grupuri la fiecare prag. Dacă un grup este vid, omiteți acel prag; altfel, calculați ambele varianțe cu <code>var(cluster,1)</code> și scorul lor ponderat <span class="math inline">J(t)</span>. După buclă, folosiți primul minim pentru a selecta pragul optim. Nu folosiți o funcție Otsu automată.</p></li>
-<li><p>Apelați funcția din script pentru imaginea cu monede:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>[<span class="va">bestThreshold</span><span class="op">,</span> <span class="va">minScore</span><span class="op">,</span> <span class="va">scores</span><span class="op">,</span> <span class="va">thresholds</span>] <span class="op">=</span> <span class="va">otsuManual</span>(<span class="va">I</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Reprezentați scorurile în funcție de praguri și afișați <code>bestThreshold</code>. Binarizați <code>I</code> folosind acest prag. Afișați rezultatul lângă imaginea originală și comparați-l cu alegerea vizuală din Exercițiul 2.</p></li>
-<li><p>Opțional: apelați aceeași funcție pentru <code>img/Lab5_handwrittenText.png</code> sau <code>img/Lab5_document.png</code>, după citirea și normalizarea imaginii. Afișați imaginea, histograma și binarizarea ei. Pentru cerneala întunecată, comparați măștile <code>I &gt; bestThreshold</code> și <code>I &lt;= bestThreshold</code>.</p></li>
-<li><p>Opțional: testați funcția pe <code>[0.2 0.2 0.2 0.2; 0.8 0.8 0.8 0.8]</code>. Pot mai multe praguri să producă același scor minim și aceeași imagine binară?</p></li>
+<li><p>Creați fișierul <code>otsuManual.m</code> cu următorul antet:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> [<span class="va">bestThreshold</span>] <span class="op">=</span> <span class="va">otsuManual</span>(<span class="va">I</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Argumentul de intrare <code>I</code> este o imagine în tonuri de gri, de tip <code>double</code>, în intervalul 0–1. Returnați cel mai bun prag găsit cu algoritmul descris mai sus.</p></li>
 </ol></li>
-<li><p>Scurt experiment suplimentar: egalizarea histogramei (aproximativ 10 minute):</p>
+<li><p>Aplicați funcția:</p>
 <ol type="a">
-<li>Citiți <code>pout.tif</code>, convertiți-o cu <code>im2double()</code> și stocați-o în <code>P</code>. Nu modificați imaginea folosită pentru implementarea metodei Otsu.</li>
-<li>Calculați <code>Peq = histeq(P,256)</code>. Într-o figură cu 2 pe 2 poziții, afișați <code>P</code> și <code>Peq</code> deasupra histogramelor lor, folosind <code>imhist(...,256)</code> pentru ambele. Păstrați scara implicită 0–1 pentru afișarea ambelor imagini.</li>
-<li>Descrieți pe scurt modificarea contrastului vizibil și a histogramelor. Histograma egalizată este perfect uniformă?</li>
+<li><p>Apelați funcția pentru imaginea normalizată <code>I</code> din Exercițiul 1:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="va">bestThreshold</span> <span class="op">=</span> <span class="va">otsuManual</span>(<span class="va">I</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Care este valoarea lui <code>bestThreshold</code>?</p></li>
+<li><p>Binarizați imaginea <code>I</code> cu <code>bestThreshold</code> și afișați rezultatul.</p></li>
 </ol></li>
+<li><p>Repetați Exercițiul 3 pentru imaginea <code>Lab5_handwrittenText.png</code>.</p></li>
 </ol>
-</section>
-<section id="întrebări-finale" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Întrebări finale</h1>
-<ol type="1">
-<li>Rearanjați aleatoriu toți pixelii fără a le schimba intensitățile. Se modifică scorul Otsu în funcție de prag? Poate imaginea să arate complet diferit?</li>
-<li>Să presupunem că minimizați <span class="math inline">v_0(t)+v_1(t)</span> în locul scorului ponderat. De ce s-ar putea schimba pragul ales dacă un grup conține foarte puțini pixeli?</li>
-<li>Poate un singur prag de intensitate să separe un obiect întunecat de un fundal la fel de întunecat? Ce informație lipsește din această regulă de decizie?</li>
-<li>Poate egalizarea histogramei să recupereze detalii pierdute deoarece mai multe intensități diferite din scenă au fost înregistrate ca aceeași valoare a pixelului?</li>
-</ol>
+<!--
+# Întrebări finale
+
+1. Rearanjați aleatoriu toți pixelii fără a le schimba intensitățile.
+   Se modifică curba scorului Otsu? Poate imaginea să arate complet diferit?
+2. Să presupunem că minimizați $v_0(t)+v_1(t)$ în locul scorului ponderat.
+   De ce s-ar putea schimba pragul ales dacă un grup conține foarte puțini pixeli?
+3. Poate un singur prag de intensitate să separe un obiect întunecat de un
+   fundal la fel de întunecat? Ce informație lipsește din această regulă de decizie?
+4. Pentru o imagine care conține doar intensitățile 0.2 și 0.8, pot mai multe praguri candidate
+   să producă același scor minim? Produc ele imagini binare diferite? -->
 </section>
 
 </main>
