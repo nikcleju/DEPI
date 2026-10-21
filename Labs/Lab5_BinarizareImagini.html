@@ -363,12 +363,41 @@ table td, table th { border-bottom: 1px solid #ddd; }
 <li><p>Alegeți un prag <span class="math inline">T</span> examinând imaginea și histograma sa. Creați imaginea binară <code>BW</code> prin compararea cu pragul <span class="math inline">T</span> și afișați <code>BW</code>.</p></li>
 <li><p>Afișați histograma lui <code>BW</code>. Care sunt cele două valori ale intensității care rămân?</p></li>
 </ol></li>
-<li><p>Implementați metoda Otsu ca funcție:</p>
-<ol type="a">
-<li><p>Creați fișierul <code>otsuManual.m</code> cu următorul antet:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> [<span class="va">bestThreshold</span>] <span class="op">=</span> <span class="va">otsuManual</span>(<span class="va">I</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Argumentul de intrare <code>I</code> este o imagine în tonuri de gri, de tip <code>double</code>, în intervalul 0–1. Returnați cel mai bun prag găsit cu algoritmul descris mai sus.</p></li>
-</ol></li>
+<li><p>Implementați metoda Otsu ca o funcție, în fișierul <code>otsuManual.m</code>, după modelul de mai jos.</p>
+<p>Argumentul de intrare <code>I</code> este o imagine în tonuri de gri, de tip <code>double</code>, în intervalul 0–1. Returnați cel mai bun prag găsit cu algoritmul descris mai sus.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode matlab code-with-copy"><code class="sourceCode matlab"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> [<span class="va">bestThreshold</span>] <span class="op">=</span> <span class="va">otsuManual</span>(<span class="va">I</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">% Turn the matrix into a vector</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="va">pixels</span> <span class="op">=</span> <span class="op">...</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">for</span> <span class="va">i</span> <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">254</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">% Compute the threshold T for the current value of i</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">T</span> <span class="op">=</span> <span class="op">...</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">% Split the pixels into two clusters by thresholding</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="va">C0</span> <span class="op">=</span> <span class="op">...</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="va">C1</span> <span class="op">=</span> <span class="op">...</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">% Count the number of pixels in each cluster</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="va">N0</span> <span class="op">=</span> <span class="op">...</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="va">N1</span> <span class="op">=</span> <span class="op">...</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">% Compute the mean and variance of each cluster</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="va">m0</span> <span class="op">=</span> <span class="op">...</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="va">m1</span> <span class="op">=</span> <span class="op">...</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="va">v0</span> <span class="op">=</span> <span class="op">...</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="va">v1</span> <span class="op">=</span> <span class="op">...</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">% Compute the weighted sum of variances</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="va">J</span> <span class="op">=</span> <span class="op">...</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">% Save the score J for this threshold i in a vector scores(i)</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="va">scores</span>(<span class="va">i</span>) <span class="op">=</span> <span class="va">J</span><span class="op">;</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">% Find the threshold that produced the minimum score in scores,</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">% and name it bestThreshold</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
 <li><p>Aplicați funcția:</p>
 <ol type="a">
 <li><p>Apelați funcția pentru imaginea normalizată <code>I</code> din Exercițiul 1:</p>

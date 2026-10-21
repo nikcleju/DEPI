@@ -196,16 +196,49 @@ Exercițiul 2, care se scrie într-un fișier separat.
 
    d. Afișați histograma lui `BW`. Care sunt cele două valori ale intensității care rămân?
 
-2. Implementați metoda Otsu ca funcție:
+2. Implementați metoda Otsu ca o funcție, în fișierul `otsuManual.m`, după
+   modelul de mai jos.
 
-   a. Creați fișierul `otsuManual.m` cu următorul antet:
+   Argumentul de intrare `I` este o imagine în tonuri de gri, de tip `double`, în intervalul 0--1. Returnați
+   cel mai bun prag găsit cu algoritmul descris mai sus.
 
       ```matlab
       function [bestThreshold] = otsuManual(I)
+
+      % Turn the matrix into a vector
+      pixels = ...
+
+      for i = 1:254
+          % Compute the threshold T for the current value of i
+          T = ...
+
+          % Split the pixels into two clusters by thresholding
+          C0 = ...
+          C1 = ...
+
+          % Count the number of pixels in each cluster
+          N0 = ...
+          N1 = ...
+
+          % Compute the mean and variance of each cluster
+          m0 = ...
+          m1 = ...
+          v0 = ...
+          v1 = ...
+
+          % Compute the weighted sum of variances
+          J = ...
+
+          % Save the score J for this threshold i in a vector scores(i)
+          scores(i) = J;
+      end
+
+      % Find the threshold that produced the minimum score in scores,
+      % and name it bestThreshold
+      ...
+
       ```
 
-      Argumentul de intrare `I` este o imagine în tonuri de gri, de tip `double`, în intervalul 0--1. Returnați
-      cel mai bun prag găsit cu algoritmul descris mai sus.
 
 3. Aplicați funcția:
 
