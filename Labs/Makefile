@@ -14,7 +14,7 @@
 .DEFAULT_GOAL := all
 
 QUARTO ?= quarto
-TO ?= all
+TO ?= pdf
 SOURCES ?= $(wildcard *.qmd Ro/*.qmd)
 CONFIG := $(wildcard _quarto.yml _quarto.yaml ../_quarto.yml ../_quarto.yaml)
 
