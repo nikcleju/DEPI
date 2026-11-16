@@ -72,7 +72,7 @@ Vom implementa și simula un model de transmisie și detecție BPSK în Simulink
 | Switch | Trei intrări: $s_1$ sus, bitul de control la mijloc, $s_0$ jos; criteriul `u2 ~= 0` |
 | AWGN Channel | Adaugă zgomot gaussian; modul `Signal to noise ratio (SNR)` |
 | Product | Două intrări, înmulțire element cu element: semnalul recepționat cu un semnal referință |
-| Integrator | Condiție inițială `0`; integrează ieșirea fiecărui bloc Product |
+| Discrete-Time Integrator | Condiție inițială `0`; integrează ieșirea fiecărui bloc Product |
 | Relational Operator | Operatorul `>`; compară două valori |
 | Scope, Display | Afișează forme de undă și valori |
 | Square Wave Generator | Doar în Modelul 2: generează impulsuri dreptunghiulare |
@@ -84,6 +84,7 @@ Vom implementa și simula un model de transmisie și detecție BPSK în Simulink
 Pentru simulare, considerăm că fiecare bit durează o secundă de timp de simulare.
 Din acest motiv, setăm frecvența blocurilor Sine Wave la $f=1$ (adică $\omega = 2\pi$ rad/s),
 astfel încât o perioadă a cosinusului să dureze o secundă.
+Se poate seta și frecvența la $f=2$, caz în care un bit conține două perioade ale cosinusului purtător.
 În practică, frecvența este mult mai mare, iar un bit conține multe perioade ale cosinusului purtător.
 
 ```{=latex}
@@ -97,6 +98,13 @@ astfel încât o perioadă a cosinusului să dureze o secundă.
    Implementați modelul din @fig-lab8-model1 și salvați-l ca `Lab8_OneBit.slx`.
 
    ![Modelul 1: transmisie și detecție BPSK pentru un bit](figures/Lab8_Model1.png){#fig-lab8-model1 width=100%}
+
+   Setați parametrii blocurilor Sine Wave la $f=1$ Hz (sau $f=2$ Hz), amplitudini `1` și `-1` pentru cele două blocuri,
+   și Sample Time la `0.001`, așa cum este ilustrat în @fig-lab8-sine-settings.
+
+   Deschideți fereastra de setări a modelului (tab-ul Modeling > Model Settings),
+   și setați parametrii *solver* la **Fixed-step**, **discrete (no continuous states)**, și Fixed-step size la `0.001`,
+   așa cum este ilustrat în @fig-lab8-solver-settings.
 
    a. Selectați bitul 1 cu Manual Switch. Rulați modelul timp de 1 secundă (setați Stop Time la `1`).
 
@@ -151,20 +159,6 @@ astfel încât o perioadă a cosinusului să dureze o secundă.
 
    6. Setați **Stop Time** la `1000` de secunde și **SNR** la `-20` dB.
 
-   ::: {#fig-lab8-model2-settings layout-ncol=2}
-
-   ![Setările blocului Sample and Hold.](figures/Lab8_Model2_settingsSampleAndHold.png){#fig-lab8-sample-settings width=100%}
-
-   ![Setările blocului Square Wave Generator.](figures/Lab8_Model2_settingsSquareWave.png){#fig-lab8-square-settings width=100%}
-
-   ![Setările blocului Integrator.](figures/Lab8_Model2_settingsIntegrator.png){#fig-lab8-integrator-settings width=100%}
-
-   ![Setările blocului AWGN Channel.](figures/Lab8_Model2_settingsAWGN.png){#fig-lab8-awgn-settings width=100%}
-
-   ![Setările blocurilor To Workspace.](figures/Lab8_Model2_settingsToWorkspace.png){#fig-lab8-workspace-settings width=100%}
-
-   Setările blocurilor pentru Modelul 2.
-   :::
 
 3. **Transmiteți 1000 de biți de 1, apoi 1000 de biți de 0.**
 
@@ -186,3 +180,34 @@ astfel încât o perioadă a cosinusului să dureze o secundă.
       Calculați probabilitățile de alarmă falsă și rejecție corectă, folosind o abordare similară.
 
    c. Schimbați SNR la `-10` dB și repetați cele două rulări de câte 1000 de biți. Comparați rezultatele cu cele anterioare.
+
+
+::: {#fig-lab8-model1-settings layout-ncol=2}
+
+![Setările solver-ului pentru întregul model.](figures/Lab8_configuration.png){#fig-lab8-solver-settings width=100%}
+
+![Setările blocurilor Sine Wave.](figures/Lab8_Model1_settingsSineWave.png){#fig-lab8-sine-settings width=100%}
+
+Setările blocurilor pentru Modelele 1 și 2.
+:::
+
+::: {#fig-lab8-model2-settings layout-ncol=2}
+
+![Setările blocului Sample and Hold.](figures/Lab8_Model2_settingsSampleAndHold.png){#fig-lab8-sample-settings width=100%}
+
+![Setările blocului Square Wave Generator.](figures/Lab8_Model2_settingsSquareWave.png){#fig-lab8-square-settings width=100%}
+
+![Setările blocului Discrete-Time Integrator.](figures/Lab8_Model2_settingsIntegrator.png){#fig-lab8-integrator-settings width=100%}
+
+Setările blocurilor pentru Model 2 - partea 1.
+:::
+
+
+::: {#fig-lab8-model2-settings layout-ncol=2}
+
+![Setările blocului AWGN Channel.](figures/Lab8_Model2_settingsAWGN.png){#fig-lab8-awgn-settings width=100%}
+
+![Setările blocurilor To Workspace.](figures/Lab8_Model2_settingsToWorkspace.png){#fig-lab8-workspace-settings width=100%}
+
+Setările blocurilor pentru Model 2 - partea 2.
+:::
