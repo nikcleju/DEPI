@@ -753,20 +753,47 @@ $$R = C_{00} P(D_0 \cap H_0) + C_{10} P(D_1 \cap H_0) + C_{01} P(D_0 \cap H_1) +
     - adică se minimizează costul mediu
     - se mai numește "criteriul costului minim"
 
-### Calcule
+### Riscul minim: deducerea criteriului
 
-- Demonstrație la tablă
-    - se folosește regula lui Bayes
+Expandăm probabilitățile din cei patru termeni:
 
-- Concluzie: regula de decizie este
-$$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH \frac{(C_{10}-C_{00})P(H_0)}{(C_{01}-C_{11})P(H_1)}$$
+- $C_{00}P(D_0 \cap H_0) = C_{00}P(H_0)\int_{R_0} w(r|H_0)\,dr$
+- $C_{10}P(D_1 \cap H_0) = C_{10}P(H_0)\int_{R_1} w(r|H_0)\,dr = C_{10}P(H_0)\left(1-\int_{R_0} w(r|H_0)\,dr\right)$
+- $C_{01}P(D_0 \cap H_1) = C_{01}P(H_1)\int_{R_0} w(r|H_1)\,dr$
+- $C_{11}P(D_1 \cap H_1) = C_{11}P(H_1)\int_{R_1} w(r|H_1)\,dr = C_{11}P(H_1)\left(1-\int_{R_0} w(r|H_1)\,dr\right)$
+
+(Am folosit faptul că $\int_{R_0} = 1 - \int_{R_1}$.)
+
+### Riscul minim: deducerea criteriului
+
+Adunând cei patru termeni, obținem:
+$$\begin{aligned}
+R &= C_{10}P(H_0) + C_{11}P(H_1) \\
+&\quad + \int_{R_0} \Bigl[ (C_{01}-C_{11})P(H_1)w(r|H_1) - (C_{10}-C_{00})P(H_0)w(r|H_0)\Bigr]\,dr.
+\end{aligned}$$
+
+- Primii doi termeni sunt constanți, independenți de $R_0$ și $R_1$
+
+- Integrala este minimizată alegând $R_0$ ca fiind intervalul unde funcția din paranteze este negativă,
+astfel încât să integrăm unde funcția este negativă
+
+- Așadar, alegem decizia $D_0$ când
+  $$(C_{01}-C_{11})P(H_1)w(r|H_1) < (C_{10}-C_{00})P(H_0)w(r|H_0)$$
+
+  și decizia $D_1$ când
+  $$(C_{01}-C_{11})P(H_1)w(r|H_1) > (C_{10}-C_{00})P(H_0)w(r|H_0).$$
 
 ### Criteriul riscului minim
 
 **Criteriul riscului minim** (MR):
 
+Riscul (costul mediu) este minimizat alegând decizia astfel:
+
 $$\frac{w(r|H_1)}{w(r|H_0)} \grtlessH \frac{(C_{10}-C_{00})P(H_0)}{(C_{01}-C_{11})P(H_1)}$$
-    - prescurtat MR (Minimum Risk)
+
+sau
+
+$$\frac{(C_{01}-C_{11})P(H_1) w(r|H_1)}{(C_{10}-C_{00})P(H_0)w(r|H_0)} \grtlessH 1$$
 
 ### Interpretare
 
